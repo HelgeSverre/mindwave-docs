@@ -83,3 +83,19 @@
     --docsearch-primary-color: var(--vp-c-brand) !important;
 }
 
+
+.VPFeatures .items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.VPFeatures .items .icon {
+    background-color: transparent;
+}
+
+.VPFeatures .items .box {
+    border-radius: 8px;
+    background-color: var(--vp-c-brand-lightest);
+}
+

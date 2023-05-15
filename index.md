@@ -11,32 +11,33 @@ hero:
     alt: Mindwave
   actions:
     - theme: brand
-      text: Documentation
+      text: Get started
       link: /readme
     - theme: alt
       text: Installation
-      link: /installation
+      link: /guide/installation
 
 features:
-  - title: LLMs
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Embeddings
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Brains
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Knowledge
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Agents
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Tools
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Chat History
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: 🧩
+    title: Multiple LLMs
+    details: Supports multiple Large Language Models APIs
+  - icon: 🔤️
+    title: Embeddings
+    details: Swappable embeddings for various document types
+  - icon: 🧠️
+    title: Brains
+    details: Create intelligent agents with customizable "brains"
+  - icon: 📚
+    title: Knowledge
+    details: Incorporate external knowledge sources into your application
+  - icon: 🤖
+    title: Agents
+    details: Develop intelligent agents to automate tasks
+  - icon: 🔧
+    title: Tools
+    details: Use custom "tools" to perform actions and retrieve information
+  - icon: 💬️
+    title: Chat History
+    details: Maintain chat message history for context-aware conversations
+
 ---
-
-
-
-
-
-
-
