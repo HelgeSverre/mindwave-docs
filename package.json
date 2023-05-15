@@ -2,9 +2,14 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "preview": "vitepress preview"
+        "preview": "vitepress preview",
+        "format": "npx prettier --write ."
   },
+    "license": "MIT",
   "devDependencies": {
     "vitepress": "^1.0.0-alpha.75"
+    },
+    "dependencies": {
+        "prettier": "^2.8.8"
   }
 }
