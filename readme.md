@@ -10,7 +10,7 @@ capabilities and your own custom "tools" to create intelligent software applicat
 
 ## Example
 
-![Code Example](./art/code.png)
+![Code Example](/art/code.png)
 
 ```php
 $mindwave = new Mindwave\Mindwave();

@@ -6,7 +6,7 @@ export default defineConfig({
     description: "Mindwave",
     appearance: false,
     themeConfig: {
-        logo: '/art/logo.svg',
+        logo: 'art//logo.svg',
         siteTitle: false,
 
         // https://vitepress.dev/reference/default-theme-config
