@@ -18,15 +18,12 @@ hero:
       link: /guide/installation
 
 features:
-  - icon: 🧩
-    title: Multiple LLMs
-    details: Supports multiple Large Language Models APIs
-  - icon: 🔤️
-    title: Embeddings
-    details: Swappable embeddings for various document types
+  - icon: 🧩🔤
+    title: Multiple LLMs & Embeddings
+    details: Supports multiple LLMs and Embedding APIs
   - icon: 🧠️
     title: Brains
-    details: Create intelligent agents with customizable "brains"
+    details: Create intelligent agents with customizable "Brains"
   - icon: 📚
     title: Knowledge
     details: Incorporate external knowledge sources into your application
@@ -35,7 +32,7 @@ features:
     details: Develop intelligent agents to automate tasks
   - icon: 🔧
     title: Tools
-    details: Use custom "tools" to perform actions and retrieve information
+    details: Write custom Tools to perform actions and retrieve information
   - icon: 💬️
     title: Chat History
     details: Maintain chat message history for context-aware conversations
