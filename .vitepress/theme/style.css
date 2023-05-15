@@ -84,12 +84,6 @@
 }
 
 
-.VPFeatures .items {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-}
-
 .VPFeatures .items .icon {
     background-color: transparent;
 }
