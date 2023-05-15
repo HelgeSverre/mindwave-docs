@@ -134,8 +134,4 @@ results carefully to ensure the desired outcomes are being achieved.
 - [PGVector team](https://github.com/pgvector/pgvector-php/graphs/contributors) for
   the [PGVector PHP package](https://github.com/pgvector/pgvector-php)
 - [Yethee](https://github.com/yethee) for the [Tiktoken PHP Package](https://github.com/yethee/tiktoken-php)
-- [All Contributors](../../contributors)
 
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

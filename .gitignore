@@ -1,4 +1,5 @@
 node_modules/
 .idea/
 .vitepress/cache
+.vitepress/dist
 .vercel
