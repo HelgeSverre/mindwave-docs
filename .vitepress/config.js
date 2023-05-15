@@ -4,6 +4,7 @@ import {defineConfig} from 'vitepress'
 export default defineConfig({
     title: "Mindwave Documentation",
     description: "Mindwave",
+    appearance: false,
     themeConfig: {
         logo: '/art/logo.svg',
         siteTitle: false,
