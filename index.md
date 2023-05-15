@@ -7,8 +7,8 @@ hero:
     text: 'Laravel Package'
     tagline: 'AI Chatbots, Agents & Document Q&A in Laravel Simplified.'
     image:
-        src: /art/logo.svg
-        alt: Mindwave
+        light: /art/logo.svg
+        dark: /art/logo-dark.svg
     actions:
         - theme: brand
           text: Get started
