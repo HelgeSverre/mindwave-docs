@@ -1,5 +1,16 @@
 # Concept
 
+## LLMs
+
+Large Language Model
+
+todo: write the rest
+
+## Embeddings
+
+Tokens n stuff
+todo: write the rest
+
 ## Brains
 
 A Brain in Mindwave can be thought of as a database of knowledge. And is implemented as an abstraction around a

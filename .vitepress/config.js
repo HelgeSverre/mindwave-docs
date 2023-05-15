@@ -12,7 +12,7 @@ export default defineConfig({
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             {text: 'Home', link: '/'},
-            {text: 'Examples', link: '/markdown-examples'}
+            {text: 'Docs', link: '/readme'}
         ],
 
         sidebar: [
@@ -22,13 +22,13 @@ export default defineConfig({
                     {text: 'What is Mindwave', link: '/readme'},
                     {
                         text: 'Concepts', link: '/concepts', items: [
-                            {text: 'LLMs', link: '/concepts/llm'},
-                            {text: 'Embeddings', link: '/concepts/embeddings'},
-                            {text: 'Brains', link: '/concepts/brains'},
-                            {text: 'Knowledge', link: '/concepts/knowledge'},
-                            {text: 'Agents', link: '/concepts/agents'},
-                            {text: 'Tools', link: '/concepts/tools'},
-                            {text: 'Chat History', link: '/concepts/history'},
+                            {text: 'LLMs', link: '/concepts#llms'},
+                            {text: 'Embeddings', link: '/concepts#embeddings'},
+                            {text: 'Brains', link: '/concepts#brains'},
+                            {text: 'Knowledge', link: '/concepts#knowledge'},
+                            {text: 'Agents', link: '/concepts#agents'},
+                            {text: 'Tools', link: '/concepts#tools'},
+                            {text: 'Chat History', link: '/concepts#history'},
                         ]
                     },
                 ]
@@ -50,16 +50,17 @@ export default defineConfig({
                 items: [
                     {text: 'Q&A Chatbot for a PDF', link: '/cookbook/chatbot-pdf'},
                     {text: 'Q&A Chatbot for a website', link: '/cookbook/chatbot-website'},
-                    {text: 'Semantic search for Gmail', link: '/cookbook/searching-gmail'},
                     {
-                        text: 'Building a meeting scheduling assistant', link: '/scheduling-assistant', items: [
+                        text: 'Building a meeting scheduling assistant',
+                        link: '/cookbook/scheduling-assistant',
+                        items: [
                             {
                                 text: 'Integrating Google Calendar',
-                                link: '/scheduling-assistant/google-calendar'
+                                link: '/cookbook/scheduling-assistant-google-calendar'
                             },
                             {
                                 text: 'Integrating GMail',
-                                link: '/scheduling-assistant/gmail'
+                                link: '/cookbook/scheduling-assistant-gmail'
                             },
                         ]
                     },
