@@ -18,7 +18,7 @@ hero:
       link: /guide/installation
 
 features:
-  - icon: 🧩🔤
+  - icon: 🧩
     title: Multiple LLMs & Embeddings
     details: Supports multiple LLMs and Embedding APIs
   - icon: 🧠️
