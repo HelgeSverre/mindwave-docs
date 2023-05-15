@@ -9,8 +9,8 @@ todo
 return [
 
 
-    "default_llm" => env("MINDWAVE_LLM", "openai_chat")    
-    "default_vectorstore" => env("MINDWAVE_VECTORSTORE", "pinecone")    
+    "default_llm" => env("MINDWAVE_LLM", "openai_chat")
+    "default_vectorstore" => env("MINDWAVE_VECTORSTORE", "pinecone")
 
     "llms" => [
         "openai_chat" => [
@@ -25,21 +25,21 @@ return [
             "max_tokens" => 800
             "temperature" => 0.5
         ]
-        
+
         // Cohere
         // Anthropic
         // Hugginface?
-        
+
     ],
-    
-    
+
+
     "vectorstores" => [
         "pinecone" => [
             "api_key" => env("MINDWAVE_PINECONE_API_KEY"),
             "environment" => env("MINDWAVE_PINECONE_ENVIRONMENT"),
             "index" => env("MINDWAVE_PINECONE_INDEX"),
         ],
-        
+
         // Weaviate
         // PGVector
         // testing

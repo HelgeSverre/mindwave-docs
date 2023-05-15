@@ -26,8 +26,8 @@ associated with different pieces of knowledge.
 
 Mindwave currently ships with 2 Vector database drivers:
 
-- [Pinecone](https://www.pinecone.io/)
-- [Weaviate](https://weaviate.io/)
+-   [Pinecone](https://www.pinecone.io/)
+-   [Weaviate](https://weaviate.io/)
 
 ### Embedding
 
@@ -36,7 +36,7 @@ representation captures the semantic meaning of the knowledge and enables variou
 and pattern recognition. The embedding function maps the knowledge to a high-dimensional vector space, where similar
 pieces of knowledge are closer together.
 
-Mindwave ships with Embedding support for ```text-embedding-ada-002```
+Mindwave ships with Embedding support for `text-embedding-ada-002`
 via [OpenAI's Embedding API](https://platform.openai.com/docs/guides/embeddings/), but support for more
 embedding options are planned.
 
@@ -72,16 +72,16 @@ additional metadata associated with the knowledge, such as tags or categories.
 
 Mindwave can create knowledge from the following filetypes.
 
-- Plain Text (JSON, Text, Readme)
-- PDF
-- HTML
+-   Plain Text (JSON, Text, Readme)
+-   PDF
+-   HTML
 
 With planned support for the following formats in the future:
 
-- doc, docx (Word documents)
-- ppt, pptx (Powerpoint files)
-- EML files (raw email)
-- MBOX (mailbox file, ex: export from gmail)
+-   doc, docx (Word documents)
+-   ppt, pptx (Powerpoint files)
+-   EML files (raw email)
+-   MBOX (mailbox file, ex: export from gmail)
 
 ## Agents
 
