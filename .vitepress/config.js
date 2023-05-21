@@ -99,6 +99,7 @@ export default defineConfig({
                     {text: 'Chat History', link: '/guide/chat-history'},
                     {text: 'Events', link: '/guide/events'},
                     {text: 'Logging', link: '/guide/logging'},
+                    {text: 'Extending', link: '/guide/extending'},
                     {text: 'Debugging', link: '/guide/debugging'},
                 ],
             },
