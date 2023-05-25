@@ -1,10 +1,13 @@
 # Using Weaviate with Laravel Sail
 
-Before you add Weaviate to your application, you need to install and configure [Laravel Sail](https://laravel.com/docs/10.x/sail).
+This documentation provides instructions on how to integrate Weaviate with Laravel Sail. Before proceeding with the Weaviate setup, ensure that you have installed and configured [Laravel Sail](https://laravel.com/docs/10.x/sail).
 
 ## Adding Weaviate Database
 
-Modify your `docer-compose.yml` file to contain the following services definition Add the following service definition for Weaviate under the `services` section:
+To add Weaviate to your application, follow these steps:
+
+1. Open your `docker-compose.yml` file.
+2. Locate the `services` section and add the following service definition for Weaviate:
 
 ```yaml
 version: '3'
@@ -34,46 +37,56 @@ services:
             ORIGIN: 'https://localhost:${FORWARD_WEAVIATE_PORT:-8080}'
 ```
 
-Then add this to your `volumes`section:
+3. Add the following code to the `volumes` section:
 
 ```yml
 volumes:
+    # Your existing volumes here...
+
+    # Add this:
     sail-weaviate:
         driver: local
 ```
 
-Weaviate will now be accessible at `http://localhost:8080` after you run `sail up -d`.
+4. After completing the above steps, Weaviate will be accessible at `http://localhost:8080` once you run `sail up -d`.
 
 ## Adding Weaviate Console UI
 
-If you want to use the weaviate console (aka GraphiQL), add the following service to your `docker-compose.ymlà file
+If you want to use the Weaviate console (fancy version of GraphiQL), follow these steps:
+
+1. Open your `docker-compose.yml` file.
+2. Add the following service definition for the Weaviate console:
 
 ```yaml
 version: '3'
 services:
+    # Your existing services here...
+
+    # Add this:
     weaviate-console:
-    image: semitechnologies/weaviate-console:latest
-    networks:
-        - sail
-    ports:
-        - '${FORWARD_WEAVIATE_CONSOLE:-8081}:80'
-    depends_on:
-        - weaviate
+        image: semitechnologies/weaviate-console:latest
+        networks:
+            - sail
+        ports:
+            - '${FORWARD_WEAVIATE_CONSOLE:-8081}:80'
+        depends_on:
+            - weaviate
 ```
 
-## Environment configuration
+## Environment Configuration
 
-You can change which ports the `weaviate` and `weaviate-console` service is mapped to on your local machine, these are the defaults, but feel free to change them if you are already running something else on these ports:
+You can modify the port mappings for the `weaviate` and `weaviate-console` services on your local machine. By default, the ports are set as follows:
 
 ```dotenv
 FORWARD_WEAVIATE_CONSOLE=8081
 FORWARD_WEAVIATE_PORT=8080
 ```
 
-## Complete example
+Feel free to change these values if you are already using these ports for other purposes.
 
-Here is a complete `docker-compose.yml` example file for an application using mysql, minio, weaviate and weaviate-console
-console.
+## Complete Example
+
+Below is a complete example of a `docker-compose.yml` file for an application that includes MySQL, MinIO, Weaviate, and Weaviate Console:
 
 ```yaml
 version: '3'
@@ -188,11 +201,11 @@ volumes:
         driver: local
 ```
 
-This example includes the necessary configurations for Laravel Sail, MySQL, MinIO, and Weaviate services.
-Make sure to adjust any environment variables or ports according to your specific requirements.
+Make sure to adjust the environment variables and ports according to your specific requirements.
 
-links:
+### Additional Links
 
--   https://www.docker.com/products/docker-desktop/
--   https://laravel.com/docs/10.x/sail
--   https://weaviate.io/developers/weaviate/installation/docker-compose
+-   [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+-   [Laravel Sail Documentation](https://laravel.com/docs/10.x/sail)
+-   [Weaviate Docker Compose Installation Guide](https://weaviate.io/developers/weaviate/installation/docker-compose)
+-   [Weaviate Docker Compose Environment Configuration](https://weaviate.io/developers/weaviate/config-refs/env-vars)
