@@ -107,6 +107,9 @@ export default defineConfig({
                 text: 'Cookbook',
                 items: [
                     {
+                        text: 'Using Weaviate with Laravel Sail',
+                        link: '/cookbook/laravel-sail-weaviate',
+                    }, {
                         text: 'Simple command line chatbot',
                         link: '/cookbook/chatbot-cli',
                     },

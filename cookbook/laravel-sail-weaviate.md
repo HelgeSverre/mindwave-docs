@@ -1,0 +1,198 @@
+# Using Weaviate with Laravel Sail
+
+Before you add Weaviate to your application, you need to install and configure [Laravel Sail](https://laravel.com/docs/10.x/sail).
+
+## Adding Weaviate Database
+
+Modify your `docer-compose.yml` file to contain the following services definition Add the following service definition for Weaviate under the `services` section:
+
+```yaml
+version: '3'
+services:
+    # Your existing services here...
+
+    # Add this:
+    weaviate:
+        image: semitechnologies/weaviate:latest
+        networks:
+            - sail
+        ports:
+            - '${FORWARD_WEAVIATE_PORT:-8080}:8080'
+            - '6060:6060'
+        restart: on-failure
+        volumes:
+            - 'sail-weaviate:/var/lib/weaviate'
+        environment:
+            QUERY_DEFAULTS_LIMIT: 25
+            AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+            AUTHENTICATION_APIKEY_ENABLED: 'true'
+            AUTHENTICATION_APIKEY_ALLOWED_KEYS: 'password'
+            AUTHENTICATION_APIKEY_USERS: 'sail'
+            PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+            DEFAULT_VECTORIZER_MODULE: 'none'
+            CLUSTER_HOSTNAME: 'mindwave'
+            ORIGIN: 'https://localhost:${FORWARD_WEAVIATE_PORT:-8080}'
+```
+
+Then add this to your `volumes`section:
+
+```yml
+volumes:
+    sail-weaviate:
+        driver: local
+```
+
+Weaviate will now be accessible at `http://localhost:8080` after you run `sail up -d`.
+
+## Adding Weaviate Console UI
+
+If you want to use the weaviate console (aka GraphiQL), add the following service to your `docker-compose.ymlà file
+
+```yaml
+version: '3'
+services:
+    weaviate-console:
+    image: semitechnologies/weaviate-console:latest
+    networks:
+        - sail
+    ports:
+        - '${FORWARD_WEAVIATE_CONSOLE:-8081}:80'
+    depends_on:
+        - weaviate
+```
+
+## Environment configuration
+
+You can change which ports the `weaviate` and `weaviate-console` service is mapped to on your local machine, these are the defaults, but feel free to change them if you are already running something else on these ports:
+
+```dotenv
+FORWARD_WEAVIATE_CONSOLE=8081
+FORWARD_WEAVIATE_PORT=8080
+```
+
+## Complete example
+
+Here is a complete `docker-compose.yml` example file for an application using mysql, minio, weaviate and weaviate-console
+console.
+
+```yaml
+version: '3'
+services:
+    laravel.test:
+        build:
+            context: ./vendor/laravel/sail/runtimes/8.2
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: sail-8.2/app
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-80}:80'
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - mysql
+            - minio
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'sail-mysql:/var/lib/mysql'
+            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+    minio:
+        image: 'minio/minio:latest'
+        ports:
+            - '${FORWARD_MINIO_PORT:-9000}:9000'
+            - '${FORWARD_MINIO_CONSOLE_PORT:-8900}:8900'
+        environment:
+            MINIO_ROOT_USER: sail
+            MINIO_ROOT_PASSWORD: password
+        volumes:
+            - 'sail-minio:/data/minio'
+        networks:
+            - sail
+        command: 'minio server /data/minio --console-address ":8900"'
+        healthcheck:
+            test:
+                - CMD
+                - curl
+                - '-f'
+                - 'http://localhost:9000/minio/health/live'
+            retries: 3
+            timeout: 5s
+    weaviate-console:
+        image: semitechnologies/weaviate-console:latest
+        networks:
+            - sail
+        ports:
+            - '${FORWARD_WEAVIATE_CONSOLE:-8081}:80'
+        depends_on:
+            - weaviate
+    weaviate:
+        image: semitechnologies/weaviate:latest
+        networks:
+            - sail
+        ports:
+            - '${FORWARD_WEAVIATE_PORT:-8080}:8080'
+            - '6060:6060'
+        restart: on-failure
+        volumes:
+            - 'sail-weaviate:/var/lib/weaviate'
+        environment:
+            QUERY_DEFAULTS_LIMIT: 25
+            AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+            AUTHENTICATION_APIKEY_ENABLED: 'true'
+            AUTHENTICATION_APIKEY_ALLOWED_KEYS: 'password'
+            AUTHENTICATION_APIKEY_USERS: 'sail'
+            PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+            DEFAULT_VECTORIZER_MODULE: 'none'
+            CLUSTER_HOSTNAME: 'mindwave'
+            ORIGIN: 'https://localhost:${FORWARD_WEAVIATE_PORT:-8080}'
+networks:
+    sail:
+        driver: bridge
+volumes:
+    sail-mysql:
+        driver: local
+    sail-minio:
+        driver: local
+    sail-weaviate:
+        driver: local
+```
+
+This example includes the necessary configurations for Laravel Sail, MySQL, MinIO, and Weaviate services.
+Make sure to adjust any environment variables or ports according to your specific requirements.
+
+links:
+
+-   https://www.docker.com/products/docker-desktop/
+-   https://laravel.com/docs/10.x/sail
+-   https://weaviate.io/developers/weaviate/installation/docker-compose
