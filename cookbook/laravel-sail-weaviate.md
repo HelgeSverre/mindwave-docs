@@ -161,7 +161,7 @@ services:
                 - 'http://localhost:9000/minio/health/live'
             retries: 3
             timeout: 5s
-    weaviate-console:
+        weaviate-console:
         image: semitechnologies/weaviate-console:latest
         networks:
             - sail
@@ -175,20 +175,20 @@ services:
             - sail
         ports:
             - '${FORWARD_WEAVIATE_PORT:-8080}:8080'
-            - '6060:6060'
+            - "6060:6060"
         restart: on-failure
         volumes:
             - 'sail-weaviate:/var/lib/weaviate'
         environment:
             QUERY_DEFAULTS_LIMIT: 25
             AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
-            AUTHENTICATION_APIKEY_ENABLED: 'true'
-            AUTHENTICATION_APIKEY_ALLOWED_KEYS: 'password'
-            AUTHENTICATION_APIKEY_USERS: 'sail'
+            AUTHENTICATION_APIKEY_ENABLED: "true"
+            AUTHENTICATION_APIKEY_ALLOWED_KEYS: "password"
+            AUTHENTICATION_APIKEY_USERS: "sail"
             PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
             DEFAULT_VECTORIZER_MODULE: 'none'
             CLUSTER_HOSTNAME: 'mindwave'
-            ORIGIN: 'https://localhost:${FORWARD_WEAVIATE_PORT:-8080}'
+            ORIGIN: "https://localhost:${FORWARD_WEAVIATE_PORT:-8080}"
 networks:
     sail:
         driver: bridge
