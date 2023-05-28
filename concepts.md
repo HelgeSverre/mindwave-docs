@@ -40,46 +40,41 @@ Mindwave ships with Embedding support for `text-embedding-ada-002`
 via [OpenAI's Embedding API](https://platform.openai.com/docs/guides/embeddings/), but support for more
 embedding options are planned.
 
-## Knowledge
+## Document
 
-Knowledge in Mindwave is the information or data that you want to use in your AI application. In order to be useful,
-knowledge needs to be consumed by a Brain.
+Document in Mindwave is the information or data that you want to use in your AI application. In order to be useful,
+documents needs to be consumed by a Brain.
 
-Knowledge Consumption involves breaking down the underlying text representation of a piece of data into smaller
+Document Consumption involves breaking down the underlying text representation of a piece of data into smaller
 parts, creating an embedding vector for the data, then storing both the data and embedding in a vector database.
 
 ```php
-Knowledge::fromPdf(
+DocumentLoader::fromPdf(
     data: File::get("uploads/important-document.pdf"),
     meta: ["name" => "Important document"],
-)
+);
 
-Knowledge::fromUrl(
-    data: "https://docs.langchain.com/docs/",
-    meta: ["name" => "Langchain introduction"],
-)
+DocumentLoader::fromUrl(
+    data: "https://mindwave.no/",
+    meta: ["name" => "Mindwave Documentation"],
+);
 
-Knowledge::fromText(
-    data: "My name is Helge Sverre"
-)
+DocumentLoader::make("My name is Helge Sverre");
 ```
-
-The code sample demonstrates how to create a Knowledge object from a file source. The "data" parameter specifies the
-location of the file containing the knowledge, such as a URL or filename. The "meta" parameter can be used to provide
-additional metadata associated with the knowledge, such as tags or categories.
 
 ### Supported filetypes
 
 Mindwave can create knowledge from the following filetypes.
 
--   Plain Text (JSON, Text, Readme)
+-   Plain Text (csv, markdown, etc)
 -   PDF
 -   HTML
+-   doc, docx (Word documents)
 
 With planned support for the following formats in the future:
 
--   doc, docx (Word documents)
 -   ppt, pptx (Powerpoint files)
+-   xls, xlsx (Excel files)
 -   EML files (raw email)
 -   MBOX (mailbox file, ex: export from gmail)
 
@@ -107,3 +102,5 @@ The Tool output is then fed back into the agent and the agent can then use that 
 further action.
 
 ## Chat History
+
+todo: write
