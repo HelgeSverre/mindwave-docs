@@ -12,44 +12,40 @@ capabilities and your own custom "tools" to create intelligent software applicat
 
 ![Code Example](/art/code.png)
 
-```php
-$mindwave = new Mindwave\Mindwave();
-// TODO: Implement example
-```
 
 ```php
-// TODO: Remove this old example code, its for "API" reference
 <?php
 
-$client = OpenAI::client(config('mindwave.openai.api_key'));
+use Illuminate\Support\Facades\File;
+use Mindwave\Mindwave\Facades\DocumentLoader;
+use Mindwave\Mindwave\Facades\Mindwave;
+use Mindwave\Mindwave\Memory\ConversationBufferMemory;
 
-
-$robot = Mindwave\Mindwave::agent()->make(
-    client: $openAI,
-    brain: Brain::fromPinecone("api-key")
-        ->consume(Knowledge::fromPdf(
-            data: File::get("uploads/important-document.pdf"),
-            meta: ["name" => "Important document"],
-        ))
-        ->consume(Knowledge::fromUrl(
-            data: "https://docs.langchain.com/docs/",
-            meta: ["name" => "Langchain introduction"],
-        ))
-        ->consume(Knowledge::make("My name is Helge Sverre")),
-    messageHistory: ChatMessageHistory::fromSession(),
-    tools: [
-        new WebSearchTool("google", language: "en"),
-        new EloquentQueryTool(table: "articles"),
-        new EloquentQueryTool(
-            table: "events",
-            query: fn(Builder $q) => $q->where("date", ">", now())
-        ),
-    ]
+$agent = Mindwave::agent(
+    memory: ConversationBufferMemory::fromMessages([])
 );
 
-$robot->ask("When was our latest article published?");
+Mindwave::brain()
+    ->consume(
+        DocumentLoader::fromPdf(
+            data: File::get("uploads/important-document.pdf"),
+            meta: ["name" => "Important document"],
+        )
+    )
+    ->consume(
+        DocumentLoader::fromUrl(
+            data: "https://mindwave.no/",
+            meta: ["name" => "Mindwave Documentation"],
+        )
+    )
+    ->consume(
+        DocumentLoader::make("My name is Helge Sverre")
+    );
 
-$robot->ask("When is the next board meeting scheduled?");
+
+$agent->ask("List the top 3 most important things in 'important document'");
+$agent->ask("What is mindwave?");
+$agent->ask("What is my name?");
 ```
 
 ## Use Cases
