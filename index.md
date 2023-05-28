@@ -2,6 +2,9 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+title: 'Mindwave'
+titleTemplate: 'AI Chatbots, Agents & Document Q&A in Laravel Simplified.'
+
 hero:
     name: 'Mindwave'
     text: 'Laravel Package'

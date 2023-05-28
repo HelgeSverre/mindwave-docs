@@ -2,8 +2,8 @@ import {defineConfig} from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    title: 'Mindwave Documentation',
-    description: 'Mindwave',
+    title: 'Mindwave',
+    description: 'AI Chatbots, Agents & Document Q&A in Laravel Simplified.',
     appearance: true,
     head: [
         [
