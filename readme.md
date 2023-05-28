@@ -5,13 +5,9 @@
 Mindwave is a Laravel package that lets you easily build AI-powered chatbots, agents, and document question and
 answering (Q&A) functionality into your application.
 
-With Mindwave, you can incorporate the power of OpenAI's state-of-the-art language models, Pinecone's vector search
-capabilities and your own custom "tools" to create intelligent software applications.
-
 ## Example
 
 ![Code Example](/art/code.png)
-
 
 ```php
 <?php
@@ -72,6 +68,8 @@ Mindwave is "driver" oriented, this means you can swap out the parts to suite yo
 | -------- | ------------ |
 | Pinecone | Yes          |
 | Weaviate | No (planned) |
+| Qdrant   | No (planned) |
+| Milvus   | No (planned) |
 | pgvector | No (planned) |
 
 ### LLMs
@@ -81,25 +79,13 @@ Mindwave is "driver" oriented, this means you can swap out the parts to suite yo
 | OpenAI Chat models | Yes (Recommended) |
 | OpenAI Completion  | Yes               |
 | Cohere AI          | No (planned)      |
+| Anthropic Claude   | No (planned)      |
 
 ### Embeddings
 
 | Name                | Supported?        |
 | ------------------- | ----------------- |
 | OpenAI text-ada-002 | Yes (Recommended) |
-| TODO #1             | No                |
-| TODO #2             | No                |
-| TODO #3             | No                |
-
--   Mindwave provides an easy-to-use API for integrating OpenAI's GPT models and Pinecone's vector search capabilities
-    into
-    your Laravel app.
--   Mindwave uses Pinecone's vector search to find similar documents, which can be useful for document Q&A and other
-    natural language processing tasks.
-    Mindwave supports Laravel version 10.x or higher.
-    Getting started with Mindwave is easy - just install the package and start building intelligent software applications
-    with AI-powered chatbots, agents, and document Q&A. Try it today and experience the power of Mindwave for yourself!
-    Sure, here's a "Known Limitations" section for the Mindwave Laravel package's readme:
 
 ## Known Limitations
 
@@ -124,9 +110,10 @@ results carefully to ensure the desired outcomes are being achieved.
 
 ## Credits
 
--   [Helge Sverre](https://github.com/helgesverre)
+-   [Helge Sverre](https://twitter.com/helgesverre)
 -   [Probots.io](https://github.com/probots-io) for the [Pinecone PHP Client](https://github.com/probots-io/pinecone-php)
 -   [Tim Kleyersburg](https://github.com/timkley) for the [Weaviate PHP Client](https://github.com/timkley/weaviate-php)
 -   [PGVector team](https://github.com/pgvector/pgvector-php/graphs/contributors) for
     the [PGVector PHP package](https://github.com/pgvector/pgvector-php)
+-   [Yethee](https://github.com/yethee) for the [Tiktoken PHP Package](https://github.com/yethee/tiktoken-php)
 -   [Yethee](https://github.com/yethee) for the [Tiktoken PHP Package](https://github.com/yethee/tiktoken-php)
