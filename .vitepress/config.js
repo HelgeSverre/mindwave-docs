@@ -63,29 +63,29 @@ export default defineConfig({
 
         // https://vitepress.dev/reference/default-theme-config
         nav: [
-            {text: 'Home', link: '/'},
-            {text: 'Docs', link: '/readme'},
+            {text: 'Home', link: '/docs/'},
+            {text: 'Docs', link: '/docs/readme'},
         ],
 
         sidebar: [
             {
                 text: 'Introduction',
                 items: [
-                    {text: 'What is Mindwave', link: '/readme'},
+                    {text: 'What is Mindwave', link: '/docs/readme'},
                     {
                         text: 'Concepts',
-                        link: '/concepts',
+                        link: '/docs/concepts',
                         items: [
-                            {text: 'LLMs', link: '/concepts#llms'},
+                            {text: 'LLMs', link: '/docs/concepts#llms'},
                             {
                                 text: 'Embeddings',
-                                link: '/concepts#embeddings',
+                                link: '/docs/concepts#embeddings',
                             },
-                            {text: 'Brains', link: '/concepts#brains'},
-                            {text: 'Knowledge', link: '/concepts#knowledge'},
-                            {text: 'Agents', link: '/concepts#agents'},
-                            {text: 'Tools', link: '/concepts#tools'},
-                            {text: 'Chat History', link: '/concepts#history'},
+                            {text: 'Brains', link: '/docs/concepts#brains'},
+                            {text: 'Knowledge', link: '/docs/concepts#knowledge'},
+                            {text: 'Agents', link: '/docs/concepts#agents'},
+                            {text: 'Tools', link: '/docs/concepts#tools'},
+                            {text: 'Chat History', link: '/docs/concepts#history'},
                         ],
                     },
                 ],
@@ -93,14 +93,14 @@ export default defineConfig({
             {
                 text: 'Usage Guide',
                 items: [
-                    {text: 'Installation', link: '/guide/installation'},
-                    {text: 'Configuration', link: '/guide/configuration'},
-                    {text: 'Brain', link: '/guide/brain'},
-                    {text: 'Chat History', link: '/guide/chat-history'},
-                    {text: 'Events', link: '/guide/events'},
-                    {text: 'Logging', link: '/guide/logging'},
-                    {text: 'Extending', link: '/guide/extending'},
-                    {text: 'Debugging', link: '/guide/debugging'},
+                    {text: 'Installation', link: '/docs/guide/installation'},
+                    {text: 'Configuration', link: '/docs/guide/configuration'},
+                    {text: 'Brain', link: '/docs/guide/brain'},
+                    {text: 'Chat History', link: '/docs/guide/chat-history'},
+                    {text: 'Events', link: '/docs/guide/events'},
+                    {text: 'Logging', link: '/docs/guide/logging'},
+                    {text: 'Extending', link: '/docs/guide/extending'},
+                    {text: 'Debugging', link: '/docs/guide/debugging'},
                 ],
             },
             {
@@ -108,41 +108,41 @@ export default defineConfig({
                 items: [
                     {
                         text: 'Using Weaviate with Laravel Sail',
-                        link: '/cookbook/laravel-sail-weaviate',
+                        link: '/docs/cookbook/laravel-sail-weaviate',
                     }, {
                         text: 'Simple command line chatbot',
-                        link: '/cookbook/chatbot-cli',
+                        link: '/docs/cookbook/chatbot-cli',
                     },
                     {
                         text: 'Q&A Chatbot for a PDF',
-                        link: '/cookbook/chatbot-pdf',
+                        link: '/docs/cookbook/chatbot-pdf',
                     },
                     {
                         text: 'Q&A Chatbot for a website',
-                        link: '/cookbook/chatbot-website',
+                        link: '/docs/cookbook/chatbot-website',
                     },
                     {
                         text: 'Building a meeting scheduling assistant',
-                        link: '/cookbook/scheduling-assistant',
+                        link: '/docs/cookbook/scheduling-assistant',
                         items: [
                             {
                                 text: 'Integrating Google Calendar',
-                                link: '/cookbook/scheduling-assistant-google-calendar',
+                                link: '/docs/cookbook/scheduling-assistant-google-calendar',
                             },
                             {
                                 text: 'Integrating GMail',
-                                link: '/cookbook/scheduling-assistant-gmail',
+                                link: '/docs/cookbook/scheduling-assistant-gmail',
                             },
                         ],
                     },
-                    {text: 'Slack Chatbot', link: '/cookbook/slack-chatbot'},
+                    {text: 'Slack Chatbot', link: '/docs/cookbook/slack-chatbot'},
                     {
                         text: 'Using Mindwave with Livewire',
-                        link: '/cookbook/integrating-livewire',
+                        link: '/docs/cookbook/integrating-livewire',
                     },
                     {
                         text: 'Using Laravel Echo for Streaming Responses',
-                        link: '/cookbook/integrating-laravel-echo',
+                        link: '/docs/cookbook/integrating-laravel-echo',
                     },
                 ],
             },

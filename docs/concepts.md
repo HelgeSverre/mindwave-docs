@@ -88,6 +88,56 @@ the available knowledge.
 Agents utilize the vector database and the embedding function to make intelligent decisions and generate appropriate
 outputs.
 
+## Prompt Templates
+
+A `PromptTemplate` in Mindwave is a class that allows you to easily provide a text prompt, an `OutputParser`, and input
+variables (an array with key-value pairs to replace in the prompt). When the LLM accepts a PromptTemplate as an input,
+it replaces the placeholders in the prompt with the provided inputs and attempts to parse the response using
+an `OutputParser`.
+
+Here's an example:
+
+```php
+
+$prompt = PromptTemplate::create('Generate 10 keywords for {topic}')
+    ->withOutputParser(new JsonListOutputParser())
+    ->format([
+        'topic' => 'Laravel',
+    ]);
+```
+
+Outputs the following:
+
+````
+Generate 10 keywords for Laravel
+RESPONSE FORMAT INSTRUCTIONS
+----------------------------
+When responding to me please, please output the response in the following format:
+```json
+{
+    "data": array // An array of strings.
+}
+```
+
+However, above all else, all responses must adhere to the format of RESPONSE FORMAT INSTRUCTIONS.
+Remember to respond with a JSON blob with a single key, and NOTHING else.
+````
+
+## Output Parsers
+
+An `OutputParser` is a class that provides formatting instructions for the LLM in the form of a string. It also has
+a `parse()` method that takes the response from the LLM and attempts to parse it into the desired format.
+
+Mindwave currently offers several Output Parsers:
+
+-   `CommaSeparatedListOutputParser` - Turns CSV-like text into a PHP array
+-   `JsonListOutputParser` - Converts a Json list responses into a PHP array
+-   `JsonOutputParser` - Converts Json responses into a PHP array
+-   `StructuredOutputParser` - Accepts a php class as input, generates a JSON schema and tries to convert the response
+    back into an instance of the original class (You could call it a DTO mapper)
+-   `TextOutputParser` - Provides not formatting instruction and simply returns the input text back verbatim, this is the
+    default OutputParser.
+
 ## Tools
 
 Tools in Mindwave are essentially a function that has a name and description that is injected into the context of the

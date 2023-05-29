@@ -65,6 +65,10 @@ stores are used for storing and retrieving vector representations of textual dat
 
     -   No configuration options required.
 
+-   **file**
+
+    -   `path`: The filepath to store the json file
+
 -   **pinecone**
 
     -   `api_key`: The API key for the Pinecone vector store.
@@ -87,11 +91,17 @@ return [
 
     'vectorstores' => [
         'array' => [],
+
+        'file' => [
+            'path' => env('MINDWAVE_VECTORSTORE_PATH', storage_path('mindwave/vectorstore.json')),
+        ],
+
         'pinecone' => [
             'api_key' => env('MINDWAVE_PINECONE_API_KEY'),
             'environment' => env('MINDWAVE_PINECONE_ENVIRONMENT'),
             'index' => 'items',
         ],
+
         'weaviate' => [
             'api_url' => env('MINDWAVE_WEAVIATE_URL'),
 

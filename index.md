@@ -15,10 +15,10 @@ hero:
     actions:
         - theme: brand
           text: Get started
-          link: /readme
+          link: /docs/readme
         - theme: alt
           text: Installation
-          link: /guide/installation
+          link: /docs/guide/installation
 
 features:
     - icon: 🧩
