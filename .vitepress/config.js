@@ -72,22 +72,7 @@ export default defineConfig({
                 text: 'Introduction',
                 items: [
                     {text: 'What is Mindwave', link: '/docs/readme'},
-                    {
-                        text: 'Concepts',
-                        link: '/docs/concepts',
-                        items: [
-                            {text: 'LLMs', link: '/docs/concepts#llms'},
-                            {
-                                text: 'Embeddings',
-                                link: '/docs/concepts#embeddings',
-                            },
-                            {text: 'Brains', link: '/docs/concepts#brains'},
-                            {text: 'Knowledge', link: '/docs/concepts#knowledge'},
-                            {text: 'Agents', link: '/docs/concepts#agents'},
-                            {text: 'Tools', link: '/docs/concepts#tools'},
-                            {text: 'Chat History', link: '/docs/concepts#history'},
-                        ],
-                    },
+                    {text: 'Concepts', link: '/docs/concepts'},
                 ],
             },
             {
