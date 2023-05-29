@@ -79,6 +79,7 @@ export default defineConfig({
                 text: 'Usage Guide',
                 items: [
                     {text: 'Installation', link: '/docs/guide/installation'},
+                    {text: 'Commands', link: '/docs/guide/commands'},
                     {text: 'Configuration', link: '/docs/guide/configuration'},
                     {text: 'LLM', link: '/docs/guide/llm'},
                     {text: 'Prompt Templates', link: '/docs/guide/prompt-templates'},
