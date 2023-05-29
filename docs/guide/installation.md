@@ -6,14 +6,7 @@ You can install the package via composer:
 composer require mindwave/mindwave
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="mindwave-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
+You can publish the configuration files with:
 
 ```bash
 php artisan vendor:publish --tag="mindwave-config"

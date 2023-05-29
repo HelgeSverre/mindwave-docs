@@ -1,6 +1,7 @@
 # Using Weaviate with Laravel Sail
 
-This documentation provides instructions on how to integrate Weaviate with Laravel Sail. Before proceeding with the Weaviate setup, ensure that you have installed and configured [Laravel Sail](https://laravel.com/docs/10.x/sail).
+This documentation provides instructions on how to integrate Weaviate with Laravel Sail. Before proceeding with the
+Weaviate setup, ensure that you have installed and configured [Laravel Sail](https://laravel.com/docs/10.x/sail).
 
 ## Adding Weaviate Database
 
@@ -75,7 +76,8 @@ services:
 
 ## Environment Configuration
 
-You can modify the port mappings for the `weaviate` and `weaviate-console` services on your local machine. By default, the ports are set as follows:
+You can modify the port mappings for the `weaviate` and `weaviate-console` services on your local machine. By default,
+the ports are set as follows:
 
 ```dotenv
 FORWARD_WEAVIATE_CONSOLE=8081
@@ -86,7 +88,8 @@ Feel free to change these values if you are already using these ports for other 
 
 ## Complete Example
 
-Below is a complete example of a `docker-compose.yml` file for an application that includes MySQL, MinIO, Weaviate, and Weaviate Console:
+Below is a complete example of a `docker-compose.yml` file for an application that includes MySQL, MinIO, Weaviate, and
+Weaviate Console:
 
 ```yaml
 version: '3'

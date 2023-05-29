@@ -37,11 +37,14 @@ class Chatbot extends Command
         $agent = new Agent(
             llm: new OpenAIChat(OpenAI::client(env('OPENAI_API_KEY'))),
             messageHistory: ChatMessageHistory::fromMessages([]),
-            tools: [],
         );
 
         while (true) {
-            $this->comment($agent->ask($this->ask('Prompt')));
+
+            $input = $this->ask('Prompt');
+            $response = $agent->ask($input);
+
+            $this->comment($response);
         }
     }
 }
