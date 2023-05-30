@@ -57,7 +57,8 @@ export default defineConfig({
             "script", {
             "async": "",
             "src": "https://analytics.umami.is/script.js",
-            "data-website-id": "2bf76d0a-eb86-4f24-9db4-447b0a374afa"
+            "data-website-id": "2bf76d0a-eb86-4f24-9db4-447b0a374afa",
+            "data-domains": "mindwave.no"
         }
         ]
     ],
