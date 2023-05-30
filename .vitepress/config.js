@@ -51,6 +51,15 @@ export default defineConfig({
             },
         ],
         ['meta', {name: 'theme-color', content: '#ffffff'}],
+
+        // Umami Analytics
+        [
+            "script", {
+            "async": "",
+            "src": "https://analytics.umami.is/script.js",
+            "data-website-id": "2bf76d0a-eb86-4f24-9db4-447b0a374afa"
+        }
+        ]
     ],
 
     themeConfig: {
