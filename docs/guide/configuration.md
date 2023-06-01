@@ -76,10 +76,17 @@ stores are used for storing and retrieving vector representations of textual dat
     -   `index`: The index to use in the Pinecone vector store.
 
 -   **weaviate**
+
     -   `api_url`: The API URL for the Weaviate vector store.
     -   `api_token`: The API token for the Weaviate vector store.
     -   `additional_headers`: Additional headers to include in the API requests for the Weaviate vector store.
     -   `index`: The index to use in the Weaviate vector store.
+
+-   **qdrant**
+    -   `host`: The hostname for the qdrant service.
+    -   `port`: The port for the qdrant service (defaults to 6333)
+    -   `api_key`: API key, does not seem to be possible to set an api key yet, might be used for hosted cloud version
+    -   `collection`: The name of the collection to store data in.
 
 Example configuration:
 
@@ -104,11 +111,16 @@ return [
 
         'weaviate' => [
             'api_url' => env('MINDWAVE_WEAVIATE_URL'),
-
-
             'api_token' => env('MINDWAVE_WEAVIATE_API_TOKEN'),
             'additional_headers' => [],
             'index' => 'items',
+        ],
+
+         'qdrant' => [
+            'host' => env('MINDWAVE_QDRANT_HOST', 'localhost'),
+            'port' => env('MINDWAVE_QDRANT_PORT', '6333'),
+            'api_key' => env('MINDWAVE_QDRANT_API_KEY', ''),
+            'collection' => env('MINDWAVE_QDRANT_COLLECTION', 'items'),
         ],
     ],
 ];
