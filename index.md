@@ -3,40 +3,40 @@
 layout: home
 
 title: 'Mindwave'
-titleTemplate: 'AI Chatbots, Agents & Document Q&A in Laravel Simplified.'
+titleTemplate: 'Production-Ready AI Foundation for Laravel Applications'
 
 hero:
     name: 'Mindwave'
-    text: 'Laravel Package'
-    tagline: 'AI Chatbots, Agents & Document Q&A in Laravel Simplified.'
+    text: 'Laravel AI Framework'
+    tagline: 'Production-Ready AI Foundation for Laravel Applications'
     image:
         light: /art/logo.svg
         dark: /art/logo-dark.svg
     actions:
         - theme: brand
-          text: Get started
-          link: /docs/readme
+          text: Get Started
+          link: /docs/introduction
         - theme: alt
-          text: Installation
-          link: /docs/guide/installation
+          text: Quick Start
+          link: /docs/quick-start
 
 features:
-    - icon: 🧩
-      title: Multiple LLMs & Embeddings
-      details: Supports multiple LLMs and Embedding APIs
-    - icon: 🧠️
-      title: Brains
-      details: Create intelligent agents with customizable "Brains"
-    - icon: 📚
-      title: Knowledge
-      details: Incorporate external knowledge sources into your application
-    - icon: 🤖
-      title: Agents
-      details: Develop intelligent agents to automate tasks
-    - icon: 🔧
-      title: Tools
-      details: Write custom Tools to perform actions and retrieve information
-    - icon: 💬️
-      title: Chat History
-      details: Maintain chat message history for context-aware conversations
+    - icon: 📝
+      title: Prompt Composer
+      details: Intelligent prompt management with automatic token optimization and context fitting
+    - icon: 🔄
+      title: Streaming Responses
+      details: Real-time streaming with Server-Sent Events (SSE) for responsive user experiences
+    - icon: 🔍
+      title: OpenTelemetry Tracing
+      details: Production-grade observability with automatic LLM request tracing and cost tracking
+    - icon: 🎯
+      title: Context Discovery
+      details: Smart context extraction from Laravel models, database, and external sources
+    - icon: 🚀
+      title: Multiple LLM Providers
+      details: Support for OpenAI, Mistral AI, and more with unified interface
+    - icon: 💾
+      title: RAG & Vector Search
+      details: Built-in support for TNTSearch, Qdrant, Weaviate, and embedding models
 ---
