@@ -15,7 +15,7 @@ $tool = new SimpleTool(
 );
 ```
 
-This can be useful when you want to provide an [Agent](/docs/guide/agents) with a simple tool to do a simple action,
+This can be useful when you want to provide an agent with a simple tool to do a simple action,
 like searching for data, perform a request toan external data source etcl
 
 todo : expand this with a realworld example
