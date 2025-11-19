@@ -74,8 +74,8 @@ export default defineConfig({
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             {text: 'Home', link: '/'},
-            {text: 'Guide', link: '/docs/guide/installation'}, // Points to existing page until what-is-mindwave is created
-            {text: 'Reference', link: '/reference/config'},
+            {text: 'Guide', link: '/docs/installation'},
+            {text: 'Reference', link: '/docs/configuration'},
         ],
 
         // Search configuration
@@ -88,84 +88,81 @@ export default defineConfig({
 
         sidebar: [
             {
-                text: 'Introduction',
+                text: 'Getting Started',
                 items: [
-                    { text: 'What is Mindwave', link: '/guide/what-is-mindwave' }, // TO CREATE - Phase 1
-                    { text: 'Quick Start', link: '/guide/quick-start' }, // TO CREATE - Phase 1
-                    { text: 'Installation', link: '/docs/guide/installation' }, // EXISTS
-                    { text: 'Configuration', link: '/docs/guide/configuration' }, // EXISTS
-                    { text: 'Concepts', link: '/concepts' } // BEING CREATED IN STREAM A2
+                    { text: 'Installation', link: '/docs/installation' },
+                    { text: 'Configuration', link: '/docs/configuration' },
+                    { text: 'Upgrade Guide', link: '/docs/upgrade-guide' }
                 ]
             },
             {
                 text: 'Core Features',
                 items: [
-                    { text: 'Prompt Composer', link: '/core/prompt-composer' }, // TO CREATE - Phase 2
-                    { text: 'Streaming Responses', link: '/core/streaming' }, // TO CREATE - Phase 2
-                    { text: 'Context Discovery', link: '/core/context-discovery' }, // TO CREATE - Phase 2
-                    { text: 'LLM Integration', link: '/core/llm' } // TO CREATE - Phase 2
+                    { text: 'Prompt Composer', link: '/docs/core/prompt-composer' },
+                    { text: 'Streaming Responses', link: '/docs/core/streaming' },
+                    { text: 'Context Discovery', link: '/docs/core/context-discovery' },
+                    { text: 'LLM Integration', link: '/docs/core/llm' }
                 ]
             },
             {
                 text: 'Observability',
                 items: [
-                    { text: 'OpenTelemetry Tracing', link: '/observability/tracing' }, // TO CREATE - Phase 3
-                    { text: 'Cost Tracking', link: '/observability/cost-tracking' }, // TO CREATE - Phase 3
-                    { text: 'Querying Traces', link: '/observability/querying' }, // TO CREATE - Phase 3
-                    { text: 'OTLP Integration', link: '/observability/otlp' }, // TO CREATE - Phase 3
-                    { text: 'Events', link: '/observability/events' } // TO CREATE - Phase 3
+                    { text: 'OpenTelemetry Tracing', link: '/docs/observability/tracing' },
+                    { text: 'Cost Tracking', link: '/docs/observability/cost-tracking' },
+                    { text: 'Querying Traces', link: '/docs/observability/querying' },
+                    { text: 'OTLP Integration', link: '/docs/observability/otlp' },
+                    { text: 'Events', link: '/docs/observability/events' }
                 ]
             },
             {
                 text: 'RAG & Context',
                 items: [
-                    { text: 'Overview', link: '/rag/overview' }, // TO CREATE - Phase 6
-                    { text: 'TNTSearch', link: '/rag/tntsearch' }, // TO CREATE - Phase 6
-                    { text: 'Vector Stores', link: '/rag/vectorstores' }, // TO CREATE - Phase 6
-                    { text: 'Brain', link: '/rag/brain' }, // TO CREATE - Phase 6
-                    { text: 'Documents', link: '/rag/documents' }, // TO CREATE - Phase 6
-                    { text: 'Embeddings', link: '/rag/embeddings' } // TO CREATE - Phase 6
+                    { text: 'Overview', link: '/docs/rag/overview' },
+                    { text: 'TNTSearch', link: '/docs/rag/tntsearch' },
+                    { text: 'Vector Stores', link: '/docs/rag/vectorstores' },
+                    { text: 'Brain', link: '/docs/rag/brain' },
+                    { text: 'Documents', link: '/docs/rag/documents' },
+                    { text: 'Embeddings', link: '/docs/rag/embeddings' }
                 ]
             },
             {
                 text: 'Providers',
                 items: [
-                    { text: 'OpenAI', link: '/providers/openai' }, // TO CREATE - Phase 5
-                    { text: 'Mistral AI', link: '/providers/mistral' } // TO CREATE - Phase 5
+                    { text: 'OpenAI', link: '/docs/providers/openai' },
+                    { text: 'Mistral AI', link: '/docs/providers/mistral' }
                 ]
             },
             {
                 text: 'Advanced',
                 items: [
-                    { text: 'Tools', link: '/advanced/tools' }, // TO CREATE - Phase 8
-                    { text: 'Output Parsers', link: '/advanced/output-parsers' }, // TO CREATE - Phase 8
-                    { text: 'Prompt Templates', link: '/advanced/prompt-templates' } // TO CREATE - Phase 8
+                    { text: 'Tools', link: '/docs/advanced/tools' },
+                    { text: 'Output Parsers', link: '/docs/advanced/output-parsers' },
+                    { text: 'Prompt Templates', link: '/docs/advanced/prompt-templates' }
                 ]
             },
             {
                 text: 'Cookbook',
                 items: [
-                    { text: 'Customer Support Bot', link: '/cookbook/support-bot' }, // TO CREATE - Phase 9
-                    { text: 'Document Q&A', link: '/cookbook/document-qa' }, // TO CREATE - Phase 9
-                    { text: 'Streaming Chat UI', link: '/cookbook/streaming-chat' }, // TO CREATE - Phase 9
-                    { text: 'Cost-Aware Application', link: '/cookbook/cost-tracking' }, // TO CREATE - Phase 9
-                    { text: 'Multi-Source Context', link: '/cookbook/multi-source' }, // TO CREATE - Phase 9
-                    { text: 'Livewire Integration', link: '/cookbook/livewire' } // TO CREATE - Phase 9
+                    { text: 'Customer Support Bot', link: '/docs/cookbook/support-bot' },
+                    { text: 'Document Q&A', link: '/docs/cookbook/document-qa' },
+                    { text: 'Streaming Chat UI', link: '/docs/cookbook/streaming-chat' },
+                    { text: 'Cost-Aware Application', link: '/docs/cookbook/cost-tracking' },
+                    { text: 'Multi-Source Context', link: '/docs/cookbook/multi-source' },
+                    { text: 'Livewire Integration', link: '/docs/cookbook/livewire' }
                 ]
             },
             {
                 text: 'Reference',
                 items: [
-                    { text: 'Artisan Commands', link: '/reference/commands' }, // TO CREATE - Phase 7
-                    { text: 'Configuration', link: '/reference/config' }, // TO CREATE - Phase 4
-                    { text: 'Model Token Limits', link: '/reference/models' } // TO CREATE - Phase 7
+                    { text: 'Artisan Commands', link: '/docs/reference/commands' },
+                    { text: 'Model Token Limits', link: '/docs/reference/models' }
                 ]
             },
             {
                 text: 'Guides',
                 items: [
-                    { text: 'Troubleshooting', link: '/guide/troubleshooting' }, // TO CREATE - Phase 10
-                    { text: 'Production Deployment', link: '/guide/production' } // TO CREATE - Phase 10
+                    { text: 'Troubleshooting', link: '/docs/troubleshooting' },
+                    { text: 'Production Deployment', link: '/docs/production' }
                 ]
             }
         ],

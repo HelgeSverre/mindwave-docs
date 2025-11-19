@@ -15,10 +15,10 @@ hero:
     actions:
         - theme: brand
           text: Get Started
-          link: /docs/introduction
+          link: /docs/installation
         - theme: alt
-          text: Quick Start
-          link: /docs/quick-start
+          text: Configuration
+          link: /docs/configuration
 
 features:
     - icon: 📝
