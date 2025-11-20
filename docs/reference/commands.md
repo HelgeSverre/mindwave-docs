@@ -1175,7 +1175,7 @@ php artisan mindwave:index-stats
 ## Additional Resources
 
 -   [Tracing Documentation](/docs/observability/tracing) - OpenTelemetry tracing guide
--   [Context Discovery](/docs/context-discovery/overview) - TNTSearch context indexes
+-   [Context Discovery](/docs/core/context-discovery) - TNTSearch context indexes
 -   [Configuration Reference](/docs/reference/configuration) - All config options
 -   [API Reference](/docs/reference/api) - Programmatic access to traces
 

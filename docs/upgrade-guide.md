@@ -344,7 +344,7 @@ stream.onmessage = e => output.textContent += e.data;
 stream.addEventListener('done', () => stream.close());
 ```
 
-See: [Streaming Guide](/docs/streaming)
+See: [Streaming Guide](/docs/core/streaming)
 
 ---
 
@@ -471,7 +471,7 @@ php artisan mindwave:trace-stats
 php artisan mindwave:prune-traces --older-than=30days
 ```
 
-See: [Tracing Guide](/docs/tracing)
+See: [Tracing Guide](/docs/observability/tracing)
 
 ### 3. Streaming SSE - Real-Time Responses
 
@@ -504,7 +504,7 @@ stream.addEventListener('done', () => stream.close());
 -   Connection monitoring
 -   Error handling and retry logic
 
-See: [Streaming Guide](/docs/streaming)
+See: [Streaming Guide](/docs/core/streaming)
 
 ### 4. Context Discovery - Ad-Hoc RAG
 
@@ -544,7 +544,7 @@ php artisan mindwave:index-stats
 php artisan mindwave:clear-indexes --ttl=24 --force
 ```
 
-See: [Context Discovery Guide](/docs/context-discovery)
+See: [Context Discovery Guide](/docs/core/context-discovery)
 
 ---
 
