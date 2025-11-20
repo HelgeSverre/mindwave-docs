@@ -23,29 +23,34 @@ User Query → Search Knowledge Base → Retrieve Top Results → Inject into Pr
 Traditional LLMs have several limitations that RAG addresses:
 
 **Knowledge Beyond Training Data**
-- LLMs are limited to what they learned during training
-- RAG provides access to your proprietary data and domain knowledge
-- Your application data, customer records, and documents become available to the LLM
+
+-   LLMs are limited to what they learned during training
+-   RAG provides access to your proprietary data and domain knowledge
+-   Your application data, customer records, and documents become available to the LLM
 
 **Up-to-Date Information**
-- LLM training data has a cutoff date
-- RAG retrieves current information from live databases
-- Product catalogs, user profiles, and policies stay current
+
+-   LLM training data has a cutoff date
+-   RAG retrieves current information from live databases
+-   Product catalogs, user profiles, and policies stay current
 
 **Source Attribution**
-- RAG provides traceable sources for responses
-- You know which documents or records influenced the answer
-- Better accountability and fact-checking
+
+-   RAG provides traceable sources for responses
+-   You know which documents or records influenced the answer
+-   Better accountability and fact-checking
 
 **Cost-Effective Context**
-- Fine-tuning LLMs is expensive and time-consuming
-- RAG dynamically injects relevant context at query time
-- No model retraining needed when data changes
+
+-   Fine-tuning LLMs is expensive and time-consuming
+-   RAG dynamically injects relevant context at query time
+-   No model retraining needed when data changes
 
 **Reduced Hallucination**
-- LLMs can "hallucinate" (make up plausible-sounding but incorrect information)
-- RAG grounds responses in actual retrieved documents
-- Responses are based on facts from your knowledge base
+
+-   LLMs can "hallucinate" (make up plausible-sounding but incorrect information)
+-   RAG grounds responses in actual retrieved documents
+-   Responses are based on facts from your knowledge base
 
 ## RAG in Mindwave
 
@@ -56,29 +61,34 @@ Mindwave implements RAG through its **Context Discovery** architecture—a modul
 Mindwave's RAG implementation follows these principles:
 
 **Laravel-Native**
-- Uses Eloquent, queues, cache, and other Laravel primitives
-- Feels natural to Laravel developers
-- Integrates with existing application architecture
+
+-   Uses Eloquent, queues, cache, and other Laravel primitives
+-   Feels natural to Laravel developers
+-   Integrates with existing application architecture
 
 **Flexible & Composable**
-- Multiple context source types (full-text search, vector search, SQL, static)
-- Mix and match sources in pipelines
-- Extend with custom sources
+
+-   Multiple context source types (full-text search, vector search, SQL, static)
+-   Mix and match sources in pipelines
+-   Extend with custom sources
 
 **Token-Aware**
-- Automatic token counting and management
-- Respects model context window limits
-- Integrates with PromptComposer's priority system
+
+-   Automatic token counting and management
+-   Respects model context window limits
+-   Integrates with PromptComposer's priority system
 
 **Observable**
-- Built-in OpenTelemetry tracing
-- Track search performance and quality
-- Monitor costs and token usage
+
+-   Built-in OpenTelemetry tracing
+-   Track search performance and quality
+-   Monitor costs and token usage
 
 **Production-Ready**
-- Designed for high-volume applications
-- Automatic cleanup and resource management
-- Performance optimizations built-in
+
+-   Designed for high-volume applications
+-   Automatic cleanup and resource management
+-   Performance optimizations built-in
 
 ### Architecture Overview
 
@@ -137,15 +147,17 @@ $faqSource = TntSearchSource::fromCsv(
 ```
 
 **Strengths:**
-- Fast full-text search with BM25 ranking
-- Works with any data source (Eloquent, CSV, arrays)
-- No external dependencies
-- Good for keyword matching
+
+-   Fast full-text search with BM25 ranking
+-   Works with any data source (Eloquent, CSV, arrays)
+-   No external dependencies
+-   Good for keyword matching
 
 **Limitations:**
-- Ephemeral indexes (created per-request)
-- Not ideal for very large datasets (>10k documents)
-- Keyword-based only (no semantic understanding)
+
+-   Ephemeral indexes (created per-request)
+-   Not ideal for very large datasets (>10k documents)
+-   Keyword-based only (no semantic understanding)
 
 #### 2. Vector Store Source (Semantic Search)
 
@@ -169,16 +181,18 @@ $response = Mindwave::prompt()
 ```
 
 **Strengths:**
-- Semantic understanding (finds conceptual matches)
-- Scales to millions of documents
-- Multi-language support
-- Better for natural language queries
+
+-   Semantic understanding (finds conceptual matches)
+-   Scales to millions of documents
+-   Multi-language support
+-   Better for natural language queries
 
 **Limitations:**
-- Requires pre-computed embeddings
-- Higher latency than keyword search
-- More expensive (embedding API calls)
-- Needs vector database
+
+-   Requires pre-computed embeddings
+-   Higher latency than keyword search
+-   More expensive (embedding API calls)
+-   Needs vector database
 
 #### 3. Eloquent Source (SQL LIKE Search)
 
@@ -199,15 +213,17 @@ $userSource = EloquentSource::create(
 ```
 
 **Strengths:**
-- Simple and lightweight
-- No indexing required
-- Works with existing database
-- Good for small datasets
+
+-   Simple and lightweight
+-   No indexing required
+-   Works with existing database
+-   Good for small datasets
 
 **Limitations:**
-- Poor performance on large tables
-- Basic LIKE search (no ranking)
-- Limited to database columns
+
+-   Poor performance on large tables
+-   Basic LIKE search (no ranking)
+-   Limited to database columns
 
 #### 4. Static Source (Keyword Matching)
 
@@ -237,15 +253,17 @@ $policiesSource = StaticSource::fromItems([
 ```
 
 **Strengths:**
-- Zero dependencies
-- Instant search (in-memory)
-- Simple keyword matching
-- Good for small, static content
+
+-   Zero dependencies
+-   Instant search (in-memory)
+-   Simple keyword matching
+-   Good for small, static content
 
 **Limitations:**
-- Only for small datasets (<100 items)
-- Simple keyword matching (no semantic search)
-- Must fit in memory
+
+-   Only for small datasets (<100 items)
+-   Simple keyword matching (no semantic search)
+-   Must fit in memory
 
 ### Context Pipeline
 
@@ -268,16 +286,19 @@ $results = $pipeline->search('user authentication', limit: 10);
 **Pipeline Features:**
 
 **Deduplication**: Removes duplicate content across sources (enabled by default)
+
 ```php
 ->deduplicate(true)  // Keep highest-scored version of duplicates
 ```
 
 **Re-ranking**: Sorts results by relevance score (enabled by default)
+
 ```php
 ->rerank(true)  // Sort all results by score descending
 ```
 
 **Limit Enforcement**: Controls total number of results
+
 ```php
 ->search($query, limit: 10)  // Return top 10 across all sources
 ```
@@ -330,43 +351,47 @@ The context section will be truncated or removed if needed to fit within the tok
 
 ### TNTSearch vs Vector Stores
 
-| Factor | TNTSearch | Vector Store |
-|--------|-----------|--------------|
-| **Search Type** | Keyword-based (BM25) | Semantic similarity |
-| **Best For** | Exact terms, product names, IDs | Conceptual queries, natural language |
-| **Dataset Size** | < 10,000 documents | Millions of documents |
-| **Setup** | Automatic ephemeral indexing | Pre-compute embeddings |
-| **Latency** | Fast (~10-50ms) | Moderate (~50-200ms) |
-| **Cost** | Low (no API calls) | Higher (embedding API) |
-| **Accuracy** | Exact matches, keyword overlap | Conceptual similarity |
+| Factor           | TNTSearch                       | Vector Store                         |
+| ---------------- | ------------------------------- | ------------------------------------ |
+| **Search Type**  | Keyword-based (BM25)            | Semantic similarity                  |
+| **Best For**     | Exact terms, product names, IDs | Conceptual queries, natural language |
+| **Dataset Size** | < 10,000 documents              | Millions of documents                |
+| **Setup**        | Automatic ephemeral indexing    | Pre-compute embeddings               |
+| **Latency**      | Fast (~10-50ms)                 | Moderate (~50-200ms)                 |
+| **Cost**         | Low (no API calls)              | Higher (embedding API)               |
+| **Accuracy**     | Exact matches, keyword overlap  | Conceptual similarity                |
 
 ### Decision Matrix
 
 **Use TNTSearch when:**
-- Searching for specific terms, product names, or identifiers
-- Working with structured data (support tickets, products)
-- Dataset is < 10,000 documents
-- You need fast, low-cost search
-- Keywords matter more than meaning
+
+-   Searching for specific terms, product names, or identifiers
+-   Working with structured data (support tickets, products)
+-   Dataset is < 10,000 documents
+-   You need fast, low-cost search
+-   Keywords matter more than meaning
 
 **Use Vector Stores when:**
-- Natural language queries ("How do I...")
-- Need semantic understanding across languages
-- Large knowledge base (>10,000 documents)
-- Conceptual similarity matters (e.g., "authentication" matches "login", "OAuth")
-- Building conversational interfaces
+
+-   Natural language queries ("How do I...")
+-   Need semantic understanding across languages
+-   Large knowledge base (>10,000 documents)
+-   Conceptual similarity matters (e.g., "authentication" matches "login", "OAuth")
+-   Building conversational interfaces
 
 **Use Eloquent Source when:**
-- Very small datasets (< 1,000 rows)
-- Need dynamic filtering (WHERE clauses)
-- Simple LIKE search is sufficient
-- Don't want to set up indexing
+
+-   Very small datasets (< 1,000 rows)
+-   Need dynamic filtering (WHERE clauses)
+-   Simple LIKE search is sufficient
+-   Don't want to set up indexing
 
 **Use Static Source when:**
-- Fixed FAQs or policies
-- Small content sets (< 100 items)
-- Need instant in-memory search
-- Content rarely changes
+
+-   Fixed FAQs or policies
+-   Small content sets (< 100 items)
+-   Need instant in-memory search
+-   Content rarely changes
 
 ### Hybrid Approaches
 
@@ -431,10 +456,11 @@ echo $response->content;
 ```
 
 **When to use:**
-- Simple Q&A systems
-- Single knowledge source
-- Straightforward queries
-- Getting started with RAG
+
+-   Simple Q&A systems
+-   Single knowledge source
+-   Straightforward queries
+-   Getting started with RAG
 
 ### Advanced RAG: Multi-Stage Retrieval
 
@@ -483,9 +509,10 @@ $response = Mindwave::prompt()
 ```
 
 **When to use:**
-- Complex knowledge bases
-- Multiple content types (docs, code, tutorials)
-- Need comprehensive coverage
+
+-   Complex knowledge bases
+-   Multiple content types (docs, code, tutorials)
+-   Need comprehensive coverage
 
 ### Advanced RAG: Re-Ranking with LLM
 
@@ -519,9 +546,10 @@ $response = Mindwave::prompt()
 ```
 
 **When to use:**
-- Quality matters more than speed
-- Complex queries with nuanced requirements
-- Willing to pay extra for better results
+
+-   Quality matters more than speed
+-   Complex queries with nuanced requirements
+-   Willing to pay extra for better results
 
 ### Advanced RAG: Query Expansion
 
@@ -557,9 +585,10 @@ $response = Mindwave::prompt()
 ```
 
 **When to use:**
-- User queries are vague or ambiguous
-- Need comprehensive retrieval
-- Retrieval recall is low with single query
+
+-   User queries are vague or ambiguous
+-   Need comprehensive retrieval
+-   Retrieval recall is low with single query
 
 ## Complete RAG Example: Document Q&A System
 
@@ -763,10 +792,11 @@ $chunks = $splitter->splitText($largeDocument);
 ```
 
 **Guidelines:**
-- **512-1024 characters** for semantic search (embeddings)
-- **1000-2000 characters** for keyword search (TNTSearch)
-- **50-100 character overlap** between chunks
-- Smaller chunks = more precise, larger chunks = more context
+
+-   **512-1024 characters** for semantic search (embeddings)
+-   **1000-2000 characters** for keyword search (TNTSearch)
+-   **50-100 character overlap** between chunks
+-   Smaller chunks = more precise, larger chunks = more context
 
 ### 2. Retrieval Strategies
 
@@ -1089,6 +1119,7 @@ $answer = $assistant->ask('What is our vacation policy?');
 Choose the right indexing approach for your scale.
 
 **Ephemeral Indexes (TNTSearch Default)**
+
 ```php
 // Created per-request, auto-cleaned
 $source = TntSearchSource::fromEloquent(User::query(), fn($u) => $u->bio);
@@ -1100,6 +1131,7 @@ $source = TntSearchSource::fromEloquent(User::query(), fn($u) => $u->bio);
 **Cons:** Overhead on first search, not suitable for large datasets
 
 **Persistent Indexes (Brain/Vector Stores)**
+
 ```php
 // Pre-compute and store embeddings
 $brain = Mindwave::brain('documents');
@@ -1203,6 +1235,7 @@ Queue::dispatch(new IndexDocumentsJob());
 ### High-Volume Considerations
 
 **Rate Limiting**
+
 ```php
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -1217,6 +1250,7 @@ if (RateLimiter::tooManyAttempts('rag-search', 30)) {
 ```
 
 **Query Queuing**
+
 ```php
 // For non-real-time RAG queries
 class ProcessRAGQuery implements ShouldQueue
@@ -1386,22 +1420,22 @@ Now that you understand RAG fundamentals and Mindwave's architecture, explore th
 
 ### Core Components
 
-- [TNTSearch Source](/docs/rag/tntsearch-source) - Full-text search with BM25 ranking
-- [Vector Store Source](/docs/rag/vector-store-source) - Semantic search with embeddings
-- [Context Pipeline](/docs/rag/context-pipeline) - Multi-source aggregation and ranking
-- [Brain (Vector Stores)](/docs/rag/brain) - Embedding storage and similarity search
+-   [TNTSearch Source](/docs/rag/tntsearch-source) - Full-text search with BM25 ranking
+-   [Vector Store Source](/docs/rag/vector-store-source) - Semantic search with embeddings
+-   [Context Pipeline](/docs/rag/context-pipeline) - Multi-source aggregation and ranking
+-   [Brain (Vector Stores)](/docs/rag/brain) - Embedding storage and similarity search
 
 ### Integration
 
-- [PromptComposer](/docs/core/prompt-composer) - Token-aware prompt composition
-- [Observability & Tracing](/docs/observability/overview) - Monitor RAG performance and costs
-- [Streaming](/docs/core/streaming) - Stream RAG responses to users
+-   [PromptComposer](/docs/core/prompt-composer) - Token-aware prompt composition
+-   [Observability & Tracing](/docs/observability/overview) - Monitor RAG performance and costs
+-   [Streaming](/docs/core/streaming) - Stream RAG responses to users
 
 ### Advanced Topics
 
-- [Custom Context Sources](/docs/rag/custom-sources) - Build your own context sources
-- [RAG Evaluation](/docs/rag/evaluation) - Test and measure RAG quality
-- [Production Patterns](/docs/advanced/rag-patterns) - Advanced RAG architectures
+-   [Custom Context Sources](/docs/rag/custom-sources) - Build your own context sources
+-   [RAG Evaluation](/docs/rag/evaluation) - Test and measure RAG quality
+-   [Production Patterns](/docs/advanced/rag-patterns) - Advanced RAG architectures
 
 ### Getting Started
 
@@ -1413,7 +1447,7 @@ Now that you understand RAG fundamentals and Mindwave's architecture, explore th
 
 ### Resources
 
-- [Example Applications](https://github.com/mindwave/examples) - Complete RAG implementations
-- [API Reference](/docs/reference/api) - Full API documentation
-- [Community Discord](https://discord.gg/mindwave) - Get help and share experiences
-- [Blog: RAG Best Practices](https://mindwave.dev/blog/rag-best-practices) - Deep dive into RAG techniques
+-   [Example Applications](https://github.com/mindwave/examples) - Complete RAG implementations
+-   [API Reference](/docs/reference/api) - Full API documentation
+-   [Community Discord](https://discord.gg/mindwave) - Get help and share experiences
+-   [Blog: RAG Best Practices](https://mindwave.dev/blog/rag-best-practices) - Deep dive into RAG techniques

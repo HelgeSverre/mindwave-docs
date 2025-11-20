@@ -6,27 +6,27 @@ Build an intelligent, production-ready customer support bot using Mindwave's RAG
 
 An AI-powered support bot that:
 
-- **Searches past tickets** - Finds similar resolved issues using TNTSearch
-- **Provides context-aware answers** - Uses ticket resolutions to inform responses
-- **Streams responses** - Real-time SSE streaming for immediate feedback
-- **Tracks performance** - Built-in OpenTelemetry tracing and cost monitoring
-- **Handles escalation** - Knows when to route to human agents
-- **Supports multiple channels** - API endpoint for web, mobile, and chat integrations
+-   **Searches past tickets** - Finds similar resolved issues using TNTSearch
+-   **Provides context-aware answers** - Uses ticket resolutions to inform responses
+-   **Streams responses** - Real-time SSE streaming for immediate feedback
+-   **Tracks performance** - Built-in OpenTelemetry tracing and cost monitoring
+-   **Handles escalation** - Knows when to route to human agents
+-   **Supports multiple channels** - API endpoint for web, mobile, and chat integrations
 
 ## What You'll Learn
 
-- Setting up TNTSearch for ticket indexing
-- Building a RAG-powered support service
-- Streaming responses to users
-- Testing and cost optimization
-- Production deployment patterns
+-   Setting up TNTSearch for ticket indexing
+-   Building a RAG-powered support service
+-   Streaming responses to users
+-   Testing and cost optimization
+-   Production deployment patterns
 
 ## Prerequisites
 
-- Laravel 10+ application
-- Mindwave installed and configured
-- OpenAI API key (or other supported LLM provider)
-- Basic understanding of Eloquent models
+-   Laravel 10+ application
+-   Mindwave installed and configured
+-   OpenAI API key (or other supported LLM provider)
+-   Basic understanding of Eloquent models
 
 ```bash
 composer require mindwave/mindwave
@@ -947,450 +947,459 @@ Create a simple chat interface at `resources/views/support-chat.blade.php`:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>AI Support Assistant</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .chat-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 800px;
-            height: 600px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .chat-header h1 {
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .chat-header p {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-top: 4px;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            background: #f8f9fa;
-        }
-
-        .message {
-            margin-bottom: 16px;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <title>AI Support Assistant</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                    Roboto, 'Helvetica Neue', Arial, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
             }
-        }
 
-        .message-user {
-            text-align: right;
-        }
-
-        .message-bot {
-            text-align: left;
-        }
-
-        .message-content {
-            display: inline-block;
-            padding: 12px 16px;
-            border-radius: 12px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-
-        .message-user .message-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .message-bot .message-content {
-            background: white;
-            color: #333;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .message-time {
-            font-size: 11px;
-            opacity: 0.6;
-            margin-top: 4px;
-        }
-
-        .typing-indicator {
-            display: none;
-            align-items: center;
-            gap: 4px;
-            padding: 12px 16px;
-            background: white;
-            border-radius: 12px;
-            display: inline-flex;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .typing-indicator.active {
-            display: inline-flex;
-        }
-
-        .typing-dot {
-            width: 8px;
-            height: 8px;
-            background: #667eea;
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typing {
-            0%, 60%, 100% {
-                opacity: 0.3;
-                transform: scale(0.8);
+            .chat-container {
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                width: 100%;
+                max-width: 800px;
+                height: 600px;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
             }
-            30% {
-                opacity: 1;
-                transform: scale(1);
+
+            .chat-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px;
+                text-align: center;
             }
-        }
 
-        .chat-input-container {
-            padding: 20px;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-        }
+            .chat-header h1 {
+                font-size: 24px;
+                font-weight: 600;
+            }
 
-        .chat-input-wrapper {
-            display: flex;
-            gap: 12px;
-        }
+            .chat-header p {
+                font-size: 14px;
+                opacity: 0.9;
+                margin-top: 4px;
+            }
 
-        .chat-input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
+            .chat-messages {
+                flex: 1;
+                overflow-y: auto;
+                padding: 20px;
+                background: #f8f9fa;
+            }
 
-        .chat-input:focus {
-            border-color: #667eea;
-        }
+            .message {
+                margin-bottom: 16px;
+                animation: slideIn 0.3s ease-out;
+            }
 
-        .chat-send-btn {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
-        }
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-        .chat-send-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-        }
+            .message-user {
+                text-align: right;
+            }
 
-        .chat-send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+            .message-bot {
+                text-align: left;
+            }
 
-        .error-message {
-            background: #fee;
-            color: #c33;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin: 10px 20px;
-            text-align: center;
-        }
+            .message-content {
+                display: inline-block;
+                padding: 12px 16px;
+                border-radius: 12px;
+                max-width: 80%;
+                word-wrap: break-word;
+            }
 
-        .escalation-notice {
-            background: #fef3cd;
-            color: #856404;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin: 10px 20px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1>AI Support Assistant</h1>
-            <p>Ask me anything about our platform</p>
-        </div>
+            .message-user .message-content {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
 
-        <div class="chat-messages" id="chatMessages">
-            <div class="message message-bot">
-                <div class="message-content">
-                    Hi! I'm your AI support assistant. I can help you with:
-                    <br><br>
-                    • Password and login issues
-                    <br>• Account settings and features
-                    <br>• Technical problems
-                    <br>• General questions
-                    <br><br>
-                    What can I help you with today?
+            .message-bot .message-content {
+                background: white;
+                color: #333;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .message-time {
+                font-size: 11px;
+                opacity: 0.6;
+                margin-top: 4px;
+            }
+
+            .typing-indicator {
+                display: none;
+                align-items: center;
+                gap: 4px;
+                padding: 12px 16px;
+                background: white;
+                border-radius: 12px;
+                display: inline-flex;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .typing-indicator.active {
+                display: inline-flex;
+            }
+
+            .typing-dot {
+                width: 8px;
+                height: 8px;
+                background: #667eea;
+                border-radius: 50%;
+                animation: typing 1.4s infinite;
+            }
+
+            .typing-dot:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .typing-dot:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+            @keyframes typing {
+                0%,
+                60%,
+                100% {
+                    opacity: 0.3;
+                    transform: scale(0.8);
+                }
+                30% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .chat-input-container {
+                padding: 20px;
+                background: white;
+                border-top: 1px solid #e0e0e0;
+            }
+
+            .chat-input-wrapper {
+                display: flex;
+                gap: 12px;
+            }
+
+            .chat-input {
+                flex: 1;
+                padding: 12px 16px;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                font-size: 15px;
+                outline: none;
+                transition: border-color 0.2s;
+            }
+
+            .chat-input:focus {
+                border-color: #667eea;
+            }
+
+            .chat-send-btn {
+                padding: 12px 24px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: transform 0.2s, opacity 0.2s;
+            }
+
+            .chat-send-btn:hover:not(:disabled) {
+                transform: translateY(-2px);
+            }
+
+            .chat-send-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .error-message {
+                background: #fee;
+                color: #c33;
+                padding: 12px 16px;
+                border-radius: 8px;
+                margin: 10px 20px;
+                text-align: center;
+            }
+
+            .escalation-notice {
+                background: #fef3cd;
+                color: #856404;
+                padding: 12px 16px;
+                border-radius: 8px;
+                margin: 10px 20px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>AI Support Assistant</h1>
+                <p>Ask me anything about our platform</p>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message message-bot">
+                    <div class="message-content">
+                        Hi! I'm your AI support assistant. I can help you with:
+                        <br /><br />
+                        • Password and login issues
+                        <br />• Account settings and features <br />• Technical
+                        problems <br />• General questions <br /><br />
+                        What can I help you with today?
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <input
+                        type="text"
+                        id="chatInput"
+                        class="chat-input"
+                        placeholder="Type your question here..."
+                        autocomplete="off"
+                    />
+                    <button id="sendBtn" class="chat-send-btn">Send</button>
                 </div>
             </div>
         </div>
 
-        <div class="chat-input-container">
-            <div class="chat-input-wrapper">
-                <input
-                    type="text"
-                    id="chatInput"
-                    class="chat-input"
-                    placeholder="Type your question here..."
-                    autocomplete="off"
-                />
-                <button id="sendBtn" class="chat-send-btn">
-                    Send
-                </button>
-            </div>
-        </div>
-    </div>
+        <script>
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('sendBtn');
+            let eventSource = null;
+            let isStreaming = false;
 
-    <script>
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        let eventSource = null;
-        let isStreaming = false;
+            // Add message to chat
+            function addMessage(content, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${
+                    isUser ? 'message-user' : 'message-bot'
+                }`;
 
-        // Add message to chat
-        function addMessage(content, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${isUser ? 'message-user' : 'message-bot'}`;
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = content;
 
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'message-content';
-            contentDiv.textContent = content;
+                messageDiv.appendChild(contentDiv);
+                chatMessages.appendChild(messageDiv);
+                scrollToBottom();
 
-            messageDiv.appendChild(contentDiv);
-            chatMessages.appendChild(messageDiv);
-            scrollToBottom();
+                return contentDiv;
+            }
 
-            return contentDiv;
-        }
+            // Add bot message with streaming support
+            function addBotMessage() {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message message-bot';
 
-        // Add bot message with streaming support
-        function addBotMessage() {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message message-bot';
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = '';
 
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'message-content';
-            contentDiv.textContent = '';
+                messageDiv.appendChild(contentDiv);
+                chatMessages.appendChild(messageDiv);
+                scrollToBottom();
 
-            messageDiv.appendChild(contentDiv);
-            chatMessages.appendChild(messageDiv);
-            scrollToBottom();
+                return contentDiv;
+            }
 
-            return contentDiv;
-        }
-
-        // Show typing indicator
-        function showTyping() {
-            const typingDiv = document.createElement('div');
-            typingDiv.id = 'typingIndicator';
-            typingDiv.className = 'message message-bot';
-            typingDiv.innerHTML = `
+            // Show typing indicator
+            function showTyping() {
+                const typingDiv = document.createElement('div');
+                typingDiv.id = 'typingIndicator';
+                typingDiv.className = 'message message-bot';
+                typingDiv.innerHTML = `
                 <div class="typing-indicator active">
                     <div class="typing-dot"></div>
                     <div class="typing-dot"></div>
                     <div class="typing-dot"></div>
                 </div>
             `;
-            chatMessages.appendChild(typingDiv);
-            scrollToBottom();
-        }
-
-        // Hide typing indicator
-        function hideTyping() {
-            const typingDiv = document.getElementById('typingIndicator');
-            if (typingDiv) {
-                typingDiv.remove();
+                chatMessages.appendChild(typingDiv);
+                scrollToBottom();
             }
-        }
 
-        // Show error message
-        function showError(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.textContent = message;
-            chatMessages.appendChild(errorDiv);
-            scrollToBottom();
+            // Hide typing indicator
+            function hideTyping() {
+                const typingDiv = document.getElementById('typingIndicator');
+                if (typingDiv) {
+                    typingDiv.remove();
+                }
+            }
 
-            setTimeout(() => errorDiv.remove(), 5000);
-        }
+            // Show error message
+            function showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = message;
+                chatMessages.appendChild(errorDiv);
+                scrollToBottom();
 
-        // Show escalation notice
-        function showEscalation(message) {
-            const noticeDiv = document.createElement('div');
-            noticeDiv.className = 'escalation-notice';
-            noticeDiv.textContent = message;
-            chatMessages.appendChild(noticeDiv);
-            scrollToBottom();
-        }
+                setTimeout(() => errorDiv.remove(), 5000);
+            }
 
-        // Scroll to bottom
-        function scrollToBottom() {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
+            // Show escalation notice
+            function showEscalation(message) {
+                const noticeDiv = document.createElement('div');
+                noticeDiv.className = 'escalation-notice';
+                noticeDiv.textContent = message;
+                chatMessages.appendChild(noticeDiv);
+                scrollToBottom();
+            }
 
-        // Send message
-        async function sendMessage() {
-            const question = chatInput.value.trim();
+            // Scroll to bottom
+            function scrollToBottom() {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
 
-            if (!question || isStreaming) return;
+            // Send message
+            async function sendMessage() {
+                const question = chatInput.value.trim();
 
-            // Add user message
-            addMessage(question, true);
-            chatInput.value = '';
+                if (!question || isStreaming) return;
 
-            // Show typing indicator
-            showTyping();
+                // Add user message
+                addMessage(question, true);
+                chatInput.value = '';
 
-            // Disable input
-            isStreaming = true;
-            sendBtn.disabled = true;
-            chatInput.disabled = true;
+                // Show typing indicator
+                showTyping();
 
-            try {
-                // Create bot message container
-                hideTyping();
-                const botMessageDiv = addBotMessage();
+                // Disable input
+                isStreaming = true;
+                sendBtn.disabled = true;
+                chatInput.disabled = true;
 
-                // Start streaming
-                const url = `/api/support-bot/stream?question=${encodeURIComponent(question)}`;
-                eventSource = new EventSource(url);
-
-                // Handle message chunks
-                eventSource.addEventListener('message', (event) => {
-                    botMessageDiv.textContent += event.data;
-                    scrollToBottom();
-                });
-
-                // Handle completion
-                eventSource.addEventListener('done', () => {
-                    cleanup();
-                });
-
-                // Handle errors
-                eventSource.onerror = (error) => {
-                    console.error('Stream error:', error);
+                try {
+                    // Create bot message container
                     hideTyping();
+                    const botMessageDiv = addBotMessage();
 
-                    // Check if it's an escalation response
-                    fetch(url.replace('/stream', '/answer'), {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        },
-                        body: JSON.stringify({ question }),
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.requires_escalation) {
-                            showEscalation(data.message);
-                        } else {
-                            showError('Connection error. Please try again.');
-                        }
-                    })
-                    .catch(() => {
-                        showError('Connection error. Please try again.');
+                    // Start streaming
+                    const url = `/api/support-bot/stream?question=${encodeURIComponent(
+                        question
+                    )}`;
+                    eventSource = new EventSource(url);
+
+                    // Handle message chunks
+                    eventSource.addEventListener('message', (event) => {
+                        botMessageDiv.textContent += event.data;
+                        scrollToBottom();
                     });
 
+                    // Handle completion
+                    eventSource.addEventListener('done', () => {
+                        cleanup();
+                    });
+
+                    // Handle errors
+                    eventSource.onerror = (error) => {
+                        console.error('Stream error:', error);
+                        hideTyping();
+
+                        // Check if it's an escalation response
+                        fetch(url.replace('/stream', '/answer'), {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content,
+                            },
+                            body: JSON.stringify({ question }),
+                        })
+                            .then((res) => res.json())
+                            .then((data) => {
+                                if (data.requires_escalation) {
+                                    showEscalation(data.message);
+                                } else {
+                                    showError(
+                                        'Connection error. Please try again.'
+                                    );
+                                }
+                            })
+                            .catch(() => {
+                                showError(
+                                    'Connection error. Please try again.'
+                                );
+                            });
+
+                        cleanup();
+                    };
+                } catch (error) {
+                    console.error('Send message error:', error);
+                    hideTyping();
+                    showError('Failed to send message. Please try again.');
                     cleanup();
-                };
-            } catch (error) {
-                console.error('Send message error:', error);
-                hideTyping();
-                showError('Failed to send message. Please try again.');
-                cleanup();
+                }
             }
-        }
 
-        // Cleanup
-        function cleanup() {
-            if (eventSource) {
-                eventSource.close();
-                eventSource = null;
+            // Cleanup
+            function cleanup() {
+                if (eventSource) {
+                    eventSource.close();
+                    eventSource = null;
+                }
+                isStreaming = false;
+                sendBtn.disabled = false;
+                chatInput.disabled = false;
+                chatInput.focus();
             }
-            isStreaming = false;
-            sendBtn.disabled = false;
-            chatInput.disabled = false;
+
+            // Event listeners
+            sendBtn.addEventListener('click', sendMessage);
+
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            // Cleanup on page unload
+            window.addEventListener('beforeunload', cleanup);
+
+            // Focus input on load
             chatInput.focus();
-        }
-
-        // Event listeners
-        sendBtn.addEventListener('click', sendMessage);
-
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-
-        // Cleanup on page unload
-        window.addEventListener('beforeunload', cleanup);
-
-        // Focus input on load
-        chatInput.focus();
-    </script>
-</body>
+        </script>
+    </body>
 </html>
 ```
 
@@ -2160,18 +2169,18 @@ Schema::table('support_tickets', function (Blueprint $table) {
 
 Explore related Mindwave features:
 
-- **[PromptComposer](/docs/core/prompt-composer)** - Advanced prompt management and token optimization
-- **[Streaming](/docs/core/streaming)** - Production SSE streaming patterns
-- **[Observability](/docs/observability/overview)** - Cost tracking and performance monitoring
-- **[TNTSearch](/docs/rag/tntsearch-source)** - Full-text search configuration and optimization
-- **[Context Pipeline](/docs/rag/context-pipeline)** - Multi-source context aggregation
+-   **[PromptComposer](/docs/core/prompt-composer)** - Advanced prompt management and token optimization
+-   **[Streaming](/docs/core/streaming)** - Production SSE streaming patterns
+-   **[Observability](/docs/observability/overview)** - Cost tracking and performance monitoring
+-   **[TNTSearch](/docs/rag/tntsearch-source)** - Full-text search configuration and optimization
+-   **[Context Pipeline](/docs/rag/context-pipeline)** - Multi-source context aggregation
 
 ## Resources
 
-- [Example Code Repository](https://github.com/mindwave/examples/tree/main/support-bot)
-- [API Reference](/docs/reference/api)
-- [Community Discord](https://discord.gg/mindwave)
-- [Production RAG Patterns](/docs/advanced/rag-patterns)
+-   [Example Code Repository](https://github.com/mindwave/examples/tree/main/support-bot)
+-   [API Reference](/docs/reference/api)
+-   [Community Discord](https://discord.gg/mindwave)
+-   [Production RAG Patterns](/docs/advanced/rag-patterns)
 
 ---
 

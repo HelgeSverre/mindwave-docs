@@ -6,15 +6,16 @@ This guide covers upgrading to Mindwave v1.0 and staying current with future rel
 
 Mindwave v1.0 represents a **strategic pivot** from an experimental agent/crew framework to production-grade AI utilities for Laravel. This guide will help you:
 
-- Understand the architectural changes
-- Migrate from pre-v1.0 alpha versions (if applicable)
-- Upgrade Laravel versions alongside Mindwave
-- Adopt new v1.0 features
+-   Understand the architectural changes
+-   Migrate from pre-v1.0 alpha versions (if applicable)
+-   Upgrade Laravel versions alongside Mindwave
+-   Adopt new v1.0 features
 
 **Estimated upgrade time:**
-- **Fresh installation:** 10-15 minutes
-- **From v0.0.x alpha (agent/crew):** 30-60 minutes (requires code migration)
-- **Laravel 10 → 11 upgrade:** 20-30 minutes (see Laravel docs)
+
+-   **Fresh installation:** 10-15 minutes
+-   **From v0.0.x alpha (agent/crew):** 30-60 minutes (requires code migration)
+-   **Laravel 10 → 11 upgrade:** 20-30 minutes (see Laravel docs)
 
 ::: danger IMPORTANT
 Always backup your database and codebase before upgrading. Test upgrades in a staging environment first.
@@ -27,16 +28,18 @@ Always backup your database and codebase before upgrading. Test upgrades in a st
 Mindwave v1.0 pivoted from being "yet another agent framework" to **production AI utilities**:
 
 **Removed (v0.0.x alpha):**
-- ❌ Agent orchestration framework
-- ❌ Crew-based multi-agent systems
-- ❌ Complex workflow engines
-- ❌ Agent/Crew classes and interfaces
+
+-   ❌ Agent orchestration framework
+-   ❌ Crew-based multi-agent systems
+-   ❌ Complex workflow engines
+-   ❌ Agent/Crew classes and interfaces
 
 **Added (v1.0):**
-- ✅ **PromptComposer** - Auto-fit long prompts to context windows
-- ✅ **Streaming SSE** - Real-time LLM responses with Server-Sent Events
-- ✅ **OpenTelemetry Tracing** - Observability with database storage and OTLP export
-- ✅ **Context Discovery** - TNTSearch-powered ad-hoc RAG from DB/CSV
+
+-   ✅ **PromptComposer** - Auto-fit long prompts to context windows
+-   ✅ **Streaming SSE** - Real-time LLM responses with Server-Sent Events
+-   ✅ **OpenTelemetry Tracing** - Observability with database storage and OTLP export
+-   ✅ **Context Discovery** - TNTSearch-powered ad-hoc RAG from DB/CSV
 
 ### Philosophy Change
 
@@ -52,11 +55,11 @@ The new Mindwave focuses on practical tools Laravel developers actually need whe
 
 ### Mindwave v1.0
 
-| Requirement | Version |
-|-------------|---------|
-| PHP | `^8.2 \| ^8.3 \| ^8.4` |
-| Laravel | `^11.0` |
-| Extensions | `ext-zip` |
+| Requirement | Version                |
+| ----------- | ---------------------- |
+| PHP         | `^8.2 \| ^8.3 \| ^8.4` |
+| Laravel     | `^11.0`                |
+| Extensions  | `ext-zip`              |
 
 ### Laravel Version Support
 
@@ -131,11 +134,12 @@ php artisan vendor:publish --tag="mindwave-config"
 ```
 
 This creates:
-- `config/mindwave-llm.php` - LLM provider settings
-- `config/mindwave-tracing.php` - OpenTelemetry tracing
-- `config/mindwave-context.php` - Context discovery settings
-- `config/mindwave-embeddings.php` - Embedding providers (optional)
-- `config/mindwave-vectorstore.php` - Vector stores (optional)
+
+-   `config/mindwave-llm.php` - LLM provider settings
+-   `config/mindwave-tracing.php` - OpenTelemetry tracing
+-   `config/mindwave-context.php` - Context discovery settings
+-   `config/mindwave-embeddings.php` - Embedding providers (optional)
+-   `config/mindwave-vectorstore.php` - Vector stores (optional)
 
 #### Step 4: Run Migrations
 
@@ -146,9 +150,10 @@ php artisan migrate
 ```
 
 This creates:
-- `mindwave_traces` - OpenTelemetry trace storage
-- `mindwave_spans` - Span data for traces
-- `mindwave_span_messages` - LLM message content (optional)
+
+-   `mindwave_traces` - OpenTelemetry trace storage
+-   `mindwave_spans` - Span data for traces
+-   `mindwave_span_messages` - LLM message content (optional)
 
 #### Step 5: Migrate Agent Code to New Patterns
 
@@ -210,12 +215,12 @@ For each agent/crew implementation, ask:
 
 **Example transformations:**
 
-| Old (Agent/Crew) | New (v1.0) | Notes |
-|------------------|------------|-------|
-| Agent with search tool | `TntSearchSource::fromEloquent()` | Replace tool with context source |
-| Multi-agent crew | Sequential LLM calls | Chain prompts instead of agents |
-| Agent memory | Context sections + database | Store conversation in DB, load via context |
-| Agent tools | Direct API calls | Call APIs directly, no wrapper needed |
+| Old (Agent/Crew)       | New (v1.0)                        | Notes                                      |
+| ---------------------- | --------------------------------- | ------------------------------------------ |
+| Agent with search tool | `TntSearchSource::fromEloquent()` | Replace tool with context source           |
+| Multi-agent crew       | Sequential LLM calls              | Chain prompts instead of agents            |
+| Agent memory           | Context sections + database       | Store conversation in DB, load via context |
+| Agent tools            | Direct API calls                  | Call APIs directly, no wrapper needed      |
 
 #### Step 6: Update LLM Calls
 
@@ -253,14 +258,15 @@ grep -r "Task" app/ | grep "Mindwave"
 ```
 
 Classes removed in v1.0:
-- `Mindwave\Mindwave\Agents\Agent`
-- `Mindwave\Mindwave\Agents\AgentExecutor`
-- `Mindwave\Mindwave\Agents\AgentInterface`
-- `Mindwave\Mindwave\Agents\Actions\*`
-- `Mindwave\Mindwave\Crew\Crew`
-- `Mindwave\Mindwave\Crew\Agent`
-- `Mindwave\Mindwave\Crew\Task`
-- `Mindwave\Mindwave\Crew\AgentTools`
+
+-   `Mindwave\Mindwave\Agents\Agent`
+-   `Mindwave\Mindwave\Agents\AgentExecutor`
+-   `Mindwave\Mindwave\Agents\AgentInterface`
+-   `Mindwave\Mindwave\Agents\Actions\*`
+-   `Mindwave\Mindwave\Crew\Crew`
+-   `Mindwave\Mindwave\Crew\Agent`
+-   `Mindwave\Mindwave\Crew\Task`
+-   `Mindwave\Mindwave\Crew\AgentTools`
 
 #### Step 8: Test Thoroughly
 
@@ -269,14 +275,14 @@ Create a test checklist:
 ```markdown
 ## Upgrade Test Checklist
 
-- [ ] Application boots without errors
-- [ ] LLM calls work (test with simple prompt)
-- [ ] Config files load correctly
-- [ ] Migrations ran successfully
-- [ ] No references to Agent/Crew classes
-- [ ] Existing features still work
-- [ ] Unit tests pass
-- [ ] Integration tests pass
+-   [ ] Application boots without errors
+-   [ ] LLM calls work (test with simple prompt)
+-   [ ] Config files load correctly
+-   [ ] Migrations ran successfully
+-   [ ] No references to Agent/Crew classes
+-   [ ] Existing features still work
+-   [ ] Unit tests pass
+-   [ ] Integration tests pass
 ```
 
 Run your tests:
@@ -422,9 +428,10 @@ Mindwave::prompt()
 ```
 
 **Benefits:**
-- No more context window errors
-- Smart priority-based trimming
-- Multiple shrinker strategies (summarize, truncate, compress)
+
+-   No more context window errors
+-   Smart priority-based trimming
+-   Multiple shrinker strategies (summarize, truncate, compress)
 
 See: [PromptComposer Guide](/docs/core/prompt-composer)
 
@@ -445,10 +452,11 @@ $slow = Span::where('duration', '>', 5_000_000_000)->get();
 ```
 
 **Benefits:**
-- Automatic cost tracking
-- Performance monitoring
-- Export to Jaeger/Grafana/Honeycomb
-- PII protection with configurable message capture
+
+-   Automatic cost tracking
+-   Performance monitoring
+-   Export to Jaeger/Grafana/Honeycomb
+-   PII protection with configurable message capture
 
 **Artisan commands:**
 
@@ -485,15 +493,16 @@ Route::get('/chat', function (Request $request) {
 
 ```javascript
 const stream = new EventSource('/chat?message=' + encodeURIComponent(question));
-stream.onmessage = e => output.textContent += e.data;
+stream.onmessage = (e) => (output.textContent += e.data);
 stream.addEventListener('done', () => stream.close());
 ```
 
 **Benefits:**
-- Production-ready SSE setup
-- Proper headers for Nginx/Apache
-- Connection monitoring
-- Error handling and retry logic
+
+-   Production-ready SSE setup
+-   Proper headers for Nginx/Apache
+-   Connection monitoring
+-   Error handling and retry logic
 
 See: [Streaming Guide](/docs/streaming)
 
@@ -518,11 +527,12 @@ Mindwave::prompt()
 ```
 
 **Benefits:**
-- No external services (pure PHP + SQLite)
-- Fast ephemeral indexing
-- Multiple sources (Eloquent, CSV, arrays, vector stores)
-- BM25 ranking
-- Auto-query extraction
+
+-   No external services (pure PHP + SQLite)
+-   Fast ephemeral indexing
+-   Multiple sources (Eloquent, CSV, arrays, vector stores)
+-   BM25 ranking
+-   Auto-query extraction
 
 **Artisan commands:**
 
@@ -578,9 +588,9 @@ If you're still on Laravel 10, upgrade Laravel first:
 
 **Common Laravel 11 upgrade issues:**
 
-- **Config consolidation** - Many config files merged into `bootstrap/app.php`
-- **Middleware changes** - Route middleware registration changed
-- **Removed helpers** - Some deprecated helpers removed
+-   **Config consolidation** - Many config files merged into `bootstrap/app.php`
+-   **Middleware changes** - Route middleware registration changed
+-   **Removed helpers** - Some deprecated helpers removed
 
 Test everything before upgrading Mindwave.
 
@@ -836,15 +846,15 @@ If you're doing a fresh installation, there are no breaking changes. The tables 
 
 These classes/interfaces were **removed** (not deprecated):
 
-| Removed | Replacement |
-|---------|-------------|
-| `Mindwave\Mindwave\Agents\Agent` | `Mindwave::prompt()` + `PromptComposer` |
-| `Mindwave\Mindwave\Agents\AgentExecutor` | Direct LLM calls via `Mindwave::llm()` |
-| `Mindwave\Mindwave\Agents\AgentInterface` | N/A - no longer needed |
-| `Mindwave\Mindwave\Crew\Crew` | Sequential `Mindwave::prompt()` calls |
-| `Mindwave\Mindwave\Crew\Agent` | `Mindwave::prompt()` with system prompts |
-| `Mindwave\Mindwave\Crew\Task` | Direct LLM calls |
-| `Mindwave\Mindwave\Crew\AgentTools` | Context sources or direct API calls |
+| Removed                                   | Replacement                              |
+| ----------------------------------------- | ---------------------------------------- |
+| `Mindwave\Mindwave\Agents\Agent`          | `Mindwave::prompt()` + `PromptComposer`  |
+| `Mindwave\Mindwave\Agents\AgentExecutor`  | Direct LLM calls via `Mindwave::llm()`   |
+| `Mindwave\Mindwave\Agents\AgentInterface` | N/A - no longer needed                   |
+| `Mindwave\Mindwave\Crew\Crew`             | Sequential `Mindwave::prompt()` calls    |
+| `Mindwave\Mindwave\Crew\Agent`            | `Mindwave::prompt()` with system prompts |
+| `Mindwave\Mindwave\Crew\Task`             | Direct LLM calls                         |
+| `Mindwave\Mindwave\Crew\AgentTools`       | Context sources or direct API calls      |
 
 ### Current Deprecations (v1.0)
 
@@ -1173,11 +1183,11 @@ If you encounter issues:
 
 1. Check [GitHub Issues](https://github.com/helgesverre/mindwave/issues)
 2. Open new issue with:
-   - Laravel version
-   - PHP version
-   - Mindwave version (old and new)
-   - Error message
-   - Stack trace
+    - Laravel version
+    - PHP version
+    - Mindwave version (old and new)
+    - Error message
+    - Stack trace
 
 ---
 
@@ -1191,60 +1201,69 @@ After upgrading, verify everything works:
 ## Mindwave v1.0 Upgrade Verification
 
 ### Installation
-- [ ] Composer update completed
-- [ ] No dependency conflicts
-- [ ] Service provider registered
-- [ ] Configs published successfully
+
+-   [ ] Composer update completed
+-   [ ] No dependency conflicts
+-   [ ] Service provider registered
+-   [ ] Configs published successfully
 
 ### Configuration
-- [ ] API keys configured in .env
-- [ ] LLM driver set (MINDWAVE_LLM)
-- [ ] Tracing enabled (if desired)
-- [ ] Config cache cleared
+
+-   [ ] API keys configured in .env
+-   [ ] LLM driver set (MINDWAVE_LLM)
+-   [ ] Tracing enabled (if desired)
+-   [ ] Config cache cleared
 
 ### Database
-- [ ] Migrations ran successfully
-- [ ] mindwave_traces table exists
-- [ ] mindwave_spans table exists
-- [ ] mindwave_span_messages table exists (if capture_messages enabled)
+
+-   [ ] Migrations ran successfully
+-   [ ] mindwave_traces table exists
+-   [ ] mindwave_spans table exists
+-   [ ] mindwave_span_messages table exists (if capture_messages enabled)
 
 ### Code Migration (if from v0.0.x)
-- [ ] No references to Agent class
-- [ ] No references to Crew class
-- [ ] No references to Task class
-- [ ] All agent code migrated to PromptComposer pattern
-- [ ] Tests updated
+
+-   [ ] No references to Agent class
+-   [ ] No references to Crew class
+-   [ ] No references to Task class
+-   [ ] All agent code migrated to PromptComposer pattern
+-   [ ] Tests updated
 
 ### Feature Testing
-- [ ] Basic LLM call works (Mindwave::llm()->chat())
-- [ ] PromptComposer works (Mindwave::prompt()->fit()->run())
-- [ ] Streaming works (if implemented)
-- [ ] Tracing captures data (check database)
-- [ ] Context discovery works (if implemented)
+
+-   [ ] Basic LLM call works (Mindwave::llm()->chat())
+-   [ ] PromptComposer works (Mindwave::prompt()->fit()->run())
+-   [ ] Streaming works (if implemented)
+-   [ ] Tracing captures data (check database)
+-   [ ] Context discovery works (if implemented)
 
 ### Performance
-- [ ] No significant performance regression
-- [ ] LLM response times acceptable
-- [ ] Database queries efficient
-- [ ] Tracing overhead minimal
+
+-   [ ] No significant performance regression
+-   [ ] LLM response times acceptable
+-   [ ] Database queries efficient
+-   [ ] Tracing overhead minimal
 
 ### Monitoring
-- [ ] Tracing data visible in database
-- [ ] OTLP export working (if enabled)
-- [ ] Cost tracking accurate
-- [ ] Artisan commands work (mindwave:trace-stats, etc.)
+
+-   [ ] Tracing data visible in database
+-   [ ] OTLP export working (if enabled)
+-   [ ] Cost tracking accurate
+-   [ ] Artisan commands work (mindwave:trace-stats, etc.)
 
 ### Documentation
-- [ ] Team aware of breaking changes
-- [ ] New patterns documented in codebase
-- [ ] README updated (if applicable)
+
+-   [ ] Team aware of breaking changes
+-   [ ] New patterns documented in codebase
+-   [ ] README updated (if applicable)
 
 ### Production
-- [ ] Tested in staging environment
-- [ ] Deployment plan reviewed
-- [ ] Rollback plan documented
-- [ ] Monitoring alerts configured
-- [ ] On-call engineer briefed
+
+-   [ ] Tested in staging environment
+-   [ ] Deployment plan reviewed
+-   [ ] Rollback plan documented
+-   [ ] Monitoring alerts configured
+-   [ ] On-call engineer briefed
 ```
 
 ### Verification Commands
@@ -1328,36 +1347,39 @@ echo "LLM call: {$elapsed}s\n"; // Depends on provider, typically 1-3s
 
 Mindwave follows [Semantic Versioning](https://semver.org/):
 
-- **Major (x.0.0)** - Breaking changes
-- **Minor (1.x.0)** - New features (backward compatible)
-- **Patch (1.0.x)** - Bug fixes (backward compatible)
+-   **Major (x.0.0)** - Breaking changes
+-   **Minor (1.x.0)** - New features (backward compatible)
+-   **Patch (1.0.x)** - Bug fixes (backward compatible)
 
 ### Update Strategy
 
 **Patch updates (1.0.x):**
-- Safe to update anytime
-- No breaking changes
-- Update frequently
+
+-   Safe to update anytime
+-   No breaking changes
+-   Update frequently
 
 ```bash
 composer update mindwave/mindwave
 ```
 
 **Minor updates (1.x.0):**
-- New features added
-- No breaking changes
-- Review release notes
-- Test in staging
+
+-   New features added
+-   No breaking changes
+-   Review release notes
+-   Test in staging
 
 ```bash
 composer require mindwave/mindwave:^1.1
 ```
 
 **Major updates (x.0.0):**
-- May contain breaking changes
-- Read upgrade guide carefully
-- Test thoroughly
-- Plan deployment
+
+-   May contain breaking changes
+-   Read upgrade guide carefully
+-   Test thoroughly
+-   Plan deployment
 
 ```bash
 composer require mindwave/mindwave:^2.0
@@ -1401,7 +1423,7 @@ Not:
 ```json
 {
     "require": {
-        "mindwave/mindwave": "^1.0"  // Allows 1.x updates
+        "mindwave/mindwave": "^1.0" // Allows 1.x updates
     }
 }
 ```
@@ -1409,8 +1431,9 @@ Not:
 **3. Review changelogs**
 
 Before upgrading, read:
-- [CHANGELOG.md](https://github.com/helgesverre/mindwave/blob/main/CHANGELOG.md)
-- [GitHub Releases](https://github.com/helgesverre/mindwave/releases)
+
+-   [CHANGELOG.md](https://github.com/helgesverre/mindwave/blob/main/CHANGELOG.md)
+-   [GitHub Releases](https://github.com/helgesverre/mindwave/releases)
 
 **4. Keep Laravel current**
 
@@ -1426,39 +1449,42 @@ Watch for deprecation warnings in your logs. Future versions may remove deprecat
 
 ### Resources
 
-- **Documentation:** [https://mindwave.no](https://mindwave.no)
-- **GitHub Issues:** [https://github.com/helgesverre/mindwave/issues](https://github.com/helgesverre/mindwave/issues)
-- **GitHub Discussions:** [https://github.com/helgesverre/mindwave/discussions](https://github.com/helgesverre/mindwave/discussions)
+-   **Documentation:** [https://mindwave.no](https://mindwave.no)
+-   **GitHub Issues:** [https://github.com/helgesverre/mindwave/issues](https://github.com/helgesverre/mindwave/issues)
+-   **GitHub Discussions:** [https://github.com/helgesverre/mindwave/discussions](https://github.com/helgesverre/mindwave/discussions)
 
 ### Reporting Issues
 
 When reporting upgrade issues, include:
 
 1. **Environment:**
-   - Laravel version: `php artisan --version`
-   - PHP version: `php -v`
-   - Mindwave version: `composer show mindwave/mindwave`
+
+    - Laravel version: `php artisan --version`
+    - PHP version: `php -v`
+    - Mindwave version: `composer show mindwave/mindwave`
 
 2. **Error details:**
-   - Full error message
-   - Stack trace
-   - Relevant logs (`storage/logs/laravel.log`)
+
+    - Full error message
+    - Stack trace
+    - Relevant logs (`storage/logs/laravel.log`)
 
 3. **Steps to reproduce:**
-   - What you were trying to do
-   - Commands you ran
-   - Expected vs actual behavior
+
+    - What you were trying to do
+    - Commands you ran
+    - Expected vs actual behavior
 
 4. **Configuration:**
-   - Relevant `.env` entries (redact secrets!)
-   - Config file snippets
+    - Relevant `.env` entries (redact secrets!)
+    - Config file snippets
 
 ### Community Support
 
 Join the community:
 
-- **GitHub Discussions** - Ask questions, share tips
-- **Twitter** - Follow [@helgesverre](https://twitter.com/helgesverre) for updates
+-   **GitHub Discussions** - Ask questions, share tips
+-   **Twitter** - Follow [@helgesverre](https://twitter.com/helgesverre) for updates
 
 ---
 
@@ -1516,4 +1542,4 @@ After upgrading:
 
 ---
 
-*Last updated: November 2025*
+_Last updated: November 2025_

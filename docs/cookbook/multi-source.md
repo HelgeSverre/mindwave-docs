@@ -7,19 +7,20 @@ This cookbook demonstrates building a production-ready hybrid RAG system that co
 ### What We're Building
 
 A customer support AI that intelligently pulls context from:
-- **TNTSearch**: Fast keyword search over product documentation
-- **Vector Store**: Semantic search through embedded knowledge base
-- **Eloquent**: Database queries for company policies and procedures
-- **Static Sources**: Frequently Asked Questions and common responses
+
+-   **TNTSearch**: Fast keyword search over product documentation
+-   **Vector Store**: Semantic search through embedded knowledge base
+-   **Eloquent**: Database queries for company policies and procedures
+-   **Static Sources**: Frequently Asked Questions and common responses
 
 ### Features Included
 
-- Hybrid search combining BM25 and semantic similarity
-- Intelligent deduplication across sources
-- Relevance-based ranking and scoring
-- Token-aware context injection
-- Source attribution and confidence tracking
-- Fallback strategies for reliability
+-   Hybrid search combining BM25 and semantic similarity
+-   Intelligent deduplication across sources
+-   Relevance-based ranking and scoring
+-   Token-aware context injection
+-   Source attribution and confidence tracking
+-   Fallback strategies for reliability
 
 ### Prerequisites
 
@@ -94,28 +95,32 @@ User Query
 ### Source Types Explained
 
 **TNTSearch (BM25)**
-- **Best for**: Exact keyword matches, technical terms, product codes
-- **Speed**: Very fast (in-memory index)
-- **Cost**: Minimal (no API calls)
-- **Use case**: Product documentation, technical specs
+
+-   **Best for**: Exact keyword matches, technical terms, product codes
+-   **Speed**: Very fast (in-memory index)
+-   **Cost**: Minimal (no API calls)
+-   **Use case**: Product documentation, technical specs
 
 **Vector Store (Semantic)**
-- **Best for**: Conceptual similarity, natural language
-- **Speed**: Fast (optimized vector search)
-- **Cost**: Embedding API costs
-- **Use case**: Knowledge base articles, troubleshooting guides
+
+-   **Best for**: Conceptual similarity, natural language
+-   **Speed**: Fast (optimized vector search)
+-   **Cost**: Embedding API costs
+-   **Use case**: Knowledge base articles, troubleshooting guides
 
 **Eloquent (Database)**
-- **Best for**: Structured data, real-time information
-- **Speed**: Fast (indexed queries)
-- **Cost**: Database resources
-- **Use case**: Company policies, user data, inventory
+
+-   **Best for**: Structured data, real-time information
+-   **Speed**: Fast (indexed queries)
+-   **Cost**: Database resources
+-   **Use case**: Company policies, user data, inventory
 
 **Static Sources**
-- **Best for**: Fixed content, common questions
-- **Speed**: Instant (in-memory)
-- **Cost**: None
-- **Use case**: FAQs, standard responses, legal disclaimers
+
+-   **Best for**: Fixed content, common questions
+-   **Speed**: Instant (in-memory)
+-   **Cost**: None
+-   **Use case**: FAQs, standard responses, legal disclaimers
 
 ### Deduplication and Ranking
 
@@ -1447,360 +1452,370 @@ Create a Vue component for displaying source attribution:
 ```vue
 <!-- resources/js/components/MultiSourceAnswer.vue -->
 <template>
-  <div class="multi-source-answer">
-    <!-- Answer Display -->
-    <div class="answer-card">
-      <div class="answer-header">
-        <h3>Answer</h3>
-        <span class="context-badge">
-          {{ contextUsed }} sources used
-        </span>
-      </div>
-
-      <div class="answer-content" v-html="formattedAnswer"></div>
-    </div>
-
-    <!-- Source Attribution -->
-    <div class="sources-section">
-      <h4>Sources</h4>
-
-      <div class="sources-grid">
-        <div
-          v-for="source in sources"
-          :key="source.id"
-          class="source-card"
-          :class="`source-${source.source}`"
-        >
-          <div class="source-header">
-            <span class="source-icon">
-              {{ getSourceIcon(source.source) }}
-            </span>
-            <span class="source-name">{{ source.title }}</span>
-          </div>
-
-          <div class="source-meta">
-            <span class="source-type">{{ formatSourceType(source.source) }}</span>
-            <span class="source-score">
-              {{ formatScore(source.score) }}% relevant
-            </span>
-          </div>
-
-          <div v-if="source.category" class="source-category">
-            {{ source.category }}
-          </div>
-
-          <a
-            v-if="source.url"
-            :href="source.url"
-            class="source-link"
-            target="_blank"
-          >
-            View original →
-          </a>
-
-          <span v-if="source.truncated" class="truncated-badge">
-            Truncated
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pipeline Statistics -->
-    <div v-if="showStats" class="stats-section">
-      <h4>Pipeline Statistics</h4>
-
-      <div class="stats-grid">
-        <div class="stat-item">
-          <span class="stat-label">Sources Configured</span>
-          <span class="stat-value">{{ pipelineStats.sources }}</span>
-        </div>
-
-        <div class="stat-item">
-          <span class="stat-label">Deduplication Threshold</span>
-          <span class="stat-value">{{ pipelineStats.deduplication_threshold }}</span>
-        </div>
-
-        <div class="stat-item">
-          <span class="stat-label">Token Budget</span>
-          <span class="stat-value">{{ pipelineStats.token_budget }}</span>
-        </div>
-      </div>
-
-      <div class="weights-section">
-        <h5>Source Weights</h5>
-        <div class="weights-list">
-          <div
-            v-for="(weight, source) in pipelineStats.weights"
-            :key="source"
-            class="weight-item"
-          >
-            <span class="weight-source">{{ formatSourceType(source) }}</span>
-            <div class="weight-bar">
-              <div
-                class="weight-fill"
-                :style="{ width: `${(weight / maxWeight) * 100}%` }"
-              ></div>
+    <div class="multi-source-answer">
+        <!-- Answer Display -->
+        <div class="answer-card">
+            <div class="answer-header">
+                <h3>Answer</h3>
+                <span class="context-badge">
+                    {{ contextUsed }} sources used
+                </span>
             </div>
-            <span class="weight-value">{{ weight }}</span>
-          </div>
+
+            <div class="answer-content" v-html="formattedAnswer"></div>
         </div>
-      </div>
+
+        <!-- Source Attribution -->
+        <div class="sources-section">
+            <h4>Sources</h4>
+
+            <div class="sources-grid">
+                <div
+                    v-for="source in sources"
+                    :key="source.id"
+                    class="source-card"
+                    :class="`source-${source.source}`"
+                >
+                    <div class="source-header">
+                        <span class="source-icon">
+                            {{ getSourceIcon(source.source) }}
+                        </span>
+                        <span class="source-name">{{ source.title }}</span>
+                    </div>
+
+                    <div class="source-meta">
+                        <span class="source-type">{{
+                            formatSourceType(source.source)
+                        }}</span>
+                        <span class="source-score">
+                            {{ formatScore(source.score) }}% relevant
+                        </span>
+                    </div>
+
+                    <div v-if="source.category" class="source-category">
+                        {{ source.category }}
+                    </div>
+
+                    <a
+                        v-if="source.url"
+                        :href="source.url"
+                        class="source-link"
+                        target="_blank"
+                    >
+                        View original →
+                    </a>
+
+                    <span v-if="source.truncated" class="truncated-badge">
+                        Truncated
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pipeline Statistics -->
+        <div v-if="showStats" class="stats-section">
+            <h4>Pipeline Statistics</h4>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Sources Configured</span>
+                    <span class="stat-value">{{ pipelineStats.sources }}</span>
+                </div>
+
+                <div class="stat-item">
+                    <span class="stat-label">Deduplication Threshold</span>
+                    <span class="stat-value">{{
+                        pipelineStats.deduplication_threshold
+                    }}</span>
+                </div>
+
+                <div class="stat-item">
+                    <span class="stat-label">Token Budget</span>
+                    <span class="stat-value">{{
+                        pipelineStats.token_budget
+                    }}</span>
+                </div>
+            </div>
+
+            <div class="weights-section">
+                <h5>Source Weights</h5>
+                <div class="weights-list">
+                    <div
+                        v-for="(weight, source) in pipelineStats.weights"
+                        :key="source"
+                        class="weight-item"
+                    >
+                        <span class="weight-source">{{
+                            formatSourceType(source)
+                        }}</span>
+                        <div class="weight-bar">
+                            <div
+                                class="weight-fill"
+                                :style="{
+                                    width: `${(weight / maxWeight) * 100}%`,
+                                }"
+                            ></div>
+                        </div>
+                        <span class="weight-value">{{ weight }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup>
 import { computed } from 'vue';
 
 const props = defineProps({
-  answer: String,
-  sources: Array,
-  contextUsed: Number,
-  pipelineStats: Object,
-  showStats: {
-    type: Boolean,
-    default: false
-  }
+    answer: String,
+    sources: Array,
+    contextUsed: Number,
+    pipelineStats: Object,
+    showStats: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const formattedAnswer = computed(() => {
-  // Simple markdown to HTML conversion
-  return props.answer
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n/g, '<br>');
+    // Simple markdown to HTML conversion
+    return props.answer
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
 });
 
 const maxWeight = computed(() => {
-  if (!props.pipelineStats?.weights) return 1;
-  return Math.max(...Object.values(props.pipelineStats.weights));
+    if (!props.pipelineStats?.weights) return 1;
+    return Math.max(...Object.values(props.pipelineStats.weights));
 });
 
 function getSourceIcon(source) {
-  const icons = {
-    vector: '🔍',
-    tntsearch: '⚡',
-    eloquent: '📊',
-    static: '📋'
-  };
-  return icons[source] || '📄';
+    const icons = {
+        vector: '🔍',
+        tntsearch: '⚡',
+        eloquent: '📊',
+        static: '📋',
+    };
+    return icons[source] || '📄';
 }
 
 function formatSourceType(source) {
-  const types = {
-    vector: 'Vector Search',
-    tntsearch: 'TNTSearch',
-    eloquent: 'Database',
-    static: 'FAQ'
-  };
-  return types[source] || source;
+    const types = {
+        vector: 'Vector Search',
+        tntsearch: 'TNTSearch',
+        eloquent: 'Database',
+        static: 'FAQ',
+    };
+    return types[source] || source;
 }
 
 function formatScore(score) {
-  return Math.round(score * 100);
+    return Math.round(score * 100);
 }
 </script>
 
 <style scoped>
 .multi-source-answer {
-  max-width: 1200px;
-  margin: 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .answer-card {
-  background: white;
-  border-radius: 8px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .answer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
 .context-badge {
-  background: #e3f2fd;
-  color: #1976d2;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 14px;
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 14px;
 }
 
 .answer-content {
-  line-height: 1.6;
-  color: #333;
+    line-height: 1.6;
+    color: #333;
 }
 
 .sources-section {
-  margin-bottom: 24px;
+    margin-bottom: 24px;
 }
 
 .sources-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
 }
 
 .source-card {
-  background: white;
-  border-radius: 8px;
-  padding: 16px;
-  border-left: 4px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    border-left: 4px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .source-card.source-vector {
-  border-left-color: #4caf50;
+    border-left-color: #4caf50;
 }
 
 .source-card.source-tntsearch {
-  border-left-color: #ff9800;
+    border-left-color: #ff9800;
 }
 
 .source-card.source-eloquent {
-  border-left-color: #2196f3;
+    border-left-color: #2196f3;
 }
 
 .source-card.source-static {
-  border-left-color: #9c27b0;
+    border-left-color: #9c27b0;
 }
 
 .source-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
 }
 
 .source-icon {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .source-name {
-  font-weight: 600;
-  color: #333;
+    font-weight: 600;
+    color: #333;
 }
 
 .source-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
 }
 
 .source-score {
-  font-weight: 500;
-  color: #4caf50;
+    font-weight: 500;
+    color: #4caf50;
 }
 
 .source-category {
-  display: inline-block;
-  background: #f5f5f5;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 8px;
+    display: inline-block;
+    background: #f5f5f5;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
 }
 
 .source-link {
-  display: inline-block;
-  color: #1976d2;
-  text-decoration: none;
-  font-size: 14px;
-  margin-top: 8px;
+    display: inline-block;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 8px;
 }
 
 .source-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .truncated-badge {
-  display: inline-block;
-  background: #fff3cd;
-  color: #856404;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  margin-top: 8px;
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-top: 8px;
 }
 
 .stats-section {
-  background: white;
-  border-radius: 8px;
-  padding: 24px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin: 16px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
 }
 
 .stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .stat-label {
-  font-size: 14px;
-  color: #666;
+    font-size: 14px;
+    color: #666;
 }
 
 .stat-value {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
 }
 
 .weights-section {
-  margin-top: 24px;
+    margin-top: 24px;
 }
 
 .weights-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
 }
 
 .weight-item {
-  display: grid;
-  grid-template-columns: 120px 1fr 50px;
-  align-items: center;
-  gap: 12px;
+    display: grid;
+    grid-template-columns: 120px 1fr 50px;
+    align-items: center;
+    gap: 12px;
 }
 
 .weight-source {
-  font-size: 14px;
-  color: #666;
+    font-size: 14px;
+    color: #666;
 }
 
 .weight-bar {
-  height: 8px;
-  background: #f5f5f5;
-  border-radius: 4px;
-  overflow: hidden;
+    height: 8px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .weight-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #4caf50, #2196f3);
-  transition: width 0.3s ease;
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #2196f3);
+    transition: width 0.3s ease;
 }
 
 .weight-value {
-  text-align: right;
-  font-weight: 600;
-  color: #333;
+    text-align: right;
+    font-weight: 600;
+    color: #333;
 }
 </style>
 ```
@@ -1812,25 +1827,25 @@ Usage example:
 import MultiSourceAnswer from './components/MultiSourceAnswer.vue';
 
 async function askQuestion() {
-  const response = await fetch('/api/rag/answer', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      question: 'How do I return a product?'
-    })
-  });
+    const response = await fetch('/api/rag/answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            question: 'How do I return a product?',
+        }),
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  // Pass to component
-  return {
-    answer: data.data.answer,
-    sources: data.data.sources,
-    contextUsed: data.data.context_used,
-    pipelineStats: data.data.pipeline_stats
-  };
+    // Pass to component
+    return {
+        answer: data.data.answer,
+        sources: data.data.sources,
+        contextUsed: data.data.context_used,
+        pipelineStats: data.data.pipeline_stats,
+    };
 }
 ```
 
@@ -2933,59 +2948,63 @@ class MonitoredPipeline extends MultiSourceContextPipeline
 Strategies for scaling multi-source RAG:
 
 1. **Horizontal Scaling**
-   - Deploy multiple pipeline instances
-   - Load balance requests
-   - Share cache layer (Redis)
+
+    - Deploy multiple pipeline instances
+    - Load balance requests
+    - Share cache layer (Redis)
 
 2. **Source Optimization**
-   - Index partitioning for TNTSearch
-   - Vector index sharding for large datasets
-   - Database read replicas for Eloquent
+
+    - Index partitioning for TNTSearch
+    - Vector index sharding for large datasets
+    - Database read replicas for Eloquent
 
 3. **Async Processing**
-   ```php
-   // Process sources in parallel
-   use Illuminate\Support\Facades\Parallel;
 
-   $results = Parallel::run([
-       fn() => $vectorSource->retrieve($query),
-       fn() => $tntSource->retrieve($query),
-       fn() => $eloquentSource->retrieve($query),
-       fn() => $staticSource->retrieve($query),
-   ]);
-   ```
+    ```php
+    // Process sources in parallel
+    use Illuminate\Support\Facades\Parallel;
+
+    $results = Parallel::run([
+        fn() => $vectorSource->retrieve($query),
+        fn() => $tntSource->retrieve($query),
+        fn() => $eloquentSource->retrieve($query),
+        fn() => $staticSource->retrieve($query),
+    ]);
+    ```
 
 4. **Circuit Breakers**
-   ```php
-   // Fail fast on source failures
-   class CircuitBreakerSource implements ContextSource
-   {
-       private int $failureCount = 0;
-       private int $threshold = 5;
-       private bool $open = false;
 
-       public function retrieve(string $query, array $options = []): array
-       {
-           if ($this->open) {
-               throw new \Exception('Circuit breaker open');
-           }
+    ```php
+    // Fail fast on source failures
+    class CircuitBreakerSource implements ContextSource
+    {
+        private int $failureCount = 0;
+        private int $threshold = 5;
+        private bool $open = false;
 
-           try {
-               $results = $this->source->retrieve($query, $options);
-               $this->failureCount = 0;
-               return $results;
-           } catch (\Exception $e) {
-               $this->failureCount++;
+        public function retrieve(string $query, array $options = []): array
+        {
+            if ($this->open) {
+                throw new \Exception('Circuit breaker open');
+            }
 
-               if ($this->failureCount >= $this->threshold) {
-                   $this->open = true;
-               }
+            try {
+                $results = $this->source->retrieve($query, $options);
+                $this->failureCount = 0;
+                return $results;
+            } catch (\Exception $e) {
+                $this->failureCount++;
 
-               throw $e;
-           }
-       }
-   }
-   ```
+                if ($this->failureCount >= $this->threshold) {
+                    $this->open = true;
+                }
+
+                throw $e;
+            }
+        }
+    }
+    ```
 
 ## Summary
 
@@ -2998,9 +3017,10 @@ You've built a production-ready multi-source RAG system that:
 5. **Observable**: Source attribution, confidence scores, and performance metrics
 
 This hybrid approach gives you the best of all worlds:
-- Fast keyword matching from TNTSearch
-- Semantic understanding from vectors
-- Real-time data from database
-- Instant answers from static content
+
+-   Fast keyword matching from TNTSearch
+-   Semantic understanding from vectors
+-   Real-time data from database
+-   Instant answers from static content
 
 The system intelligently combines results, removes duplicates, ranks by relevance, and fits everything into your token budget while maintaining full transparency about which sources contributed to each answer.

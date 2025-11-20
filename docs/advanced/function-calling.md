@@ -8,22 +8,23 @@ Function calling unlocks AI agents that don't just respond with text but take re
 
 This guide covers advanced function calling patterns beyond basic tool usage:
 
-- **Multi-turn Conversations** - Chain multiple function calls together
-- **Parallel Execution** - Execute multiple tools simultaneously
-- **Error Handling** - Gracefully handle failures and retry strategies
-- **Conditional Logic** - Dynamic tool selection based on context
-- **State Management** - Maintain state across function calls
-- **Agent Orchestration** - Build complex multi-step workflows
-- **Security Patterns** - Safely execute untrusted function calls
-- **Performance Optimization** - Cache, batch, and optimize tool execution
+-   **Multi-turn Conversations** - Chain multiple function calls together
+-   **Parallel Execution** - Execute multiple tools simultaneously
+-   **Error Handling** - Gracefully handle failures and retry strategies
+-   **Conditional Logic** - Dynamic tool selection based on context
+-   **State Management** - Maintain state across function calls
+-   **Agent Orchestration** - Build complex multi-step workflows
+-   **Security Patterns** - Safely execute untrusted function calls
+-   **Performance Optimization** - Cache, batch, and optimize tool execution
 
 ### Prerequisites
 
 This guide assumes you understand:
-- [Basic function calling and tools](/docs/advanced/tools)
-- [FunctionBuilder API](/docs/advanced/tools#using-tools-with-function-calling)
-- PHP closures and callables
-- Laravel's service container and facades
+
+-   [Basic function calling and tools](/docs/advanced/tools)
+-   [FunctionBuilder API](/docs/advanced/tools#using-tools-with-function-calling)
+-   PHP closures and callables
+-   Laravel's service container and facades
 
 ## Multi-Turn Function Calling
 
@@ -112,6 +113,35 @@ if ($turn >= $maxTurns) {
 ```
 
 **How it works:**
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant LLM
+    participant get_user
+    participant get_orders
+    participant calculate_total
+
+    User->>LLM: What is the total order value<br/>for john@example.com?
+
+    Note over LLM: Turn 1: Need user data
+    LLM->>get_user: get_user('john@example.com')
+    get_user-->>LLM: {id: 123, name: "John", ...}
+
+    Note over LLM: Turn 2: Now get orders
+    LLM->>get_orders: get_orders(userId: 123)
+    get_orders-->>LLM: [{order1}, {order2}, ...]
+
+    Note over LLM: Turn 3: Calculate total
+    LLM->>calculate_total: calculate_total(ordersJson)
+    calculate_total-->>LLM: 1247.50
+
+    Note over LLM: Turn 4: Format response
+    LLM-->>User: John has spent $1,247.50<br/>across 3 orders
+```
+
+**Process:**
+
 1. User asks a complex question requiring multiple steps
 2. LLM calls `get_user('john@example.com')` → Gets user ID
 3. LLM calls `get_orders(userId: 123)` → Gets order data
@@ -504,6 +534,38 @@ class RetryableFunctionExecutor
 ### Circuit Breaker Pattern
 
 Prevent cascading failures when a function repeatedly fails:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Closed
+
+    Closed --> Closed: Success<br/>(reset failure count)
+    Closed --> Open: Failures ≥ threshold<br/>(5 failures)
+
+    Open --> HalfOpen: After recovery timeout<br/>(60 seconds)
+    Open --> Open: Request blocked
+
+    HalfOpen --> Closed: Success<br/>(service recovered)
+    HalfOpen --> Open: Failure<br/>(still broken)
+
+    note right of Closed
+        Normal operation
+        All requests pass through
+    end note
+
+    note right of Open
+        Circuit tripped
+        All requests blocked
+        Returns fallback response
+    end note
+
+    note right of HalfOpen
+        Testing recovery
+        Limited requests allowed
+    end note
+```
+
+**Implementation:**
 
 ```php
 use Illuminate\Support\Facades\Cache;
@@ -1379,7 +1441,7 @@ function executeFunction(FunctionCall $call): string
 
 ## Related Documentation
 
-- [Tools (Function Calling Basics)](/docs/advanced/tools)
-- [Brain (Agent Framework)](/docs/rag/brain)
-- [Testing AI Applications](/docs/advanced/testing)
-- [Observability](/docs/observability/overview)
+-   [Tools (Function Calling Basics)](/docs/advanced/tools)
+-   [Brain (Agent Framework)](/docs/rag/brain)
+-   [Testing AI Applications](/docs/advanced/testing)
+-   [Observability](/docs/observability/overview)

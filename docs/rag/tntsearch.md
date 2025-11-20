@@ -10,44 +10,47 @@ TNTSearch is a lightweight, pure-PHP full-text search engine that uses SQLite fo
 
 ### Why Use TNTSearch for RAG?
 
-- **Fast keyword matching** - Finds documents containing specific terms
-- **BM25 ranking** - Industry-standard relevance scoring
-- **Laravel-friendly** - Works seamlessly with Eloquent models
-- **Flexible indexing** - Index from models, arrays, or CSV files
-- **Ephemeral indexes** - Temporary indexes with automatic cleanup
-- **Zero dependencies** - No external search services required
+-   **Fast keyword matching** - Finds documents containing specific terms
+-   **BM25 ranking** - Industry-standard relevance scoring
+-   **Laravel-friendly** - Works seamlessly with Eloquent models
+-   **Flexible indexing** - Index from models, arrays, or CSV files
+-   **Ephemeral indexes** - Temporary indexes with automatic cleanup
+-   **Zero dependencies** - No external search services required
 
 ### BM25 Ranking Algorithm
 
 BM25 (Best Matching 25) is a probabilistic ranking function that scores documents based on:
-- **Term frequency** - How often query terms appear
-- **Document length** - Normalizes for document size
-- **Inverse document frequency** - Rare terms score higher
+
+-   **Term frequency** - How often query terms appear
+-   **Document length** - Normalizes for document size
+-   **Inverse document frequency** - Rare terms score higher
 
 This provides more relevant results than simple keyword matching.
 
 ### When to Use TNTSearch vs Vector Stores
 
-| Feature | TNTSearch | Vector Stores |
-|---------|-----------|---------------|
-| Search Type | Keyword-based | Semantic similarity |
-| Best For | Exact term matching | Conceptual matching |
-| Query | "Laravel framework" | "web development tools" |
-| Results | Contains "Laravel" | Related concepts |
-| Dataset Size | < 10,000 documents | Millions of documents |
-| Setup | Instant | Requires embeddings |
+| Feature      | TNTSearch           | Vector Stores           |
+| ------------ | ------------------- | ----------------------- |
+| Search Type  | Keyword-based       | Semantic similarity     |
+| Best For     | Exact term matching | Conceptual matching     |
+| Query        | "Laravel framework" | "web development tools" |
+| Results      | Contains "Laravel"  | Related concepts        |
+| Dataset Size | < 10,000 documents  | Millions of documents   |
+| Setup        | Instant             | Requires embeddings     |
 
 **Use TNTSearch when:**
-- You need exact keyword matching
-- Users search with specific terms
-- Quick setup without embeddings
-- Small to medium datasets
+
+-   You need exact keyword matching
+-   Users search with specific terms
+-   Quick setup without embeddings
+-   Small to medium datasets
 
 **Use Vector Stores when:**
-- You need semantic understanding
-- Users ask questions naturally
-- Large datasets (millions of records)
-- Finding conceptually similar content
+
+-   You need semantic understanding
+-   Users ask questions naturally
+-   Large datasets (millions of records)
+-   Finding conceptually similar content
 
 ## Setup & Configuration
 
@@ -372,10 +375,11 @@ foreach ($results as $item) {
 ```
 
 **Understanding scores:**
-- **1.0** - Perfect match
-- **0.7-0.9** - Highly relevant
-- **0.4-0.6** - Somewhat relevant
-- **< 0.4** - Marginally relevant
+
+-   **1.0** - Perfect match
+-   **0.7-0.9** - Highly relevant
+-   **0.4-0.6** - Somewhat relevant
+-   **< 0.4** - Marginally relevant
 
 ### Empty Results
 
@@ -557,6 +561,7 @@ php artisan mindwave:index-stats
 ```
 
 Output:
+
 ```
 📊 TNTSearch Index Statistics
 
@@ -597,6 +602,7 @@ php artisan mindwave:clear-indexes --ttl=1 --force
 ```
 
 Example output:
+
 ```
 🔍 Found 5 index(es) (12.45 MB)
 ⏰ Clearing indexes older than 24 hours
@@ -719,9 +725,10 @@ $results = $pipeline->search('content guidelines', limit: 10);
 ### Index Size Considerations
 
 **Recommended limits:**
-- **Small datasets:** < 1,000 documents (instant indexing)
-- **Medium datasets:** 1,000 - 10,000 documents (< 1 second)
-- **Large datasets:** > 10,000 documents (consider alternative solutions)
+
+-   **Small datasets:** < 1,000 documents (instant indexing)
+-   **Medium datasets:** 1,000 - 10,000 documents (< 1 second)
+-   **Large datasets:** > 10,000 documents (consider alternative solutions)
 
 Monitor index sizes:
 
@@ -730,6 +737,7 @@ php artisan mindwave:index-stats
 ```
 
 **Size optimization tips:**
+
 ```php
 // ❌ Don't index everything
 $source = TntSearchSource::fromEloquent(
@@ -911,6 +919,7 @@ $response = Mindwave::prompt()
 ```
 
 **api-reference.csv:**
+
 ```csv
 class,method,description,example
 Auth,login,"Authenticate user and return JWT token","Auth::login($user)"
@@ -997,6 +1006,7 @@ echo $response->content;
 ```
 
 **faq.csv:**
+
 ```csv
 question,answer,category
 How do I track my order?,Use the tracking number sent via email in the shipping confirmation,Shipping
@@ -1151,16 +1161,18 @@ foreach ($promptSections as $section) {
 ### What to Index
 
 **Do index:**
-- Searchable text content (titles, descriptions, body text)
-- Relevant metadata (categories, tags, keywords)
-- User-generated content (bios, skills, specialties)
-- Frequently searched fields
+
+-   Searchable text content (titles, descriptions, body text)
+-   Relevant metadata (categories, tags, keywords)
+-   User-generated content (bios, skills, specialties)
+-   Frequently searched fields
 
 **Don't index:**
-- Binary data (images, PDFs unless extracted)
-- Large blobs of irrelevant data
-- Sensitive information (passwords, tokens, PII)
-- Redundant information
+
+-   Binary data (images, PDFs unless extracted)
+-   Large blobs of irrelevant data
+-   Sensitive information (passwords, tokens, PII)
+-   Redundant information
 
 ```php
 // ❌ Bad: Index everything including sensitive data
@@ -1179,6 +1191,7 @@ $source = TntSearchSource::fromEloquent(
 ### Index Refresh Strategies
 
 **Short-lived indexes (default):**
+
 ```php
 // Create, use, cleanup immediately
 $source = TntSearchSource::fromEloquent(User::all(), fn($u) => $u->bio);
@@ -1187,6 +1200,7 @@ $source->cleanup(); // Explicit cleanup
 ```
 
 **Session-scoped indexes:**
+
 ```php
 // Store in session for multiple searches
 $source = TntSearchSource::fromArray($documents);
@@ -1198,6 +1212,7 @@ $results = $source->search('query');
 ```
 
 **Request-scoped indexes:**
+
 ```php
 // Bind to Laravel service container for request duration
 app()->instance('kb-search', TntSearchSource::fromEloquent(
@@ -1214,6 +1229,7 @@ $results = app('kb-search')->search('query');
 ### Query Optimization
 
 **Be specific with queries:**
+
 ```php
 // ❌ Too broad
 $results = $source->search('help');
@@ -1223,6 +1239,7 @@ $results = $source->search('Laravel queue configuration help');
 ```
 
 **Use appropriate limits:**
+
 ```php
 // ❌ Request too many results
 $results = $source->search('Laravel', limit: 100);
@@ -1232,6 +1249,7 @@ $results = $source->search('Laravel', limit: 5);
 ```
 
 **Pre-filter Eloquent queries:**
+
 ```php
 // ❌ Index everything, search subset
 $source = TntSearchSource::fromEloquent(
@@ -1253,6 +1271,7 @@ $results = $source->search('Laravel');
 ### Storage Management
 
 **Monitor storage usage:**
+
 ```bash
 # Check regularly
 php artisan mindwave:index-stats
@@ -1262,6 +1281,7 @@ php artisan mindwave:index-stats
 ```
 
 **Automate cleanup:**
+
 ```php
 // In app/Console/Kernel.php
 protected function schedule(Schedule $schedule)
@@ -1277,6 +1297,7 @@ protected function schedule(Schedule $schedule)
 ```
 
 **Set conservative TTL:**
+
 ```bash
 # In .env
 MINDWAVE_TNT_INDEX_TTL=12  # 12 hours instead of default 24
@@ -1286,6 +1307,7 @@ MINDWAVE_TNT_MAX_INDEX_SIZE=50  # 50 MB max
 ### Production Deployment
 
 **Environment configuration:**
+
 ```bash
 # .env.production
 MINDWAVE_TNT_INDEX_TTL=6  # Aggressive cleanup in production
@@ -1293,13 +1315,15 @@ MINDWAVE_TNT_MAX_INDEX_SIZE=100
 ```
 
 **Deployment checklist:**
-- [ ] Storage directory exists with correct permissions
-- [ ] TTL configured appropriately for your use case
-- [ ] Scheduled cleanup command in Kernel.php
-- [ ] Monitoring for storage usage
-- [ ] Error handling for large datasets
+
+-   [ ] Storage directory exists with correct permissions
+-   [ ] TTL configured appropriately for your use case
+-   [ ] Scheduled cleanup command in Kernel.php
+-   [ ] Monitoring for storage usage
+-   [ ] Error handling for large datasets
 
 **Error handling:**
+
 ```php
 use Illuminate\Support\Facades\Log;
 
@@ -1321,6 +1345,7 @@ try {
 ```
 
 **Graceful degradation:**
+
 ```php
 // Try TNTSearch first, fall back to database query
 function search($query) {
@@ -1347,11 +1372,13 @@ function search($query) {
 **Problem:** `Index not found` or similar error
 
 **Causes:**
-- Index not initialized before search
-- Index deleted prematurely
-- Storage directory permissions
+
+-   Index not initialized before search
+-   Index deleted prematurely
+-   Storage directory permissions
 
 **Solutions:**
+
 ```php
 // ✅ Ensure initialization before search
 $source = TntSearchSource::fromArray(['data']);
@@ -1373,11 +1400,13 @@ chmod -R 755 storage/mindwave/tnt-indexes/
 **Problem:** Search returns irrelevant results or no results
 
 **Causes:**
-- Query too vague or too specific
-- Indexed content doesn't match query terms
-- Need semantic search instead of keyword search
+
+-   Query too vague or too specific
+-   Indexed content doesn't match query terms
+-   Need semantic search instead of keyword search
 
 **Solutions:**
+
 ```php
 // ❌ Indexed content doesn't match query
 $source = TntSearchSource::fromEloquent(
@@ -1404,11 +1433,13 @@ $results = $vectorSource->search('experienced web developer'); // Finds related 
 **Problem:** Search is slow or uses too much memory
 
 **Causes:**
-- Too many documents indexed
-- Large document content
-- No query constraints
+
+-   Too many documents indexed
+-   Large document content
+-   No query constraints
 
 **Solutions:**
+
 ```php
 // ❌ Indexing too much data
 $source = TntSearchSource::fromEloquent(
@@ -1435,6 +1466,7 @@ Article::chunk(1000, function($articles) {
 ```
 
 **Check index size:**
+
 ```bash
 php artisan mindwave:index-stats
 # If Total Size > 100 MB, consider optimization
@@ -1445,11 +1477,13 @@ php artisan mindwave:index-stats
 **Problem:** Disk space issues or too many index files
 
 **Causes:**
-- TTL too long
-- Cleanup not running
-- Index files not being deleted
+
+-   TTL too long
+-   Cleanup not running
+-   Index files not being deleted
 
 **Solutions:**
+
 ```bash
 # Immediate cleanup
 php artisan mindwave:clear-indexes --ttl=0 --force
@@ -1469,6 +1503,7 @@ MINDWAVE_TNT_INDEX_TTL=1  # 1 hour
 ```
 
 **Schedule regular cleanup:**
+
 ```php
 // app/Console/Kernel.php
 protected function schedule(Schedule $schedule)
@@ -1483,11 +1518,13 @@ protected function schedule(Schedule $schedule)
 **Problem:** Search returns no results when matches should exist
 
 **Causes:**
-- Query terms don't match indexed content
-- Content transformation issues
-- Case sensitivity
+
+-   Query terms don't match indexed content
+-   Content transformation issues
+-   Case sensitivity
 
 **Solutions:**
+
 ```php
 // Debug: Check what's being indexed
 $source = TntSearchSource::fromEloquent(
@@ -1516,15 +1553,16 @@ dd($users->pluck('skills')); // Check actual data
 
 TNTSearch provides fast, keyword-based full-text search for Mindwave's RAG system. Key takeaways:
 
-- **Fast keyword search** with BM25 ranking
-- **Multiple indexing methods**: Eloquent, arrays, CSV files
-- **Ephemeral indexes** with automatic cleanup
-- **Laravel-native** integration with PromptComposer
-- **Production-ready** with monitoring and management commands
+-   **Fast keyword search** with BM25 ranking
+-   **Multiple indexing methods**: Eloquent, arrays, CSV files
+-   **Ephemeral indexes** with automatic cleanup
+-   **Laravel-native** integration with PromptComposer
+-   **Production-ready** with monitoring and management commands
 
 Use TNTSearch when you need exact keyword matching for small to medium datasets. For semantic understanding or large datasets, consider Vector Stores with Mindwave Brain.
 
 For more information, see:
-- [Context Discovery Guide](/docs/core/context-discovery)
-- [Vector Stores Documentation](/docs/reference/vector-stores)
-- [PromptComposer Integration](/docs/core/prompt-composer)
+
+-   [Context Discovery Guide](/docs/core/context-discovery)
+-   [Vector Stores Documentation](/docs/reference/vector-stores)
+-   [PromptComposer Integration](/docs/core/prompt-composer)

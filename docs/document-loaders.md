@@ -10,11 +10,11 @@ Mindwave includes document loaders for common formats. This is a simplified vers
 
 Mindwave can process:
 
-- **PDF Files** - Using `smalot/pdfparser`
-- **Text Files** - Plain text, Markdown, etc.
-- **Web Pages** - HTML scraping and extraction
-- **CSV Files** - Structured data
-- **JSON Files** - Structured data
+-   **PDF Files** - Using `smalot/pdfparser`
+-   **Text Files** - Plain text, Markdown, etc.
+-   **Web Pages** - HTML scraping and extraction
+-   **CSV Files** - Structured data
+-   **JSON Files** - Structured data
 
 ## PDF Loading Example
 
@@ -206,9 +206,9 @@ $brain->remember($content, [
 
 ### 3. Use Appropriate Chunk Sizes
 
-- **Small chunks (500-1000 chars)** - Better precision, more results
-- **Medium chunks (1000-2000 chars)** - Balanced
-- **Large chunks (2000-4000 chars)** - More context, fewer results
+-   **Small chunks (500-1000 chars)** - Better precision, more results
+-   **Medium chunks (1000-2000 chars)** - Balanced
+-   **Large chunks (2000-4000 chars)** - More context, fewer results
 
 ### 4. Process Asynchronously
 
@@ -288,16 +288,17 @@ foreach ($documents as $doc) {
 ## Complete Documentation
 
 For advanced features including:
-- Custom loaders
-- Advanced chunking strategies
-- Document preprocessing
-- Metadata extraction
-- Error handling
+
+-   Custom loaders
+-   Advanced chunking strategies
+-   Document preprocessing
+-   Metadata extraction
+-   Error handling
 
 See the **[RAG Documentation](/docs/rag/overview)**.
 
 ## Related Documentation
 
-- [Brain (Vector Store)](/docs/rag/brain) - Vector store API
-- [Embeddings Reference](/docs/reference/embeddings.md) - Embedding providers
-- [Vector Stores Reference](/docs/reference/vector-stores.md) - Vector databases
+-   [Brain (Vector Store)](/docs/rag/brain) - Vector store API
+-   [Embeddings Reference](/docs/reference/embeddings.md) - Embedding providers
+-   [Vector Stores Reference](/docs/reference/vector-stores.md) - Vector databases

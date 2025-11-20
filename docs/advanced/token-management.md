@@ -10,6 +10,6 @@ Advanced token management strategies for optimizing prompt sizes, managing conte
 
 ## Related Documentation
 
-- [Configuration](/docs/configuration)
-- [Prompt Composer](/docs/core/prompt-composer)
-- [Cost Tracking](/docs/observability/cost-tracking)
+-   [Configuration](/docs/configuration)
+-   [Prompt Composer](/docs/core/prompt-composer)
+-   [Cost Tracking](/docs/observability/cost-tracking)

@@ -4,17 +4,53 @@ Your comprehensive guide to diagnosing and fixing common Mindwave issues. This g
 
 ## How to Use This Guide
 
+```mermaid
+flowchart TD
+    Start([Having an issue?]) --> Type{What type<br/>of issue?}
+
+    Type -->|Installation<br/>or Setup| Install[Check Installation & Setup<br/>section below]
+    Type -->|Runtime<br/>Errors| Runtime[Check Runtime Errors<br/>section below]
+    Type -->|Performance<br/>Issues| Perf[Check Performance<br/>section below]
+    Type -->|Unexpected<br/>Behavior| Behavior[Check Configuration<br/>section below]
+
+    Install --> Install1[✓ Check config files<br/>✓ Verify environment variables<br/>✓ Check PHP version/extensions]
+    Runtime --> Runtime1[✓ Check logs first<br/>storage/logs/laravel.log<br/>✓ Enable debug mode]
+    Perf --> Perf1[✓ Check traces<br/>✓ Review database queries<br/>✓ Check cache configuration]
+    Behavior --> Behavior1[✓ Enable debug mode<br/>✓ Verify configuration<br/>✓ Check provider settings]
+
+    Install1 --> Search[Search by symptom<br/>Use Ctrl/Cmd+F]
+    Runtime1 --> Search
+    Perf1 --> Search
+    Behavior1 --> Search
+
+    Search --> Steps[Follow diagnostic steps<br/>in order]
+    Steps --> Try[Try multiple solutions<br/>if needed]
+    Try --> Resolved{Issue<br/>resolved?}
+    Resolved -->|No| Help[See Getting Help<br/>section at bottom]
+    Resolved -->|Yes| Done([Done!])
+
+    style Start fill:#e1f5ff
+    style Type fill:#fff4e6
+    style Install fill:#e7f9e7
+    style Runtime fill:#ffe6e6
+    style Perf fill:#fff0cc
+    style Behavior fill:#e8d5ff
+    style Done fill:#c8ffc8
+```
+
 **Finding Solutions:**
+
 1. **Search by symptom** - Use your browser's find feature (Ctrl/Cmd+F) to search for error messages
 2. **Check category** - Navigate to the relevant section based on where the issue occurs
 3. **Follow diagnostic steps** - Work through the troubleshooting steps in order
 4. **Try multiple solutions** - Some issues have several potential causes
 
-**When to Check What:**
-- **Installation/Setup Issues** → Check config files and environment variables
-- **Runtime Errors** → Check logs first (`storage/logs/laravel.log`)
-- **Performance Issues** → Check traces and database queries
-- **Unexpected Behavior** → Enable debug mode and check configuration
+**Quick Reference:**
+
+-   **Installation/Setup Issues** → Check config files and environment variables
+-   **Runtime Errors** → Check logs first (`storage/logs/laravel.log`)
+-   **Performance Issues** → Check traces and database queries
+-   **Unexpected Behavior** → Enable debug mode and check configuration
 
 **Getting More Help:**
 If this guide doesn't solve your problem, see the [Getting Help](#getting-help) section for community resources and how to file effective bug reports.
@@ -26,6 +62,7 @@ If this guide doesn't solve your problem, see the [Getting Help](#getting-help) 
 ### Issue: Composer Installation Fails
 
 **Symptoms:**
+
 ```bash
 composer require mindwave/mindwave
 # Error: Your requirements could not be resolved...
@@ -92,6 +129,7 @@ composer require mindwave/mindwave
 ### Issue: Migrations Fail
 
 **Symptoms:**
+
 ```bash
 php artisan migrate
 # SQLSTATE[HY000] [1045] Access denied for user...
@@ -114,6 +152,7 @@ DB_PASSWORD=your_password
 ```
 
 Test connection:
+
 ```bash
 # Try to connect directly
 mysql -h 127.0.0.1 -u your_username -p your_database
@@ -139,6 +178,7 @@ php artisan db:create
 **3. Wrong Database Driver**
 
 For PostgreSQL:
+
 ```bash
 # Install PostgreSQL driver
 sudo apt-get install php8.3-pgsql
@@ -176,6 +216,7 @@ mysql -u root -p
 ### Issue: Config Files Not Publishing
 
 **Symptoms:**
+
 ```bash
 php artisan vendor:publish --tag="mindwave-config"
 # No publishable resources for tag [mindwave-config]
@@ -237,6 +278,7 @@ cp vendor/mindwave/mindwave/config/mindwave-vectorstore.php config/
 ### Issue: "API Key Not Configured"
 
 **Symptoms:**
+
 ```php
 // Error: API key is required but not configured
 InvalidArgumentException: OpenAI API key is required
@@ -308,6 +350,7 @@ If .env doesn't work, set directly in `config/mindwave-llm.php`:
 ### Issue: "Model Not Found"
 
 **Symptoms:**
+
 ```php
 // Error: The model 'gpt-4-latest' does not exist
 OpenAI\Exceptions\ErrorException: Model not found
@@ -320,6 +363,7 @@ OpenAI\Exceptions\ErrorException: Model not found
 Check available models for each provider:
 
 **OpenAI Models:**
+
 ```bash
 # Valid model names
 gpt-4-turbo
@@ -332,6 +376,7 @@ gpt-3.5-turbo-0125
 ```
 
 **Mistral Models:**
+
 ```bash
 mistral-large-latest
 mistral-medium-latest
@@ -340,6 +385,7 @@ mistral-tiny
 ```
 
 **Anthropic Models:**
+
 ```bash
 claude-3-opus-20240229
 claude-3-sonnet-20240229
@@ -382,6 +428,7 @@ Mindwave::llm('openai')
 ### Issue: "Connection Timeout"
 
 **Symptoms:**
+
 ```php
 // Error: cURL error 28: Operation timed out after 30000 milliseconds
 GuzzleHttp\Exception\ConnectException: Connection timeout
@@ -470,6 +517,7 @@ Mindwave::stream($prompt)
 ### Issue: "Rate Limit Exceeded"
 
 **Symptoms:**
+
 ```php
 // Error: Rate limit reached for requests
 OpenAI\Exceptions\RateLimitException: Rate limit exceeded
@@ -566,6 +614,7 @@ MINDWAVE_OPENAI_MODEL=gpt-3.5-turbo  # Higher RPM limits
 ### Issue: "Context Length Exceeded"
 
 **Symptoms:**
+
 ```php
 // Error: This model's maximum context length is 8192 tokens
 OpenAI\Exceptions\InvalidRequestException: Context length exceeded
@@ -663,6 +712,7 @@ Mindwave::prompt()
 ### Issue: Prompt Doesn't Fit Even After Auto-Fit
 
 **Symptoms:**
+
 ```php
 // Error: Cannot fit prompt within token budget even after shrinking all sections
 RuntimeException: Unable to fit prompt within model's context window
@@ -738,6 +788,7 @@ Mindwave::prompt()
 ### Issue: Important Content Being Truncated
 
 **Symptoms:**
+
 ```php
 // LLM response indicates it didn't see crucial information
 // "I don't have information about..." when it was in the prompt
@@ -798,6 +849,7 @@ Mindwave::prompt()
 ### Issue: Token Count Mismatch
 
 **Symptoms:**
+
 ```php
 // Prompt fits in testing but fails in production
 // Token counts don't match between estimation and actual API call
@@ -871,6 +923,7 @@ Mindwave::prompt()
 ### Issue: Streaming Not Working
 
 **Symptoms:**
+
 ```php
 // Browser shows "Loading..." forever
 // No data received from EventSource
@@ -949,19 +1002,21 @@ curl -N http://localhost:8000/api/stream
 
 ```javascript
 // Frontend code
-const eventSource = new EventSource('/api/stream?message=' + encodeURIComponent(query));
+const eventSource = new EventSource(
+    '/api/stream?message=' + encodeURIComponent(query)
+);
 
-eventSource.onmessage = function(event) {
+eventSource.onmessage = function (event) {
     console.log('Received:', event.data);
     output.textContent += event.data;
 };
 
-eventSource.onerror = function(error) {
+eventSource.onerror = function (error) {
     console.error('EventSource error:', error);
     eventSource.close();
 };
 
-eventSource.addEventListener('done', function() {
+eventSource.addEventListener('done', function () {
     console.log('Stream complete');
     eventSource.close();
 });
@@ -972,6 +1027,7 @@ eventSource.addEventListener('done', function() {
 ### Issue: Connection Drops Mid-Stream
 
 **Symptoms:**
+
 ```javascript
 // EventSource fires 'error' event before completion
 // Partial response received, then connection lost
@@ -1006,7 +1062,7 @@ const maxReconnects = 3;
 function connectStream() {
     const eventSource = new EventSource('/api/stream?message=' + message);
 
-    eventSource.onerror = function(error) {
+    eventSource.onerror = function (error) {
         eventSource.close();
 
         if (reconnectAttempts < maxReconnects) {
@@ -1018,7 +1074,7 @@ function connectStream() {
         }
     };
 
-    eventSource.onmessage = function(event) {
+    eventSource.onmessage = function (event) {
         reconnectAttempts = 0; // Reset on successful message
         handleMessage(event.data);
     };
@@ -1091,6 +1147,7 @@ foreach ($stream as $chunk) {
 ### Issue: No Data Received
 
 **Symptoms:**
+
 ```javascript
 // EventSource.readyState = 1 (open) but no messages
 // Browser developer tools show connection but no data
@@ -1170,15 +1227,15 @@ Route::get('/test-stream', function () {
 // Debug in browser console
 const eventSource = new EventSource('/api/stream');
 
-eventSource.onopen = function() {
+eventSource.onopen = function () {
     console.log('Connection opened');
 };
 
-eventSource.onmessage = function(event) {
+eventSource.onmessage = function (event) {
     console.log('Message:', event.data);
 };
 
-eventSource.onerror = function(error) {
+eventSource.onerror = function (error) {
     console.error('Error:', error);
     console.log('ReadyState:', eventSource.readyState);
     // 0 = CONNECTING, 1 = OPEN, 2 = CLOSED
@@ -1192,6 +1249,7 @@ eventSource.onerror = function(error) {
 ### Issue: TNTSearch Index Not Found
 
 **Symptoms:**
+
 ```php
 // Error: Index file not found: storage/mindwave/tnt-indexes/users_xxx.index
 RuntimeException: TNTSearch index does not exist
@@ -1264,6 +1322,7 @@ php artisan mindwave:index-stats
 ### Issue: Vector Store Connection Failed
 
 **Symptoms:**
+
 ```php
 // Error: Could not connect to vector store
 ConnectionException: Connection to Qdrant failed
@@ -1274,6 +1333,7 @@ ConnectionException: Connection to Qdrant failed
 **1. Verify Vector Store is Running**
 
 For Qdrant (Docker):
+
 ```bash
 # Start Qdrant
 docker run -p 6333:6333 qdrant/qdrant
@@ -1286,6 +1346,7 @@ docker-compose up -d qdrant
 ```
 
 For Pinecone:
+
 ```bash
 # Verify API key
 curl -i https://controller.YOUR-ENV.pinecone.io/actions/whoami \
@@ -1354,6 +1415,7 @@ curl http://localhost:6333/collections \
 ### Issue: No Relevant Context Found
 
 **Symptoms:**
+
 ```php
 // Context search returns empty or irrelevant results
 // LLM says "I don't have information..." when data exists
@@ -1432,6 +1494,7 @@ Mindwave::prompt()
 ### Issue: Slow Context Retrieval
 
 **Symptoms:**
+
 ```php
 // Context search takes several seconds
 // Application becomes unresponsive during context discovery
@@ -1511,6 +1574,7 @@ php artisan mindwave:clear-indexes --max-size=100  # MB
 ### Issue: Traces Not Appearing in Database
 
 **Symptoms:**
+
 ```php
 // Trace::all() returns empty collection
 // No traces stored after LLM calls
@@ -1592,6 +1656,7 @@ dd($trace);
 ### Issue: OTLP Export Failing
 
 **Symptoms:**
+
 ```php
 // Logs show: Failed to export traces via OTLP
 // No traces appearing in Jaeger/Grafana
@@ -1680,6 +1745,7 @@ tail -f storage/logs/laravel.log | grep -i otlp
 ### Issue: High Memory Usage from Tracing
 
 **Symptoms:**
+
 ```bash
 # PHP memory limit exceeded
 PHP Fatal error: Allowed memory size of 134217728 bytes exhausted
@@ -1755,6 +1821,7 @@ php artisan mindwave:prune-traces --older-than=7days
 ### Issue: Cost Estimates Incorrect
 
 **Symptoms:**
+
 ```php
 // Trace shows $0.00 cost when it should have cost
 // Or incorrect cost calculation
@@ -1851,6 +1918,7 @@ dd([
 ### Issue: Slow LLM Responses
 
 **Symptoms:**
+
 ```php
 // LLM calls take 30+ seconds
 // User experiences long wait times
@@ -1962,6 +2030,7 @@ Mindwave::prompt()
 ### Issue: High Memory Usage
 
 **Symptoms:**
+
 ```bash
 # Application uses excessive RAM
 # Memory limit errors during processing
@@ -2057,6 +2126,7 @@ config(['mindwave-tracing.enabled' => true]);
 ### Issue: Database Queries Slow
 
 **Symptoms:**
+
 ```php
 // Trace queries take several seconds
 // Application sluggish when viewing traces
@@ -2153,6 +2223,7 @@ $schedule->command('mindwave:prune-traces --older-than=30days')->daily();
 ### Issue: Intermittent Failures
 
 **Symptoms:**
+
 ```php
 // LLM calls succeed sometimes, fail other times
 // No consistent error pattern
@@ -2307,6 +2378,7 @@ try {
 ### Issue: Cost Overruns
 
 **Symptoms:**
+
 ```php
 // Monthly LLM costs higher than expected
 // Budget exceeded
@@ -2448,6 +2520,7 @@ $schedule->call(function () {
 ### Issue: Queue Jobs Failing
 
 **Symptoms:**
+
 ```bash
 # Queue workers show errors
 # Jobs stuck in "failed_jobs" table
@@ -2535,23 +2608,23 @@ php artisan queue:flush
 
 Quick reference for common error messages and their solutions:
 
-| Error Message | Likely Cause | Quick Fix |
-|---------------|--------------|-----------|
-| `Unauthenticated` | Invalid/missing API key | Check `MINDWAVE_OPENAI_API_KEY` in `.env` |
-| `Model not found` | Invalid model name | Use correct model name (e.g., `gpt-4-turbo`) |
-| `Rate limit exceeded` | Too many requests | Implement retry logic, upgrade tier |
-| `Context length exceeded` | Prompt too long | Use PromptComposer with `fit()` |
-| `Connection timeout` | Network/timeout issue | Increase timeout, check network |
-| `API key is required` | Missing config | Run `php artisan config:clear` |
-| `Index file not found` | TNTSearch storage missing | Create `storage/mindwave/tnt-indexes` |
-| `SQLSTATE[HY000] [1045]` | Database connection failed | Check database credentials in `.env` |
-| `Could not create Class` | Vector store connection | Verify vector store is running |
-| `Maximum context length` | Token limit exceeded | Reduce prompt size or use larger model |
-| `Invalid Request Exception` | Malformed API request | Check prompt format, model parameters |
-| `502 Bad Gateway` | Provider outage | Check provider status page, retry later |
-| `Memory limit exhausted` | PHP memory too low | Increase `memory_limit` in php.ini |
-| `Class not found` | Autoload issue | Run `composer dump-autoload` |
-| `Cannot modify header` | Headers already sent | Check for output before streaming |
+| Error Message               | Likely Cause               | Quick Fix                                    |
+| --------------------------- | -------------------------- | -------------------------------------------- |
+| `Unauthenticated`           | Invalid/missing API key    | Check `MINDWAVE_OPENAI_API_KEY` in `.env`    |
+| `Model not found`           | Invalid model name         | Use correct model name (e.g., `gpt-4-turbo`) |
+| `Rate limit exceeded`       | Too many requests          | Implement retry logic, upgrade tier          |
+| `Context length exceeded`   | Prompt too long            | Use PromptComposer with `fit()`              |
+| `Connection timeout`        | Network/timeout issue      | Increase timeout, check network              |
+| `API key is required`       | Missing config             | Run `php artisan config:clear`               |
+| `Index file not found`      | TNTSearch storage missing  | Create `storage/mindwave/tnt-indexes`        |
+| `SQLSTATE[HY000] [1045]`    | Database connection failed | Check database credentials in `.env`         |
+| `Could not create Class`    | Vector store connection    | Verify vector store is running               |
+| `Maximum context length`    | Token limit exceeded       | Reduce prompt size or use larger model       |
+| `Invalid Request Exception` | Malformed API request      | Check prompt format, model parameters        |
+| `502 Bad Gateway`           | Provider outage            | Check provider status page, retry later      |
+| `Memory limit exhausted`    | PHP memory too low         | Increase `memory_limit` in php.ini           |
+| `Class not found`           | Autoload issue             | Run `composer dump-autoload`                 |
+| `Cannot modify header`      | Headers already sent       | Check for output before streaming            |
 
 ---
 
@@ -2570,11 +2643,12 @@ php artisan migrate
 **View in browser:** `http://localhost:8000/telescope`
 
 **Useful features:**
-- HTTP requests and responses
-- Database queries (slow query detection)
-- Queue jobs monitoring
-- Exception tracking
-- Log entries
+
+-   HTTP requests and responses
+-   Database queries (slow query detection)
+-   Queue jobs monitoring
+-   Exception tracking
+-   Log entries
 
 ### Clockwork
 
@@ -2585,11 +2659,12 @@ composer require itsgoingd/clockwork --dev
 ```
 
 **Features:**
-- Request timeline
-- Database queries
-- Events fired
-- Memory usage
-- Routes called
+
+-   Request timeline
+-   Database queries
+-   Events fired
+-   Memory usage
+-   Routes called
 
 ### Log Files
 
@@ -2699,27 +2774,31 @@ dd(DB::getQueryLog());
 **1. GitHub Issues**
 
 Best for bug reports and feature requests:
-- **URL:** https://github.com/mindwave/mindwave/issues
-- **Before posting:** Search existing issues
-- **Include:** Error messages, stack traces, config files (redact API keys!)
+
+-   **URL:** https://github.com/mindwave/mindwave/issues
+-   **Before posting:** Search existing issues
+-   **Include:** Error messages, stack traces, config files (redact API keys!)
 
 **2. Documentation**
 
 Search official docs first:
-- **URL:** https://mindwave.no/docs
-- **Covers:** Installation, configuration, API reference, examples
+
+-   **URL:** https://mindwave.no/docs
+-   **Covers:** Installation, configuration, API reference, examples
 
 **3. Stack Overflow**
 
 For general Laravel and PHP questions:
-- **Tag:** `mindwave` `laravel` `php`
-- **Search first:** Your question may already be answered
+
+-   **Tag:** `mindwave` `laravel` `php`
+-   **Search first:** Your question may already be answered
 
 **4. Discord/Community Forums**
 
 For discussions and quick questions:
-- Join the Mindwave community Discord
-- Active community members can help
+
+-   Join the Mindwave community Discord
+-   Active community members can help
 
 ### How to Write a Good Bug Report
 
@@ -2727,19 +2806,23 @@ For discussions and quick questions:
 
 ```markdown
 ## Environment
-- Mindwave version: 1.0.0
-- Laravel version: 11.x
-- PHP version: 8.3
-- Database: MySQL 8.0
-- OS: Ubuntu 22.04
+
+-   Mindwave version: 1.0.0
+-   Laravel version: 11.x
+-   PHP version: 8.3
+-   Database: MySQL 8.0
+-   OS: Ubuntu 22.04
 
 ## Expected Behavior
+
 What you expected to happen...
 
 ## Actual Behavior
+
 What actually happened...
 
 ## Steps to Reproduce
+
 1. Install Mindwave
 2. Configure OpenAI API key
 3. Call Mindwave::llm()->generateText('Hello')
@@ -2747,8 +2830,10 @@ What actually happened...
 
 ## Error Message
 ```
+
 Full error message and stack trace here...
-```
+
+````
 
 ## Configuration (redact API keys!)
 ```php
@@ -2760,16 +2845,19 @@ Full error message and stack trace here...
         'model' => 'gpt-4-turbo',
     ],
 ],
-```
+````
 
 ## Code Sample
+
 ```php
 // Minimal reproducible example
 $response = Mindwave::llm()->generateText('Hello');
 ```
 
 ## Additional Context
+
 Any other relevant information...
+
 ```
 
 ### What NOT to Include
@@ -2804,3 +2892,4 @@ This troubleshooting guide covers the most common issues you'll encounter with M
 **Still stuck?** File an issue on GitHub with a detailed bug report.
 
 Happy debugging!
+```

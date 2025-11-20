@@ -34,7 +34,8 @@ $response = Mindwave::llm()->generateText('What is Laravel?');
 ```
 
 **Parameters:**
-- `string|null $driver` - Driver name (null for default)
+
+-   `string|null $driver` - Driver name (null for default)
 
 **Returns:** `LlmDriver` instance
 
@@ -73,7 +74,8 @@ $results = $brain->recall('PHP framework', limit: 5);
 ```
 
 **Parameters:**
-- `string|null $name` - Brain name (null for default)
+
+-   `string|null $name` - Brain name (null for default)
 
 **Returns:** `Brain` instance
 
@@ -95,7 +97,8 @@ Mindwave::stream('Tell me about Laravel')
 ```
 
 **Parameters:**
-- `string $prompt` - Text prompt
+
+-   `string $prompt` - Text prompt
 
 **Returns:** `StreamedTextResponse` instance
 
@@ -125,8 +128,9 @@ echo $response->choices[0]->message->content;
 ```
 
 **Parameters:**
-- `array $messages` - Array of messages with role and content
-- `array $options` - Optional parameters (model, temperature, etc.)
+
+-   `array $messages` - Array of messages with role and content
+-   `array $options` - Optional parameters (model, temperature, etc.)
 
 **Returns:** Provider-specific response object
 
@@ -140,8 +144,9 @@ echo $response->choices[0]->message->content;
 ```
 
 **Parameters:**
-- `string $prompt` - Text prompt
-- `array $options` - Optional parameters
+
+-   `string $prompt` - Text prompt
+-   `array $options` - Optional parameters
 
 **Returns:** Provider-specific response object
 
@@ -158,8 +163,9 @@ foreach ($stream as $delta) {
 ```
 
 **Parameters:**
-- `string $prompt` - Text prompt
-- `array $options` - Optional parameters
+
+-   `string $prompt` - Text prompt
+-   `array $options` - Optional parameters
 
 **Returns:** `Generator` yielding text chunks
 
@@ -168,8 +174,9 @@ foreach ($stream as $delta) {
 Alias for `stream()`.
 
 **Parameters:**
-- `string $prompt` - Text prompt
-- `array $options` - Optional parameters
+
+-   `string $prompt` - Text prompt
+-   `array $options` - Optional parameters
 
 **Returns:** `Generator` yielding text chunks
 
@@ -187,7 +194,8 @@ $llm = Mindwave::llm()
 ```
 
 **Parameters:**
-- `array $options` - Options to set
+
+-   `array $options` - Options to set
 
 **Returns:** `self`
 
@@ -216,11 +224,12 @@ $composer->section(
 ```
 
 **Parameters:**
-- `string $name` - Section identifier
-- `string|array $content` - Section content
-- `int $priority` - Priority (0-100, default: 50)
-- `string|null $shrinker` - Shrinker strategy (null, 'truncate', 'compress')
-- `array $metadata` - Additional metadata
+
+-   `string $name` - Section identifier
+-   `string|array $content` - Section content
+-   `int $priority` - Priority (0-100, default: 50)
+-   `string|null $shrinker` - Shrinker strategy (null, 'truncate', 'compress')
+-   `array $metadata` - Additional metadata
 
 **Returns:** `self`
 
@@ -240,10 +249,11 @@ $composer->context($pipeline, priority: 60, limit: 10);
 ```
 
 **Parameters:**
-- `string|array|ContextSource|ContextPipeline $content` - Context content
-- `int $priority` - Priority (default: 50)
-- `string|null $query` - Search query (for sources)
-- `int $limit` - Result limit (for sources)
+
+-   `string|array|ContextSource|ContextPipeline $content` - Context content
+-   `int $priority` - Priority (default: 50)
+-   `string|null $query` - Search query (for sources)
+-   `int $limit` - Result limit (for sources)
 
 **Returns:** `self`
 
@@ -256,7 +266,8 @@ $composer->model('gpt-4-turbo');
 ```
 
 **Parameters:**
-- `string $model` - Model identifier
+
+-   `string $model` - Model identifier
 
 **Returns:** `self`
 
@@ -269,7 +280,8 @@ $composer->reserveOutputTokens(1000);
 ```
 
 **Parameters:**
-- `int $tokens` - Number of tokens to reserve
+
+-   `int $tokens` - Number of tokens to reserve
 
 **Returns:** `self`
 
@@ -312,7 +324,8 @@ $response = $composer->run(['temperature' => 0.7]);
 ```
 
 **Parameters:**
-- `array $options` - Optional LLM parameters
+
+-   `array $options` - Optional LLM parameters
 
 **Returns:** LLM response object
 
@@ -367,8 +380,9 @@ $composer->registerShrinker('custom', new CustomShrinker());
 ```
 
 **Parameters:**
-- `string $name` - Shrinker name
-- `ShrinkerInterface $shrinker` - Shrinker instance
+
+-   `string $name` - Shrinker name
+-   `ShrinkerInterface $shrinker` - Shrinker instance
 
 **Returns:** `self`
 
@@ -391,8 +405,9 @@ $results = $source->search('Laravel', limit: 5);
 ```
 
 **Parameters:**
-- `string $query` - Search query
-- `int $limit` - Maximum results (default: 5)
+
+-   `string $query` - Search query
+-   `int $limit` - Maximum results (default: 5)
 
 **Returns:** `ContextCollection`
 
@@ -448,7 +463,8 @@ $text = $collection->formatForPrompt('json');
 ```
 
 **Parameters:**
-- `string $format` - Format type ('numbered', 'markdown', 'json')
+
+-   `string $format` - Format type ('numbered', 'markdown', 'json')
 
 **Returns:** `string`
 
@@ -481,8 +497,9 @@ $truncated = $collection->truncateToTokens(1000, 'gpt-4');
 ```
 
 **Parameters:**
-- `int $maxTokens` - Token budget
-- `string $model` - Model for token counting
+
+-   `int $maxTokens` - Token budget
+-   `string $model` - Model for token counting
 
 **Returns:** `self`
 
@@ -495,7 +512,8 @@ $tokens = $collection->getTotalTokens('gpt-4');
 ```
 
 **Parameters:**
-- `string $model` - Model for token counting
+
+-   `string $model` - Model for token counting
 
 **Returns:** `int`
 
@@ -531,10 +549,11 @@ $item = ContextItem::make(
 ```
 
 **Parameters:**
-- `string $content` - Item content
-- `float $score` - Relevance score
-- `string $source` - Source name
-- `array $metadata` - Additional data
+
+-   `string $content` - Item content
+-   `float $score` - Relevance score
+-   `string $source` - Source name
+-   `array $metadata` - Additional data
 
 **Returns:** `ContextItem`
 
@@ -550,15 +569,15 @@ Eloquent model for trace records.
 
 #### Attributes
 
-- `string $trace_id` - Unique trace identifier
-- `int $total_input_tokens` - Total input tokens across spans
-- `int $total_output_tokens` - Total output tokens across spans
-- `float $estimated_cost` - Total estimated cost in USD
-- `int $span_count` - Number of spans in trace
-- `string $status` - Trace status ('ok', 'error')
-- `Carbon $start_time` - Trace start time
-- `Carbon $end_time` - Trace end time
-- `int $duration` - Duration in nanoseconds
+-   `string $trace_id` - Unique trace identifier
+-   `int $total_input_tokens` - Total input tokens across spans
+-   `int $total_output_tokens` - Total output tokens across spans
+-   `float $estimated_cost` - Total estimated cost in USD
+-   `int $span_count` - Number of spans in trace
+-   `string $status` - Trace status ('ok', 'error')
+-   `Carbon $start_time` - Trace start time
+-   `Carbon $end_time` - Trace end time
+-   `int $duration` - Duration in nanoseconds
 
 #### Relationships
 
@@ -585,16 +604,16 @@ Eloquent model for span records.
 
 #### Attributes
 
-- `string $span_id` - Unique span identifier
-- `string $trace_id` - Parent trace ID
-- `string $name` - Span name
-- `string $operation_name` - Operation type ('chat', 'embeddings', etc.)
-- `string $provider_name` - LLM provider ('openai', 'anthropic', etc.)
-- `string $request_model` - Model used
-- `int $input_tokens` - Input token count
-- `int $output_tokens` - Output token count
-- `string $status_code` - Status ('ok', 'error')
-- `int $duration` - Duration in nanoseconds
+-   `string $span_id` - Unique span identifier
+-   `string $trace_id` - Parent trace ID
+-   `string $name` - Span name
+-   `string $operation_name` - Operation type ('chat', 'embeddings', etc.)
+-   `string $provider_name` - LLM provider ('openai', 'anthropic', etc.)
+-   `string $request_model` - Model used
+-   `int $input_tokens` - Input token count
+-   `int $output_tokens` - Output token count
+-   `string $status_code` - Status ('ok', 'error')
+-   `int $duration` - Duration in nanoseconds
 
 #### Scopes
 
@@ -620,13 +639,14 @@ Span::withErrors()->get();
 
 ## Related Documentation
 
-- [Configuration Reference](/docs/reference/configuration.md) - Full configuration options
-- [Vector Stores Reference](/docs/reference/vector-stores.md) - Vector store implementations
-- [Embeddings Reference](/docs/reference/embeddings.md) - Embedding providers
-- [Core Documentation](/docs/installation) - Getting started guide
+-   [Configuration Reference](/docs/reference/configuration.md) - Full configuration options
+-   [Vector Stores Reference](/docs/reference/vector-stores.md) - Vector store implementations
+-   [Embeddings Reference](/docs/reference/embeddings.md) - Embedding providers
+-   [Core Documentation](/docs/installation) - Getting started guide
 
 For detailed usage examples, see:
-- [Prompt Composer](/docs/core/prompt-composer) - Token-aware prompt building
-- [Context Discovery](/docs/core/context-discovery) - Context aggregation
-- [Streaming](/docs/core/streaming) - Real-time responses
-- [Tracing](/docs/observability/tracing) - Observability and monitoring
+
+-   [Prompt Composer](/docs/core/prompt-composer) - Token-aware prompt building
+-   [Context Discovery](/docs/core/context-discovery) - Context aggregation
+-   [Streaming](/docs/core/streaming) - Real-time responses
+-   [Tracing](/docs/observability/tracing) - Observability and monitoring

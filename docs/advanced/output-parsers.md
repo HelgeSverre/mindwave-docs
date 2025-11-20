@@ -7,18 +7,19 @@ Output Parsers transform unstructured LLM text responses into structured, typed 
 ### Why Parse LLM Outputs?
 
 **The Challenge:**
-- LLMs generate natural language text, not structured data
-- Response formats can vary even with detailed instructions
-- Type safety is crucial for production applications
-- Validation prevents downstream errors
+
+-   LLMs generate natural language text, not structured data
+-   Response formats can vary even with detailed instructions
+-   Type safety is crucial for production applications
+-   Validation prevents downstream errors
 
 **The Solution:**
 Output Parsers provide a structured approach to converting LLM text into typed PHP objects, arrays, or collections. They handle:
 
-- **Format Instructions** - Tell the LLM how to structure its response
-- **Parsing Logic** - Extract structured data from text responses
-- **Type Safety** - Convert data to proper PHP types
-- **Error Handling** - Gracefully handle malformed responses
+-   **Format Instructions** - Tell the LLM how to structure its response
+-   **Parsing Logic** - Extract structured data from text responses
+-   **Type Safety** - Convert data to proper PHP types
+-   **Error Handling** - Gracefully handle malformed responses
 
 ### Common Parsing Challenges
 
@@ -70,15 +71,16 @@ $response = Mindwave::llm()->generate($template, ['product' => 'Laravel']);
 ```
 
 **Use When:**
-- You need the raw LLM output
-- No structured parsing required
-- Simple text generation tasks
+
+-   You need the raw LLM output
+-   No structured parsing required
+-   Simple text generation tasks
 
 ### JsonOutputParser
 
 Parses JSON responses from markdown code blocks, returning associative arrays.
 
-```php
+````php
 use Mindwave\Mindwave\Prompts\OutputParsers\JsonOutputParser;
 
 $template = PromptTemplate::create(
@@ -109,7 +111,7 @@ $result = Mindwave::llm()->generate($template, [
 //     'email' => 'john@example.com',
 //     'phone' => '555-0123'
 // ]
-```
+````
 
 **How It Works:**
 
@@ -154,7 +156,7 @@ $result = Mindwave::llm()->generate($template, ['topic' => 'Laravel']);
 
 **Format Instructions:**
 
-```
+````
 RESPONSE FORMAT INSTRUCTIONS
 ----------------------------
 When responding to me please, please output the response in the following format:
@@ -162,10 +164,12 @@ When responding to me please, please output the response in the following format
 {
     "data": array // An array of strings.
 }
-```
+````
+
 However, above all else, all responses must adhere to the format of RESPONSE FORMAT INSTRUCTIONS.
 Remember to respond with a JSON blob with a single key, and NOTHING else.
-```
+
+````
 
 **Implementation:**
 
@@ -175,7 +179,7 @@ public function parse(string $text): array
 {
     return Arr::get(parent::parse($text), 'data', []);
 }
-```
+````
 
 **Use Cases:**
 
@@ -242,14 +246,15 @@ public function parse(string $text): array
 ```
 
 **When to Use:**
-- Simple list generation
-- When JSON is overkill
-- Lighter format instructions
-- Quick prototyping
+
+-   Simple list generation
+-   When JSON is overkill
+-   Lighter format instructions
+-   Quick prototyping
 
 **Comparison with JsonListOutputParser:**
 
-```php
+````php
 // CommaSeparatedListOutputParser - simpler, lighter
 // LLM Response: "red, green, blue"
 // Result: ['red', 'green', 'blue']
@@ -257,7 +262,7 @@ public function parse(string $text): array
 // JsonListOutputParser - more structured, reliable
 // LLM Response: ```json{"data": ["red", "green", "blue"]}```
 // Result: ['red', 'green', 'blue']
-```
+````
 
 ### StructuredOutputParser
 
@@ -324,19 +329,19 @@ $schema = $parser->getSchemaStructure();
 
 **Type Mapping:**
 
-| PHP Type | Schema Role | Conversion |
-|----------|-------------|------------|
-| `string` | `string` | As-is |
-| `int` | `int` | `intval()` |
-| `float` | `float` | `floatval()` |
-| `bool` | `bool` | `boolval()` |
-| `array` | `array` | As-is |
-| `Collection` | `array` | `collect()` |
-| Other | `object` | As-is |
+| PHP Type     | Schema Role | Conversion   |
+| ------------ | ----------- | ------------ |
+| `string`     | `string`    | As-is        |
+| `int`        | `int`       | `intval()`   |
+| `float`      | `float`     | `floatval()` |
+| `bool`       | `bool`      | `boolval()`  |
+| `array`      | `array`     | As-is        |
+| `Collection` | `array`     | `collect()`  |
+| Other        | `object`    | As-is        |
 
 **Format Instructions:**
 
-```
+````
 RESPONSE FORMAT INSTRUCTIONS
 ----------------------------
 The output should be formatted as a JSON instance that conforms to the JSON schema below.
@@ -347,9 +352,11 @@ the object {"foo": ["bar", "baz"]} is a well-formatted instance of the schema. T
 Here is the output schema:
 ```json
 {"properties":{"name":{"role":"string"},"age":{"role":"int"},...},"required":["name"]}
-```
+````
+
 Remember to respond with a JSON blob, and NOTHING else.
-```
+
+````
 
 ## Real-World Examples
 
@@ -398,7 +405,7 @@ Contact::create([
     'company' => $contact->company,
     'job_title' => $contact->jobTitle,
 ]);
-```
+````
 
 ### Example 2: Sentiment Analysis Output
 
@@ -1013,7 +1020,7 @@ class PartialContactParser implements OutputParser
 
 For streaming LLM responses, parse incrementally:
 
-```php
+````php
 class StreamingJsonParser
 {
     protected string $buffer = '';
@@ -1055,7 +1062,7 @@ class StreamingJsonParser
         $this->inJsonBlock = false;
     }
 }
-```
+````
 
 ## Error Handling
 
@@ -1313,7 +1320,7 @@ try {
 
 ### Unit Testing Parsers
 
-```php
+````php
 use Tests\TestCase;
 use Mindwave\Mindwave\Prompts\OutputParsers\JsonOutputParser;
 
@@ -1363,7 +1370,7 @@ class JsonOutputParserTest extends TestCase
         $this->assertEquals(['key' => 'value'], $result);
     }
 }
-```
+````
 
 ### Testing Structured Output Parser
 
@@ -1436,7 +1443,7 @@ class StructuredOutputParserTest extends TestCase
 
 ### Test Data Generation
 
-```php
+````php
 class ParserTestDataFactory
 {
     public static function jsonWithCodeBlock(array $data): string
@@ -1482,11 +1489,11 @@ public function it_handles_complete_contact_info()
     $this->assertArrayHasKey('email', $result);
     $this->assertArrayHasKey('phone', $result);
 }
-```
+````
 
 ### Edge Case Testing
 
-```php
+````php
 class ParserEdgeCaseTest extends TestCase
 {
     /** @test */
@@ -1541,7 +1548,7 @@ class ParserEdgeCaseTest extends TestCase
         $this->assertCount(1000, $result);
     }
 }
-```
+````
 
 ### Integration Testing with Mock LLM
 
@@ -1821,7 +1828,7 @@ class ParsingException extends Exception
 
 **Solutions:**
 
-```php
+````php
 // 1. Strengthen format instructions
 $parser = new class extends JsonOutputParser {
     public function getFormatInstructions(): string
@@ -1852,7 +1859,7 @@ $template = PromptTemplate::create(
     ```',
     new JsonOutputParser()
 );
-```
+````
 
 ### JSON Parsing Errors
 
@@ -1860,7 +1867,7 @@ $template = PromptTemplate::create(
 
 **Solutions:**
 
-```php
+````php
 // 1. Check what the LLM actually returned
 try {
     $result = $parser->parse($response);
@@ -1896,7 +1903,7 @@ $cleaned = Str::of($response)->between('```json', '```')->trim();
 if (json_decode($cleaned) === null) {
     Log::error('Invalid JSON', ['json' => $cleaned]);
 }
-```
+````
 
 ### Missing Required Fields
 
@@ -2045,29 +2052,33 @@ if ($duration > 0.1) {
 Output Parsers are essential for transforming LLM text into reliable, type-safe data structures. Key takeaways:
 
 **Core Concepts:**
-- Parsers provide format instructions and parsing logic
-- Five built-in parsers cover common use cases
-- Custom parsers extend the system for specialized needs
+
+-   Parsers provide format instructions and parsing logic
+-   Five built-in parsers cover common use cases
+-   Custom parsers extend the system for specialized needs
 
 **Production Recommendations:**
-- Always validate parsed output with Laravel validation
-- Use `StructuredOutputParser` for complex, typed objects
-- Implement comprehensive error handling
-- Log parsing failures for monitoring and improvement
-- Test parsers with edge cases and malformed data
+
+-   Always validate parsed output with Laravel validation
+-   Use `StructuredOutputParser` for complex, typed objects
+-   Implement comprehensive error handling
+-   Log parsing failures for monitoring and improvement
+-   Test parsers with edge cases and malformed data
 
 **Best Practices:**
-- Design prompts that encourage parseable output
-- Leverage PHP 8+ type system for safety
-- Use DTOs for additional validation and type coercion
-- Cache expensive operations like schema generation
-- Monitor parsing success rates in production
+
+-   Design prompts that encourage parseable output
+-   Leverage PHP 8+ type system for safety
+-   Use DTOs for additional validation and type coercion
+-   Cache expensive operations like schema generation
+-   Monitor parsing success rates in production
 
 **Common Pitfalls to Avoid:**
-- Trusting LLM output without validation
-- Assuming consistent format compliance
-- Ignoring type mismatches
-- Not handling missing fields gracefully
-- Skipping error logging
+
+-   Trusting LLM output without validation
+-   Assuming consistent format compliance
+-   Ignoring type mismatches
+-   Not handling missing fields gracefully
+-   Skipping error logging
 
 With proper parsing and validation, you can confidently use LLM-generated data in production Laravel applications.

@@ -7,35 +7,39 @@ Mistral AI is a European AI company offering high-performance large language mod
 ### Why Use Mistral AI with Mindwave?
 
 **European Data Sovereignty**
-- GDPR-compliant by design
-- Data processed in European data centers
-- Ideal for EU-based applications with strict data residency requirements
-- No data retention for API calls (unless explicitly configured)
+
+-   GDPR-compliant by design
+-   Data processed in European data centers
+-   Ideal for EU-based applications with strict data residency requirements
+-   No data retention for API calls (unless explicitly configured)
 
 **Competitive Pricing**
-- Significantly lower costs compared to GPT-4
-- Mistral Large offers comparable performance at ~60% of GPT-4 cost
-- Mistral Small is extremely cost-effective for simple tasks
+
+-   Significantly lower costs compared to GPT-4
+-   Mistral Large offers comparable performance at ~60% of GPT-4 cost
+-   Mistral Small is extremely cost-effective for simple tasks
 
 **High Performance**
-- Mistral Large: Top-tier reasoning and instruction following
-- Mixtral models: Excellent cost-performance ratio using Mixture-of-Experts architecture
-- Strong multilingual capabilities (especially French, German, Spanish, Italian)
+
+-   Mistral Large: Top-tier reasoning and instruction following
+-   Mixtral models: Excellent cost-performance ratio using Mixture-of-Experts architecture
+-   Strong multilingual capabilities (especially French, German, Spanish, Italian)
 
 **Self-Hosting Option**
-- Open-source models available (Mistral 7B, Mixtral 8x7B)
-- Deploy on your own infrastructure
-- Full control over data and costs
+
+-   Open-source models available (Mistral 7B, Mixtral 8x7B)
+-   Deploy on your own infrastructure
+-   Full control over data and costs
 
 ### Key Capabilities
 
-- Chat completion with system messages
-- Function calling (tools)
-- JSON mode for structured outputs
-- Streaming responses (coming soon)
-- Reproducible outputs with random seed
-- Safe mode for content filtering
-- Context windows up to 128K tokens
+-   Chat completion with system messages
+-   Function calling (tools)
+-   JSON mode for structured outputs
+-   Streaming responses (coming soon)
+-   Reproducible outputs with random seed
+-   Safe mode for content filtering
+-   Context windows up to 128K tokens
 
 ## Setup & Configuration
 
@@ -115,26 +119,30 @@ echo $driver->maxContextTokens(); // e.g., 32000 for mistral-medium
 ### Mistral Large (Flagship Model)
 
 **Model IDs:**
-- `mistral-large-latest` (recommended - always uses latest version)
-- `mistral-large-2407` (July 2024 version)
-- `mistral-large-2402` (February 2024 version)
+
+-   `mistral-large-latest` (recommended - always uses latest version)
+-   `mistral-large-2407` (July 2024 version)
+-   `mistral-large-2402` (February 2024 version)
 
 **Specifications:**
-- **Context Window:** 128,000 tokens
-- **Pricing (per 1M tokens):**
-  - Input: $4.00
-  - Output: $12.00
-- **Parameters:** 123B (estimated)
+
+-   **Context Window:** 128,000 tokens
+-   **Pricing (per 1M tokens):**
+    -   Input: $4.00
+    -   Output: $12.00
+-   **Parameters:** 123B (estimated)
 
 **Best For:**
-- Complex reasoning tasks
-- Code generation and debugging
-- Multi-step problem solving
-- High-quality content creation
-- Function calling with multiple tools
-- Tasks requiring deep understanding
+
+-   Complex reasoning tasks
+-   Code generation and debugging
+-   Multi-step problem solving
+-   High-quality content creation
+-   Function calling with multiple tools
+-   Tasks requiring deep understanding
 
 **Example:**
+
 ```php
 use Mindwave\Mindwave\Facades\Mindwave;
 
@@ -149,21 +157,24 @@ $response = Mindwave::driver('mistral')
 **Model ID:** `mistral-medium-latest`
 
 **Specifications:**
-- **Context Window:** 32,000 tokens
-- **Pricing (per 1M tokens):**
-  - Input: $2.70
-  - Output: $8.10
-- **Parameters:** ~40B (estimated)
+
+-   **Context Window:** 32,000 tokens
+-   **Pricing (per 1M tokens):**
+    -   Input: $2.70
+    -   Output: $8.10
+-   **Parameters:** ~40B (estimated)
 
 **Best For:**
-- General-purpose chat applications
-- Content generation
-- Summarization
-- Translation
-- Moderate complexity reasoning
-- Cost-sensitive production deployments
+
+-   General-purpose chat applications
+-   Content generation
+-   Summarization
+-   Translation
+-   Moderate complexity reasoning
+-   Cost-sensitive production deployments
 
 **Example:**
+
 ```php
 $summary = Mindwave::driver('mistral')
     ->model('mistral-medium-latest')
@@ -175,21 +186,24 @@ $summary = Mindwave::driver('mistral')
 **Model ID:** `mistral-small-latest`
 
 **Specifications:**
-- **Context Window:** 32,000 tokens
-- **Pricing (per 1M tokens):**
-  - Input: $1.00
-  - Output: $3.00
-- **Parameters:** ~22B (estimated)
+
+-   **Context Window:** 32,000 tokens
+-   **Pricing (per 1M tokens):**
+    -   Input: $1.00
+    -   Output: $3.00
+-   **Parameters:** ~22B (estimated)
 
 **Best For:**
-- Simple classification tasks
-- Basic Q&A
-- Simple content generation
-- High-volume, low-complexity tasks
-- Development and testing
-- Cost-critical applications
+
+-   Simple classification tasks
+-   Basic Q&A
+-   Simple content generation
+-   High-volume, low-complexity tasks
+-   Development and testing
+-   Cost-critical applications
 
 **Example:**
+
 ```php
 $classification = Mindwave::driver('mistral')
     ->model('mistral-small-latest')
@@ -201,20 +215,23 @@ $classification = Mindwave::driver('mistral')
 **Model ID:** `mistral-tiny`
 
 **Specifications:**
-- **Context Window:** 32,000 tokens
-- **Pricing (per 1M tokens):**
-  - Input: $0.25
-  - Output: $0.25
-- **Parameters:** ~7B (Mistral 7B)
+
+-   **Context Window:** 32,000 tokens
+-   **Pricing (per 1M tokens):**
+    -   Input: $0.25
+    -   Output: $0.25
+-   **Parameters:** ~7B (Mistral 7B)
 
 **Best For:**
-- Ultra-low-cost operations
-- Simple tasks at scale
-- Embeddings alternative
-- Prototyping
-- Testing and development
+
+-   Ultra-low-cost operations
+-   Simple tasks at scale
+-   Embeddings alternative
+-   Prototyping
+-   Testing and development
 
 **Example:**
+
 ```php
 $result = Mindwave::driver('mistral')
     ->model('mistral-tiny')
@@ -226,38 +243,43 @@ $result = Mindwave::driver('mistral')
 **Model ID:** `mixtral-8x7b-instruct-v0.1`
 
 **Specifications:**
-- **Context Window:** 32,000 tokens
-- **Architecture:** Mixture-of-Experts (8 experts, 2 active per token)
-- **Effective Parameters:** 12.9B (46.7B total)
-- **Pricing:** Similar to Mistral Medium
+
+-   **Context Window:** 32,000 tokens
+-   **Architecture:** Mixture-of-Experts (8 experts, 2 active per token)
+-   **Effective Parameters:** 12.9B (46.7B total)
+-   **Pricing:** Similar to Mistral Medium
 
 **Best For:**
-- High-throughput applications
-- Multilingual tasks
-- Cost-effective alternative to Mistral Large
-- Code generation
-- Tasks requiring broad knowledge
+
+-   High-throughput applications
+-   Multilingual tasks
+-   Cost-effective alternative to Mistral Large
+-   Code generation
+-   Tasks requiring broad knowledge
 
 **Performance Notes:**
-- Faster inference than similar-sized dense models
-- Excellent multilingual performance
-- Strong code understanding
+
+-   Faster inference than similar-sized dense models
+-   Excellent multilingual performance
+-   Strong code understanding
 
 ### Mixtral 8x22B
 
 **Model ID:** `mixtral-8x22b-instruct-v0.1`
 
 **Specifications:**
-- **Context Window:** 64,000 tokens
-- **Architecture:** Mixture-of-Experts (8 experts, 2 active per token)
-- **Effective Parameters:** ~39B (141B total)
-- **Pricing:** Competitive with Mistral Large
+
+-   **Context Window:** 64,000 tokens
+-   **Architecture:** Mixture-of-Experts (8 experts, 2 active per token)
+-   **Effective Parameters:** ~39B (141B total)
+-   **Pricing:** Competitive with Mistral Large
 
 **Best For:**
-- Complex reasoning at lower cost than GPT-4
-- Large document analysis
-- Multi-lingual tasks requiring sophistication
-- Advanced code generation
+
+-   Complex reasoning at lower cost than GPT-4
+-   Large document analysis
+-   Multi-lingual tasks requiring sophistication
+-   Advanced code generation
 
 ## Basic Usage
 
@@ -357,24 +379,28 @@ $response = Mindwave::driver('mistral')
 ```
 
 **What Safe Mode Does:**
-- Filters harmful, inappropriate, or unsafe content
-- Refuses to generate illegal or dangerous information
-- Adds extra moderation layer beyond model training
-- Slightly increases latency (~50-100ms)
+
+-   Filters harmful, inappropriate, or unsafe content
+-   Refuses to generate illegal or dangerous information
+-   Adds extra moderation layer beyond model training
+-   Slightly increases latency (~50-100ms)
 
 **When to Use Safe Mode:**
-- User-facing chatbots
-- Content generation for public consumption
-- Applications serving minors
-- Compliance-sensitive environments
+
+-   User-facing chatbots
+-   Content generation for public consumption
+-   Applications serving minors
+-   Compliance-sensitive environments
 
 **When to Skip Safe Mode:**
-- Internal tools
-- Development environments
-- Performance-critical applications
-- Content analysis (where you need to process all content)
+
+-   Internal tools
+-   Development environments
+-   Performance-critical applications
+-   Content analysis (where you need to process all content)
 
 **Configuration:**
+
 ```php
 // In config/mindwave-llm.php
 'mistral' => [
@@ -408,19 +434,22 @@ $response2 = Mindwave::driver('mistral')
 ```
 
 **Use Cases:**
-- **Testing:** Ensure consistent test outputs
-- **Debugging:** Reproduce specific model behaviors
-- **A/B Testing:** Compare different prompts with controlled variation
-- **Demos:** Reliable demonstrations
-- **Research:** Reproducible experiments
+
+-   **Testing:** Ensure consistent test outputs
+-   **Debugging:** Reproduce specific model behaviors
+-   **A/B Testing:** Compare different prompts with controlled variation
+-   **Demos:** Reliable demonstrations
+-   **Research:** Reproducible experiments
 
 **Important Notes:**
-- Same seed + same input + same parameters = same output
-- Works across API calls and sessions
-- Does NOT work with `temperature: 0` (deterministic anyway)
-- Use any integer value
+
+-   Same seed + same input + same parameters = same output
+-   Works across API calls and sessions
+-   Does NOT work with `temperature: 0` (deterministic anyway)
+-   Use any integer value
 
 **Example: Testing Framework**
+
 ```php
 use Mindwave\Mindwave\Facades\Mindwave;
 
@@ -456,9 +485,10 @@ config(['mindwave-llm.llms.mistral.max_tokens' => 500]);
 ```
 
 **Token Estimations:**
-- ~4 characters = 1 token (English)
-- ~100 tokens = 75 words
-- ~1000 tokens = 750 words (about 1.5 pages)
+
+-   ~4 characters = 1 token (English)
+-   ~100 tokens = 75 words
+-   ~1000 tokens = 750 words (about 1.5 pages)
 
 ## Function Calling
 
@@ -766,10 +796,11 @@ $essay = Mindwave::driver('mistral')
 ```
 
 **Context Window Limits:**
-- Mistral Large: 128,000 tokens
-- Mistral Medium/Small: 32,000 tokens
-- Mixtral 8x7B: 32,000 tokens
-- Mixtral 8x22B: 64,000 tokens
+
+-   Mistral Large: 128,000 tokens
+-   Mistral Medium/Small: 32,000 tokens
+-   Mixtral 8x7B: 32,000 tokens
+-   Mixtral 8x22B: 64,000 tokens
 
 ### Combining Parameters
 
@@ -883,22 +914,25 @@ Update your Mindwave configuration:
 ### Available Open Source Models
 
 **Mistral 7B Instruct v0.2**
-- 7 billion parameters
-- 32K context window
-- Excellent for general tasks
-- Low memory requirements (~14GB VRAM)
+
+-   7 billion parameters
+-   32K context window
+-   Excellent for general tasks
+-   Low memory requirements (~14GB VRAM)
 
 **Mixtral 8x7B Instruct**
-- 46.7B total parameters (12.9B active)
-- 32K context window
-- Superior performance to Mistral 7B
-- Requires ~90GB VRAM or quantization
+
+-   46.7B total parameters (12.9B active)
+-   32K context window
+-   Superior performance to Mistral 7B
+-   Requires ~90GB VRAM or quantization
 
 **Mixtral 8x22B Instruct**
-- 141B total parameters (39B active)
-- 64K context window
-- Close to GPT-4 performance
-- Requires significant resources
+
+-   141B total parameters (39B active)
+-   64K context window
+-   Close to GPT-4 performance
+-   Requires significant resources
 
 ### Performance Considerations
 
@@ -910,45 +944,51 @@ Update your Mindwave configuration:
 | Mixtral 8x22B | 280GB VRAM | 140GB VRAM | 70GB VRAM |
 
 **Throughput:**
-- vLLM can achieve 10-20x higher throughput than naive implementations
-- Continuous batching for maximum GPU utilization
-- PagedAttention for efficient memory management
+
+-   vLLM can achieve 10-20x higher throughput than naive implementations
+-   Continuous batching for maximum GPU utilization
+-   PagedAttention for efficient memory management
 
 ## Best Practices
 
 ### Model Selection Guide
 
 **Choose Mistral Large when:**
-- You need top-tier reasoning capabilities
-- Task involves complex multi-step logic
-- Code generation quality is critical
-- Using function calling with multiple tools
-- Budget allows for premium performance
+
+-   You need top-tier reasoning capabilities
+-   Task involves complex multi-step logic
+-   Code generation quality is critical
+-   Using function calling with multiple tools
+-   Budget allows for premium performance
 
 **Choose Mistral Medium when:**
-- You need balanced performance and cost
-- General-purpose chat application
-- Content generation and summarization
-- Production deployment at scale
-- Sweet spot for most use cases
+
+-   You need balanced performance and cost
+-   General-purpose chat application
+-   Content generation and summarization
+-   Production deployment at scale
+-   Sweet spot for most use cases
 
 **Choose Mistral Small when:**
-- Task is straightforward (classification, simple Q&A)
-- High volume of requests
-- Cost is primary concern
-- Development and testing
-- Sufficient for 70% of typical use cases
+
+-   Task is straightforward (classification, simple Q&A)
+-   High volume of requests
+-   Cost is primary concern
+-   Development and testing
+-   Sufficient for 70% of typical use cases
 
 **Choose Mixtral 8x7B when:**
-- Need better performance than Small
-- Multilingual support is critical
-- Self-hosting is an option
-- Cost-effective alternative to Large
-- Batch processing workloads
+
+-   Need better performance than Small
+-   Multilingual support is critical
+-   Self-hosting is an option
+-   Cost-effective alternative to Large
+-   Batch processing workloads
 
 ### Cost Optimization
 
 **1. Use Appropriate Models**
+
 ```php
 // Bad: Using Mistral Large for simple tasks
 $sentiment = Mindwave::driver('mistral')
@@ -964,6 +1004,7 @@ $sentiment = Mindwave::driver('mistral')
 ```
 
 **2. Optimize Prompts with PromptComposer**
+
 ```php
 use Mindwave\Mindwave\Facades\Mindwave;
 
@@ -980,6 +1021,7 @@ $response = Mindwave::prompt()
 ```
 
 **3. Set Appropriate Max Tokens**
+
 ```php
 // Bad: Allowing unlimited response length
 $response = Mindwave::driver('mistral')->generateText($prompt);
@@ -992,6 +1034,7 @@ $response = Mindwave::driver('mistral')
 ```
 
 **4. Monitor Costs with Tracing**
+
 ```php
 use Mindwave\Mindwave\Models\MindwaveTrace;
 
@@ -1012,6 +1055,7 @@ $costByModel = MindwaveTrace::query()
 ### Prompt Engineering for Mistral
 
 **1. Be Direct and Specific**
+
 ```php
 // Bad: Vague and indirect
 $response = Mindwave::driver('mistral')
@@ -1023,6 +1067,7 @@ $response = Mindwave::driver('mistral')
 ```
 
 **2. Use System Messages Effectively**
+
 ```php
 // Set expertise and tone via system message
 $driver = Mindwave::driver('mistral')
@@ -1035,6 +1080,7 @@ $advice = $driver->generateText('How should I implement API rate limiting?');
 ```
 
 **3. Leverage Mistral's Multilingual Strengths**
+
 ```php
 // Mistral excels at European languages
 $translation = Mindwave::driver('mistral')
@@ -1044,6 +1090,7 @@ $translation = Mindwave::driver('mistral')
 ```
 
 **4. Structure Complex Tasks**
+
 ```php
 $response = Mindwave::driver('mistral')
     ->model('mistral-large-latest')
@@ -1164,16 +1211,17 @@ Http::timeout(120)->post(/* ... */);
 
 ### Current Pricing (Per 1M Tokens)
 
-| Model | Input | Output | Best For |
-|-------|--------|--------|----------|
-| **Mistral Large** | $4.00 | $12.00 | Complex reasoning, top quality |
-| **Mistral Medium** | $2.70 | $8.10 | General purpose, balanced |
-| **Mistral Small** | $1.00 | $3.00 | Simple tasks, high volume |
-| **Mistral Tiny** | $0.25 | $0.25 | Ultra-low-cost operations |
+| Model              | Input | Output | Best For                       |
+| ------------------ | ----- | ------ | ------------------------------ |
+| **Mistral Large**  | $4.00 | $12.00 | Complex reasoning, top quality |
+| **Mistral Medium** | $2.70 | $8.10  | General purpose, balanced      |
+| **Mistral Small**  | $1.00 | $3.00  | Simple tasks, high volume      |
+| **Mistral Tiny**   | $0.25 | $0.25  | Ultra-low-cost operations      |
 
 ### Cost Calculation Examples
 
 **Example 1: Customer Support Chatbot**
+
 ```php
 // Input: 500 tokens (conversation history)
 // Output: 200 tokens (response)
@@ -1188,6 +1236,7 @@ $monthlyCost = $dailyCost * 30;         // $0.89/month
 ```
 
 **Example 2: Content Summarization**
+
 ```php
 // Input: 2000 tokens (article)
 // Output: 300 tokens (summary)
@@ -1203,11 +1252,11 @@ $monthlyCost = $dailyCost * 30;         // $0.087/month
 
 ### Comparison with OpenAI
 
-| Task | Mistral Model | Cost | GPT Model | Cost | Savings |
-|------|---------------|------|-----------|------|---------|
-| Complex reasoning | Large | $4/$12 | GPT-4 Turbo | $10/$30 | 60% |
-| General chat | Medium | $2.70/$8.10 | GPT-3.5 Turbo | $0.50/$1.50 | -81% |
-| Simple tasks | Small | $1/$3 | GPT-3.5 Turbo | $0.50/$1.50 | -50% |
+| Task              | Mistral Model | Cost        | GPT Model     | Cost        | Savings |
+| ----------------- | ------------- | ----------- | ------------- | ----------- | ------- |
+| Complex reasoning | Large         | $4/$12      | GPT-4 Turbo   | $10/$30     | 60%     |
+| General chat      | Medium        | $2.70/$8.10 | GPT-3.5 Turbo | $0.50/$1.50 | -81%    |
+| Simple tasks      | Small         | $1/$3       | GPT-3.5 Turbo | $0.50/$1.50 | -50%    |
 
 **Key Takeaway:** Mistral Large offers significant savings vs GPT-4, but GPT-3.5 Turbo is cheaper for simple tasks.
 
@@ -1268,12 +1317,14 @@ if (MindwaveTrace::whereDate('created_at', today())->sum('cost') > 10.00) {
 ### European Data Residency
 
 **Mistral AI Advantages:**
-- All API infrastructure hosted in Europe
-- Data processed in EU data centers (France)
-- No cross-border data transfers to USA
-- Ideal for GDPR compliance
+
+-   All API infrastructure hosted in Europe
+-   Data processed in EU data centers (France)
+-   No cross-border data transfers to USA
+-   Ideal for GDPR compliance
 
 **Configuration for GDPR:**
+
 ```php
 // Ensure you're using EU endpoints
 'mistral' => [
@@ -1285,6 +1336,7 @@ if (MindwaveTrace::whereDate('created_at', today())->sum('cost') > 10.00) {
 ### GDPR Compliance Features
 
 **1. Data Minimization**
+
 ```php
 // Only send necessary data to Mistral
 $response = Mindwave::driver('mistral')
@@ -1292,11 +1344,13 @@ $response = Mindwave::driver('mistral')
 ```
 
 **2. No Data Retention**
-- Mistral AI does not store API requests by default
-- No training on customer data without explicit consent
-- Right to deletion automatically satisfied
+
+-   Mistral AI does not store API requests by default
+-   No training on customer data without explicit consent
+-   Right to deletion automatically satisfied
 
 **3. Pseudonymization**
+
 ```php
 use Illuminate\Support\Str;
 
@@ -1311,6 +1365,7 @@ $response = Mindwave::driver('mistral')->generateText($sanitized);
 ```
 
 **4. Disable Message Capture in Production**
+
 ```dotenv
 # Don't store prompts/responses in tracing
 MINDWAVE_TRACE_CAPTURE_MESSAGES=false
@@ -1319,13 +1374,15 @@ MINDWAVE_TRACE_CAPTURE_MESSAGES=false
 ### Data Processing Agreement
 
 Mistral AI provides GDPR-compliant DPAs:
-- Standard Contractual Clauses (SCCs)
-- Article 28 GDPR compliance
-- Available on request from Mistral AI support
+
+-   Standard Contractual Clauses (SCCs)
+-   Article 28 GDPR compliance
+-   Available on request from Mistral AI support
 
 ### Privacy Best Practices
 
 **1. Minimize PII in Prompts**
+
 ```php
 // Bad: Sending full user data
 $response = Mindwave::driver('mistral')
@@ -1337,6 +1394,7 @@ $response = Mindwave::driver('mistral')
 ```
 
 **2. Use Safe Mode for User Content**
+
 ```php
 // Enable safe mode when processing user-generated content
 $response = Mindwave::driver('mistral')
@@ -1345,6 +1403,7 @@ $response = Mindwave::driver('mistral')
 ```
 
 **3. Implement Retention Policies**
+
 ```php
 // Auto-delete traces older than 30 days
 // config/mindwave-tracing.php
@@ -1359,13 +1418,15 @@ php artisan mindwave:prune-traces
 ### Rate Limits
 
 **Mistral AI Rate Limits (as of 2024):**
-- **Requests per minute:** Varies by tier
-  - Free tier: ~20 RPM
-  - Paid tier: ~60 RPM
-  - Enterprise: Custom limits
-- **Tokens per minute:** ~100K-500K depending on tier
+
+-   **Requests per minute:** Varies by tier
+    -   Free tier: ~20 RPM
+    -   Paid tier: ~60 RPM
+    -   Enterprise: Custom limits
+-   **Tokens per minute:** ~100K-500K depending on tier
 
 **Handling Rate Limits:**
+
 ```php
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -1386,12 +1447,14 @@ RateLimiter::hit('mistral-api:' . $userId);
 ### Context Window Limits
 
 **Maximum Context Windows:**
-- Mistral Large: 128,000 tokens (~96,000 words)
-- Mistral Medium/Small: 32,000 tokens (~24,000 words)
-- Mixtral 8x7B: 32,000 tokens
-- Mixtral 8x22B: 64,000 tokens
+
+-   Mistral Large: 128,000 tokens (~96,000 words)
+-   Mistral Medium/Small: 32,000 tokens (~24,000 words)
+-   Mixtral 8x7B: 32,000 tokens
+-   Mixtral 8x22B: 64,000 tokens
 
 **Handling Long Inputs:**
+
 ```php
 use Mindwave\Mindwave\PromptComposer\Tokenizer\ModelTokenLimits;
 
@@ -1412,23 +1475,28 @@ $response = Mindwave::prompt()
 ### Model Availability
 
 **Regional Considerations:**
-- All Mistral models available globally via API
-- Self-hosted models require download from Hugging Face
-- Some models may have limited availability during high demand
+
+-   All Mistral models available globally via API
+-   Self-hosted models require download from Hugging Face
+-   Some models may have limited availability during high demand
 
 ### Language Support
 
 **Strong Support:**
-- English, French, German, Spanish, Italian
+
+-   English, French, German, Spanish, Italian
 
 **Good Support:**
-- Dutch, Portuguese, Polish, Russian
+
+-   Dutch, Portuguese, Polish, Russian
 
 **Limited Support:**
-- Other European languages
-- Non-European languages (use with caution)
+
+-   Other European languages
+-   Non-European languages (use with caution)
 
 **Example:**
+
 ```php
 // Excellent for European languages
 $translation = Mindwave::driver('mistral')
@@ -1445,12 +1513,14 @@ $chinese = Mindwave::driver('mistral')
 ### Streaming Limitations
 
 **Current Status:**
-- Streaming is NOT yet implemented in MistralDriver
-- Will throw `BadMethodCallException` if attempted
-- Planned for future release
+
+-   Streaming is NOT yet implemented in MistralDriver
+-   Will throw `BadMethodCallException` if attempted
+-   Planned for future release
 
 **Workaround:**
 Use OpenAI driver for streaming needs:
+
 ```php
 // For streaming, use OpenAI
 return Mindwave::driver('openai')
@@ -1465,16 +1535,19 @@ return Mindwave::driver('openai')
 #### 401 Unauthorized
 
 **Error:**
+
 ```
 HTTP 401: Unauthorized
 ```
 
 **Causes:**
-- Invalid or missing API key
-- Expired API key
-- API key not activated
+
+-   Invalid or missing API key
+-   Expired API key
+-   API key not activated
 
 **Solutions:**
+
 ```php
 // 1. Check API key is set
 dd(config('mindwave-llm.llms.mistral.api_key'));
@@ -1497,17 +1570,20 @@ try {
 #### 429 Too Many Requests
 
 **Error:**
+
 ```
 HTTP 429: Too Many Requests
 Retry-After: 60
 ```
 
 **Causes:**
-- Exceeded rate limit
-- Too many concurrent requests
-- Token per minute limit reached
+
+-   Exceeded rate limit
+-   Too many concurrent requests
+-   Token per minute limit reached
 
 **Solutions:**
+
 ```php
 // 1. Implement exponential backoff
 use Illuminate\Support\Facades\Http;
@@ -1539,16 +1615,19 @@ dispatch(new GenerateContentJob($prompt))->onQueue('mistral-api');
 #### 400 Bad Request - Context Length
 
 **Error:**
+
 ```
 HTTP 400: Context length exceeded
 Maximum context length is 32000 tokens
 ```
 
 **Causes:**
-- Input + output tokens exceed model limit
-- Prompt is too long
+
+-   Input + output tokens exceed model limit
+-   Prompt is too long
 
 **Solutions:**
+
 ```php
 // 1. Check token count
 use Mindwave\Mindwave\PromptComposer\Tokenizer\TiktokenTokenizer;
@@ -1578,16 +1657,19 @@ $response = Mindwave::driver('mistral')
 #### 500 Internal Server Error
 
 **Error:**
+
 ```
 HTTP 500: Internal Server Error
 ```
 
 **Causes:**
-- Mistral API temporary issue
-- Malformed request
-- Server-side bug
+
+-   Mistral API temporary issue
+-   Malformed request
+-   Server-side bug
 
 **Solutions:**
+
 ```php
 // 1. Implement retry logic
 $maxRetries = 2;
@@ -1621,16 +1703,19 @@ while ($attempt < $maxRetries) {
 #### Self-Hosted Connection Issues
 
 **Error:**
+
 ```
 cURL error 7: Failed to connect to localhost port 8080
 ```
 
 **Causes:**
-- Self-hosted server not running
-- Wrong base URL
-- Network connectivity
+
+-   Self-hosted server not running
+-   Wrong base URL
+-   Network connectivity
 
 **Solutions:**
+
 ```php
 // 1. Verify server is running
 curl http://localhost:8080/health
@@ -1651,6 +1736,7 @@ sudo ufw status
 ### Debugging Tips
 
 **Enable Detailed Logging:**
+
 ```php
 // Log all Mistral requests
 use Illuminate\Support\Facades\Http;
@@ -1669,6 +1755,7 @@ Http::macro('mistral', function () {
 ```
 
 **Inspect Trace Data:**
+
 ```php
 use Mindwave\Mindwave\Models\MindwaveTrace;
 
@@ -1687,59 +1774,62 @@ dd([
 ### When to Use Mistral vs OpenAI
 
 **Choose Mistral When:**
-- GDPR compliance is critical
-- European data residency required
-- Cost optimization is important (for GPT-4 class models)
-- Multilingual European language support needed
-- Self-hosting option desired
+
+-   GDPR compliance is critical
+-   European data residency required
+-   Cost optimization is important (for GPT-4 class models)
+-   Multilingual European language support needed
+-   Self-hosting option desired
 
 **Choose OpenAI When:**
-- Need absolute best-in-class reasoning (GPT-4o, o1)
-- Require proven production stability
-- Need comprehensive ecosystem (GPT Store, etc.)
-- Budget allows premium pricing
-- Streaming is required (until Mistral driver supports it)
+
+-   Need absolute best-in-class reasoning (GPT-4o, o1)
+-   Require proven production stability
+-   Need comprehensive ecosystem (GPT Store, etc.)
+-   Budget allows premium pricing
+-   Streaming is required (until Mistral driver supports it)
 
 ### Performance Comparison
 
-| Benchmark | Mistral Large | Mistral Medium | GPT-4 Turbo | GPT-3.5 Turbo |
-|-----------|---------------|----------------|-------------|---------------|
-| MMLU | 81.2% | ~75% | 86.4% | 70.0% |
-| HumanEval (code) | 73.2% | ~60% | 87.0% | 48.1% |
-| MT-Bench | 8.2 | ~7.5 | 9.3 | 8.4 |
-| Context Window | 128K | 32K | 128K | 16K |
+| Benchmark        | Mistral Large | Mistral Medium | GPT-4 Turbo | GPT-3.5 Turbo |
+| ---------------- | ------------- | -------------- | ----------- | ------------- |
+| MMLU             | 81.2%         | ~75%           | 86.4%       | 70.0%         |
+| HumanEval (code) | 73.2%         | ~60%           | 87.0%       | 48.1%         |
+| MT-Bench         | 8.2           | ~7.5           | 9.3         | 8.4           |
+| Context Window   | 128K          | 32K            | 128K        | 16K           |
 
 ### Cost Comparison
 
 **For 1M input + 1M output tokens:**
 
-| Model | Total Cost | Use Case |
-|-------|------------|----------|
-| Mistral Large | $16.00 | Complex reasoning |
-| Mistral Medium | $10.80 | General purpose |
-| Mistral Small | $4.00 | Simple tasks |
-| GPT-4 Turbo | $40.00 | Top-tier reasoning |
-| GPT-3.5 Turbo | $2.00 | High-volume simple tasks |
+| Model          | Total Cost | Use Case                 |
+| -------------- | ---------- | ------------------------ |
+| Mistral Large  | $16.00     | Complex reasoning        |
+| Mistral Medium | $10.80     | General purpose          |
+| Mistral Small  | $4.00      | Simple tasks             |
+| GPT-4 Turbo    | $40.00     | Top-tier reasoning       |
+| GPT-3.5 Turbo  | $2.00      | High-volume simple tasks |
 
 **Savings Example:**
 If you're currently using GPT-4 Turbo for 10M tokens/month:
-- GPT-4 Turbo: $400/month
-- Mistral Large: $160/month
-- **Savings: $240/month (60%)**
+
+-   GPT-4 Turbo: $400/month
+-   Mistral Large: $160/month
+-   **Savings: $240/month (60%)**
 
 ### Feature Parity
 
-| Feature | Mistral | OpenAI |
-|---------|---------|--------|
-| Chat Completion | ✅ | ✅ |
-| Function Calling | ✅ | ✅ |
-| Streaming | ⏳ Coming | ✅ |
-| JSON Mode | ✅ | ✅ |
-| Vision | ❌ | ✅ (GPT-4V) |
-| Image Generation | ❌ | ✅ (DALL-E) |
-| Embeddings | ✅ | ✅ |
-| Fine-tuning | ✅ | ✅ |
-| Self-hosting | ✅ | ❌ |
+| Feature          | Mistral   | OpenAI      |
+| ---------------- | --------- | ----------- |
+| Chat Completion  | ✅        | ✅          |
+| Function Calling | ✅        | ✅          |
+| Streaming        | ⏳ Coming | ✅          |
+| JSON Mode        | ✅        | ✅          |
+| Vision           | ❌        | ✅ (GPT-4V) |
+| Image Generation | ❌        | ✅ (DALL-E) |
+| Embeddings       | ✅        | ✅          |
+| Fine-tuning      | ✅        | ✅          |
+| Self-hosting     | ✅        | ❌          |
 
 ### Migration Example
 
@@ -1766,47 +1856,54 @@ $response = Mindwave::driver('mistral')
 ### Use Case Recommendations
 
 **Content Generation:**
-- Blog posts, marketing copy: Mistral Medium (cost-effective)
-- Technical documentation: Mistral Large or GPT-4 (accuracy)
-- Social media posts: Mistral Small (speed + cost)
+
+-   Blog posts, marketing copy: Mistral Medium (cost-effective)
+-   Technical documentation: Mistral Large or GPT-4 (accuracy)
+-   Social media posts: Mistral Small (speed + cost)
 
 **Code Generation:**
-- Complex refactoring: GPT-4 Turbo (best quality)
-- Code review: Mistral Large (good balance)
-- Simple functions: Mistral Medium (sufficient)
+
+-   Complex refactoring: GPT-4 Turbo (best quality)
+-   Code review: Mistral Large (good balance)
+-   Simple functions: Mistral Medium (sufficient)
 
 **Customer Support:**
-- European customers: Mistral Medium (GDPR + cost)
-- Global customers: GPT-3.5 Turbo (established reliability)
-- Complex issues: Mistral Large or GPT-4
+
+-   European customers: Mistral Medium (GDPR + cost)
+-   Global customers: GPT-3.5 Turbo (established reliability)
+-   Complex issues: Mistral Large or GPT-4
 
 **Data Analysis:**
-- Financial analysis: Mistral Large (European compliance)
-- General analytics: Mistral Medium (balanced)
-- Simple classification: Mistral Small (cost-effective)
+
+-   Financial analysis: Mistral Large (European compliance)
+-   General analytics: Mistral Medium (balanced)
+-   Simple classification: Mistral Small (cost-effective)
 
 ## Next Steps
 
 Now that you understand the Mistral AI provider:
 
-- **[Configuration](/docs/configuration)** - Deep dive into all configuration options
-- **[Prompt Composer](/docs/core/prompt-composer)** - Auto-fit long prompts to Mistral's context windows
-- **[Tracing](/docs/observability/tracing)** - Monitor Mistral costs and performance
-- **[Function Calling](/docs/advanced/function-calling)** - Build agentic workflows with Mistral
+-   **[Configuration](/docs/configuration)** - Deep dive into all configuration options
+-   **[Prompt Composer](/docs/core/prompt-composer)** - Auto-fit long prompts to Mistral's context windows
+-   **[Tracing](/docs/observability/tracing)** - Monitor Mistral costs and performance
+-   **[Function Calling](/docs/advanced/function-calling)** - Build agentic workflows with Mistral
 
 ## Resources
 
 **Official Mistral AI:**
-- [Mistral AI Website](https://mistral.ai)
-- [API Documentation](https://docs.mistral.ai)
-- [Model Pricing](https://mistral.ai/technology#pricing)
-- [API Status](https://status.mistral.ai)
+
+-   [Mistral AI Website](https://mistral.ai)
+-   [API Documentation](https://docs.mistral.ai)
+-   [Model Pricing](https://mistral.ai/technology#pricing)
+-   [API Status](https://status.mistral.ai)
 
 **Community:**
-- [Mistral AI Discord](https://discord.gg/mistralai)
-- [GitHub Discussions](https://github.com/mistralai)
-- [Hugging Face Models](https://huggingface.co/mistralai)
+
+-   [Mistral AI Discord](https://discord.gg/mistralai)
+-   [GitHub Discussions](https://github.com/mistralai)
+-   [Hugging Face Models](https://huggingface.co/mistralai)
 
 **Mindwave Integration:**
-- [GitHub Repository](https://github.com/helgesverre/mindwave)
-- [Issue Tracker](https://github.com/helgesverre/mindwave/issues)
+
+-   [GitHub Repository](https://github.com/helgesverre/mindwave)
+-   [Issue Tracker](https://github.com/helgesverre/mindwave/issues)

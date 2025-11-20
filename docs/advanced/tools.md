@@ -10,11 +10,11 @@ This is where AI transforms from a chatbot into a production utility that can **
 
 Tools extend an LLM's capabilities beyond text generation by allowing it to:
 
-- **Execute code** based on natural language understanding
-- **Interact with external systems** (databases, APIs, filesystems)
-- **Perform calculations** and data transformations
-- **Make decisions** and take actions
-- **Chain operations** together for complex workflows
+-   **Execute code** based on natural language understanding
+-   **Interact with external systems** (databases, APIs, filesystems)
+-   **Perform calculations** and data transformations
+-   **Make decisions** and take actions
+-   **Chain operations** together for complex workflows
 
 ### How Function Calling Works
 
@@ -45,18 +45,20 @@ $result = $weatherTool->run('Oslo');
 ### When to Use Tools
 
 **Use tools when you need to:**
-- Query your database based on natural language
-- Fetch data from external APIs
-- Perform calculations or data transformations
-- Send emails or notifications
-- Read/write files
-- Execute business logic
-- Take actions based on LLM understanding
+
+-   Query your database based on natural language
+-   Fetch data from external APIs
+-   Perform calculations or data transformations
+-   Send emails or notifications
+-   Read/write files
+-   Execute business logic
+-   Take actions based on LLM understanding
 
 **Don't use tools when:**
-- Simple text generation suffices
-- The LLM already has the knowledge
-- You just need classification (use structured output instead)
+
+-   Simple text generation suffices
+-   The LLM already has the knowledge
+-   You just need classification (use structured output instead)
 
 ## Basic Tool Usage
 
@@ -76,9 +78,10 @@ interface Tool
 ```
 
 Three simple methods:
-- `name()` - Unique identifier for the tool
-- `description()` - What the tool does (helps LLM decide when to use it)
-- `run($input)` - Execute the tool logic and return results
+
+-   `name()` - Unique identifier for the tool
+-   `description()` - What the tool does (helps LLM decide when to use it)
+-   `run($input)` - Execute the tool logic and return results
 
 ### Simple Tool Example
 
@@ -339,10 +342,11 @@ $functions->addFunction(
 ```
 
 **How parameters work:**
-- **Type hints** (`string`, `int`, `float`, `bool`) become the parameter types
-- **`#[Description]` attributes** provide descriptions to the LLM
-- **Default values** make parameters optional
-- **No default value** = required parameter
+
+-   **Type hints** (`string`, `int`, `float`, `bool`) become the parameter types
+-   **`#[Description]` attributes** provide descriptions to the LLM
+-   **Default values** make parameters optional
+-   **No default value** = required parameter
 
 ### Manual Parameter Definition
 
@@ -367,11 +371,12 @@ $functions->addFunction('update_user_status')
 ```
 
 **Parameter options:**
-- `name` - Parameter name
-- `type` - JSON schema type: `string`, `integer`, `number`, `boolean`, `array`, `object`
-- `description` - What the parameter is for
-- `isRequired` - Whether parameter is required (default: false)
-- `enum` - Array of allowed values (optional)
+
+-   `name` - Parameter name
+-   `type` - JSON schema type: `string`, `integer`, `number`, `boolean`, `array`, `object`
+-   `description` - What the parameter is for
+-   `isRequired` - Whether parameter is required (default: false)
+-   `enum` - Array of allowed values (optional)
 
 ### Parameter Types
 
@@ -525,6 +530,7 @@ $content = $tool->run('/path/to/file.txt');
 ```
 
 **Implementation:**
+
 ```php
 public function run($input): string
 {
@@ -550,6 +556,7 @@ $result = $tool->run('This is the content to write');
 ```
 
 **Implementation:**
+
 ```php
 public function __construct(protected string $path) {}
 
@@ -581,6 +588,7 @@ $results = $tool->run('Laravel best practices');
 ```
 
 **Implementation:**
+
 ```php
 public function run($input): string
 {
@@ -1244,6 +1252,7 @@ public function test_weather_tool_integration()
 The LLM uses descriptions to decide which tool to call. Be specific:
 
 **Bad:**
+
 ```php
 public function description(): string
 {
@@ -1252,6 +1261,7 @@ public function description(): string
 ```
 
 **Good:**
+
 ```php
 public function description(): string
 {
@@ -1304,6 +1314,7 @@ try {
 ### 4. Security Considerations
 
 **Sanitize file paths:**
+
 ```php
 public function run($input): string
 {
@@ -1327,6 +1338,7 @@ public function run($input): string
 ```
 
 **Rate limiting:**
+
 ```php
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -1347,6 +1359,7 @@ public function run($input): string
 ```
 
 **SQL injection protection:**
+
 ```php
 // Always use Eloquent or query builder - never raw SQL from LLM input
 public function run($input): string
@@ -1362,6 +1375,7 @@ public function run($input): string
 ### 5. Performance Optimization
 
 **Cache expensive operations:**
+
 ```php
 public function run($input): string
 {
@@ -1374,6 +1388,7 @@ public function run($input): string
 ```
 
 **Use queues for slow operations:**
+
 ```php
 public function run($input): string
 {
@@ -1414,25 +1429,27 @@ public function run($input): string
 
 Use clear, action-oriented names:
 
-- `get_user` (not `user`)
-- `send_email` (not `email`)
-- `search_products` (not `products`)
-- `create_order` (not `order`)
+-   `get_user` (not `user`)
+-   `send_email` (not `email`)
+-   `search_products` (not `products`)
+-   `create_order` (not `order`)
 
 ### 8. When to Create Tools vs Prompts
 
 **Create a tool when:**
-- You need to query a database
-- You need to call external APIs
-- You need to modify data
-- The operation has side effects
-- The data changes frequently
+
+-   You need to query a database
+-   You need to call external APIs
+-   You need to modify data
+-   The operation has side effects
+-   The data changes frequently
 
 **Use a prompt when:**
-- The information is static
-- You're doing pure text processing
-- You need creative generation
-- No external calls are needed
+
+-   The information is static
+-   You're doing pure text processing
+-   You need creative generation
+-   No external calls are needed
 
 ## Integration with Mindwave
 
@@ -1555,6 +1572,7 @@ echo "Cost per tool call: \$" . number_format($costPerTool, 4);
 **Solutions:**
 
 1. **Improve the description:**
+
 ```php
 // Too vague
 'description' => 'Gets data'
@@ -1564,6 +1582,7 @@ echo "Cost per tool call: \$" . number_format($costPerTool, 4);
 ```
 
 2. **Add examples in the prompt:**
+
 ```php
 $prompt = "You have access to a get_product tool. Use it to find products.
 
@@ -1573,6 +1592,7 @@ You should call: get_product(query='red shirts', category='clothing')
 ```
 
 3. **Check parameter requirements:**
+
 ```php
 // Make sure required parameters are clearly defined
 ->addParameter('query', 'string', 'Search query (required)', isRequired: true)
@@ -1585,6 +1605,7 @@ You should call: get_product(query='red shirts', category='clothing')
 **Solutions:**
 
 1. **Add comprehensive error handling:**
+
 ```php
 public function run($input): string
 {
@@ -1613,6 +1634,7 @@ public function run($input): string
 ```
 
 2. **Log for debugging:**
+
 ```php
 public function run($input): string
 {
@@ -1639,6 +1661,7 @@ public function run($input): string
 **Solutions:**
 
 1. **Validate and coerce types:**
+
 ```php
 public function run($input): string
 {
@@ -1658,6 +1681,7 @@ public function run($input): string
 ```
 
 2. **Use enums for restricted values:**
+
 ```php
 ->addParameter('status', 'string', 'Order status', true, [
     'pending',
@@ -1674,6 +1698,7 @@ public function run($input): string
 **Solutions:**
 
 1. **Be explicit about available tools:**
+
 ```php
 $prompt = "You have access to ONLY these tools:
 - get_weather(location): Gets weather for a location
@@ -1685,6 +1710,7 @@ User query: {$userQuery}";
 ```
 
 2. **Check function name before executing:**
+
 ```php
 $allowedTools = ['get_weather', 'send_email', 'search_products'];
 
@@ -1701,6 +1727,7 @@ if (!in_array($response->name, $allowedTools)) {
 **Solutions:**
 
 1. **Return the result to the LLM:**
+
 ```php
 if ($response instanceof FunctionCall) {
     // Execute tool
@@ -1717,6 +1744,7 @@ if ($response instanceof FunctionCall) {
 ```
 
 2. **Use multi-turn conversation:**
+
 ```php
 $messages = [
     ['role' => 'user', 'content' => $userQuery],
@@ -1745,13 +1773,14 @@ if ($response instanceof FunctionCall) {
 
 Tools extend LLMs from text generators to action-taking systems. With Mindwave's clean `Tool` interface and Laravel integration, you can:
 
-- **Create tools easily** - Implement 3 methods, you're done
-- **Execute safely** - Validate inputs, handle errors, restrict access
-- **Integrate deeply** - Use Eloquent, HTTP, Mail, Queue, Cache
-- **Trace everything** - Built-in observability for costs and performance
-- **Test thoroughly** - Unit test tools independently of LLMs
+-   **Create tools easily** - Implement 3 methods, you're done
+-   **Execute safely** - Validate inputs, handle errors, restrict access
+-   **Integrate deeply** - Use Eloquent, HTTP, Mail, Queue, Cache
+-   **Trace everything** - Built-in observability for costs and performance
+-   **Test thoroughly** - Unit test tools independently of LLMs
 
 **Key takeaways:**
+
 1. Tools let LLMs execute code and interact with systems
 2. Define clear descriptions and parameters
 3. Always validate and sanitize inputs

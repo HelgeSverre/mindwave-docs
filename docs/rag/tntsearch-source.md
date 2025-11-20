@@ -10,7 +10,7 @@ TNTSearch provides a fast, full-text search engine for your RAG implementations.
 
 ## Related Documentation
 
-- [RAG Overview](/docs/core/rag-overview)
-- [Vector Store Source](/docs/rag/vector-store-source)
-- [Custom Sources](/docs/rag/custom-sources)
-- [Configuration](/docs/configuration)
+-   [RAG Overview](/docs/core/rag-overview)
+-   [Vector Store Source](/docs/rag/vector-store-source)
+-   [Custom Sources](/docs/rag/custom-sources)
+-   [Configuration](/docs/configuration)

@@ -6,18 +6,18 @@ Build reactive, full-stack Laravel chat components with LLM streaming using Live
 
 A complete chat interface featuring:
 
-- **Real-time streaming** - LLM responses appear progressively
-- **Multi-turn conversations** - Context-aware message history
-- **File uploads** - Image and document processing with vision APIs
-- **Typing indicators** - Live status updates
-- **Multiple components** - Modular, reusable architecture
-- **Full observability** - OpenTelemetry tracing integration
+-   **Real-time streaming** - LLM responses appear progressively
+-   **Multi-turn conversations** - Context-aware message history
+-   **File uploads** - Image and document processing with vision APIs
+-   **Typing indicators** - Live status updates
+-   **Multiple components** - Modular, reusable architecture
+-   **Full observability** - OpenTelemetry tracing integration
 
 ## Prerequisites
 
-- Laravel 10+ with Livewire 3 installed
-- Mindwave package configured
-- Basic understanding of Livewire components
+-   Laravel 10+ with Livewire 3 installed
+-   Mindwave package configured
+-   Basic understanding of Livewire components
 
 ## Architecture Overview
 
@@ -44,10 +44,11 @@ Livewire 3's `wire:stream` directive enables server-sent events (SSE) streaming 
 ```
 
 When the `streamResponse` method yields chunks, Livewire automatically:
-- Updates the DOM progressively
-- Handles connection management
-- Provides automatic reconnection
-- Maintains component state
+
+-   Updates the DOM progressively
+-   Handles connection management
+-   Provides automatic reconnection
+-   Maintains component state
 
 ### Event-Driven Updates
 
@@ -2100,8 +2101,8 @@ public function streamResponse(string $userPrompt): \Generator
 
 ## Next Steps
 
-- **[SSE Streaming](../core/streaming.md)** - Deep dive into server-sent events
-- **[Observability](../observability/tracing.md)** - Monitor chat performance with OpenTelemetry
-- **[Context Discovery](../core/context-discovery.md)** - Enhance conversations with contextual data
-- **[Prompt Engineering](../advanced/prompt-templates.md)** - Optimize prompts for better responses
-- **[RAG Integration](../rag/overview.md)** - Add knowledge retrieval to your chat
+-   **[SSE Streaming](../core/streaming.md)** - Deep dive into server-sent events
+-   **[Observability](../observability/tracing.md)** - Monitor chat performance with OpenTelemetry
+-   **[Context Discovery](../core/context-discovery.md)** - Enhance conversations with contextual data
+-   **[Prompt Engineering](../advanced/prompt-templates.md)** - Optimize prompts for better responses
+-   **[RAG Integration](../rag/overview.md)** - Add knowledge retrieval to your chat

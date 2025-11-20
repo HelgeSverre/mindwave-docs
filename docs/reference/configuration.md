@@ -6,13 +6,13 @@ This page provides a quick reference to Mindwave's configuration. For detailed e
 
 Mindwave uses five configuration files:
 
-| File | Purpose | Documentation |
-|------|---------|---------------|
-| `mindwave-llm.php` | LLM provider settings | [Configuration Guide](/docs/configuration.md#llm-configuration) |
-| `mindwave-tracing.php` | OpenTelemetry tracing | [Configuration Guide](/docs/configuration.md#tracing-configuration) |
-| `mindwave-embeddings.php` | Embedding providers | [Configuration Guide](/docs/configuration.md#embeddings-configuration) |
-| `mindwave-vectorstore.php` | Vector databases | [Configuration Guide](/docs/configuration.md#vector-store-configuration) |
-| `mindwave-context.php` | Context discovery | [Configuration Guide](/docs/configuration.md#context-configuration) |
+| File                       | Purpose               | Documentation                                                            |
+| -------------------------- | --------------------- | ------------------------------------------------------------------------ |
+| `mindwave-llm.php`         | LLM provider settings | [Configuration Guide](/docs/configuration.md#llm-configuration)          |
+| `mindwave-tracing.php`     | OpenTelemetry tracing | [Configuration Guide](/docs/configuration.md#tracing-configuration)      |
+| `mindwave-embeddings.php`  | Embedding providers   | [Configuration Guide](/docs/configuration.md#embeddings-configuration)   |
+| `mindwave-vectorstore.php` | Vector databases      | [Configuration Guide](/docs/configuration.md#vector-store-configuration) |
+| `mindwave-context.php`     | Context discovery     | [Configuration Guide](/docs/configuration.md#context-configuration)      |
 
 ## Quick Reference
 
@@ -113,15 +113,16 @@ MINDWAVE_CONTEXT_TRACING=true
 ## Complete Documentation
 
 For detailed information including:
-- Configuration examples for each environment
-- Security best practices
-- Performance tuning
-- Troubleshooting
+
+-   Configuration examples for each environment
+-   Security best practices
+-   Performance tuning
+-   Troubleshooting
 
 See the **[Complete Configuration Guide](/docs/configuration.md)**.
 
 ## Related Documentation
 
-- [API Reference](/docs/reference/api.md) - Core API reference
-- [Installation Guide](/docs/installation.md) - Setup instructions
-- [Observability Configuration](/docs/observability/configuration.md) - Advanced tracing options
+-   [API Reference](/docs/reference/api.md) - Core API reference
+-   [Installation Guide](/docs/installation.md) - Setup instructions
+-   [Observability Configuration](/docs/observability/configuration.md) - Advanced tracing options

@@ -29,18 +29,18 @@ MINDWAVE_PINECONE_INDEX=mindwave
 
 #### Features
 
-- Managed service (no infrastructure)
-- High performance at scale
-- Built-in metadata filtering
-- Real-time updates
-- Auto-scaling
+-   Managed service (no infrastructure)
+-   High performance at scale
+-   Built-in metadata filtering
+-   Real-time updates
+-   Auto-scaling
 
 #### Best For
 
-- Production applications
-- High-volume search
-- Managed infrastructure
-- Teams without ops expertise
+-   Production applications
+-   High-volume search
+-   Managed infrastructure
+-   Teams without ops expertise
 
 ---
 
@@ -61,6 +61,7 @@ MINDWAVE_QDRANT_COLLECTION=mindwave
 #### Setup
 
 **Docker:**
+
 ```bash
 docker run -p 6333:6333 qdrant/qdrant
 ```
@@ -69,18 +70,18 @@ docker run -p 6333:6333 qdrant/qdrant
 
 #### Features
 
-- Open source
-- Self-hosted or cloud
-- Advanced filtering
-- Hybrid search support
-- Excellent performance
+-   Open source
+-   Self-hosted or cloud
+-   Advanced filtering
+-   Hybrid search support
+-   Excellent performance
 
 #### Best For
 
-- Self-hosted deployments
-- On-premise requirements
-- Cost optimization
-- Full control over infrastructure
+-   Self-hosted deployments
+-   On-premise requirements
+-   Cost optimization
+-   Full control over infrastructure
 
 ---
 
@@ -101,6 +102,7 @@ MINDWAVE_WEAVIATE_ADDITIONAL_HEADERS='{}'
 #### Setup
 
 **Docker:**
+
 ```bash
 docker run -d \
   -p 8080:8080 \
@@ -110,18 +112,18 @@ docker run -d \
 
 #### Features
 
-- Open source
-- Built-in vectorization
-- GraphQL API
-- Multi-modal support
-- RESTful interface
+-   Open source
+-   Built-in vectorization
+-   GraphQL API
+-   Multi-modal support
+-   RESTful interface
 
 #### Best For
 
-- Multi-modal applications
-- GraphQL integration
-- Built-in ML models
-- Complex data relationships
+-   Multi-modal applications
+-   GraphQL integration
+-   Built-in ML models
+-   Complex data relationships
 
 ---
 
@@ -138,24 +140,24 @@ MINDWAVE_VECTORSTORE_PATH=storage/mindwave/vectorstore.json
 
 #### Features
 
-- No dependencies
-- Easy debugging
-- Fast setup
-- Portable
+-   No dependencies
+-   Easy debugging
+-   Fast setup
+-   Portable
 
 #### Limitations
 
-- Not suitable for production
-- No concurrent access
-- No advanced filtering
-- Linear search (slow for large datasets)
+-   Not suitable for production
+-   No concurrent access
+-   No advanced filtering
+-   Linear search (slow for large datasets)
 
 #### Best For
 
-- Local development
-- Testing
-- Prototyping
-- Small datasets (< 1000 items)
+-   Local development
+-   Testing
+-   Prototyping
+-   Small datasets (< 1000 items)
 
 ---
 
@@ -171,17 +173,17 @@ MINDWAVE_VECTORSTORE=array
 
 #### Features
 
-- Ephemeral (lost on restart)
-- Fast
-- No setup required
-- Perfect for testing
+-   Ephemeral (lost on restart)
+-   Fast
+-   No setup required
+-   Perfect for testing
 
 #### Best For
 
-- Unit tests
-- Integration tests
-- CI/CD pipelines
-- Ephemeral environments
+-   Unit tests
+-   Integration tests
+-   CI/CD pipelines
+-   Ephemeral environments
 
 ---
 
@@ -249,14 +251,14 @@ $brain->forgetAll();
 
 ## Performance Comparison
 
-| Feature | Pinecone | Qdrant | Weaviate | File | Array |
-|---------|----------|--------|----------|------|-------|
-| Scale | Millions | Millions | Millions | < 10K | < 1K |
-| Speed | Excellent | Excellent | Excellent | Slow | Fast |
-| Setup | Easy | Medium | Medium | Easy | Easy |
-| Cost | Paid | Free/Paid | Free/Paid | Free | Free |
-| Filtering | Yes | Yes | Yes | Limited | Limited |
-| Production | Yes | Yes | Yes | No | No |
+| Feature    | Pinecone  | Qdrant    | Weaviate  | File    | Array   |
+| ---------- | --------- | --------- | --------- | ------- | ------- |
+| Scale      | Millions  | Millions  | Millions  | < 10K   | < 1K    |
+| Speed      | Excellent | Excellent | Excellent | Slow    | Fast    |
+| Setup      | Easy      | Medium    | Medium    | Easy    | Easy    |
+| Cost       | Paid      | Free/Paid | Free/Paid | Free    | Free    |
+| Filtering  | Yes       | Yes       | Yes       | Limited | Limited |
+| Production | Yes       | Yes       | Yes       | No      | No      |
 
 ## Configuration Examples
 
@@ -316,23 +318,27 @@ foreach ($vectors as $vector) {
 ### Choose the Right Provider
 
 **Pinecone** - Best for:
-- Production applications
-- Startups and small teams
-- Managed infrastructure preference
+
+-   Production applications
+-   Startups and small teams
+-   Managed infrastructure preference
 
 **Qdrant** - Best for:
-- Self-hosted requirements
-- Cost optimization
-- Full infrastructure control
+
+-   Self-hosted requirements
+-   Cost optimization
+-   Full infrastructure control
 
 **Weaviate** - Best for:
-- Multi-modal use cases
-- GraphQL integration
-- Built-in ML models
+
+-   Multi-modal use cases
+-   GraphQL integration
+-   Built-in ML models
 
 **File/Array** - Best for:
-- Development only
-- Testing only
+
+-   Development only
+-   Testing only
 
 ### Index Configuration
 
@@ -384,18 +390,21 @@ $brain->rememberMany($batch);
 ### Connection Issues
 
 **Pinecone:**
+
 ```bash
 # Test API key
 curl -H "Api-Key: YOUR_KEY" https://controller.YOUR_ENV.pinecone.io/databases
 ```
 
 **Qdrant:**
+
 ```bash
 # Test connection
 curl http://localhost:6333/collections
 ```
 
 **Weaviate:**
+
 ```bash
 # Test connection
 curl http://localhost:8080/v1/.well-known/ready
@@ -404,6 +413,7 @@ curl http://localhost:8080/v1/.well-known/ready
 ### Dimension Mismatch
 
 Ensure vector dimensions match across:
+
 1. Embedding model output
 2. Vector store configuration
 3. Query vectors
@@ -417,6 +427,7 @@ echo count($embedding); // Should match vector store config
 ### Slow Queries
 
 **Optimize with:**
+
 1. Proper indexing
 2. Metadata filtering
 3. Limit result count
@@ -432,7 +443,7 @@ $results = $brain->recall($query,
 
 ## Related Documentation
 
-- [Brain API](/docs/rag/brain) - Brain usage guide
-- [Embeddings Reference](/docs/reference/embeddings.md) - Embedding providers
-- [RAG Overview](/docs/rag/overview) - RAG architecture
-- [Configuration Guide](/docs/configuration.md) - Complete configuration
+-   [Brain API](/docs/rag/brain) - Brain usage guide
+-   [Embeddings Reference](/docs/reference/embeddings.md) - Embedding providers
+-   [RAG Overview](/docs/rag/overview) - RAG architecture
+-   [Configuration Guide](/docs/configuration.md) - Complete configuration

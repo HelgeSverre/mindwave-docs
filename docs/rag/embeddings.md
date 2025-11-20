@@ -7,9 +7,10 @@ Embeddings are numerical representations of text that capture semantic meaning i
 ### What are Embeddings?
 
 Think of embeddings as coordinates in a space where semantically similar text is positioned closer together. For example:
-- "dog" and "puppy" would be close in embedding space
-- "dog" and "car" would be far apart
-- "king" and "queen" would share similar relationships to "man" and "woman"
+
+-   "dog" and "puppy" would be close in embedding space
+-   "dog" and "car" would be far apart
+-   "king" and "queen" would share similar relationships to "man" and "woman"
 
 Each embedding is a vector of floating-point numbers (typically 1536 or 3072 dimensions for OpenAI models). These vectors capture linguistic patterns, context, and meaning learned from vast amounts of training data.
 
@@ -23,6 +24,7 @@ Each embedding is a vector of floating-point numbers (typically 1536 or 3072 dim
 ### Use Cases for Embeddings
 
 **Semantic Search**: Find documents by meaning rather than exact keywords
+
 ```php
 // Search for "vehicle maintenance" finds results about "car repair"
 $query = Embeddings::embedText('vehicle maintenance');
@@ -30,6 +32,7 @@ $results = $vectorstore->similaritySearch($query);
 ```
 
 **Content Recommendations**: Suggest similar articles, products, or resources
+
 ```php
 // Find articles similar to the current one
 $currentArticle = Embeddings::embedDocument($article);
@@ -37,6 +40,7 @@ $similar = $vectorstore->similaritySearch($currentArticle, limit: 5);
 ```
 
 **Question Answering**: Retrieve relevant context for AI-powered Q&A
+
 ```php
 // Find relevant documents to answer a question
 $question = Embeddings::embedText('How do I reset my password?');
@@ -44,6 +48,7 @@ $context = $vectorstore->similaritySearch($question);
 ```
 
 **Clustering & Classification**: Group similar content automatically
+
 ```php
 // Cluster support tickets by topic
 $embeddings = Embeddings::embedDocuments($tickets);
@@ -68,17 +73,17 @@ Mindwave currently supports OpenAI's embedding models, which are industry-leadin
 
 **Available Models:**
 
-| Model | Dimensions | Cost (per 1M tokens) | Use Case |
-|-------|-----------|---------------------|----------|
-| text-embedding-ada-002 | 1536 | $0.10 | Legacy model, widely compatible |
-| text-embedding-3-small | 1536 | $0.02 | Cost-effective, great performance |
-| text-embedding-3-large | 3072 | $0.13 | Highest quality, best accuracy |
+| Model                  | Dimensions | Cost (per 1M tokens) | Use Case                          |
+| ---------------------- | ---------- | -------------------- | --------------------------------- |
+| text-embedding-ada-002 | 1536       | $0.10                | Legacy model, widely compatible   |
+| text-embedding-3-small | 1536       | $0.02                | Cost-effective, great performance |
+| text-embedding-3-large | 3072       | $0.13                | Highest quality, best accuracy    |
 
 **Model Selection Guide:**
 
-- **text-embedding-ada-002**: Use if you need compatibility with existing systems or have embeddings already generated with this model
-- **text-embedding-3-small**: Best choice for most applications - 5x cheaper than ada-002 with better performance
-- **text-embedding-3-large**: Use when accuracy is critical and cost is secondary (e.g., medical, legal, research)
+-   **text-embedding-ada-002**: Use if you need compatibility with existing systems or have embeddings already generated with this model
+-   **text-embedding-3-small**: Best choice for most applications - 5x cheaper than ada-002 with better performance
+-   **text-embedding-3-large**: Use when accuracy is critical and cost is secondary (e.g., medical, legal, research)
 
 ## Setup & Configuration
 
@@ -199,10 +204,10 @@ foreach ($embeddings as $i => $embedding) {
 
 **Why Batch Processing?**
 
-- **Cost**: Same API cost as individual calls
-- **Performance**: Single HTTP request instead of multiple
-- **Efficiency**: Optimal for processing large datasets
-- **Rate Limits**: Fewer API calls = lower rate limit consumption
+-   **Cost**: Same API cost as individual calls
+-   **Performance**: Single HTTP request instead of multiple
+-   **Efficiency**: Optimal for processing large datasets
+-   **Rate Limits**: Fewer API calls = lower rate limit consumption
 
 ### Working with Documents
 
@@ -275,15 +280,17 @@ foreach ($documents->zip($embeddings) as [$document, $embedding]) {
 The original OpenAI embedding model, still widely used:
 
 **Specifications:**
-- **Dimensions**: 1536
-- **Pricing**: $0.10 per 1M tokens
-- **Context Length**: 8,191 tokens
-- **Released**: December 2022
+
+-   **Dimensions**: 1536
+-   **Pricing**: $0.10 per 1M tokens
+-   **Context Length**: 8,191 tokens
+-   **Released**: December 2022
 
 **When to Use:**
-- Maintaining compatibility with existing embeddings
-- Systems already tuned for ada-002
-- No immediate need to re-embed content
+
+-   Maintaining compatibility with existing embeddings
+-   Systems already tuned for ada-002
+-   No immediate need to re-embed content
 
 **Example:**
 
@@ -305,17 +312,19 @@ $embedding = Embeddings::embedText('Sample text');
 The best balance of cost and performance:
 
 **Specifications:**
-- **Dimensions**: 1536
-- **Pricing**: $0.02 per 1M tokens (5x cheaper than ada-002)
-- **Context Length**: 8,191 tokens
-- **Performance**: Better than ada-002
-- **Released**: January 2024
+
+-   **Dimensions**: 1536
+-   **Pricing**: $0.02 per 1M tokens (5x cheaper than ada-002)
+-   **Context Length**: 8,191 tokens
+-   **Performance**: Better than ada-002
+-   **Released**: January 2024
 
 **When to Use:**
-- New projects (default choice)
-- Cost-sensitive applications
-- High-volume embedding generation
-- Most production applications
+
+-   New projects (default choice)
+-   Cost-sensitive applications
+-   High-volume embedding generation
+-   Most production applications
 
 **Example:**
 
@@ -340,17 +349,19 @@ $embedding = Embeddings::embedText('Laravel development tips');
 The most powerful embedding model:
 
 **Specifications:**
-- **Dimensions**: 3072 (2x larger than other models)
-- **Pricing**: $0.13 per 1M tokens
-- **Context Length**: 8,191 tokens
-- **Performance**: Best accuracy available
-- **Released**: January 2024
+
+-   **Dimensions**: 3072 (2x larger than other models)
+-   **Pricing**: $0.13 per 1M tokens
+-   **Context Length**: 8,191 tokens
+-   **Performance**: Best accuracy available
+-   **Released**: January 2024
 
 **When to Use:**
-- Maximum accuracy requirements
-- Research and analysis
-- Legal or medical applications
-- Low-volume, high-value use cases
+
+-   Maximum accuracy requirements
+-   Research and analysis
+-   Legal or medical applications
+-   Low-volume, high-value use cases
 
 **Example:**
 
@@ -432,11 +443,12 @@ echo "Similarity: " . $differentScore; // ~0.40 (less similar)
 ```
 
 **Understanding Cosine Similarity:**
-- **1.0**: Identical or nearly identical meaning
-- **0.8-0.9**: Very similar topics
-- **0.6-0.7**: Related topics
-- **0.4-0.5**: Some relationship
-- **< 0.3**: Largely unrelated
+
+-   **1.0**: Identical or nearly identical meaning
+-   **0.8-0.9**: Very similar topics
+-   **0.6-0.7**: Related topics
+-   **0.4-0.5**: Some relationship
+-   **< 0.3**: Largely unrelated
 
 ### Finding Similar Documents
 
@@ -677,9 +689,10 @@ class DocumentationSearch
 ```
 
 **Real queries this handles well:**
-- "How to deploy" → finds "Deployment Guide"
-- "Database connection" → finds "Database Configuration"
-- "Email setup" → finds "Mail Configuration"
+
+-   "How to deploy" → finds "Deployment Guide"
+-   "Database connection" → finds "Database Configuration"
+-   "Email setup" → finds "Mail Configuration"
 
 ### Example 2: Content Recommendation Engine
 
@@ -925,9 +938,10 @@ class ProductRecommendations
 ```
 
 **Example Queries:**
-- "comfortable running shoes for flat feet" → finds appropriate athletic shoes
-- "laptop for video editing" → finds high-performance laptops
-- "gift for coffee lover" → finds coffee makers, beans, accessories
+
+-   "comfortable running shoes for flat feet" → finds appropriate athletic shoes
+-   "laptop for video editing" → finds high-performance laptops
+-   "gift for coffee lover" → finds coffee makers, beans, accessories
 
 ## Cost Management
 
@@ -1168,9 +1182,10 @@ class OptimizedEmbeddings
 ```
 
 **Batch Size Recommendations:**
-- **100-500**: Optimal for most use cases
-- **1000+**: For very large imports, watch memory usage
-- **2048**: Maximum per request
+
+-   **100-500**: Optimal for most use cases
+-   **1000+**: For very large imports, watch memory usage
+-   **2048**: Maximum per request
 
 ### Caching Strategies
 
@@ -1494,6 +1509,7 @@ Error: Incorrect API key provided
 ```
 
 **Solution:**
+
 ```php
 // Verify .env configuration
 MINDWAVE_OPENAI_API_KEY=sk-...
@@ -1510,6 +1526,7 @@ Error: Rate limit exceeded
 ```
 
 **Solution:**
+
 ```php
 // Implement rate limiting
 use Illuminate\Support\Facades\RateLimiter;
@@ -1530,6 +1547,7 @@ foreach ($chunks as $chunk) {
 **Unexpected High Costs:**
 
 **Solution:**
+
 ```php
 // Monitor token usage
 use Mindwave\Mindwave\PromptComposer\Tokenizer;
@@ -1586,6 +1604,7 @@ Error: Expected 3072 dimensions, got 1536
 ```
 
 **Solution:**
+
 ```php
 // Check model configuration
 $model = config('mindwave-embeddings.embeddings.openai.model');
@@ -1607,6 +1626,7 @@ php artisan mindwave:reindex
 **Out of Memory with Large Batches:**
 
 **Solution:**
+
 ```php
 // Reduce batch size
 $documents->chunk(50)->each(function($chunk) {
@@ -1654,6 +1674,7 @@ class EmbeddingsTest extends TestCase
 ```
 
 Run tests:
+
 ```bash
 php artisan test --filter EmbeddingsTest
 ```
@@ -1686,12 +1707,12 @@ Log::debug('Embedding generated', [
 
 Embeddings are the foundation of semantic search and RAG systems in Mindwave:
 
-- **Choose wisely**: text-embedding-3-small for most use cases
-- **Batch efficiently**: Always use batch methods for multiple texts
-- **Cache aggressively**: Never generate the same embedding twice
-- **Monitor costs**: Track token usage and set alerts
-- **Optimize storage**: Use appropriate vector stores with correct dimensions
-- **Handle errors**: Implement retry logic and rate limiting
-- **Test thoroughly**: Verify setup before production deployment
+-   **Choose wisely**: text-embedding-3-small for most use cases
+-   **Batch efficiently**: Always use batch methods for multiple texts
+-   **Cache aggressively**: Never generate the same embedding twice
+-   **Monitor costs**: Track token usage and set alerts
+-   **Optimize storage**: Use appropriate vector stores with correct dimensions
+-   **Handle errors**: Implement retry logic and rate limiting
+-   **Test thoroughly**: Verify setup before production deployment
 
 For vector storage and similarity search, see the [Vector Stores documentation](/docs/rag/vectorstores).

@@ -24,6 +24,7 @@ flowchart LR
 ```
 
 **Flow Steps:**
+
 1. **User asks a question** → "What is our refund policy?"
 2. **System searches knowledge base** → Finds relevant policy documents
 3. **Context is injected into prompt** → Policy text added to the prompt
@@ -32,24 +33,28 @@ flowchart LR
 ### Why Use RAG?
 
 **Up-to-Date Information**
-- LLMs have a knowledge cutoff date
-- RAG provides access to current information
-- Your data stays fresh without retraining models
+
+-   LLMs have a knowledge cutoff date
+-   RAG provides access to current information
+-   Your data stays fresh without retraining models
 
 **Domain-Specific Knowledge**
-- Access proprietary company information
-- Use specialized technical documentation
-- Leverage customer support history
+
+-   Access proprietary company information
+-   Use specialized technical documentation
+-   Leverage customer support history
 
 **Reduced Hallucination**
-- Responses grounded in actual documents
-- Source attribution for fact-checking
-- Verifiable information
+
+-   Responses grounded in actual documents
+-   Source attribution for fact-checking
+-   Verifiable information
 
 **Cost-Effective**
-- No expensive fine-tuning required
-- Update knowledge by adding documents
-- Pay only for retrieval and generation
+
+-   No expensive fine-tuning required
+-   Update knowledge by adding documents
+-   Pay only for retrieval and generation
 
 ## Quick Start
 
@@ -112,6 +117,7 @@ Mindwave implements RAG through its **Context Discovery** system, which consists
 Context sources are searchable knowledge stores:
 
 **TNTSearch Source** - Full-text keyword search
+
 ```php
 use Mindwave\Mindwave\Context\Sources\TntSearch\TntSearchSource;
 
@@ -122,6 +128,7 @@ $source = TntSearchSource::fromEloquent(
 ```
 
 **Vector Store Source** - Semantic similarity search
+
 ```php
 use Mindwave\Mindwave\Context\Sources\VectorStoreSource;
 
@@ -132,6 +139,7 @@ $vectorSource = VectorStoreSource::fromBrain(
 ```
 
 **Static Source** - In-memory keyword matching
+
 ```php
 use Mindwave\Mindwave\Context\Sources\StaticSource;
 
@@ -142,6 +150,7 @@ $staticSource = StaticSource::fromStrings([
 ```
 
 **Eloquent Source** - SQL LIKE search
+
 ```php
 use Mindwave\Mindwave\Context\Sources\EloquentSource;
 
@@ -310,18 +319,20 @@ class KnowledgeAssistant
 ### TNTSearch vs Vector Stores
 
 **Use TNTSearch when:**
-- Searching for specific terms or product names
-- Working with structured data
-- Dataset is < 10,000 documents
-- Need fast, low-cost search
-- Keywords matter more than meaning
+
+-   Searching for specific terms or product names
+-   Working with structured data
+-   Dataset is < 10,000 documents
+-   Need fast, low-cost search
+-   Keywords matter more than meaning
 
 **Use Vector Stores when:**
-- Natural language queries
-- Need semantic understanding
-- Large knowledge base (>10,000 documents)
-- Multi-language support needed
-- Building conversational interfaces
+
+-   Natural language queries
+-   Need semantic understanding
+-   Large knowledge base (>10,000 documents)
+-   Multi-language support needed
+-   Building conversational interfaces
 
 ### Hybrid Approach (Best of Both)
 
@@ -448,14 +459,16 @@ class RAGTest extends TestCase
 ### Indexing Strategies
 
 **Ephemeral Indexes (TNTSearch)**
-- Created per-request
-- Good for < 10k documents
-- No management required
+
+-   Created per-request
+-   Good for < 10k documents
+-   No management required
 
 **Persistent Indexes (Brain/Vector Stores)**
-- Pre-compute embeddings
-- Scales to millions of documents
-- Fast searches, higher setup cost
+
+-   Pre-compute embeddings
+-   Scales to millions of documents
+-   Fast searches, higher setup cost
 
 ### Batch Processing
 
@@ -500,6 +513,7 @@ if (RateLimiter::tooManyAttempts('rag-search', 30)) {
 **Problem:** Search returns irrelevant results.
 
 **Solutions:**
+
 ```php
 // 1. Try semantic search instead of keyword
 $vectorSource = VectorStoreSource::fromBrain($brain);
@@ -522,6 +536,7 @@ $results = $source->search($query, 10)
 **Problem:** Context exceeds token limits.
 
 **Solutions:**
+
 ```php
 // 1. Reduce context limit
 ->context($source, limit: 3)  // Fewer results
@@ -541,6 +556,7 @@ $splitter = new RecursiveCharacterTextSplitter(chunkSize: 300);
 **Problem:** RAG queries are too expensive.
 
 **Solutions:**
+
 ```php
 // 1. Use cheaper models
 ->model('gpt-4o-mini')
@@ -559,17 +575,17 @@ Cache::remember("rag::{$query}", now()->addDay(), ...);
 
 ### Learn More
 
-- **[Brain](/docs/rag/brain)** - Long-term knowledge storage
-- **[Context Discovery](/docs/rag/overview)** - Complete RAG guide
-- **[PromptComposer](/docs/core/prompt-composer)** - Token-aware prompts
-- **[Tracing](/docs/core/tracing)** - Monitor RAG performance
+-   **[Brain](/docs/rag/brain)** - Long-term knowledge storage
+-   **[Context Discovery](/docs/rag/overview)** - Complete RAG guide
+-   **[PromptComposer](/docs/core/prompt-composer)** - Token-aware prompts
+-   **[Tracing](/docs/core/tracing)** - Monitor RAG performance
 
 ### Deep Dive
 
-- **[TNTSearch Source](/docs/rag/tntsearch-source)** - Full-text search details
-- **[Vector Store Source](/docs/rag/vector-store-source)** - Semantic search guide
-- **[Context Pipeline](/docs/rag/context-pipeline)** - Multi-source aggregation
-- **[Custom Sources](/docs/rag/custom-sources)** - Build your own
+-   **[TNTSearch Source](/docs/rag/tntsearch-source)** - Full-text search details
+-   **[Vector Store Source](/docs/rag/vector-store-source)** - Semantic search guide
+-   **[Context Pipeline](/docs/rag/context-pipeline)** - Multi-source aggregation
+-   **[Custom Sources](/docs/rag/custom-sources)** - Build your own
 
 ### Examples
 

@@ -6,33 +6,33 @@ Build a complete production-ready Document Q&A system using Retrieval-Augmented 
 
 A sophisticated document Q&A system that allows users to ask questions about uploaded documents and receive accurate answers with source citations. The system combines:
 
-- **Semantic Search**: Find relevant document chunks by meaning, not just keywords
-- **Vector Storage**: Scalable embedding storage with Qdrant
-- **Source Attribution**: Track which documents contributed to each answer
-- **Document Management**: Upload, index, and manage document collections
-- **Cost Tracking**: Monitor API usage and costs with built-in observability
-- **Production-Ready**: Queue-based processing, error handling, and testing
+-   **Semantic Search**: Find relevant document chunks by meaning, not just keywords
+-   **Vector Storage**: Scalable embedding storage with Qdrant
+-   **Source Attribution**: Track which documents contributed to each answer
+-   **Document Management**: Upload, index, and manage document collections
+-   **Cost Tracking**: Monitor API usage and costs with built-in observability
+-   **Production-Ready**: Queue-based processing, error handling, and testing
 
 ## Features
 
-- Upload documents (PDF, TXT, Markdown)
-- Automatic chunking and embedding generation
-- Semantic similarity search across documents
-- LLM-powered answer generation with citations
-- Document collection management
-- Real-time Q&A API
-- Frontend interface with source highlighting
-- Comprehensive testing suite
+-   Upload documents (PDF, TXT, Markdown)
+-   Automatic chunking and embedding generation
+-   Semantic similarity search across documents
+-   LLM-powered answer generation with citations
+-   Document collection management
+-   Real-time Q&A API
+-   Frontend interface with source highlighting
+-   Comprehensive testing suite
 
 ## Prerequisites
 
 Before starting, ensure you have:
 
-- Laravel 10+ application
-- Mindwave package installed ([Installation Guide](/docs/installation))
-- OpenAI API key configured
-- Docker for running Qdrant vector store
-- Basic understanding of RAG concepts ([RAG Overview](/docs/core/rag-overview))
+-   Laravel 10+ application
+-   Mindwave package installed ([Installation Guide](/docs/installation))
+-   OpenAI API key configured
+-   Docker for running Qdrant vector store
+-   Basic understanding of RAG concepts ([RAG Overview](/docs/core/rag-overview))
 
 ## What You'll Learn
 
@@ -117,20 +117,21 @@ Our Document Q&A system follows the RAG (Retrieval-Augmented Generation) pattern
 ### Data Flow
 
 1. **Document Ingestion**:
-   - User uploads document → Storage (Laravel filesystem)
-   - Job processes document → Text extraction
-   - Text chunking → RecursiveCharacterTextSplitter (512 chars, 50 overlap)
-   - Embedding generation → OpenAI embeddings API
-   - Vector storage → Qdrant collection
+
+    - User uploads document → Storage (Laravel filesystem)
+    - Job processes document → Text extraction
+    - Text chunking → RecursiveCharacterTextSplitter (512 chars, 50 overlap)
+    - Embedding generation → OpenAI embeddings API
+    - Vector storage → Qdrant collection
 
 2. **Question Answering**:
-   - User asks question → API endpoint
-   - Query embedding → OpenAI
-   - Semantic search → Brain searches Qdrant
-   - Context retrieval → Top 5 relevant chunks
-   - Prompt composition → PromptComposer assembles prompt
-   - Answer generation → LLM generates response
-   - Response formatting → Include sources and metadata
+    - User asks question → API endpoint
+    - Query embedding → OpenAI
+    - Semantic search → Brain searches Qdrant
+    - Context retrieval → Top 5 relevant chunks
+    - Prompt composition → PromptComposer assembles prompt
+    - Answer generation → LLM generates response
+    - Response formatting → Include sources and metadata
 
 ## Step 1: Environment Setup
 
@@ -163,10 +164,11 @@ curl http://localhost:6333/
 ```
 
 **Expected Response**:
+
 ```json
 {
-  "title": "qdrant - vector search engine",
-  "version": "1.7.0"
+    "title": "qdrant - vector search engine",
+    "version": "1.7.0"
 }
 ```
 
@@ -561,7 +563,7 @@ php artisan make:class Services/DocumentTextExtractor
 
 **Service** (`app/Services/DocumentTextExtractor.php`):
 
-```php
+````php
 <?php
 
 namespace App\Services;
@@ -661,7 +663,7 @@ class DocumentTextExtractor
         return $mimeType === 'application/pdf';
     }
 }
-```
+````
 
 Update the `ProcessDocument` job to use the text extractor:
 
@@ -1581,132 +1583,192 @@ Create a simple web interface for document Q&A:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Document Q&A</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .source-card {
-            transition: all 0.2s;
-        }
-        .source-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-    </style>
-</head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
-        <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-4xl font-bold text-gray-900 mb-2">Document Q&A</h1>
-            <p class="text-gray-600">Ask questions about your uploaded documents</p>
-        </div>
-
-        <!-- Stats -->
-        <div id="stats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <!-- Stats will be populated here -->
-        </div>
-
-        <!-- Document Upload Section -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Upload Document</h2>
-            <form id="upload-form" enctype="multipart/form-data">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">File</label>
-                        <input type="file" id="file-input" name="file" accept=".txt,.pdf,.md" required
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                        <p class="text-xs text-gray-500 mt-1">Supported: TXT, PDF, Markdown (max 10MB)</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Title (optional)</label>
-                        <input type="text" id="title-input" name="title" placeholder="Document title"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                    </div>
-                </div>
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">
-                    Upload Document
-                </button>
-            </form>
-            <div id="upload-status" class="mt-4"></div>
-        </div>
-
-        <!-- Q&A Section -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Ask a Question</h2>
-
-            <form id="question-form">
-                <div class="mb-4">
-                    <textarea id="question-input" rows="3" placeholder="What would you like to know about your documents?"
-                              class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Model</label>
-                        <select id="model-select" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                            <option value="gpt-4o" selected>GPT-4o (Best)</option>
-                            <option value="gpt-4o-mini">GPT-4o Mini (Fast)</option>
-                            <option value="gpt-4-turbo">GPT-4 Turbo</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Context Limit</label>
-                        <select id="limit-select" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                            <option value="3">3 chunks</option>
-                            <option value="5" selected>5 chunks</option>
-                            <option value="8">8 chunks</option>
-                            <option value="10">10 chunks</option>
-                        </select>
-                    </div>
-                    <div class="flex items-end">
-                        <button type="submit" id="ask-button"
-                                class="w-full bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition">
-                            Ask Question
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-            <!-- Answer Display -->
-            <div id="answer-section" class="hidden mt-6">
-                <div class="border-t pt-6">
-                    <h3 class="text-xl font-semibold mb-4">Answer</h3>
-                    <div id="answer-text" class="prose max-w-none bg-gray-50 p-4 rounded-md mb-4"></div>
-
-                    <!-- Metadata -->
-                    <div id="metadata" class="text-sm text-gray-600 mb-4 grid grid-cols-2 md:grid-cols-4 gap-2"></div>
-
-                    <!-- Sources -->
-                    <h4 class="text-lg font-semibold mb-3">Sources</h4>
-                    <div id="sources" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-                </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <title>Document Q&A</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            .source-card {
+                transition: all 0.2s;
+            }
+            .source-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-4 py-8 max-w-6xl">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
+                    Document Q&A
+                </h1>
+                <p class="text-gray-600">
+                    Ask questions about your uploaded documents
+                </p>
             </div>
 
-            <!-- Loading Indicator -->
-            <div id="loading" class="hidden mt-6 text-center">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-blue-600"></div>
-                <p class="text-gray-600 mt-2">Thinking...</p>
+            <!-- Stats -->
+            <div id="stats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <!-- Stats will be populated here -->
+            </div>
+
+            <!-- Document Upload Section -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-semibold mb-4">Upload Document</h2>
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-2"
+                                >File</label
+                            >
+                            <input
+                                type="file"
+                                id="file-input"
+                                name="file"
+                                accept=".txt,.pdf,.md"
+                                required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                            />
+                            <p class="text-xs text-gray-500 mt-1">
+                                Supported: TXT, PDF, Markdown (max 10MB)
+                            </p>
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-2"
+                                >Title (optional)</label
+                            >
+                            <input
+                                type="text"
+                                id="title-input"
+                                name="title"
+                                placeholder="Document title"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+                    >
+                        Upload Document
+                    </button>
+                </form>
+                <div id="upload-status" class="mt-4"></div>
+            </div>
+
+            <!-- Q&A Section -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-semibold mb-4">Ask a Question</h2>
+
+                <form id="question-form">
+                    <div class="mb-4">
+                        <textarea
+                            id="question-input"
+                            rows="3"
+                            placeholder="What would you like to know about your documents?"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        ></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-2"
+                                >Model</label
+                            >
+                            <select
+                                id="model-select"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                            >
+                                <option value="gpt-4o" selected>
+                                    GPT-4o (Best)
+                                </option>
+                                <option value="gpt-4o-mini">
+                                    GPT-4o Mini (Fast)
+                                </option>
+                                <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-2"
+                                >Context Limit</label
+                            >
+                            <select
+                                id="limit-select"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                            >
+                                <option value="3">3 chunks</option>
+                                <option value="5" selected>5 chunks</option>
+                                <option value="8">8 chunks</option>
+                                <option value="10">10 chunks</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button
+                                type="submit"
+                                id="ask-button"
+                                class="w-full bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition"
+                            >
+                                Ask Question
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Answer Display -->
+                <div id="answer-section" class="hidden mt-6">
+                    <div class="border-t pt-6">
+                        <h3 class="text-xl font-semibold mb-4">Answer</h3>
+                        <div
+                            id="answer-text"
+                            class="prose max-w-none bg-gray-50 p-4 rounded-md mb-4"
+                        ></div>
+
+                        <!-- Metadata -->
+                        <div
+                            id="metadata"
+                            class="text-sm text-gray-600 mb-4 grid grid-cols-2 md:grid-cols-4 gap-2"
+                        ></div>
+
+                        <!-- Sources -->
+                        <h4 class="text-lg font-semibold mb-3">Sources</h4>
+                        <div
+                            id="sources"
+                            class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                        ></div>
+                    </div>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loading" class="hidden mt-6 text-center">
+                    <div
+                        class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-blue-600"
+                    ></div>
+                    <p class="text-gray-600 mt-2">Thinking...</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Load stats on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadStats();
-        });
+        <script>
+            // Load stats on page load
+            document.addEventListener('DOMContentLoaded', () => {
+                loadStats();
+            });
 
-        // Load statistics
-        async function loadStats() {
-            try {
-                const response = await fetch('/api/document-qa/stats');
-                const { data } = await response.json();
+            // Load statistics
+            async function loadStats() {
+                try {
+                    const response = await fetch('/api/document-qa/stats');
+                    const { data } = await response.json();
 
-                document.getElementById('stats').innerHTML = `
+                    document.getElementById('stats').innerHTML = `
                     <div class="bg-white rounded-lg shadow p-4">
                         <div class="text-sm text-gray-600">Total Documents</div>
                         <div class="text-2xl font-bold text-gray-900">${data.total_documents}</div>
@@ -1724,126 +1786,164 @@ Create a simple web interface for document Q&A:
                         <div class="text-2xl font-bold text-purple-600">${data.storage_size_mb} MB</div>
                     </div>
                 `;
-            } catch (error) {
-                console.error('Failed to load stats:', error);
-            }
-        }
-
-        // Document upload
-        document.getElementById('upload-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData();
-            const fileInput = document.getElementById('file-input');
-            const titleInput = document.getElementById('title-input');
-
-            formData.append('file', fileInput.files[0]);
-            if (titleInput.value) {
-                formData.append('title', titleInput.value);
+                } catch (error) {
+                    console.error('Failed to load stats:', error);
+                }
             }
 
-            const statusDiv = document.getElementById('upload-status');
-            statusDiv.innerHTML = '<p class="text-blue-600">Uploading...</p>';
+            // Document upload
+            document
+                .getElementById('upload-form')
+                .addEventListener('submit', async (e) => {
+                    e.preventDefault();
 
-            try {
-                const response = await fetch('/api/documents', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    },
-                    body: formData,
+                    const formData = new FormData();
+                    const fileInput = document.getElementById('file-input');
+                    const titleInput = document.getElementById('title-input');
+
+                    formData.append('file', fileInput.files[0]);
+                    if (titleInput.value) {
+                        formData.append('title', titleInput.value);
+                    }
+
+                    const statusDiv = document.getElementById('upload-status');
+                    statusDiv.innerHTML =
+                        '<p class="text-blue-600">Uploading...</p>';
+
+                    try {
+                        const response = await fetch('/api/documents', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content,
+                            },
+                            body: formData,
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            statusDiv.innerHTML =
+                                '<p class="text-green-600">Document uploaded! Processing in background...</p>';
+                            fileInput.value = '';
+                            titleInput.value = '';
+                            setTimeout(loadStats, 1000); // Reload stats
+                        } else {
+                            statusDiv.innerHTML = `<p class="text-red-600">Error: ${result.message}</p>`;
+                        }
+                    } catch (error) {
+                        statusDiv.innerHTML = `<p class="text-red-600">Upload failed: ${error.message}</p>`;
+                    }
                 });
 
-                const result = await response.json();
+            // Question submission
+            document
+                .getElementById('question-form')
+                .addEventListener('submit', async (e) => {
+                    e.preventDefault();
 
-                if (result.success) {
-                    statusDiv.innerHTML = '<p class="text-green-600">Document uploaded! Processing in background...</p>';
-                    fileInput.value = '';
-                    titleInput.value = '';
-                    setTimeout(loadStats, 1000); // Reload stats
-                } else {
-                    statusDiv.innerHTML = `<p class="text-red-600">Error: ${result.message}</p>`;
-                }
-            } catch (error) {
-                statusDiv.innerHTML = `<p class="text-red-600">Upload failed: ${error.message}</p>`;
-            }
-        });
+                    const question = document
+                        .getElementById('question-input')
+                        .value.trim();
+                    if (!question) return;
 
-        // Question submission
-        document.getElementById('question-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+                    const model = document.getElementById('model-select').value;
+                    const limit = parseInt(
+                        document.getElementById('limit-select').value
+                    );
 
-            const question = document.getElementById('question-input').value.trim();
-            if (!question) return;
+                    // Show loading
+                    document
+                        .getElementById('loading')
+                        .classList.remove('hidden');
+                    document
+                        .getElementById('answer-section')
+                        .classList.add('hidden');
 
-            const model = document.getElementById('model-select').value;
-            const limit = parseInt(document.getElementById('limit-select').value);
+                    try {
+                        const response = await fetch('/api/document-qa/ask', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content,
+                            },
+                            body: JSON.stringify({ question, model, limit }),
+                        });
 
-            // Show loading
-            document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('answer-section').classList.add('hidden');
+                        const result = await response.json();
 
-            try {
-                const response = await fetch('/api/document-qa/ask', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    },
-                    body: JSON.stringify({ question, model, limit }),
+                        if (result.success) {
+                            displayAnswer(result.data);
+                        } else {
+                            alert('Error: ' + result.message);
+                        }
+                    } catch (error) {
+                        alert('Request failed: ' + error.message);
+                    } finally {
+                        document
+                            .getElementById('loading')
+                            .classList.add('hidden');
+                    }
                 });
 
-                const result = await response.json();
+            // Display answer and sources
+            function displayAnswer(data) {
+                const answerSection = document.getElementById('answer-section');
+                const answerText = document.getElementById('answer-text');
+                const metadata = document.getElementById('metadata');
+                const sources = document.getElementById('sources');
 
-                if (result.success) {
-                    displayAnswer(result.data);
-                } else {
-                    alert('Error: ' + result.message);
-                }
-            } catch (error) {
-                alert('Request failed: ' + error.message);
-            } finally {
-                document.getElementById('loading').classList.add('hidden');
-            }
-        });
+                // Display answer
+                answerText.innerHTML = data.answer.replace(/\n/g, '<br>');
 
-        // Display answer and sources
-        function displayAnswer(data) {
-            const answerSection = document.getElementById('answer-section');
-            const answerText = document.getElementById('answer-text');
-            const metadata = document.getElementById('metadata');
-            const sources = document.getElementById('sources');
-
-            // Display answer
-            answerText.innerHTML = data.answer.replace(/\n/g, '<br>');
-
-            // Display metadata
-            metadata.innerHTML = `
-                <div><strong>Tokens:</strong> ${data.metadata.tokens.total}</div>
-                <div><strong>Cost:</strong> $${data.metadata.cost.toFixed(4)}</div>
+                // Display metadata
+                metadata.innerHTML = `
+                <div><strong>Tokens:</strong> ${
+                    data.metadata.tokens.total
+                }</div>
+                <div><strong>Cost:</strong> $${data.metadata.cost.toFixed(
+                    4
+                )}</div>
                 <div><strong>Model:</strong> ${data.metadata.model}</div>
-                <div><strong>Duration:</strong> ${Math.round(data.metadata.duration_ms)}ms</div>
+                <div><strong>Duration:</strong> ${Math.round(
+                    data.metadata.duration_ms
+                )}ms</div>
             `;
 
-            // Display sources
-            sources.innerHTML = data.sources.map((source, idx) => `
+                // Display sources
+                sources.innerHTML = data.sources
+                    .map(
+                        (source, idx) => `
                 <div class="source-card bg-gray-50 rounded-lg p-4 border border-gray-200">
                     <div class="flex justify-between items-start mb-2">
-                        <h5 class="font-semibold text-gray-900">${source.title}</h5>
+                        <h5 class="font-semibold text-gray-900">${
+                            source.title
+                        }</h5>
                         <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
                             ${(source.relevance_score * 100).toFixed(0)}%
                         </span>
                     </div>
-                    <p class="text-sm text-gray-600 mb-2">${source.filename || 'N/A'}</p>
-                    <p class="text-sm text-gray-700 line-clamp-3">${source.content_preview}</p>
-                    <p class="text-xs text-gray-500 mt-2">Chunk ${source.chunk_index}</p>
+                    <p class="text-sm text-gray-600 mb-2">${
+                        source.filename || 'N/A'
+                    }</p>
+                    <p class="text-sm text-gray-700 line-clamp-3">${
+                        source.content_preview
+                    }</p>
+                    <p class="text-xs text-gray-500 mt-2">Chunk ${
+                        source.chunk_index
+                    }</p>
                 </div>
-            `).join('');
+            `
+                    )
+                    .join('');
 
-            answerSection.classList.remove('hidden');
-        }
-    </script>
-</body>
+                answerSection.classList.remove('hidden');
+            }
+        </script>
+    </body>
 </html>
 ```
 
@@ -2529,26 +2629,26 @@ Scale Qdrant for production:
 # docker-compose.production.yml
 version: '3.8'
 services:
-  qdrant:
-    image: qdrant/qdrant:latest
-    ports:
-      - "6333:6333"
-    volumes:
-      - qdrant_data:/qdrant/storage
-    environment:
-      - QDRANT__SERVICE__GRPC_PORT=6334
-      - QDRANT__SERVICE__HTTP_PORT=6333
-    deploy:
-      resources:
-        limits:
-          memory: 4G
-        reservations:
-          memory: 2G
-    restart: always
+    qdrant:
+        image: qdrant/qdrant:latest
+        ports:
+            - '6333:6333'
+        volumes:
+            - qdrant_data:/qdrant/storage
+        environment:
+            - QDRANT__SERVICE__GRPC_PORT=6334
+            - QDRANT__SERVICE__HTTP_PORT=6333
+        deploy:
+            resources:
+                limits:
+                    memory: 4G
+                reservations:
+                    memory: 2G
+        restart: always
 
 volumes:
-  qdrant_data:
-    driver: local
+    qdrant_data:
+        driver: local
 ```
 
 **Sharding Strategy** for millions of documents:
@@ -2711,14 +2811,14 @@ Route::middleware('throttle:document-qa')->group(function () {
 
 You've now built a complete, production-ready Document Q&A system with:
 
-- **Semantic Search**: Vector-based similarity search using Qdrant
-- **Document Processing**: Automated chunking, embedding, and indexing
-- **RAG Pipeline**: Context retrieval and answer generation with PromptComposer
-- **Source Attribution**: Track which documents contribute to each answer
-- **Cost Tracking**: Monitor API usage and costs with observability
-- **Document Management**: Upload, index, and manage document collections
-- **Testing**: Comprehensive unit and feature tests
-- **Production Features**: Caching, monitoring, rate limiting, scaling
+-   **Semantic Search**: Vector-based similarity search using Qdrant
+-   **Document Processing**: Automated chunking, embedding, and indexing
+-   **RAG Pipeline**: Context retrieval and answer generation with PromptComposer
+-   **Source Attribution**: Track which documents contribute to each answer
+-   **Cost Tracking**: Monitor API usage and costs with observability
+-   **Document Management**: Upload, index, and manage document collections
+-   **Testing**: Comprehensive unit and feature tests
+-   **Production Features**: Caching, monitoring, rate limiting, scaling
 
 ### Key Takeaways
 
@@ -2730,24 +2830,24 @@ You've now built a complete, production-ready Document Q&A system with:
 
 ### Next Steps
 
-- **Experiment**: Try different chunk sizes and overlap configurations
-- **Optimize**: Test different retrieval strategies (hybrid, re-ranking, query expansion)
-- **Scale**: Move to production vector stores (managed Qdrant, Pinecone)
-- **Enhance**: Add conversation history, multi-document collections, confidence scoring
-- **Monitor**: Set up alerts for costs, failures, and performance issues
+-   **Experiment**: Try different chunk sizes and overlap configurations
+-   **Optimize**: Test different retrieval strategies (hybrid, re-ranking, query expansion)
+-   **Scale**: Move to production vector stores (managed Qdrant, Pinecone)
+-   **Enhance**: Add conversation history, multi-document collections, confidence scoring
+-   **Monitor**: Set up alerts for costs, failures, and performance issues
 
 ## Related Documentation
 
-- [RAG Overview](/docs/core/rag-overview) - RAG concepts and architecture
-- [Vector Stores](/docs/reference/vector-stores) - Vector database integration
-- [Brain](/docs/rag/brain) - Document processing and semantic search
-- [PromptComposer](/docs/core/prompt-composer) - Token-aware prompt composition
-- [Observability](/docs/observability/overview) - Tracing and cost tracking
-- [Testing](/docs/advanced/testing) - Testing AI applications
+-   [RAG Overview](/docs/core/rag-overview) - RAG concepts and architecture
+-   [Vector Stores](/docs/reference/vector-stores) - Vector database integration
+-   [Brain](/docs/rag/brain) - Document processing and semantic search
+-   [PromptComposer](/docs/core/prompt-composer) - Token-aware prompt composition
+-   [Observability](/docs/observability/overview) - Tracing and cost tracking
+-   [Testing](/docs/advanced/testing) - Testing AI applications
 
 ## Resources
 
-- [Example Code Repository](https://github.com/mindwave/examples/tree/main/document-qa)
-- [Qdrant Documentation](https://qdrant.tech/documentation/)
-- [OpenAI Embeddings Guide](https://platform.openai.com/docs/guides/embeddings)
-- [RAG Best Practices Blog](https://mindwave.dev/blog/rag-best-practices)
+-   [Example Code Repository](https://github.com/mindwave/examples/tree/main/document-qa)
+-   [Qdrant Documentation](https://qdrant.tech/documentation/)
+-   [OpenAI Embeddings Guide](https://platform.openai.com/docs/guides/embeddings)
+-   [RAG Best Practices Blog](https://mindwave.dev/blog/rag-best-practices)

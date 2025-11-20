@@ -6,19 +6,19 @@ Testing LLM-powered applications requires different strategies than traditional 
 
 AI application testing presents unique challenges:
 
-- **Non-deterministic outputs** - LLMs can produce different responses for identical inputs
-- **Complex dependencies** - RAG systems involve embeddings, vector stores, and retrieval pipelines
-- **Cost considerations** - Real API calls during testing add up quickly
-- **Quality metrics** - Traditional assertions don't capture semantic correctness
+-   **Non-deterministic outputs** - LLMs can produce different responses for identical inputs
+-   **Complex dependencies** - RAG systems involve embeddings, vector stores, and retrieval pipelines
+-   **Cost considerations** - Real API calls during testing add up quickly
+-   **Quality metrics** - Traditional assertions don't capture semantic correctness
 
 This guide provides practical patterns for:
 
-- **Unit Testing** - Test individual components in isolation
-- **Integration Testing** - Test component interactions without real APIs
-- **Mocking Strategies** - Simulate LLM responses efficiently
-- **RAG Testing** - Validate retrieval quality and accuracy
-- **Evaluation Metrics** - Measure semantic correctness
-- **CI/CD Integration** - Automate testing in your pipeline
+-   **Unit Testing** - Test individual components in isolation
+-   **Integration Testing** - Test component interactions without real APIs
+-   **Mocking Strategies** - Simulate LLM responses efficiently
+-   **RAG Testing** - Validate retrieval quality and accuracy
+-   **Evaluation Metrics** - Measure semantic correctness
+-   **CI/CD Integration** - Automate testing in your pipeline
 
 ## Testing Strategies
 
@@ -908,63 +908,63 @@ name: Tests
 on: [push, pull_request]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+    test:
+        runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: mindwave_test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: password
+                    MYSQL_DATABASE: mindwave_test
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s
 
-      qdrant:
-        image: qdrant/qdrant:latest
-        ports:
-          - 6333:6333
+            qdrant:
+                image: qdrant/qdrant:latest
+                ports:
+                    - 6333:6333
 
-    steps:
-      - uses: actions/checkout@v3
+        steps:
+            - uses: actions/checkout@v3
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: mbstring, pdo_mysql
-          coverage: xdebug
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+                  extensions: mbstring, pdo_mysql
+                  coverage: xdebug
 
-      - name: Install Dependencies
-        run: composer install --prefer-dist
+            - name: Install Dependencies
+              run: composer install --prefer-dist
 
-      - name: Copy Environment
-        run: cp .env.ci .env
+            - name: Copy Environment
+              run: cp .env.ci .env
 
-      - name: Run Migrations
-        run: php artisan migrate --force
+            - name: Run Migrations
+              run: php artisan migrate --force
 
-      - name: Run Tests
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_DATABASE: mindwave_test
-          DB_USERNAME: root
-          DB_PASSWORD: password
-          MINDWAVE_LLM: fake
-          MINDWAVE_VECTORSTORE: qdrant
-          MINDWAVE_QDRANT_HOST: localhost
-          MINDWAVE_QDRANT_PORT: 6333
-          MINDWAVE_TRACING_ENABLED: true
-          MINDWAVE_TRACE_DATABASE: true
-        run: vendor/bin/phpunit --coverage-clover coverage.xml
+            - name: Run Tests
+              env:
+                  DB_CONNECTION: mysql
+                  DB_HOST: 127.0.0.1
+                  DB_PORT: 3306
+                  DB_DATABASE: mindwave_test
+                  DB_USERNAME: root
+                  DB_PASSWORD: password
+                  MINDWAVE_LLM: fake
+                  MINDWAVE_VECTORSTORE: qdrant
+                  MINDWAVE_QDRANT_HOST: localhost
+                  MINDWAVE_QDRANT_PORT: 6333
+                  MINDWAVE_TRACING_ENABLED: true
+                  MINDWAVE_TRACE_DATABASE: true
+              run: vendor/bin/phpunit --coverage-clover coverage.xml
 
-      - name: Upload Coverage
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage.xml
+            - name: Upload Coverage
+              uses: codecov/codecov-action@v3
+              with:
+                  files: ./coverage.xml
 ```
 
 ### Laravel Dusk for E2E Testing
@@ -1176,7 +1176,7 @@ Effective testing strategies for Mindwave applications:
 
 ## Related Documentation
 
-- [Production Deployment](/docs/production)
-- [Troubleshooting](/docs/troubleshooting)
-- [Observability](/docs/observability/overview)
-- [Cost Tracking](/docs/observability/cost-tracking)
+-   [Production Deployment](/docs/production)
+-   [Troubleshooting](/docs/troubleshooting)
+-   [Observability](/docs/observability/overview)
+-   [Cost Tracking](/docs/observability/cost-tracking)

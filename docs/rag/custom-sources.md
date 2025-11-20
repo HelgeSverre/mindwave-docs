@@ -18,17 +18,19 @@ A Context Source is any class that implements the `ContextSource` interface and 
 ### When to Build a Custom Source
 
 **Build a custom source when:**
-- You need to integrate a proprietary search system
-- Your data comes from external APIs
-- You have complex filtering/ranking logic
-- Built-in sources don't fit your use case
-- You need custom caching or optimization
+
+-   You need to integrate a proprietary search system
+-   Your data comes from external APIs
+-   You have complex filtering/ranking logic
+-   Built-in sources don't fit your use case
+-   You need custom caching or optimization
 
 **Use built-in sources when:**
-- Simple database queries (use EloquentSource)
-- Full-text search (use TntSearchSource)
-- Semantic search (use VectorStoreSource)
-- Static content (use StaticSource)
+
+-   Simple database queries (use EloquentSource)
+-   Full-text search (use TntSearchSource)
+-   Semantic search (use VectorStoreSource)
+-   Static content (use StaticSource)
 
 ## The ContextSource Interface
 
@@ -1295,8 +1297,8 @@ private function performSearchWithTimeout(string $query, int $limit): ContextCol
 
 ## Related Documentation
 
-- [RAG Overview](/docs/rag/overview) - Complete RAG architecture
-- [Vector Store Source](/docs/rag/vector-store-source) - Semantic search integration
-- [TNTSearch Source](/docs/rag/tntsearch-source) - Full-text search
-- [Context Pipeline](/docs/rag/context-pipeline) - Multi-source aggregation
-- [PromptComposer](/docs/core/prompt-composer) - Token-aware prompts
+-   [RAG Overview](/docs/rag/overview) - Complete RAG architecture
+-   [Vector Store Source](/docs/rag/vector-store-source) - Semantic search integration
+-   [TNTSearch Source](/docs/rag/tntsearch-source) - Full-text search
+-   [Context Pipeline](/docs/rag/context-pipeline) - Multi-source aggregation
+-   [PromptComposer](/docs/core/prompt-composer) - Token-aware prompts

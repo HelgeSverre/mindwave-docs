@@ -21,11 +21,11 @@ MINDWAVE_OPENAI_API_KEY=sk-proj-...
 
 #### Available Models
 
-| Model | Dimensions | Cost per 1K Tokens | Best For |
-|-------|------------|-------------------|----------|
-| `text-embedding-ada-002` | 1536 | $0.0001 | General purpose, most popular |
-| `text-embedding-3-small` | 1536 | $0.00002 | Improved performance, lower cost |
-| `text-embedding-3-large` | 3072 | $0.00013 | Highest quality, larger vectors |
+| Model                    | Dimensions | Cost per 1K Tokens | Best For                         |
+| ------------------------ | ---------- | ------------------ | -------------------------------- |
+| `text-embedding-ada-002` | 1536       | $0.0001            | General purpose, most popular    |
+| `text-embedding-3-small` | 1536       | $0.00002           | Improved performance, lower cost |
+| `text-embedding-3-large` | 3072       | $0.00013           | Highest quality, larger vectors  |
 
 #### Usage Example
 
@@ -64,23 +64,25 @@ $embedding = Mindwave::embeddings()
 
 #### Performance Characteristics
 
-- **text-embedding-ada-002:**
-  - Dimensions: 1536
-  - Speed: ~100ms per request
-  - Quality: Excellent
-  - Cost: $0.0001 per 1K tokens
+-   **text-embedding-ada-002:**
 
-- **text-embedding-3-small:**
-  - Dimensions: 1536
-  - Speed: ~80ms per request
-  - Quality: Better than ada-002
-  - Cost: $0.00002 per 1K tokens (80% cheaper)
+    -   Dimensions: 1536
+    -   Speed: ~100ms per request
+    -   Quality: Excellent
+    -   Cost: $0.0001 per 1K tokens
 
-- **text-embedding-3-large:**
-  - Dimensions: 3072
-  - Speed: ~120ms per request
-  - Quality: Best available
-  - Cost: $0.00013 per 1K tokens
+-   **text-embedding-3-small:**
+
+    -   Dimensions: 1536
+    -   Speed: ~80ms per request
+    -   Quality: Better than ada-002
+    -   Cost: $0.00002 per 1K tokens (80% cheaper)
+
+-   **text-embedding-3-large:**
+    -   Dimensions: 3072
+    -   Speed: ~120ms per request
+    -   Quality: Best available
+    -   Cost: $0.00013 per 1K tokens
 
 ### Custom Embedding Providers
 
@@ -140,18 +142,21 @@ foreach ($results as $result) {
 ### Choosing an Embedding Model
 
 **Use `text-embedding-3-small` for:**
-- Most applications
-- Cost-sensitive projects
-- High-volume embedding generation
+
+-   Most applications
+-   Cost-sensitive projects
+-   High-volume embedding generation
 
 **Use `text-embedding-ada-002` for:**
-- Legacy applications
-- Proven stable performance
+
+-   Legacy applications
+-   Proven stable performance
 
 **Use `text-embedding-3-large` for:**
-- Highest accuracy requirements
-- Complex semantic understanding
-- Research and evaluation
+
+-   Highest accuracy requirements
+-   Complex semantic understanding
+-   Research and evaluation
 
 ### Batch Processing
 
@@ -254,12 +259,12 @@ return [
 
 ### Model Comparison
 
-| Task | Recommended Model | Monthly Cost (1M texts) |
-|------|------------------|----------------------|
-| Production search | text-embedding-3-small | $20 |
-| High-volume indexing | text-embedding-3-small | $20 |
-| Maximum accuracy | text-embedding-3-large | $130 |
-| Legacy systems | text-embedding-ada-002 | $100 |
+| Task                 | Recommended Model      | Monthly Cost (1M texts) |
+| -------------------- | ---------------------- | ----------------------- |
+| Production search    | text-embedding-3-small | $20                     |
+| High-volume indexing | text-embedding-3-small | $20                     |
+| Maximum accuracy     | text-embedding-3-large | $130                    |
+| Legacy systems       | text-embedding-ada-002 | $100                    |
 
 ### Token Counting
 
@@ -283,8 +288,9 @@ echo "Estimated cost: \${$estimatedCost}\n";
 **Issue: "Embedding dimensions mismatch"**
 
 Ensure your vector store is configured for the correct dimensions:
-- ada-002 and 3-small: 1536 dimensions
-- 3-large: 3072 dimensions
+
+-   ada-002 and 3-small: 1536 dimensions
+-   3-large: 3072 dimensions
 
 **Issue: "Rate limit exceeded"**
 
@@ -324,7 +330,7 @@ $embeddings = Mindwave::embeddings()->embedBatch($texts);
 
 ## Related Documentation
 
-- [Brain (Vector Store)](/docs/rag/brain) - Vector store integration
-- [RAG Overview](/docs/rag/overview) - RAG architecture
-- [Vector Stores Reference](/docs/reference/vector-stores.md) - Vector database options
-- [Configuration Guide](/docs/configuration.md) - Complete configuration
+-   [Brain (Vector Store)](/docs/rag/brain) - Vector store integration
+-   [RAG Overview](/docs/rag/overview) - RAG architecture
+-   [Vector Stores Reference](/docs/reference/vector-stores.md) - Vector database options
+-   [Configuration Guide](/docs/configuration.md) - Complete configuration

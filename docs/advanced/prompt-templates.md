@@ -98,6 +98,7 @@ $response = $template->format([
 ```
 
 **File structure example:**
+
 ```
 resources/
   prompts/
@@ -148,9 +149,10 @@ $result = Mindwave::llm()->generate($prompt);
 ```
 
 The parser automatically:
-- Adds JSON format instructions to the prompt
-- Extracts JSON from code blocks
-- Parses response into PHP array
+
+-   Adds JSON format instructions to the prompt
+-   Extracts JSON from code blocks
+-   Parses response into PHP array
 
 ### JSON List Output
 
@@ -207,10 +209,11 @@ echo $result->price;
 ```
 
 The parser:
-- Reflects on the class to generate JSON schema
-- Adds schema to prompt as format instructions
-- Parses response into object instance
-- Handles type conversion (int, float, bool, Collection)
+
+-   Reflects on the class to generate JSON schema
+-   Adds schema to prompt as format instructions
+-   Parses response into object instance
+-   Handles type conversion (int, float, bool, Collection)
 
 ### Changing Parsers Dynamically
 
@@ -234,11 +237,11 @@ While `PromptTemplate` handles simple variable substitution, `PromptComposer` en
 
 ### Why Use PromptComposer for Templates?
 
-- **Section-based composition** - Build prompts from reusable sections
-- **Priority management** - Control which sections are included when space is tight
-- **Token-aware** - Automatically fit prompts within model context windows
-- **Shrinking strategies** - Compress or truncate sections when needed
-- **Dynamic assembly** - Add sections conditionally based on runtime logic
+-   **Section-based composition** - Build prompts from reusable sections
+-   **Priority management** - Control which sections are included when space is tight
+-   **Token-aware** - Automatically fit prompts within model context windows
+-   **Shrinking strategies** - Compress or truncate sections when needed
+-   **Dynamic assembly** - Add sections conditionally based on runtime logic
 
 ### Basic PromptComposer Template
 
@@ -311,7 +314,7 @@ $composer
 
 Create a factory for common prompt templates:
 
-```php
+````php
 class PromptFactory
 {
     public function __construct(
@@ -371,7 +374,7 @@ class PromptFactory
 // Usage
 $factory = app(PromptFactory::class);
 $response = $factory->customerSupport($customer, $question)->run();
-```
+````
 
 ### Combining PromptTemplate with PromptComposer
 
@@ -468,7 +471,7 @@ $response = CustomerSupportTemplate::create($customer, $ticket, app(PromptCompos
 
 ### Template 2: Code Review
 
-```php
+````php
 class CodeReviewTemplate
 {
     public static function create(
@@ -496,29 +499,32 @@ Review this {language} code for:
 Code to review:
 ```{language}
 {code}
-```
+````
 
 Provide a structured review with:
-1. Overall assessment
-2. Specific issues found (if any)
-3. Recommendations for improvement
-4. Positive aspects worth noting
-PROMPT;
 
-        return PromptTemplate::create($template);
+1.  Overall assessment
+2.  Specific issues found (if any)
+3.  Recommendations for improvement
+4.  Positive aspects worth noting
+    PROMPT;
+
+            return PromptTemplate::create($template);
+        }
+
     }
-}
 
 // Usage
 $template = CodeReviewTemplate::create(
-    code: $pullRequest->diff,
-    language: 'php',
-    focusAreas: ['Security', 'Performance'],
-    codingStandards: ['PSR-12', 'Laravel Best Practices']
+code: $pullRequest->diff,
+language: 'php',
+focusAreas: ['Security', 'Performance'],
+codingStandards: ['PSR-12', 'Laravel Best Practices']
 );
 
 $review = Mindwave::llm()->generate($template->format(['code' => $code]));
-```
+
+````
 
 ### Template 3: Content Summarization
 
@@ -575,7 +581,7 @@ $summary = Mindwave::llm()->generate($template->format([
     'max_words' => 150,
     'style_guidance' => 'Focus on key points only. Be brief and direct.'
 ]));
-```
+````
 
 ### Template 4: Data Extraction
 
@@ -1272,21 +1278,24 @@ public static function create(
 ### 2. When to Template vs Hardcode
 
 **Use templates when:**
-- Prompt will be reused across multiple features
-- Prompt structure needs to be consistent
-- Prompt requires variable substitution
-- Prompt may need A/B testing
-- Team needs to collaborate on prompt design
+
+-   Prompt will be reused across multiple features
+-   Prompt structure needs to be consistent
+-   Prompt requires variable substitution
+-   Prompt may need A/B testing
+-   Team needs to collaborate on prompt design
 
 **Hardcode when:**
-- One-off, unique prompts
-- Very simple prompts with no variables
-- Rapid prototyping
-- Prompt is tightly coupled to specific logic
+
+-   One-off, unique prompts
+-   Very simple prompts with no variables
+-   Rapid prototyping
+-   Prompt is tightly coupled to specific logic
 
 ### 3. Version Control for Templates
 
 **Store templates in files:**
+
 ```
 resources/
   prompts/
@@ -1299,6 +1308,7 @@ resources/
 ```
 
 **Use semantic versioning:**
+
 ```php
 $repo->register('summarize', $template, '1.0.0');
 $repo->register('summarize', $improvedTemplate, '1.1.0');
@@ -1306,15 +1316,16 @@ $repo->register('summarize', $breakingChangeTemplate, '2.0.0');
 ```
 
 **Track changes in Git:**
-- Commit template changes with clear messages
-- Review template changes in PRs
-- Tag significant template updates
+
+-   Commit template changes with clear messages
+-   Review template changes in PRs
+-   Tag significant template updates
 
 ### 4. Documentation for Templates
 
 Document each template's purpose, variables, and expected usage:
 
-```php
+````php
 /**
  * Customer Support Response Template
  *
@@ -1344,28 +1355,32 @@ Document each template's purpose, variables, and expected usage:
  * ```
  */
 class CustomerSupportTemplate { ... }
-```
+````
 
 ### 5. Team Collaboration
 
 **Centralize templates:**
-- Create a `app/AI/Templates` directory
-- Register templates in a service provider
-- Use dependency injection for template access
+
+-   Create a `app/AI/Templates` directory
+-   Register templates in a service provider
+-   Use dependency injection for template access
 
 **Code review templates:**
-- Review template changes like code
-- Test prompts before merging
-- Get feedback from domain experts
+
+-   Review template changes like code
+-   Test prompts before merging
+-   Get feedback from domain experts
 
 **Share knowledge:**
-- Document effective prompting patterns
-- Share successful templates across teams
-- Create a template style guide
+
+-   Document effective prompting patterns
+-   Share successful templates across teams
+-   Create a template style guide
 
 ### 6. Performance Considerations
 
 **Cache compiled templates:**
+
 ```php
 use Illuminate\Support\Facades\Cache;
 
@@ -1378,6 +1393,7 @@ public function getCachedTemplate(string $name): PromptTemplate
 ```
 
 **Lazy-load large templates:**
+
 ```php
 public function getLargeTemplate(): PromptTemplate
 {
@@ -1386,6 +1402,7 @@ public function getLargeTemplate(): PromptTemplate
 ```
 
 **Monitor token usage:**
+
 ```php
 $composer->fit();
 
@@ -1513,6 +1530,7 @@ $composer
 ---
 
 **Next Steps:**
-- Explore [Context Discovery](/docs/core/context-discovery) for RAG patterns
-- Learn about [Token Management](/docs/advanced/token-management) in PromptComposer
-- Read [Output Parsers](/docs/advanced/output-parsers) for structured responses
+
+-   Explore [Context Discovery](/docs/core/context-discovery) for RAG patterns
+-   Learn about [Token Management](/docs/advanced/token-management) in PromptComposer
+-   Read [Output Parsers](/docs/advanced/output-parsers) for structured responses

@@ -423,7 +423,7 @@ MINDWAVE_LOG_EVENTS=false
 
 -   Both database and OTLP for flexibility
 -   No message capture (privacy)
--    100% sampling (catch all issues)
+-   100% sampling (catch all issues)
 -   Jaeger for visualization
 
 ### Production
@@ -446,7 +446,7 @@ MINDWAVE_TRACE_RETENTION_DAYS=30
 
 -   OTLP only (no database overhead)
 -   No message capture (privacy)
--    10% sampling (reduce volume)
+-   10% sampling (reduce volume)
 -   OpenTelemetry Collector for advanced processing
 -   30-day retention
 
@@ -675,12 +675,12 @@ Tune for your application's load:
 
 **Recommendations:**
 
-| Environment  | Queue Size | Delay (ms) | Batch Size |
-| ------------ | ---------- | ---------- | ---------- |
-| Development  | 256        | 1000       | 64         |
-| Staging      | 1024       | 3000       | 128        |
-| Production   | 2048       | 5000       | 256        |
-| High-Volume  | 4096       | 10000      | 512        |
+| Environment | Queue Size | Delay (ms) | Batch Size |
+| ----------- | ---------- | ---------- | ---------- |
+| Development | 256        | 1000       | 64         |
+| Staging     | 1024       | 3000       | 128        |
+| Production  | 2048       | 5000       | 256        |
+| High-Volume | 4096       | 10000      | 512        |
 
 ## Resource Attributes
 

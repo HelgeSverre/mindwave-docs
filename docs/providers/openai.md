@@ -6,23 +6,23 @@ OpenAI is one of the leading LLM providers and is the default provider in Mindwa
 
 ### Why Use OpenAI with Mindwave?
 
-- **Industry-leading models** - Access GPT-4o, GPT-4 Turbo, and O1 reasoning models
-- **Function calling** - Native support for tool use and function execution
-- **Reliable API** - Production-grade infrastructure with high availability
-- **Streaming support** - Real-time response streaming with Server-Sent Events
-- **Cost-effective options** - Models ranging from $0.15/1M to $60/1M input tokens
-- **Large context windows** - Up to 128K tokens for comprehensive context
+-   **Industry-leading models** - Access GPT-4o, GPT-4 Turbo, and O1 reasoning models
+-   **Function calling** - Native support for tool use and function execution
+-   **Reliable API** - Production-grade infrastructure with high availability
+-   **Streaming support** - Real-time response streaming with Server-Sent Events
+-   **Cost-effective options** - Models ranging from $0.15/1M to $60/1M input tokens
+-   **Large context windows** - Up to 128K tokens for comprehensive context
 
 ### Key Capabilities
 
-- ✅ Chat completions with multi-turn conversations
-- ✅ Streaming responses with SSE
-- ✅ Function/tool calling with parallel execution
-- ✅ JSON mode for structured outputs
-- ✅ Vision capabilities (GPT-4o, GPT-4 Turbo with Vision)
-- ✅ Advanced reasoning (O1 models)
-- ✅ Legacy completions API support
-- ✅ Automatic tracing and cost tracking
+-   ✅ Chat completions with multi-turn conversations
+-   ✅ Streaming responses with SSE
+-   ✅ Function/tool calling with parallel execution
+-   ✅ JSON mode for structured outputs
+-   ✅ Vision capabilities (GPT-4o, GPT-4 Turbo with Vision)
+-   ✅ Advanced reasoning (O1 models)
+-   ✅ Legacy completions API support
+-   ✅ Automatic tracing and cost tracking
 
 ## Setup & Configuration
 
@@ -99,52 +99,57 @@ if ($response) {
 
 The most capable and efficient GPT-4 model with multimodal capabilities.
 
-| Model ID | Context Window | Input Price | Output Price | Best For |
-|----------|---------------|-------------|--------------|----------|
-| `gpt-4o` | 128,000 tokens | $2.50/1M | $10.00/1M | Multimodal tasks, vision |
-| `gpt-4o-mini` | 128,000 tokens | $0.15/1M | $0.60/1M | Fast, cost-effective tasks |
+| Model ID      | Context Window | Input Price | Output Price | Best For                   |
+| ------------- | -------------- | ----------- | ------------ | -------------------------- |
+| `gpt-4o`      | 128,000 tokens | $2.50/1M    | $10.00/1M    | Multimodal tasks, vision   |
+| `gpt-4o-mini` | 128,000 tokens | $0.15/1M    | $0.60/1M     | Fast, cost-effective tasks |
 
 **Use Cases:**
-- Image analysis and understanding
-- Document processing with visual elements
-- Fast reasoning with vision
-- Cost-sensitive multimodal applications
+
+-   Image analysis and understanding
+-   Document processing with visual elements
+-   Fast reasoning with vision
+-   Cost-sensitive multimodal applications
 
 **Limitations:**
-- Not designed for deep reasoning (use O1 instead)
+
+-   Not designed for deep reasoning (use O1 instead)
 
 ### GPT-4 Turbo
 
 High-intelligence model with large context window and improved performance.
 
-| Model ID | Context Window | Input Price | Output Price | Best For |
-|----------|---------------|-------------|--------------|----------|
-| `gpt-4-turbo` | 128,000 tokens | $10.00/1M | $30.00/1M | Complex tasks, large contexts |
-| `gpt-4-turbo-preview` | 128,000 tokens | $10.00/1M | $30.00/1M | Latest preview features |
-| `gpt-4-1106-preview` | 128,000 tokens | $10.00/1M | $30.00/1M | Stable version |
+| Model ID              | Context Window | Input Price | Output Price | Best For                      |
+| --------------------- | -------------- | ----------- | ------------ | ----------------------------- |
+| `gpt-4-turbo`         | 128,000 tokens | $10.00/1M   | $30.00/1M    | Complex tasks, large contexts |
+| `gpt-4-turbo-preview` | 128,000 tokens | $10.00/1M   | $30.00/1M    | Latest preview features       |
+| `gpt-4-1106-preview`  | 128,000 tokens | $10.00/1M   | $30.00/1M    | Stable version                |
 
 **Use Cases:**
-- Complex reasoning and analysis
-- Large document processing
-- Multi-step problem solving
-- Production applications requiring intelligence
+
+-   Complex reasoning and analysis
+-   Large document processing
+-   Multi-step problem solving
+-   Production applications requiring intelligence
 
 **Limitations:**
-- Higher cost than GPT-3.5
-- Slower than GPT-4o-mini
+
+-   Higher cost than GPT-3.5
+-   Slower than GPT-4o-mini
 
 ### GPT-4 (Original)
 
 The original GPT-4 model with smaller context window.
 
-| Model ID | Context Window | Input Price | Output Price | Best For |
-|----------|---------------|-------------|--------------|----------|
-| `gpt-4` | 8,192 tokens | $30.00/1M | $60.00/1M | High-stakes tasks |
-| `gpt-4-32k` | 32,768 tokens | $60.00/1M | $120.00/1M | Large context needs |
+| Model ID    | Context Window | Input Price | Output Price | Best For            |
+| ----------- | -------------- | ----------- | ------------ | ------------------- |
+| `gpt-4`     | 8,192 tokens   | $30.00/1M   | $60.00/1M    | High-stakes tasks   |
+| `gpt-4-32k` | 32,768 tokens  | $60.00/1M   | $120.00/1M   | Large context needs |
 
 **Use Cases:**
-- When you need GPT-4 intelligence with smaller contexts
-- Legacy applications
+
+-   When you need GPT-4 intelligence with smaller contexts
+-   Legacy applications
 
 **Note:** GPT-4 Turbo is generally better - larger context, lower cost, faster.
 
@@ -152,49 +157,54 @@ The original GPT-4 model with smaller context window.
 
 Fast and cost-effective model for simpler tasks.
 
-| Model ID | Context Window | Input Price | Output Price | Best For |
-|----------|---------------|-------------|--------------|----------|
-| `gpt-3.5-turbo` | 16,385 tokens | $0.50/1M | $1.50/1M | High-volume, simple tasks |
-| `gpt-3.5-turbo-instruct` | 4,096 tokens | $1.50/1M | $2.00/1M | Legacy completions |
+| Model ID                 | Context Window | Input Price | Output Price | Best For                  |
+| ------------------------ | -------------- | ----------- | ------------ | ------------------------- |
+| `gpt-3.5-turbo`          | 16,385 tokens  | $0.50/1M    | $1.50/1M     | High-volume, simple tasks |
+| `gpt-3.5-turbo-instruct` | 4,096 tokens   | $1.50/1M    | $2.00/1M     | Legacy completions        |
 
 **Use Cases:**
-- High-volume content generation
-- Simple classification and categorization
-- Basic Q&A systems
-- Cost-sensitive applications
-- Rapid prototyping
+
+-   High-volume content generation
+-   Simple classification and categorization
+-   Basic Q&A systems
+-   Cost-sensitive applications
+-   Rapid prototyping
 
 **Limitations:**
-- Less capable reasoning than GPT-4
-- May require more prompt engineering
-- Limited context window
+
+-   Less capable reasoning than GPT-4
+-   May require more prompt engineering
+-   Limited context window
 
 ### O1 Models (Reasoning)
 
 Specialized models with enhanced reasoning capabilities for complex problems.
 
-| Model ID | Context Window | Input Price | Output Price | Best For |
-|----------|---------------|-------------|--------------|----------|
-| `o1-preview` | 128,000 tokens | $15.00/1M | $60.00/1M | Complex reasoning tasks |
-| `o1-mini` | 128,000 tokens | $3.00/1M | $12.00/1M | Faster reasoning |
+| Model ID     | Context Window | Input Price | Output Price | Best For                |
+| ------------ | -------------- | ----------- | ------------ | ----------------------- |
+| `o1-preview` | 128,000 tokens | $15.00/1M   | $60.00/1M    | Complex reasoning tasks |
+| `o1-mini`    | 128,000 tokens | $3.00/1M    | $12.00/1M    | Faster reasoning        |
 
 **Use Cases:**
-- Scientific and mathematical problems
-- Complex logical reasoning
-- Code debugging and optimization
-- Multi-step problem decomposition
-- Research and analysis
+
+-   Scientific and mathematical problems
+-   Complex logical reasoning
+-   Code debugging and optimization
+-   Multi-step problem decomposition
+-   Research and analysis
 
 **Important Differences:**
-- O1 models use internal reasoning steps (not visible)
-- No streaming support
-- No system messages (use user messages instead)
-- No temperature control (reasoning models use fixed sampling)
-- Higher latency due to reasoning process
+
+-   O1 models use internal reasoning steps (not visible)
+-   No streaming support
+-   No system messages (use user messages instead)
+-   No temperature control (reasoning models use fixed sampling)
+-   Higher latency due to reasoning process
 
 **When to Use O1 vs GPT-4:**
-- **O1**: Complex logic, math, science, debugging
-- **GPT-4**: General chat, content generation, function calling
+
+-   **O1**: Complex logic, math, science, debugging
+-   **GPT-4**: General chat, content generation, function calling
 
 ## Basic Usage
 
@@ -321,9 +331,10 @@ $summary = Mindwave::llm()
 ```
 
 **Performance Tips:**
-- Use `gpt-4o-mini` for 80% faster responses than GPT-4
-- Lower temperature (0.3-0.5) for more consistent outputs
-- Ideal for production chat interfaces
+
+-   Use `gpt-4o-mini` for 80% faster responses than GPT-4
+-   Lower temperature (0.3-0.5) for more consistent outputs
+-   Ideal for production chat interfaces
 
 ### O1 Models: Advanced Reasoning
 
@@ -354,22 +365,23 @@ $solution = Mindwave::llm()
 ```
 
 **O1 Best Practices:**
-- Don't use streaming (not supported)
-- Don't set temperature (ignored)
-- Use detailed prompts with clear problem statements
-- Allow higher max_tokens for reasoning steps
-- Expect higher latency (30-60 seconds for complex problems)
+
+-   Don't use streaming (not supported)
+-   Don't set temperature (ignored)
+-   Use detailed prompts with clear problem statements
+-   Allow higher max_tokens for reasoning steps
+-   Expect higher latency (30-60 seconds for complex problems)
 
 **O1 vs GPT-4 Decision Matrix:**
 
-| Task Type | Recommended Model | Why |
-|-----------|------------------|-----|
-| Debug complex code | O1 | Deep reasoning required |
-| Generate boilerplate | GPT-4o-mini | Fast, simple task |
-| Solve math problems | O1-mini | Reasoning required, cost-effective |
-| Chat interface | GPT-4o | Real-time streaming, fast |
-| Analyze architecture | O1-preview | Complex logical analysis |
-| Simple Q&A | GPT-3.5-turbo | Cost-effective, fast |
+| Task Type            | Recommended Model | Why                                |
+| -------------------- | ----------------- | ---------------------------------- |
+| Debug complex code   | O1                | Deep reasoning required            |
+| Generate boilerplate | GPT-4o-mini       | Fast, simple task                  |
+| Solve math problems  | O1-mini           | Reasoning required, cost-effective |
+| Chat interface       | GPT-4o            | Real-time streaming, fast          |
+| Analyze architecture | O1-preview        | Complex logical analysis           |
+| Simple Q&A           | GPT-3.5-turbo     | Cost-effective, fast               |
 
 ### GPT-3.5 Turbo: Cost Optimization
 
@@ -400,10 +412,11 @@ $category = Mindwave::llm()
 ```
 
 **Cost Comparison (1M tokens input + 1M tokens output):**
-- GPT-3.5-turbo: $2.00
-- GPT-4o-mini: $0.75 (actually cheaper!)
-- GPT-4o: $12.50
-- GPT-4-turbo: $40.00
+
+-   GPT-3.5-turbo: $2.00
+-   GPT-4o-mini: $0.75 (actually cheaper!)
+-   GPT-4o: $12.50
+-   GPT-4-turbo: $40.00
 
 **Note:** For new projects, consider `gpt-4o-mini` over `gpt-3.5-turbo` - it's cheaper and more capable.
 
@@ -621,10 +634,11 @@ $creative = Mindwave::llm()
 ```
 
 **Use Cases:**
-- **0.0-0.3**: Facts, classification, extraction, code generation
-- **0.4-0.7**: Balanced tasks, explanations, summaries
-- **0.8-1.2**: Creative writing, brainstorming, diverse responses
-- **1.3-2.0**: Maximum creativity (rarely needed)
+
+-   **0.0-0.3**: Facts, classification, extraction, code generation
+-   **0.4-0.7**: Balanced tasks, explanations, summaries
+-   **0.8-1.2**: Creative writing, brainstorming, diverse responses
+-   **1.3-2.0**: Maximum creativity (rarely needed)
 
 ### Max Tokens
 
@@ -696,9 +710,10 @@ $response = OpenAI::chat()->create([
 ```
 
 **Use Cases:**
-- **Positive values (0.5-1.0)**: Encourage discussing new topics, reduce repetition
-- **Negative values**: Allow more focus on existing topics
-- **0**: No penalty (default)
+
+-   **Positive values (0.5-1.0)**: Encourage discussing new topics, reduce repetition
+-   **Negative values**: Allow more focus on existing topics
+-   **0**: No penalty (default)
 
 ### Frequency Penalty
 
@@ -719,9 +734,10 @@ $response = OpenAI::chat()->create([
 ```
 
 **Use Cases:**
-- **Positive values (0.5-1.0)**: Reduce repetitive phrases
-- **Negative values**: Allow more repetition (rarely needed)
-- **0**: No penalty
+
+-   **Positive values (0.5-1.0)**: Reduce repetitive phrases
+-   **Negative values**: Allow more repetition (rarely needed)
+-   **0**: No penalty
 
 ### Stop Sequences
 
@@ -740,9 +756,10 @@ $response = OpenAI::chat()->create([
 ```
 
 **Use Cases:**
-- Control output format
-- Stop at natural boundaries
-- Prevent overly long responses
+
+-   Control output format
+-   Stop at natural boundaries
+-   Prevent overly long responses
 
 ### Seed (Reproducible Outputs)
 
@@ -839,7 +856,9 @@ Route::get('/api/chat', function (Request $request) {
 ### Frontend: JavaScript (Vanilla)
 
 ```javascript
-const eventSource = new EventSource(`/api/chat?prompt=${encodeURIComponent(question)}`);
+const eventSource = new EventSource(
+    `/api/chat?prompt=${encodeURIComponent(question)}`
+);
 const output = document.getElementById('output');
 
 eventSource.addEventListener('message', (event) => {
@@ -867,32 +886,34 @@ eventSource.onerror = (error) => {
 </div>
 
 <script>
-function chatStream() {
-    return {
-        prompt: '',
-        response: '',
-        isStreaming: false,
-        eventSource: null,
+    function chatStream() {
+        return {
+            prompt: '',
+            response: '',
+            isStreaming: false,
+            eventSource: null,
 
-        send() {
-            this.response = '';
-            this.isStreaming = true;
+            send() {
+                this.response = '';
+                this.isStreaming = true;
 
-            if (this.eventSource) this.eventSource.close();
+                if (this.eventSource) this.eventSource.close();
 
-            this.eventSource = new EventSource(`/api/chat?prompt=${encodeURIComponent(this.prompt)}`);
+                this.eventSource = new EventSource(
+                    `/api/chat?prompt=${encodeURIComponent(this.prompt)}`
+                );
 
-            this.eventSource.addEventListener('message', (e) => {
-                this.response += e.data;
-            });
+                this.eventSource.addEventListener('message', (e) => {
+                    this.response += e.data;
+                });
 
-            this.eventSource.addEventListener('done', () => {
-                this.isStreaming = false;
-                this.eventSource.close();
-            });
-        }
+                this.eventSource.addEventListener('done', () => {
+                    this.isStreaming = false;
+                    this.eventSource.close();
+                });
+            },
+        };
     }
-}
 </script>
 ```
 
@@ -1283,16 +1304,16 @@ try {
 
 ### Current Pricing (as of Nov 2024)
 
-| Model | Input (per 1M tokens) | Output (per 1M tokens) |
-|-------|----------------------|------------------------|
-| gpt-4o | $2.50 | $10.00 |
-| gpt-4o-mini | $0.15 | $0.60 |
-| gpt-4-turbo | $10.00 | $30.00 |
-| gpt-4 | $30.00 | $60.00 |
-| gpt-4-32k | $60.00 | $120.00 |
-| gpt-3.5-turbo | $0.50 | $1.50 |
-| o1-preview | $15.00 | $60.00 |
-| o1-mini | $3.00 | $12.00 |
+| Model         | Input (per 1M tokens) | Output (per 1M tokens) |
+| ------------- | --------------------- | ---------------------- |
+| gpt-4o        | $2.50                 | $10.00                 |
+| gpt-4o-mini   | $0.15                 | $0.60                  |
+| gpt-4-turbo   | $10.00                | $30.00                 |
+| gpt-4         | $30.00                | $60.00                 |
+| gpt-4-32k     | $60.00                | $120.00                |
+| gpt-3.5-turbo | $0.50                 | $1.50                  |
+| o1-preview    | $15.00                | $60.00                 |
+| o1-mini       | $3.00                 | $12.00                 |
 
 **Note:** Prices may change. Check [OpenAI Pricing](https://openai.com/pricing) for latest rates.
 
@@ -1417,12 +1438,12 @@ if ($todayCost > $dailyBudget) {
 
 OpenAI enforces rate limits based on your tier:
 
-| Tier | RPM (Requests/min) | TPM (Tokens/min) |
-|------|-------------------|------------------|
-| Free | 3 | 40,000 |
-| Tier 1 | 500 | 2,000,000 |
-| Tier 2 | 5,000 | 10,000,000 |
-| Tier 3+ | Higher | Higher |
+| Tier    | RPM (Requests/min) | TPM (Tokens/min) |
+| ------- | ------------------ | ---------------- |
+| Free    | 3                  | 40,000           |
+| Tier 1  | 500                | 2,000,000        |
+| Tier 2  | 5,000              | 10,000,000       |
+| Tier 3+ | Higher             | Higher           |
 
 **Handling Rate Limits:**
 
@@ -1455,11 +1476,11 @@ function callWithRetry($prompt, $maxAttempts = 3) {
 
 Each model has maximum token limits:
 
-- **GPT-4o, GPT-4 Turbo**: 128,000 tokens
-- **GPT-4-32k**: 32,768 tokens
-- **GPT-4**: 8,192 tokens
-- **GPT-3.5 Turbo**: 16,385 tokens
-- **O1 models**: 128,000 tokens
+-   **GPT-4o, GPT-4 Turbo**: 128,000 tokens
+-   **GPT-4-32k**: 32,768 tokens
+-   **GPT-4**: 8,192 tokens
+-   **GPT-3.5 Turbo**: 16,385 tokens
+-   **O1 models**: 128,000 tokens
 
 **Input + Output must fit within context window.**
 
@@ -1490,9 +1511,9 @@ if ($promptTokens + $maxOutputTokens > $contextWindow) {
 
 Some models may not be available in all regions or accounts:
 
-- **GPT-4** requires separate access approval (though widely available now)
-- **O1 models** may have restricted access in some tiers
-- **Fine-tuned models** require additional setup
+-   **GPT-4** requires separate access approval (though widely available now)
+-   **O1 models** may have restricted access in some tiers
+-   **Fine-tuned models** require additional setup
 
 Check model availability:
 
@@ -1518,26 +1539,29 @@ try {
 OpenAI periodically deprecates old models. Check [OpenAI Deprecation](https://platform.openai.com/docs/deprecations) page.
 
 **Recently deprecated:**
-- `gpt-3.5-turbo-0301` (deprecated)
-- `gpt-4-0314` (deprecated)
+
+-   `gpt-3.5-turbo-0301` (deprecated)
+-   `gpt-4-0314` (deprecated)
 
 **Best Practice:** Use latest model identifiers without date suffixes:
-- ✅ Use `gpt-4o`, `gpt-4-turbo`, `gpt-3.5-turbo`
-- ❌ Avoid `gpt-4-0613`, `gpt-3.5-turbo-0301`
+
+-   ✅ Use `gpt-4o`, `gpt-4-turbo`, `gpt-3.5-turbo`
+-   ❌ Avoid `gpt-4-0613`, `gpt-3.5-turbo-0301`
 
 ### Regional Considerations
 
 OpenAI availability and performance may vary by region:
 
-- **Best latency**: US, Europe
-- **Higher latency**: Asia, Africa, South America
-- **Potential blocks**: Some countries block OpenAI API
+-   **Best latency**: US, Europe
+-   **Higher latency**: Asia, Africa, South America
+-   **Potential blocks**: Some countries block OpenAI API
 
 **For international apps:**
-- Consider using a CDN/proxy
-- Implement timeout handling
-- Test from target regions
-- Have fallback providers
+
+-   Consider using a CDN/proxy
+-   Implement timeout handling
+-   Test from target regions
+-   Have fallback providers
 
 ## Troubleshooting
 
@@ -1552,16 +1576,18 @@ Error: Incorrect API key provided
 **Solutions:**
 
 1. Check your API key in `.env`:
-   ```dotenv
-   MINDWAVE_OPENAI_API_KEY=sk-...
-   ```
+
+    ```dotenv
+    MINDWAVE_OPENAI_API_KEY=sk-...
+    ```
 
 2. Verify key is active at [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
 
 3. Clear config cache:
-   ```bash
-   php artisan config:clear
-   ```
+
+    ```bash
+    php artisan config:clear
+    ```
 
 4. Ensure no extra spaces in `.env` file
 
@@ -1578,23 +1604,25 @@ Error: Rate limit exceeded
 1. Check your rate limits at [platform.openai.com/account/limits](https://platform.openai.com/account/limits)
 
 2. Implement exponential backoff:
-   ```php
-   use Illuminate\Support\Facades\RateLimiter;
 
-   $response = RateLimiter::attempt(
-       'openai:' . auth()->id(),
-       $perMinute = 10,
-       fn() => Mindwave::llm()->generateText($prompt)
-   );
-   ```
+    ```php
+    use Illuminate\Support\Facades\RateLimiter;
+
+    $response = RateLimiter::attempt(
+        'openai:' . auth()->id(),
+        $perMinute = 10,
+        fn() => Mindwave::llm()->generateText($prompt)
+    );
+    ```
 
 3. Add delays between requests:
-   ```php
-   foreach ($items as $item) {
-       $result = Mindwave::llm()->generateText($item);
-       sleep(1); // Wait 1 second between requests
-   }
-   ```
+
+    ```php
+    foreach ($items as $item) {
+        $result = Mindwave::llm()->generateText($item);
+        sleep(1); // Wait 1 second between requests
+    }
+    ```
 
 4. Upgrade your OpenAI tier for higher limits
 
@@ -1609,11 +1637,12 @@ Error: The server had an error processing your request
 **Solutions:**
 
 1. Retry the request (transient error):
-   ```php
-   $response = retry(3, function () use ($prompt) {
-       return Mindwave::llm()->generateText($prompt);
-   }, 1000); // Wait 1 second between retries
-   ```
+
+    ```php
+    $response = retry(3, function () use ($prompt) {
+        return Mindwave::llm()->generateText($prompt);
+    }, 1000); // Wait 1 second between retries
+    ```
 
 2. Check [OpenAI Status Page](https://status.openai.com)
 
@@ -1630,37 +1659,41 @@ Error: This model's maximum context length is 8192 tokens
 **Solutions:**
 
 1. Use PromptComposer to auto-fit:
-   ```php
-   $response = Mindwave::prompt()
-       ->model('gpt-4o')
-       ->reserveOutputTokens(1000)
-       ->section('user', $longPrompt, priority: 100)
-       ->fit() // Automatically trims to fit
-       ->run();
-   ```
+
+    ```php
+    $response = Mindwave::prompt()
+        ->model('gpt-4o')
+        ->reserveOutputTokens(1000)
+        ->section('user', $longPrompt, priority: 100)
+        ->fit() // Automatically trims to fit
+        ->run();
+    ```
 
 2. Switch to a larger context model:
-   ```php
-   // Instead of gpt-4 (8K tokens)
-   $response = Mindwave::llm()->model('gpt-4-turbo')->generateText($prompt);
-   // Now you have 128K tokens
-   ```
+
+    ```php
+    // Instead of gpt-4 (8K tokens)
+    $response = Mindwave::llm()->model('gpt-4-turbo')->generateText($prompt);
+    // Now you have 128K tokens
+    ```
 
 3. Reduce `max_tokens`:
-   ```php
-   $response = Mindwave::llm()
-       ->maxTokens(500) // Lower output limit
-       ->generateText($prompt);
-   ```
+
+    ```php
+    $response = Mindwave::llm()
+        ->maxTokens(500) // Lower output limit
+        ->generateText($prompt);
+    ```
 
 4. Summarize long content first:
-   ```php
-   $summary = Mindwave::llm()
-       ->model('gpt-4o-mini')
-       ->generateText("Summarize this in 500 words: {$longContent}");
 
-   $response = Mindwave::llm()->generateText("Based on: {$summary}\n\n{$question}");
-   ```
+    ```php
+    $summary = Mindwave::llm()
+        ->model('gpt-4o-mini')
+        ->generateText("Summarize this in 500 words: {$longContent}");
+
+    $response = Mindwave::llm()->generateText("Based on: {$summary}\n\n{$question}");
+    ```
 
 ### Invalid Request Error
 
@@ -1673,23 +1706,25 @@ Error: Invalid parameter: messages
 **Solutions:**
 
 1. Check message format:
-   ```php
-   // ❌ Wrong
-   $response = Mindwave::llm()->chat('Hello');
 
-   // ✅ Correct
-   $response = Mindwave::llm()->chat([
-       ['role' => 'user', 'content' => 'Hello']
-   ]);
-   ```
+    ```php
+    // ❌ Wrong
+    $response = Mindwave::llm()->chat('Hello');
+
+    // ✅ Correct
+    $response = Mindwave::llm()->chat([
+        ['role' => 'user', 'content' => 'Hello']
+    ]);
+    ```
 
 2. Validate parameters:
-   ```php
-   $temperature = 0.7;
-   if ($temperature < 0 || $temperature > 2) {
-       throw new \Exception('Temperature must be between 0 and 2');
-   }
-   ```
+
+    ```php
+    $temperature = 0.7;
+    if ($temperature < 0 || $temperature > 2) {
+        throw new \Exception('Temperature must be between 0 and 2');
+    }
+    ```
 
 3. Check for unsupported parameters with specific models (e.g., O1 doesn't support temperature)
 
@@ -1704,27 +1739,30 @@ Error: cURL error 28: Operation timed out
 **Solutions:**
 
 1. Increase timeout:
-   ```php
-   config(['openai.request_timeout' => 120]); // 120 seconds
-   ```
+
+    ```php
+    config(['openai.request_timeout' => 120]); // 120 seconds
+    ```
 
 2. Use a faster model:
-   ```php
-   // Instead of o1-preview (slow)
-   $response = Mindwave::llm()->model('gpt-4o')->generateText($prompt);
-   ```
+
+    ```php
+    // Instead of o1-preview (slow)
+    $response = Mindwave::llm()->model('gpt-4o')->generateText($prompt);
+    ```
 
 3. Reduce max_tokens:
-   ```php
-   $response = Mindwave::llm()
-       ->maxTokens(1000) // Shorter response = faster
-       ->generateText($prompt);
-   ```
+
+    ```php
+    $response = Mindwave::llm()
+        ->maxTokens(1000) // Shorter response = faster
+        ->generateText($prompt);
+    ```
 
 4. Implement async processing for long requests:
-   ```php
-   dispatch(new ProcessLLMRequest($prompt));
-   ```
+    ```php
+    dispatch(new ProcessLLMRequest($prompt));
+    ```
 
 ### Billing Issues
 
@@ -1743,13 +1781,14 @@ Error: You exceeded your current quota
 3. Set up billing alerts to prevent unexpected charges
 
 4. Implement cost controls in your app:
-   ```php
-   $dailyCost = Trace::whereDate('created_at', today())->sum('estimated_cost');
 
-   if ($dailyCost > 50) {
-       throw new \Exception('Daily budget exceeded');
-   }
-   ```
+    ```php
+    $dailyCost = Trace::whereDate('created_at', today())->sum('estimated_cost');
+
+    if ($dailyCost > 50) {
+        throw new \Exception('Daily budget exceeded');
+    }
+    ```
 
 ## Azure OpenAI
 
@@ -1800,19 +1839,19 @@ $response = Mindwave::llm()
 
 ### Benefits of Azure OpenAI
 
-- **Data privacy**: Data stays within your Azure tenant
-- **Compliance**: May be required for enterprise/government
-- **Integration**: Works with other Azure services
-- **SLA**: Enterprise-grade service level agreements
+-   **Data privacy**: Data stays within your Azure tenant
+-   **Compliance**: May be required for enterprise/government
+-   **Integration**: Works with other Azure services
+-   **SLA**: Enterprise-grade service level agreements
 
 ## Summary
 
 OpenAI is a powerful and versatile provider with models for every use case:
 
-- **gpt-4o/gpt-4o-mini** - Fast, cost-effective, multimodal
-- **gpt-4-turbo** - High intelligence, large contexts
-- **o1-preview/o1-mini** - Advanced reasoning for complex problems
-- **gpt-3.5-turbo** - Budget-friendly for simple tasks
+-   **gpt-4o/gpt-4o-mini** - Fast, cost-effective, multimodal
+-   **gpt-4-turbo** - High intelligence, large contexts
+-   **o1-preview/o1-mini** - Advanced reasoning for complex problems
+-   **gpt-3.5-turbo** - Budget-friendly for simple tasks
 
 **Key Takeaways:**
 
@@ -1826,14 +1865,14 @@ OpenAI is a powerful and versatile provider with models for every use case:
 
 **Next Steps:**
 
-- Explore [Function Calling](/docs/core/function-calling)
-- Learn about [Streaming](/docs/core/streaming)
-- Set up [Tracing](/docs/observability/tracing) for cost tracking
-- Master [PromptComposer](/docs/core/prompt-composer) for context management
+-   Explore [Function Calling](/docs/core/function-calling)
+-   Learn about [Streaming](/docs/core/streaming)
+-   Set up [Tracing](/docs/observability/tracing) for cost tracking
+-   Master [PromptComposer](/docs/core/prompt-composer) for context management
 
 **Resources:**
 
-- [OpenAI Documentation](https://platform.openai.com/docs)
-- [OpenAI Pricing](https://openai.com/pricing)
-- [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
-- [OpenAI Community Forum](https://community.openai.com)
+-   [OpenAI Documentation](https://platform.openai.com/docs)
+-   [OpenAI Pricing](https://openai.com/pricing)
+-   [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
+-   [OpenAI Community Forum](https://community.openai.com)

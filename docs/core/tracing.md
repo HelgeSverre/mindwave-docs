@@ -11,34 +11,39 @@ Tracing gives you deep visibility into your AI application's behavior in product
 Tracing records the complete lifecycle of operations as they flow through your system. Each operation (like an LLM call) creates a **span** with detailed metadata. Related spans are grouped into **traces** that represent complete workflows.
 
 **A trace for an LLM call includes:**
-- Request parameters (model, temperature, max tokens)
-- Token usage (input, output, cached tokens)
-- Cost estimation (automatic, based on provider pricing)
-- Duration and latency
-- Success/failure status
-- Prompt and completion content (opt-in)
+
+-   Request parameters (model, temperature, max tokens)
+-   Token usage (input, output, cached tokens)
+-   Cost estimation (automatic, based on provider pricing)
+-   Duration and latency
+-   Success/failure status
+-   Prompt and completion content (opt-in)
 
 ### Why Use Tracing?
 
 **Production Debugging**
-- Identify slow or failing LLM calls
-- Track down errors with full context
-- Understand agent behavior in production
+
+-   Identify slow or failing LLM calls
+-   Track down errors with full context
+-   Understand agent behavior in production
 
 **Cost Management**
-- Monitor spending by user, feature, or time
-- Track token usage across models
-- Set alerts for expensive operations
+
+-   Monitor spending by user, feature, or time
+-   Track token usage across models
+-   Set alerts for expensive operations
 
 **Performance Optimization**
-- Find bottlenecks in your AI workflows
-- Optimize token usage and prompts
-- Compare performance across models
+
+-   Find bottlenecks in your AI workflows
+-   Optimize token usage and prompts
+-   Compare performance across models
 
 **Quality Assurance**
-- Detect errors and failures
-- Analyze finish reasons
-- Monitor completion quality
+
+-   Detect errors and failures
+-   Analyze finish reasons
+-   Monitor completion quality
 
 ## Quick Start
 
@@ -68,8 +73,9 @@ php artisan migrate
 ```
 
 This creates two tables:
-- `mindwave_traces` - One row per trace (complete workflow)
-- `mindwave_spans` - Individual operations (LLM calls, tool executions)
+
+-   `mindwave_traces` - One row per trace (complete workflow)
+-   `mindwave_spans` - Individual operations (LLM calls, tool executions)
 
 ### Automatic Tracing
 
@@ -457,16 +463,19 @@ MINDWAVE_TRACE_SAMPLE_RATIO=0.1  # Sample 10%
 ### Performance Optimization
 
 **Use Sampling:**
+
 ```dotenv
 MINDWAVE_TRACE_SAMPLE_RATIO=0.1  # Only trace 10% of requests
 ```
 
 **Disable Message Capture:**
+
 ```dotenv
 MINDWAVE_TRACE_CAPTURE_MESSAGES=false  # Reduces data volume
 ```
 
 **Use OTLP Instead of Database:**
+
 ```dotenv
 MINDWAVE_TRACE_DATABASE=false  # DB writes slow down requests
 MINDWAVE_TRACE_OTLP_ENABLED=true  # OTLP optimized for throughput
@@ -477,6 +486,7 @@ MINDWAVE_TRACE_OTLP_ENABLED=true  # OTLP optimized for throughput
 ### Traces Not Appearing
 
 **Check configuration:**
+
 ```bash
 php artisan tinker
 >>> config('mindwave-tracing.enabled')
@@ -486,11 +496,13 @@ php artisan tinker
 ```
 
 **Check migrations:**
+
 ```bash
 php artisan migrate:status | grep mindwave
 ```
 
 **Check for errors:**
+
 ```bash
 tail -f storage/logs/laravel.log | grep -i trace
 ```
@@ -498,16 +510,19 @@ tail -f storage/logs/laravel.log | grep -i trace
 ### High Memory Usage
 
 **Reduce sampling:**
+
 ```dotenv
 MINDWAVE_TRACE_SAMPLE_RATIO=0.1  # Sample only 10%
 ```
 
 **Disable message capture:**
+
 ```dotenv
 MINDWAVE_TRACE_CAPTURE_MESSAGES=false
 ```
 
 **Use OTLP instead of database:**
+
 ```dotenv
 MINDWAVE_TRACE_DATABASE=false
 MINDWAVE_TRACE_OTLP_ENABLED=true
@@ -515,7 +530,7 @@ MINDWAVE_TRACE_OTLP_ENABLED=true
 
 ## Related Documentation
 
-- **[OpenTelemetry Tracing](/docs/observability/tracing)** - Complete tracing guide
-- **[Production Deployment](/docs/production)** - Production configuration
-- **[Cost Tracking](/docs/observability/cost-tracking)** - Monitor and reduce LLM costs
-- **[Troubleshooting](/docs/troubleshooting)** - Debug common issues
+-   **[OpenTelemetry Tracing](/docs/observability/tracing)** - Complete tracing guide
+-   **[Production Deployment](/docs/production)** - Production configuration
+-   **[Cost Tracking](/docs/observability/cost-tracking)** - Monitor and reduce LLM costs
+-   **[Troubleshooting](/docs/troubleshooting)** - Debug common issues

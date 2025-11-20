@@ -6,31 +6,31 @@ Build a production-ready SaaS application with comprehensive LLM cost tracking, 
 
 A complete cost management system for a multi-tenant SaaS application that uses LLMs. This cookbook demonstrates real-world patterns for:
 
-- **Per-user budget management** - Set and enforce spending limits
-- **Real-time cost tracking** - Monitor spending as it happens
-- **Proactive alerts** - Notify users before limits are reached
-- **Analytics dashboards** - Visualize usage and optimize costs
-- **Budget enforcement** - Automatically block requests when budgets are exceeded
-- **Cost attribution** - Track spending by user, feature, or any dimension
+-   **Per-user budget management** - Set and enforce spending limits
+-   **Real-time cost tracking** - Monitor spending as it happens
+-   **Proactive alerts** - Notify users before limits are reached
+-   **Analytics dashboards** - Visualize usage and optimize costs
+-   **Budget enforcement** - Automatically block requests when budgets are exceeded
+-   **Cost attribution** - Track spending by user, feature, or any dimension
 
 Perfect for SaaS applications, API platforms, or any service where you need to control and monitor LLM costs.
 
 ## Prerequisites
 
-- Laravel 10+ with Mindwave installed
-- Basic understanding of [Cost Tracking](/docs/observability/cost-tracking)
-- Database configured (MySQL, PostgreSQL, or SQLite)
-- Familiarity with Laravel events and middleware
+-   Laravel 10+ with Mindwave installed
+-   Basic understanding of [Cost Tracking](/docs/observability/cost-tracking)
+-   Database configured (MySQL, PostgreSQL, or SQLite)
+-   Familiarity with Laravel events and middleware
 
 ## What You'll Learn
 
-- Design a cost-aware application architecture
-- Implement budget management services
-- Create cost tracking middleware
-- Build analytics dashboards
-- Set up proactive alerts
-- Handle budget enforcement gracefully
-- Optimize for cost efficiency
+-   Design a cost-aware application architecture
+-   Implement budget management services
+-   Create cost tracking middleware
+-   Build analytics dashboards
+-   Set up proactive alerts
+-   Handle budget enforcement gracefully
+-   Optimize for cost efficiency
 
 ## Architecture Overview
 
@@ -1803,14 +1803,16 @@ class CostOptimizer
 ### Real-time vs Batch Tracking
 
 **Real-time (immediate):**
-- Use for budget enforcement
-- Event listeners update database immediately
-- Slightly higher overhead per request
+
+-   Use for budget enforcement
+-   Event listeners update database immediately
+-   Slightly higher overhead per request
 
 **Batch (queued):**
-- Queue usage recording for high-traffic scenarios
-- Process in batches via scheduled job
-- Lower overhead, eventual consistency
+
+-   Queue usage recording for high-traffic scenarios
+-   Process in batches via scheduled job
+-   Lower overhead, eventual consistency
 
 ```php
 // Queue usage recording
@@ -1822,6 +1824,7 @@ Event::listen(LlmResponseCompleted::class, function ($event) {
 ### Database Optimization
 
 **Indexes:**
+
 ```sql
 CREATE INDEX idx_user_date ON user_llm_usage(user_id, created_at);
 CREATE INDEX idx_feature ON user_llm_usage(feature);
@@ -1829,6 +1832,7 @@ CREATE INDEX idx_provider_model ON user_llm_usage(provider, model);
 ```
 
 **Partitioning (for high volume):**
+
 ```sql
 -- Partition by month for easier archival
 ALTER TABLE user_llm_usage
@@ -1886,12 +1890,12 @@ Schedule::call(function () {
 
 You've built a complete cost-aware application with:
 
-- **Budget Management** - Per-user limits with enforcement
-- **Real-time Tracking** - Automatic cost recording on every LLM call
-- **Proactive Alerts** - Email and Slack notifications at thresholds
-- **Analytics Dashboard** - Comprehensive usage visualization
-- **Admin Tools** - Manage budgets and monitor costs
-- **Production Ready** - Caching, optimization, and monitoring
+-   **Budget Management** - Per-user limits with enforcement
+-   **Real-time Tracking** - Automatic cost recording on every LLM call
+-   **Proactive Alerts** - Email and Slack notifications at thresholds
+-   **Analytics Dashboard** - Comprehensive usage visualization
+-   **Admin Tools** - Manage budgets and monitor costs
+-   **Production Ready** - Caching, optimization, and monitoring
 
 **Key Takeaways:**
 
@@ -1904,6 +1908,6 @@ You've built a complete cost-aware application with:
 
 **Next Steps:**
 
-- [Tracing](/docs/observability/tracing) - Deep dive into observability
-- [Cost Tracking](/docs/observability/cost-tracking) - Built-in cost features
-- [Production Deployment](/docs/production) - Deploy with confidence
+-   [Tracing](/docs/observability/tracing) - Deep dive into observability
+-   [Cost Tracking](/docs/observability/cost-tracking) - Built-in cost features
+-   [Production Deployment](/docs/production) - Deploy with confidence

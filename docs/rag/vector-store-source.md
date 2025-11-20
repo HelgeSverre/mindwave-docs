@@ -10,7 +10,7 @@ Vector stores enable semantic search capabilities in your RAG systems. Learn how
 
 ## Related Documentation
 
-- [Vector Stores](/docs/reference/vector-stores)
-- [TNTSearch Source](/docs/rag/tntsearch-source)
-- [Custom Sources](/docs/rag/custom-sources)
-- [Configuration](/docs/configuration)
+-   [Vector Stores](/docs/reference/vector-stores)
+-   [TNTSearch Source](/docs/rag/tntsearch-source)
+-   [Custom Sources](/docs/rag/custom-sources)
+-   [Configuration](/docs/configuration)

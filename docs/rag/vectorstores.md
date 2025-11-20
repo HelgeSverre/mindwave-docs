@@ -9,6 +9,7 @@ Vector stores enable semantic search capabilities in your Laravel application, a
 Vector stores are specialized databases that store numerical representations (embeddings) of text and enable similarity searches based on semantic meaning. Unlike traditional keyword search, vector stores understand context and meaning.
 
 **Example:**
+
 ```php
 // Keyword search: Only finds exact matches
 $results = DB::table('docs')->where('content', 'LIKE', '%apple%')->get();
@@ -20,15 +21,15 @@ $results = Brain::search('fruit from trees');
 
 ### Semantic Search vs Keyword Search
 
-| Aspect | Keyword Search | Semantic Search |
-|--------|----------------|-----------------|
-| **Matching** | Exact text matches | Conceptual similarity |
-| **Synonyms** | Missed unless explicit | Automatically understood |
-| **Context** | Ignored | Central to matching |
-| **Typos** | Break results | Often still works |
-| **Multi-language** | Limited | Possible with right model |
-| **Speed** | Very fast | Fast (with index) |
-| **Setup** | Simple | Requires embeddings |
+| Aspect             | Keyword Search         | Semantic Search           |
+| ------------------ | ---------------------- | ------------------------- |
+| **Matching**       | Exact text matches     | Conceptual similarity     |
+| **Synonyms**       | Missed unless explicit | Automatically understood  |
+| **Context**        | Ignored                | Central to matching       |
+| **Typos**          | Break results          | Often still works         |
+| **Multi-language** | Limited                | Possible with right model |
+| **Speed**          | Very fast              | Fast (with index)         |
+| **Setup**          | Simple                 | Requires embeddings       |
 
 ### How Embeddings Work
 
@@ -51,20 +52,23 @@ $v3 = Embeddings::embedText('car');
 ### When to Use Vector Stores vs TNTSearch
 
 **Use Vector Stores when:**
-- You need semantic understanding ("find similar concepts")
-- Working with multi-language content
-- Building Q&A systems or chatbots
-- Matching user intent rather than keywords
-- Content has many synonyms or paraphrases
+
+-   You need semantic understanding ("find similar concepts")
+-   Working with multi-language content
+-   Building Q&A systems or chatbots
+-   Matching user intent rather than keywords
+-   Content has many synonyms or paraphrases
 
 **Use TNTSearch when:**
-- You need exact phrase matching
-- Searching code, IDs, or precise terms
-- Speed is absolutely critical
-- Don't want embedding API costs
-- Simple keyword search is sufficient
+
+-   You need exact phrase matching
+-   Searching code, IDs, or precise terms
+-   Speed is absolutely critical
+-   Don't want embedding API costs
+-   Simple keyword search is sufficient
 
 **Best: Use both together!**
+
 ```php
 use Mindwave\Mindwave\PromptComposer\PromptComposer;
 use Mindwave\Mindwave\Context\Sources\VectorStoreSource;
@@ -86,24 +90,27 @@ Mindwave supports multiple vector store providers, from managed cloud solutions 
 **Managed vector database with excellent performance and reliability.**
 
 **When to use:**
-- Production applications requiring high availability
-- Don't want to manage infrastructure
-- Need scalability without operational overhead
-- Willing to pay for managed service
+
+-   Production applications requiring high availability
+-   Don't want to manage infrastructure
+-   Need scalability without operational overhead
+-   Willing to pay for managed service
 
 **Pros:**
-- Fully managed (no infrastructure to maintain)
-- Excellent performance and reliability
-- Automatic scaling
-- Built-in monitoring and analytics
-- Simple API
-- Great documentation
+
+-   Fully managed (no infrastructure to maintain)
+-   Excellent performance and reliability
+-   Automatic scaling
+-   Built-in monitoring and analytics
+-   Simple API
+-   Great documentation
 
 **Cons:**
-- Paid service (can get expensive at scale)
-- Vendor lock-in
-- Less control over infrastructure
-- Cold start times on free tier
+
+-   Paid service (can get expensive at scale)
+-   Vendor lock-in
+-   Less control over infrastructure
+-   Cold start times on free tier
 
 **Best for:** Production applications, teams without DevOps resources
 
@@ -112,24 +119,27 @@ Mindwave supports multiple vector store providers, from managed cloud solutions 
 **Open-source vector database with cloud and self-hosted options.**
 
 **When to use:**
-- Want open-source solution
-- Need advanced filtering capabilities
-- Building complex multi-modal applications
-- Want flexibility between self-hosted and managed
+
+-   Want open-source solution
+-   Need advanced filtering capabilities
+-   Building complex multi-modal applications
+-   Want flexibility between self-hosted and managed
 
 **Pros:**
-- Open source
-- Flexible hosting (self-hosted or cloud)
-- Advanced filtering and hybrid search
-- GraphQL API
-- Active community
-- Multi-modal support
+
+-   Open source
+-   Flexible hosting (self-hosted or cloud)
+-   Advanced filtering and hybrid search
+-   GraphQL API
+-   Active community
+-   Multi-modal support
 
 **Cons:**
-- More complex setup than Pinecone
-- Requires infrastructure management (if self-hosted)
-- Steeper learning curve
-- Cloud offering newer than Pinecone
+
+-   More complex setup than Pinecone
+-   Requires infrastructure management (if self-hosted)
+-   Steeper learning curve
+-   Cloud offering newer than Pinecone
 
 **Best for:** Teams comfortable with infrastructure, complex search requirements
 
@@ -138,23 +148,26 @@ Mindwave supports multiple vector store providers, from managed cloud solutions 
 **High-performance vector database designed for speed and scale.**
 
 **When to use:**
-- Performance is critical
-- Need advanced filtering
-- Want Rust-based performance
-- Planning to self-host
+
+-   Performance is critical
+-   Need advanced filtering
+-   Want Rust-based performance
+-   Planning to self-host
 
 **Pros:**
-- Excellent performance (Rust-based)
-- Open source
-- Rich filtering capabilities
-- Good documentation
-- Docker-friendly
-- Cloud option available
+
+-   Excellent performance (Rust-based)
+-   Open source
+-   Rich filtering capabilities
+-   Good documentation
+-   Docker-friendly
+-   Cloud option available
 
 **Cons:**
-- Smaller ecosystem than Weaviate/Pinecone
-- Newer to the market
-- Self-hosted requires infrastructure management
+
+-   Smaller ecosystem than Weaviate/Pinecone
+-   Newer to the market
+-   Self-hosted requires infrastructure management
 
 **Best for:** Performance-critical applications, teams with DevOps capabilities
 
@@ -163,22 +176,25 @@ Mindwave supports multiple vector store providers, from managed cloud solutions 
 **JSON file-based storage for development and testing.**
 
 **When to use:**
-- Local development
-- Testing
-- Small datasets
-- Prototyping
+
+-   Local development
+-   Testing
+-   Small datasets
+-   Prototyping
 
 **Pros:**
-- No setup required
-- Easy to inspect (JSON files)
-- No external dependencies
-- Free
+
+-   No setup required
+-   Easy to inspect (JSON files)
+-   No external dependencies
+-   Free
 
 **Cons:**
-- Very slow with large datasets
-- Not suitable for production
-- No concurrent access handling
-- Limited scalability
+
+-   Very slow with large datasets
+-   Not suitable for production
+-   No concurrent access handling
+-   Limited scalability
 
 **Best for:** Development, testing, small prototypes
 
@@ -187,20 +203,23 @@ Mindwave supports multiple vector store providers, from managed cloud solutions 
 **In-memory storage for unit tests.**
 
 **When to use:**
-- Unit testing
-- CI/CD pipelines
-- Temporary operations
+
+-   Unit testing
+-   CI/CD pipelines
+-   Temporary operations
 
 **Pros:**
-- Extremely fast
-- No persistence overhead
-- Perfect for tests
-- Zero configuration
+
+-   Extremely fast
+-   No persistence overhead
+-   Perfect for tests
+-   Zero configuration
 
 **Cons:**
-- Data lost when process ends
-- Limited to available RAM
-- Not for production
+
+-   Data lost when process ends
+-   Limited to available RAM
+-   Not for production
 
 **Best for:** Unit tests, temporary calculations
 
@@ -261,11 +280,12 @@ Sign up at [pinecone.io](https://www.pinecone.io/) and create a project.
 **2. Create an Index**
 
 In the Pinecone console:
-- Click "Create Index"
-- **Name:** `mindwave-vectors` (or your preferred name)
-- **Dimensions:** `1536` (for OpenAI `text-embedding-ada-002`)
-- **Metric:** `cosine`
-- **Pod Type:** Choose based on your needs (starter for development)
+
+-   Click "Create Index"
+-   **Name:** `mindwave-vectors` (or your preferred name)
+-   **Dimensions:** `1536` (for OpenAI `text-embedding-ada-002`)
+-   **Metric:** `cosine`
+-   **Pod Type:** Choose based on your needs (starter for development)
 
 **3. Get API Credentials**
 
@@ -309,23 +329,23 @@ Create `docker-compose.yml`:
 ```yaml
 version: '3.4'
 services:
-  weaviate:
-    image: cr.weaviate.io/semitechnologies/weaviate:latest
-    ports:
-      - "8080:8080"
-      - "50051:50051"
-    environment:
-      QUERY_DEFAULTS_LIMIT: 25
-      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
-      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
-      DEFAULT_VECTORIZER_MODULE: 'none'
-      ENABLE_MODULES: ''
-      CLUSTER_HOSTNAME: 'node1'
-    volumes:
-      - weaviate_data:/var/lib/weaviate
+    weaviate:
+        image: cr.weaviate.io/semitechnologies/weaviate:latest
+        ports:
+            - '8080:8080'
+            - '50051:50051'
+        environment:
+            QUERY_DEFAULTS_LIMIT: 25
+            AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+            PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+            DEFAULT_VECTORIZER_MODULE: 'none'
+            ENABLE_MODULES: ''
+            CLUSTER_HOSTNAME: 'node1'
+        volumes:
+            - weaviate_data:/var/lib/weaviate
 
 volumes:
-  weaviate_data:
+    weaviate_data:
 ```
 
 **2. Start Weaviate**
@@ -396,16 +416,16 @@ Or with Docker Compose:
 ```yaml
 version: '3.4'
 services:
-  qdrant:
-    image: qdrant/qdrant:latest
-    ports:
-      - "6333:6333"
-      - "6334:6334"
-    volumes:
-      - qdrant_storage:/qdrant/storage
+    qdrant:
+        image: qdrant/qdrant:latest
+        ports:
+            - '6333:6333'
+            - '6334:6334'
+        volumes:
+            - qdrant_storage:/qdrant/storage
 
 volumes:
-  qdrant_storage:
+    qdrant_storage:
 ```
 
 **2. Configure Environment**
@@ -485,22 +505,25 @@ Before storing vectors, you need to convert text into embeddings. Mindwave uses 
 ### Embedding Models
 
 **text-embedding-ada-002** (Recommended)
-- **Dimensions:** 1536
-- **Cost:** $0.0001 per 1K tokens
-- **Max tokens:** 8,191
-- **Best for:** General use, cost-effective
+
+-   **Dimensions:** 1536
+-   **Cost:** $0.0001 per 1K tokens
+-   **Max tokens:** 8,191
+-   **Best for:** General use, cost-effective
 
 **text-embedding-3-small**
-- **Dimensions:** 1536 (default) or configurable
-- **Cost:** $0.00002 per 1K tokens
-- **Max tokens:** 8,191
-- **Best for:** Budget-conscious applications
+
+-   **Dimensions:** 1536 (default) or configurable
+-   **Cost:** $0.00002 per 1K tokens
+-   **Max tokens:** 8,191
+-   **Best for:** Budget-conscious applications
 
 **text-embedding-3-large**
-- **Dimensions:** 3072 (default) or configurable
-- **Cost:** $0.00013 per 1K tokens
-- **Max tokens:** 8,191
-- **Best for:** Highest quality results
+
+-   **Dimensions:** 3072 (default) or configurable
+-   **Cost:** $0.00013 per 1K tokens
+-   **Max tokens:** 8,191
+-   **Best for:** Highest quality results
 
 ### Configure Embeddings
 
@@ -586,6 +609,7 @@ Embedding API calls are charged per token. Be mindful of costs with large datase
 ```
 
 **Cost optimization strategies:**
+
 1. Cache embeddings - don't re-embed unchanged content
 2. Use batch operations - more efficient than individual calls
 3. Consider cheaper models - `text-embedding-3-small` is 5× cheaper
@@ -1939,31 +1963,33 @@ foreach ($result['sources'] as $source) {
 
 Vector stores can handle millions of vectors, but performance varies:
 
-| Vector Count | Pinecone | Weaviate | Qdrant | File | Array |
-|-------------|----------|----------|---------|------|-------|
-| < 1,000 | Excellent | Excellent | Excellent | Good | Excellent |
-| 1K - 10K | Excellent | Excellent | Excellent | Slow | Good |
-| 10K - 100K | Excellent | Excellent | Excellent | Very Slow | Poor |
-| 100K - 1M | Excellent | Excellent | Excellent | Unusable | Unusable |
-| 1M+ | Excellent | Excellent | Excellent | Unusable | Unusable |
+| Vector Count | Pinecone  | Weaviate  | Qdrant    | File      | Array     |
+| ------------ | --------- | --------- | --------- | --------- | --------- |
+| < 1,000      | Excellent | Excellent | Excellent | Good      | Excellent |
+| 1K - 10K     | Excellent | Excellent | Excellent | Slow      | Good      |
+| 10K - 100K   | Excellent | Excellent | Excellent | Very Slow | Poor      |
+| 100K - 1M    | Excellent | Excellent | Excellent | Unusable  | Unusable  |
+| 1M+          | Excellent | Excellent | Excellent | Unusable  | Unusable  |
 
 **Recommendations:**
-- **< 10K vectors:** Any provider works
-- **10K - 100K:** Use Pinecone, Weaviate, or Qdrant
-- **100K+:** Use Pinecone, Weaviate, or Qdrant with proper indexing
-- **Production:** Always use Pinecone, Weaviate, or Qdrant
+
+-   **< 10K vectors:** Any provider works
+-   **10K - 100K:** Use Pinecone, Weaviate, or Qdrant
+-   **100K+:** Use Pinecone, Weaviate, or Qdrant with proper indexing
+-   **Production:** Always use Pinecone, Weaviate, or Qdrant
 
 ### Query Performance
 
 Typical query latencies (p95):
 
-- **Pinecone:** 20-50ms
-- **Weaviate:** 10-30ms (self-hosted with good hardware)
-- **Qdrant:** 10-40ms (self-hosted with good hardware)
-- **File:** 500ms - 5s+ (grows with dataset size)
-- **Array:** 10-100ms (limited by RAM)
+-   **Pinecone:** 20-50ms
+-   **Weaviate:** 10-30ms (self-hosted with good hardware)
+-   **Qdrant:** 10-40ms (self-hosted with good hardware)
+-   **File:** 500ms - 5s+ (grows with dataset size)
+-   **Array:** 10-100ms (limited by RAM)
 
 **Optimization tips:**
+
 1. Use batch operations when possible
 2. Implement result caching for common queries
 3. Tune `top_k` parameter (don't retrieve more than needed)
@@ -2031,6 +2057,7 @@ function searchWithCache(string $query, int $limit = 5) {
 Embedding costs can add up. Strategies to minimize:
 
 **1. Embedding Caching**
+
 ```php
 // Don't re-embed unchanged content
 if ($document->updated_at > $document->embedded_at) {
@@ -2040,12 +2067,14 @@ if ($document->updated_at > $document->embedded_at) {
 ```
 
 **2. Use Cheaper Models**
+
 ```dotenv
 # text-embedding-3-small is 5x cheaper than ada-002
 MINDWAVE_OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 ```
 
 **3. Batch Everything**
+
 ```php
 // Process in batches of 100
 $documents = Document::chunk(100, function($batch) {
@@ -2055,6 +2084,7 @@ $documents = Document::chunk(100, function($batch) {
 ```
 
 **4. Smart Chunking**
+
 ```php
 // Don't create tiny chunks
 use Mindwave\Mindwave\TextSplitters\RecursiveCharacterTextSplitter;
@@ -2066,6 +2096,7 @@ $splitter = new RecursiveCharacterTextSplitter(
 ```
 
 **5. Monitor Usage**
+
 ```php
 use Illuminate\Support\Facades\Log;
 
@@ -2080,32 +2111,37 @@ Log::info("Embedded {$documentsEmbedded} documents, estimated cost: \${$estimate
 ### Choosing the Right Vector Store
 
 **Choose Pinecone if:**
-- You want fully managed service
-- Willing to pay for convenience
-- Need high availability
-- Don't want to manage infrastructure
+
+-   You want fully managed service
+-   Willing to pay for convenience
+-   Need high availability
+-   Don't want to manage infrastructure
 
 **Choose Weaviate if:**
-- You want open-source
-- Need advanced filtering
-- Want hybrid search capabilities
-- Comfortable managing infrastructure
+
+-   You want open-source
+-   Need advanced filtering
+-   Want hybrid search capabilities
+-   Comfortable managing infrastructure
 
 **Choose Qdrant if:**
-- Performance is top priority
-- You prefer Rust-based tools
-- Need advanced filtering
-- Willing to self-host
+
+-   Performance is top priority
+-   You prefer Rust-based tools
+-   Need advanced filtering
+-   Willing to self-host
 
 **Choose File if:**
-- Local development only
-- Small prototype
-- Learning/experimentation
+
+-   Local development only
+-   Small prototype
+-   Learning/experimentation
 
 **Choose Array if:**
-- Unit testing
-- Temporary operations
-- CI/CD pipelines
+
+-   Unit testing
+-   Temporary operations
+-   CI/CD pipelines
 
 ### Chunk Size for Embeddings
 
@@ -2140,10 +2176,11 @@ $splitter = new RecursiveCharacterTextSplitter(
 ```
 
 **Guidelines:**
-- Smaller chunks = more precise matches, higher cost
-- Larger chunks = more context, fewer embeddings, lower cost
-- Overlap = better context continuity, slight cost increase
-- Test different sizes for your specific use case
+
+-   Smaller chunks = more precise matches, higher cost
+-   Larger chunks = more context, fewer embeddings, lower cost
+-   Overlap = better context continuity, slight cost increase
+-   Test different sizes for your specific use case
 
 ### Metadata Strategy
 
@@ -2296,23 +2333,23 @@ if ($duration > 1.0) {
 
 ## Comparison Table
 
-| Feature | Pinecone | Weaviate | Qdrant | File | Array |
-|---------|----------|----------|--------|------|-------|
-| **Hosting** | Managed Cloud | Self/Cloud | Self/Cloud | Local | In-Memory |
-| **Performance** | Excellent | Excellent | Excellent | Poor | Good |
-| **Scalability** | Millions+ | Millions+ | Millions+ | < 10K | < 10K |
-| **Setup Complexity** | Easy | Medium | Medium | None | None |
-| **Cost** | $$$ (metered) | $ (hosting) | $ (hosting) | Free | Free |
-| **Production Ready** | Yes | Yes | Yes | No | No |
-| **Open Source** | No | Yes | Yes | N/A | N/A |
-| **Query Speed** | 20-50ms | 10-30ms | 10-40ms | 500ms+ | 10-100ms |
-| **Filtering** | Basic | Advanced | Advanced | None | None |
-| **Hybrid Search** | No | Yes | Yes | No | No |
-| **Multi-tenancy** | Yes | Yes | Yes | No | No |
-| **Backup/Restore** | Automatic | Manual | Manual | File copy | None |
-| **Monitoring** | Built-in | Setup required | Setup required | None | None |
-| **Free Tier** | Yes (limited) | Self-host | Self-host | Always | Always |
-| **Best For** | Production apps | Flexibility | Performance | Development | Testing |
+| Feature              | Pinecone        | Weaviate       | Qdrant         | File        | Array     |
+| -------------------- | --------------- | -------------- | -------------- | ----------- | --------- |
+| **Hosting**          | Managed Cloud   | Self/Cloud     | Self/Cloud     | Local       | In-Memory |
+| **Performance**      | Excellent       | Excellent      | Excellent      | Poor        | Good      |
+| **Scalability**      | Millions+       | Millions+      | Millions+      | < 10K       | < 10K     |
+| **Setup Complexity** | Easy            | Medium         | Medium         | None        | None      |
+| **Cost**             | $$$ (metered)   | $ (hosting)    | $ (hosting)    | Free        | Free      |
+| **Production Ready** | Yes             | Yes            | Yes            | No          | No        |
+| **Open Source**      | No              | Yes            | Yes            | N/A         | N/A       |
+| **Query Speed**      | 20-50ms         | 10-30ms        | 10-40ms        | 500ms+      | 10-100ms  |
+| **Filtering**        | Basic           | Advanced       | Advanced       | None        | None      |
+| **Hybrid Search**    | No              | Yes            | Yes            | No          | No        |
+| **Multi-tenancy**    | Yes             | Yes            | Yes            | No          | No        |
+| **Backup/Restore**   | Automatic       | Manual         | Manual         | File copy   | None      |
+| **Monitoring**       | Built-in        | Setup required | Setup required | None        | None      |
+| **Free Tier**        | Yes (limited)   | Self-host      | Self-host      | Always      | Always    |
+| **Best For**         | Production apps | Flexibility    | Performance    | Development | Testing   |
 
 ## Troubleshooting
 
@@ -2327,6 +2364,7 @@ Error: Connection to Pinecone failed
 **Solutions:**
 
 1. Verify API credentials:
+
 ```bash
 php artisan tinker
 > config('mindwave-vectorstore.vectorstores.pinecone.api_key')
@@ -2338,6 +2376,7 @@ php artisan tinker
 3. Verify environment/region is correct
 
 4. Test connection:
+
 ```php
 use Probots\Pinecone\Client;
 
@@ -2359,16 +2398,19 @@ Error: Connection refused on localhost:8080
 **Solutions:**
 
 1. Verify Weaviate is running:
+
 ```bash
 docker ps | grep weaviate
 ```
 
 2. Start Weaviate if not running:
+
 ```bash
 docker-compose up -d weaviate
 ```
 
 3. Check URL configuration:
+
 ```php
 config('mindwave-vectorstore.vectorstores.weaviate.api_url')
 // Should be: http://localhost:8080/v1
@@ -2383,6 +2425,7 @@ Error: Connection timeout to Qdrant
 **Solutions:**
 
 1. Verify Qdrant is running:
+
 ```bash
 docker ps | grep qdrant
 # or
@@ -2390,6 +2433,7 @@ curl http://localhost:6333/health
 ```
 
 2. Check host/port configuration:
+
 ```php
 config('mindwave-vectorstore.vectorstores.qdrant.host') // localhost
 config('mindwave-vectorstore.vectorstores.qdrant.port') // 6333
@@ -2406,6 +2450,7 @@ Error: Incorrect API key provided
 **Solution:**
 
 1. Verify API key:
+
 ```bash
 echo $MINDWAVE_OPENAI_API_KEY
 ```
@@ -2423,6 +2468,7 @@ Error: Rate limit reached for requests
 **Solutions:**
 
 1. Implement retry with backoff:
+
 ```php
 use Illuminate\Support\Facades\Retry;
 
@@ -2466,6 +2512,7 @@ foreach ($chunks as $chunk) {
 **Solutions:**
 
 1. **Increase chunk size** - Larger chunks provide more context:
+
 ```php
 $splitter = new RecursiveCharacterTextSplitter(
     chunkSize: 2000,  // Increased from 1000
@@ -2474,12 +2521,14 @@ $splitter = new RecursiveCharacterTextSplitter(
 ```
 
 2. **Use score threshold** - Filter low-quality matches:
+
 ```php
 $results = Vectorstore::similaritySearch($vector, 10);
 $filtered = array_filter($results, fn($r) => $r->score > 0.75);
 ```
 
 3. **Improve metadata** - Better metadata helps filtering:
+
 ```php
 $document = new Document($content, [
     'category' => 'specific-category',
@@ -2494,11 +2543,13 @@ $document = new Document($content, [
 **Solutions:**
 
 1. **Reduce top_k** - Don't retrieve more than needed:
+
 ```php
 $results = Vectorstore::similaritySearch($vector, 5); // Instead of 50
 ```
 
 2. **Cache common queries**:
+
 ```php
 $cacheKey = 'search:' . md5($query);
 $results = Cache::remember($cacheKey, 3600, fn() =>
@@ -2556,6 +2607,7 @@ Document::chunk(100, function($documents) {
 **Solutions:**
 
 1. **Cache embeddings**:
+
 ```php
 $cacheKey = 'embed:' . md5($text);
 $vector = Cache::remember($cacheKey, now()->addDays(30),
@@ -2564,11 +2616,13 @@ $vector = Cache::remember($cacheKey, now()->addDays(30),
 ```
 
 2. **Use cheaper model**:
+
 ```dotenv
 MINDWAVE_OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 ```
 
 3. **Don't re-embed unchanged content**:
+
 ```php
 if (!$document->hasChanged('content')) {
     return; // Skip re-embedding
@@ -2576,12 +2630,14 @@ if (!$document->hasChanged('content')) {
 ```
 
 4. **Optimize chunk size**:
+
 ```php
 // Fewer, larger chunks = fewer embeddings = lower cost
 $splitter = new RecursiveCharacterTextSplitter(chunkSize: 2000);
 ```
 
 5. **Monitor usage**:
+
 ```php
 Log::info("Embedded {$count} documents, estimated cost: \$" . ($count * 0.0001));
 ```
@@ -2590,9 +2646,8 @@ Log::info("Embedded {$count} documents, estimated cost: \$" . ($count * 0.0001))
 
 ## Next Steps
 
-- **[Context Discovery](/docs/core/context-discovery)** - Build sophisticated context retrieval pipelines
-- **[PromptComposer](/docs/core/prompt-composer)** - Compose prompts with retrieved context
-- **[Embeddings](./embeddings)** - Deep dive into embedding models
+-   **[Context Discovery](/docs/core/context-discovery)** - Build sophisticated context retrieval pipelines
+-   **[PromptComposer](/docs/core/prompt-composer)** - Compose prompts with retrieved context
+-   **[Embeddings](./embeddings)** - Deep dive into embedding models
 
 Vector stores enable powerful semantic search capabilities in your Laravel application. Whether you're building documentation search, customer support automation, or recommendation systems, vector stores provide the foundation for understanding meaning, not just matching keywords.
-

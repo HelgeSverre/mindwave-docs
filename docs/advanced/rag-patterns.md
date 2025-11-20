@@ -8,22 +8,23 @@ Retrieval-Augmented Generation (RAG) combines the knowledge retrieval capabiliti
 
 This guide covers advanced RAG implementation patterns:
 
-- **Hybrid Search** - Combine semantic and keyword search for best results
-- **Re-Ranking Strategies** - Improve relevance with multi-stage retrieval
-- **Context Window Optimization** - Maximize information density
-- **Query Optimization** - Transform user queries for better retrieval
-- **Multi-Source Aggregation** - Combine data from heterogeneous sources
-- **Caching Strategies** - Reduce costs and improve performance
-- **Evaluation Metrics** - Measure and improve RAG quality
-- **Production Patterns** - Scale RAG systems effectively
+-   **Hybrid Search** - Combine semantic and keyword search for best results
+-   **Re-Ranking Strategies** - Improve relevance with multi-stage retrieval
+-   **Context Window Optimization** - Maximize information density
+-   **Query Optimization** - Transform user queries for better retrieval
+-   **Multi-Source Aggregation** - Combine data from heterogeneous sources
+-   **Caching Strategies** - Reduce costs and improve performance
+-   **Evaluation Metrics** - Measure and improve RAG quality
+-   **Production Patterns** - Scale RAG systems effectively
 
 ### Prerequisites
 
 This guide assumes you understand:
-- [RAG basics and fundamentals](/docs/core/rag-overview)
-- [Vector stores and embeddings](/docs/rag/vectorstores)
-- [Context Pipeline](/docs/rag/context-pipeline)
-- [Brain API](/docs/rag/brain)
+
+-   [RAG basics and fundamentals](/docs/core/rag-overview)
+-   [Vector stores and embeddings](/docs/rag/vectorstores)
+-   [Context Pipeline](/docs/rag/context-pipeline)
+-   [Brain API](/docs/rag/brain)
 
 ## Hybrid Search Patterns
 
@@ -89,10 +90,11 @@ $results = $pipeline->search('Laravel authentication', limit: 10);
 ```
 
 **Why hybrid search works:**
-- Vector search finds conceptually similar content
-- Keyword search catches exact technical terms
-- Combined results cover both semantic and lexical matching
-- Deduplication removes overlapping results
+
+-   Vector search finds conceptually similar content
+-   Keyword search catches exact technical terms
+-   Combined results cover both semantic and lexical matching
+-   Deduplication removes overlapping results
 
 ### Weighted Hybrid Search
 
@@ -1629,9 +1631,9 @@ if ($evaluation['faithfulness'] < 0.6) {
 
 ## Related Documentation
 
-- [RAG Overview](/docs/core/rag-overview)
-- [Vector Stores](/docs/rag/vectorstores)
-- [Context Pipeline](/docs/rag/context-pipeline)
-- [Embeddings](/docs/rag/embeddings)
-- [RAG Evaluation](/docs/rag/evaluation)
-- [Production Deployment](/docs/production)
+-   [RAG Overview](/docs/core/rag-overview)
+-   [Vector Stores](/docs/rag/vectorstores)
+-   [Context Pipeline](/docs/rag/context-pipeline)
+-   [Embeddings](/docs/rag/embeddings)
+-   [RAG Evaluation](/docs/rag/evaluation)
+-   [Production Deployment](/docs/production)

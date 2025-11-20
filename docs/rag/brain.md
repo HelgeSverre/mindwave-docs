@@ -10,18 +10,18 @@ The Brain serves as a persistent knowledge layer that can store, index, and retr
 
 The Brain is a wrapper around Mindwave's vector store system that simplifies:
 
-- **Knowledge Storage** - Store documents with automatic chunking and embedding
-- **Semantic Search** - Find relevant information using meaning, not just keywords
-- **Document Management** - Handle various document types (text, PDF, web pages, Word documents)
-- **Integration** - Works seamlessly with PromptComposer and Context Discovery
+-   **Knowledge Storage** - Store documents with automatic chunking and embedding
+-   **Semantic Search** - Find relevant information using meaning, not just keywords
+-   **Document Management** - Handle various document types (text, PDF, web pages, Word documents)
+-   **Integration** - Works seamlessly with PromptComposer and Context Discovery
 
 ### Key Features
 
-- **Automatic Text Splitting** - Documents are automatically chunked for optimal retrieval
-- **Vector Embeddings** - Content is converted to embeddings for semantic search
-- **Multiple Backends** - Support for Pinecone, Qdrant, Weaviate, or local file storage
-- **Document Loaders** - Built-in loaders for various formats
-- **Context Integration** - Use with Context Discovery for intelligent RAG patterns
+-   **Automatic Text Splitting** - Documents are automatically chunked for optimal retrieval
+-   **Vector Embeddings** - Content is converted to embeddings for semantic search
+-   **Multiple Backends** - Support for Pinecone, Qdrant, Weaviate, or local file storage
+-   **Document Loaders** - Built-in loaders for various formats
+-   **Context Integration** - Use with Context Discovery for intelligent RAG patterns
 
 ## Architecture
 
@@ -43,11 +43,11 @@ Query → Embedding → Similarity Search ← Vector Store
 
 The Brain system consists of:
 
-- **Brain Class** - Main interface for storing and searching
-- **Vector Store** - Backend storage for embeddings
-- **Embeddings** - Converts text to vector representations
-- **Text Splitter** - Chunks large documents
-- **Document Loaders** - Load content from various sources
+-   **Brain Class** - Main interface for storing and searching
+-   **Vector Store** - Backend storage for embeddings
+-   **Embeddings** - Converts text to vector representations
+-   **Text Splitter** - Chunks large documents
+-   **Document Loaders** - Load content from various sources
 
 ## Setup & Configuration
 
@@ -851,18 +851,20 @@ class BrainMaintenanceService
 ### What to Store in Brain
 
 **Good Candidates:**
-- Documentation and knowledge base articles
-- Product information and specifications
-- Company policies and procedures
-- FAQs and common questions
-- Historical data and insights
-- User preferences and learned facts
+
+-   Documentation and knowledge base articles
+-   Product information and specifications
+-   Company policies and procedures
+-   FAQs and common questions
+-   Historical data and insights
+-   User preferences and learned facts
 
 **Poor Candidates:**
-- Frequently changing data (use database instead)
-- Real-time information (use API calls instead)
-- Highly structured data (use database queries instead)
-- Sensitive authentication data (use proper auth systems)
+
+-   Frequently changing data (use database instead)
+-   Real-time information (use API calls instead)
+-   Highly structured data (use database queries instead)
+-   Sensitive authentication data (use proper auth systems)
 
 ### Knowledge Organization
 
@@ -905,9 +907,10 @@ $generalSplitter = new RecursiveCharacterTextSplitter(
 ```
 
 **Guidelines:**
-- **Small chunks (300-600)** - Precise matching, detailed docs
-- **Medium chunks (800-1200)** - General purpose, balanced
-- **Large chunks (1500-2000)** - Contextual information, summaries
+
+-   **Small chunks (300-600)** - Precise matching, detailed docs
+-   **Medium chunks (800-1200)** - General purpose, balanced
+-   **Large chunks (1500-2000)** - Contextual information, summaries
 
 ### Update Strategies
 
@@ -1017,10 +1020,10 @@ flowchart TD
 
 Use the Brain when you need:
 
-- **Persistent knowledge** across sessions
-- **Large knowledge bases** that don't fit in prompts
-- **Semantic search** for finding relevant information
-- **Document storage** with automatic chunking
+-   **Persistent knowledge** across sessions
+-   **Large knowledge bases** that don't fit in prompts
+-   **Semantic search** for finding relevant information
+-   **Document storage** with automatic chunking
 
 ```php
 // Brain: For stored knowledge
@@ -1033,10 +1036,10 @@ $results = $brain->search('authentication');
 
 Use Context Discovery when you need:
 
-- **Dynamic context** from multiple sources
-- **Real-time data** from databases or APIs
-- **Automatic prompt fitting** with token limits
-- **Combined sources** (Brain + Database + Static)
+-   **Dynamic context** from multiple sources
+-   **Real-time data** from databases or APIs
+-   **Automatic prompt fitting** with token limits
+-   **Combined sources** (Brain + Database + Static)
 
 ```php
 // Context Discovery: For dynamic, multi-source context
@@ -1077,13 +1080,13 @@ $response = Mindwave::prompt()
 
 The Brain is a high-level abstraction over vector stores:
 
-| Feature | Brain | Vector Store |
-|---------|-------|--------------|
-| **Level** | High-level API | Low-level interface |
-| **Purpose** | Knowledge management | Vector storage |
-| **Text Splitting** | Automatic | Manual |
-| **Embeddings** | Automatic | Manual |
-| **Use Case** | Store & search docs | Custom implementations |
+| Feature            | Brain                | Vector Store           |
+| ------------------ | -------------------- | ---------------------- |
+| **Level**          | High-level API       | Low-level interface    |
+| **Purpose**        | Knowledge management | Vector storage         |
+| **Text Splitting** | Automatic            | Manual                 |
+| **Embeddings**     | Automatic            | Manual                 |
+| **Use Case**       | Store & search docs  | Custom implementations |
 
 ### Direct Vector Store Access
 
@@ -1354,21 +1357,21 @@ class CachedBrainSearch
 
 ## Related Documentation
 
-- [Context Discovery](/docs/core/context-discovery) - Dynamic multi-source context
-- [PromptComposer](/docs/core/prompt-composer) - Auto-fitting prompts
-- [Document Loaders](/docs/document-loaders) - Loading various file types
-- [Vector Stores](/docs/reference/vector-stores) - Backend storage options
-- [Embeddings](/docs/reference/embeddings) - Text embedding providers
+-   [Context Discovery](/docs/core/context-discovery) - Dynamic multi-source context
+-   [PromptComposer](/docs/core/prompt-composer) - Auto-fitting prompts
+-   [Document Loaders](/docs/document-loaders) - Loading various file types
+-   [Vector Stores](/docs/reference/vector-stores) - Backend storage options
+-   [Embeddings](/docs/reference/embeddings) - Text embedding providers
 
 ## Summary
 
 The Brain provides a powerful, persistent knowledge layer for your Laravel AI applications:
 
-- **Simple API** - Easy to store and retrieve knowledge
-- **Automatic Processing** - Handles chunking and embedding
-- **Semantic Search** - Find relevant content by meaning
-- **Production Ready** - Multiple backend options (Pinecone, Qdrant, Weaviate)
-- **Integrated** - Works with Context Discovery and PromptComposer
-- **Flexible** - Supports various document types and metadata
+-   **Simple API** - Easy to store and retrieve knowledge
+-   **Automatic Processing** - Handles chunking and embedding
+-   **Semantic Search** - Find relevant content by meaning
+-   **Production Ready** - Multiple backend options (Pinecone, Qdrant, Weaviate)
+-   **Integrated** - Works with Context Discovery and PromptComposer
+-   **Flexible** - Supports various document types and metadata
 
 Use the Brain to build intelligent applications that remember and learn from stored knowledge, providing context-aware responses without including everything in every prompt.

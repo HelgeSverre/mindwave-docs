@@ -16,10 +16,10 @@ This pipeline transforms raw documents into searchable, retrievable chunks that 
 
 Document chunking is critical for RAG quality:
 
-- **Context Window Limits** - LLMs have finite input sizes; chunks must fit within these limits
-- **Retrieval Precision** - Smaller chunks enable more precise context matching
-- **Relevance Scoring** - Focused chunks produce better similarity scores
-- **Cost Efficiency** - Smaller contexts mean fewer tokens and lower costs
+-   **Context Window Limits** - LLMs have finite input sizes; chunks must fit within these limits
+-   **Retrieval Precision** - Smaller chunks enable more precise context matching
+-   **Relevance Scoring** - Focused chunks produce better similarity scores
+-   **Cost Efficiency** - Smaller contexts mean fewer tokens and lower costs
 
 The key is finding the right balance: chunks large enough to maintain context, but small enough for precise retrieval.
 
@@ -102,10 +102,11 @@ echo $document->content();
 ```
 
 PDF processing automatically:
-- Extracts all text from the document
-- Normalizes whitespace for cleaner text
-- Handles multi-page documents
-- Preserves text structure
+
+-   Extracts all text from the document
+-   Normalizes whitespace for cleaner text
+-   Handles multi-page documents
+-   Preserves text structure
 
 ### HTML Documents
 
@@ -131,14 +132,15 @@ $document = DocumentLoader::fromHtml(
 ```
 
 The HTML loader automatically removes:
-- `<script>` tags and content
-- `<style>` tags and content
-- `<link>` tags
-- `<head>` sections
-- `<noscript>` tags
-- `<template>` tags
-- `<svg>` elements
-- `<br>` and `<hr>` tags
+
+-   `<script>` tags and content
+-   `<style>` tags and content
+-   `<link>` tags
+-   `<head>` sections
+-   `<noscript>` tags
+-   `<template>` tags
+-   `<svg>` elements
+-   `<br>` and `<hr>` tags
 
 ### Web Pages (URLs)
 
@@ -184,10 +186,11 @@ $document = DocumentLoader::fromWord(
 ```
 
 The Word loader:
-- Supports both `.doc` (legacy) and `.docx` formats
-- Extracts text content while preserving paragraph breaks
-- Handles tables and basic formatting
-- Returns `null` for corrupted files
+
+-   Supports both `.doc` (legacy) and `.docx` formats
+-   Extracts text content while preserving paragraph breaks
+-   Handles tables and basic formatting
+-   Returns `null` for corrupted files
 
 ### Loading from Laravel Storage
 
@@ -234,12 +237,12 @@ Once you have documents, the next step is splitting them into chunks. Mindwave p
 
 Different chunk sizes work better for different models and use cases:
 
-| Model Type | Recommended Chunk Size | Overlap |
-|------------|------------------------|---------|
-| GPT-3.5 Turbo | 500-1000 characters | 100-200 |
-| GPT-4 | 1000-2000 characters | 200-400 |
-| Claude 3 | 1000-2000 characters | 200-400 |
-| Embedding Models | 500-1000 characters | 50-100 |
+| Model Type       | Recommended Chunk Size | Overlap |
+| ---------------- | ---------------------- | ------- |
+| GPT-3.5 Turbo    | 500-1000 characters    | 100-200 |
+| GPT-4            | 1000-2000 characters   | 200-400 |
+| Claude 3         | 1000-2000 characters   | 200-400 |
+| Embedding Models | 500-1000 characters    | 50-100  |
 
 Smaller chunks = more precise retrieval, but potentially less context
 Larger chunks = more context, but potentially less precise matching
@@ -318,6 +321,7 @@ $chunks = $splitter->splitText($longText);
 ```
 
 The recursive splitter is smarter because it:
+
 1. Tries to split on the largest separator (e.g., paragraph breaks)
 2. If chunks are still too large, recursively tries smaller separators
 3. Maintains semantic boundaries when possible
@@ -416,9 +420,10 @@ $chunks = $splitter->splitText($text);
 ```
 
 This overlap:
-- Prevents loss of context at boundaries
-- Improves retrieval when queries span chunk boundaries
-- Helps maintain coherence in retrieved passages
+
+-   Prevents loss of context at boundaries
+-   Improves retrieval when queries span chunk boundaries
+-   Helps maintain coherence in retrieved passages
 
 ## Metadata Management
 
@@ -1296,8 +1301,8 @@ $splitter = new RecursiveCharacterTextSplitter(
 
 Now that you understand document processing and chunking, explore:
 
-- **[TNTSearch](./tntsearch)** - Index chunks for full-text search
-- **[Vector Stores](./vectorstores)** - Store embeddings for semantic search
-- **[Prompt Composer](/docs/core/prompt-composer)** - Combine retrieved chunks with LLM prompts
+-   **[TNTSearch](./tntsearch)** - Index chunks for full-text search
+-   **[Vector Stores](./vectorstores)** - Store embeddings for semantic search
+-   **[Prompt Composer](/docs/core/prompt-composer)** - Combine retrieved chunks with LLM prompts
 
 Document processing is the foundation of effective RAG. Master chunking strategies and metadata design to build production-ready retrieval systems that power intelligent Laravel applications.

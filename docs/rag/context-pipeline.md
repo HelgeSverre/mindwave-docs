@@ -12,15 +12,16 @@ A Context Pipeline orchestrates the retrieval of information from multiple sourc
 
 **Key capabilities:**
 
-- **Multi-Source Aggregation** - Search across vector stores, TNTSearch indexes, databases, and static sources simultaneously
-- **Deduplication** - Remove duplicate content across sources
-- **Re-Ranking** - Sort combined results by relevance score
-- **Token-Aware** - Automatically manages context size to fit within model limits
-- **PromptComposer Integration** - Seamlessly integrates with Mindwave's prompt composition system
+-   **Multi-Source Aggregation** - Search across vector stores, TNTSearch indexes, databases, and static sources simultaneously
+-   **Deduplication** - Remove duplicate content across sources
+-   **Re-Ranking** - Sort combined results by relevance score
+-   **Token-Aware** - Automatically manages context size to fit within model limits
+-   **PromptComposer Integration** - Seamlessly integrates with Mindwave's prompt composition system
 
 ### Why Use Context Pipelines?
 
 **Without Context Pipeline:**
+
 ```php
 // Manual aggregation is complex and error-prone
 $vectorResults = $vectorSource->search($query, 5);
@@ -54,6 +55,7 @@ foreach ($combined as $item) {
 ```
 
 **With Context Pipeline:**
+
 ```php
 // Simple, automatic aggregation
 $pipeline = (new ContextPipeline)
@@ -126,10 +128,10 @@ $pipeline = (new ContextPipeline)
 
 **Configuration Options:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `deduplicate` | bool | true | Remove duplicate content across sources |
-| `rerank` | bool | true | Sort results by relevance score |
+| Option        | Type | Default | Description                             |
+| ------------- | ---- | ------- | --------------------------------------- |
+| `deduplicate` | bool | true    | Remove duplicate content across sources |
+| `rerank`      | bool | true    | Sort results by relevance score         |
 
 ## Usage Examples
 
@@ -217,11 +219,11 @@ $response = Mindwave::prompt()
 
 **Benefits of Hybrid Search:**
 
-- **Semantic matches** - Finds "OAuth", "JWT", "login" for query "authentication"
-- **Keyword matches** - Finds exact phrase "Laravel authentication"
-- **Complementary coverage** - Each approach covers the other's blind spots
-- **Better recall** - More comprehensive retrieval
-- **Deduplicated** - No redundant results
+-   **Semantic matches** - Finds "OAuth", "JWT", "login" for query "authentication"
+-   **Keyword matches** - Finds exact phrase "Laravel authentication"
+-   **Complementary coverage** - Each approach covers the other's blind spots
+-   **Better recall** - More comprehensive retrieval
+-   **Deduplicated** - No redundant results
 
 ### Multi-Domain Search
 
@@ -452,6 +454,7 @@ $results = $pipeline->search('query', limit: 10);
 ```
 
 **Without Re-Ranking:**
+
 ```php
 // Results in source order (may not be optimal)
 $pipeline->rerank(false);
@@ -465,6 +468,7 @@ $results = $pipeline->search('query', 10);
 ```
 
 **With Re-Ranking:**
+
 ```php
 // Results sorted by relevance
 $pipeline->rerank(true);
@@ -1240,8 +1244,8 @@ class PipelineIntegrationTest extends TestCase
 
 ## Related Documentation
 
-- [RAG Overview](/docs/rag/overview) - Complete RAG architecture and concepts
-- [TNTSearch Source](/docs/rag/tntsearch-source) - Full-text search source
-- [Vector Store Source](/docs/rag/vector-store-source) - Semantic search source
-- [Custom Sources](/docs/rag/custom-sources) - Build custom context sources
-- [PromptComposer](/docs/core/prompt-composer) - Token-aware prompt composition
+-   [RAG Overview](/docs/rag/overview) - Complete RAG architecture and concepts
+-   [TNTSearch Source](/docs/rag/tntsearch-source) - Full-text search source
+-   [Vector Store Source](/docs/rag/vector-store-source) - Semantic search source
+-   [Custom Sources](/docs/rag/custom-sources) - Build custom context sources
+-   [PromptComposer](/docs/core/prompt-composer) - Token-aware prompt composition

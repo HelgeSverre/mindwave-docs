@@ -6,32 +6,36 @@ Measure and improve the quality of your RAG (Retrieval-Augmented Generation) sys
 
 RAG evaluation helps you answer critical questions:
 
-- Are we retrieving the right documents?
-- Is the generated content accurate and grounded in retrieved context?
-- How can we measure and improve RAG performance over time?
-- What metrics matter for our specific use case?
+-   Are we retrieving the right documents?
+-   Is the generated content accurate and grounded in retrieved context?
+-   How can we measure and improve RAG performance over time?
+-   What metrics matter for our specific use case?
 
 ### Why Evaluate RAG Systems?
 
 **Quality Assurance**
-- Ensure accurate retrieval and generation
-- Catch regressions before they reach production
-- Validate improvements from system changes
+
+-   Ensure accurate retrieval and generation
+-   Catch regressions before they reach production
+-   Validate improvements from system changes
 
 **Performance Optimization**
-- Identify bottlenecks in retrieval or generation
-- A/B test different approaches
-- Tune parameters for better results
+
+-   Identify bottlenecks in retrieval or generation
+-   A/B test different approaches
+-   Tune parameters for better results
 
 **User Experience**
-- Measure response quality from user perspective
-- Track satisfaction and task completion
-- Reduce hallucinations and errors
+
+-   Measure response quality from user perspective
+-   Track satisfaction and task completion
+-   Reduce hallucinations and errors
 
 **Compliance & Trust**
-- Verify factual accuracy
-- Ensure source attribution
-- Meet regulatory requirements
+
+-   Verify factual accuracy
+-   Ensure source attribution
+-   Meet regulatory requirements
 
 ## Evaluation Dimensions
 
@@ -1231,7 +1235,7 @@ if ($results['aggregate']['generation']['hallucination_rate'] > 0.1) {
 
 ## Related Documentation
 
-- [RAG Overview](/docs/rag/overview) - RAG architecture and concepts
-- [Context Pipeline](/docs/rag/context-pipeline) - Multi-source aggregation
-- [Custom Sources](/docs/rag/custom-sources) - Build custom retrievers
-- [Observability](/docs/observability/overview) - System monitoring and tracing
+-   [RAG Overview](/docs/rag/overview) - RAG architecture and concepts
+-   [Context Pipeline](/docs/rag/context-pipeline) - Multi-source aggregation
+-   [Custom Sources](/docs/rag/custom-sources) - Build custom retrievers
+-   [Observability](/docs/observability/overview) - System monitoring and tracing

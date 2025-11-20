@@ -6,24 +6,24 @@ Anthropic is a leading AI safety company known for Claude, a family of highly ca
 
 ### Why Use Anthropic with Mindwave?
 
-- **Extended context windows** - Up to 200,000 tokens for processing large documents
-- **Strong reasoning** - Excellent performance on complex analytical tasks
-- **Safety-focused** - Built with Constitutional AI for more reliable outputs
-- **Latest models** - Access Claude Sonnet 4.5, the smartest model for complex tasks
-- **Vision support** - Native image understanding across Claude 3+ models
-- **Competitive pricing** - Cost-effective options from Claude 3.5 Haiku
-- **Streaming support** - Real-time response streaming with Server-Sent Events
+-   **Extended context windows** - Up to 200,000 tokens for processing large documents
+-   **Strong reasoning** - Excellent performance on complex analytical tasks
+-   **Safety-focused** - Built with Constitutional AI for more reliable outputs
+-   **Latest models** - Access Claude Sonnet 4.5, the smartest model for complex tasks
+-   **Vision support** - Native image understanding across Claude 3+ models
+-   **Competitive pricing** - Cost-effective options from Claude 3.5 Haiku
+-   **Streaming support** - Real-time response streaming with Server-Sent Events
 
 ### Key Capabilities
 
-- ✅ Chat completions with multi-turn conversations
-- ✅ Streaming responses with SSE
-- ✅ Extended thinking mode (Claude Sonnet 4.5)
-- ✅ Vision capabilities for image understanding
-- ✅ 200K token context windows
-- ✅ System prompts for precise instruction following
-- ✅ Prompt caching for cost optimization
-- ✅ Automatic tracing and cost tracking
+-   ✅ Chat completions with multi-turn conversations
+-   ✅ Streaming responses with SSE
+-   ✅ Extended thinking mode (Claude Sonnet 4.5)
+-   ✅ Vision capabilities for image understanding
+-   ✅ 200K token context windows
+-   ✅ System prompts for precise instruction following
+-   ✅ Prompt caching for cost optimization
+-   ✅ Automatic tracing and cost tracking
 
 ## Setup & Configuration
 
@@ -100,69 +100,76 @@ if ($response) {
 
 The smartest Claude model for complex agents, coding, and reasoning tasks.
 
-| Model ID | Context Window | Max Output | Input Price | Output Price | Best For |
-|----------|---------------|------------|-------------|--------------|----------|
-| `claude-sonnet-4-5-20250929` | 200K / 1M (beta) | 64K tokens | $3.00/1M | $15.00/1M | Complex reasoning, code |
-| `claude-sonnet-4-5` (alias) | 200K / 1M (beta) | 64K tokens | $3.00/1M | $15.00/1M | Auto-updates to latest |
+| Model ID                     | Context Window   | Max Output | Input Price | Output Price | Best For                |
+| ---------------------------- | ---------------- | ---------- | ----------- | ------------ | ----------------------- |
+| `claude-sonnet-4-5-20250929` | 200K / 1M (beta) | 64K tokens | $3.00/1M    | $15.00/1M    | Complex reasoning, code |
+| `claude-sonnet-4-5` (alias)  | 200K / 1M (beta) | 64K tokens | $3.00/1M    | $15.00/1M    | Auto-updates to latest  |
 
 **Use Cases:**
-- Complex code generation and analysis
-- Deep reasoning and research tasks
-- Long document analysis (up to 1M tokens in beta)
-- Production applications requiring highest intelligence
-- Multi-agent systems and agentic workflows
+
+-   Complex code generation and analysis
+-   Deep reasoning and research tasks
+-   Long document analysis (up to 1M tokens in beta)
+-   Production applications requiring highest intelligence
+-   Multi-agent systems and agentic workflows
 
 **Key Features:**
-- Extended thinking mode for complex reasoning
-- Superior code understanding and generation
-- 1M token context window (beta)
-- 64K max output tokens
-- Vision capabilities for image understanding
+
+-   Extended thinking mode for complex reasoning
+-   Superior code understanding and generation
+-   1M token context window (beta)
+-   64K max output tokens
+-   Vision capabilities for image understanding
 
 **Limitations:**
-- Higher cost than Haiku models
-- Slower than Haiku 4.5
+
+-   Higher cost than Haiku models
+-   Slower than Haiku 4.5
 
 ### Claude Haiku 4.5 (Latest)
 
 The fastest Claude model with near-frontier intelligence.
 
-| Model ID | Context Window | Max Output | Input Price | Output Price | Best For |
-|----------|---------------|------------|-------------|--------------|----------|
-| `claude-haiku-4-5-20251001` | 200,000 tokens | 64K tokens | $0.80/1M | $4.00/1M | Fast, cost-effective tasks |
-| `claude-haiku-4-5` (alias) | 200,000 tokens | 64K tokens | $0.80/1M | $4.00/1M | Auto-updates to latest |
+| Model ID                    | Context Window | Max Output | Input Price | Output Price | Best For                   |
+| --------------------------- | -------------- | ---------- | ----------- | ------------ | -------------------------- |
+| `claude-haiku-4-5-20251001` | 200,000 tokens | 64K tokens | $0.80/1M    | $4.00/1M     | Fast, cost-effective tasks |
+| `claude-haiku-4-5` (alias)  | 200,000 tokens | 64K tokens | $0.80/1M    | $4.00/1M     | Auto-updates to latest     |
 
 **Use Cases:**
-- High-volume content generation
-- Fast customer support responses
-- Real-time applications
-- Cost-sensitive applications
-- Quick prototyping and testing
+
+-   High-volume content generation
+-   Fast customer support responses
+-   Real-time applications
+-   Cost-sensitive applications
+-   Quick prototyping and testing
 
 **Key Features:**
-- Fastest response times
-- Near-frontier intelligence
-- 64K max output tokens
-- Excellent price/performance ratio
+
+-   Fastest response times
+-   Near-frontier intelligence
+-   64K max output tokens
+-   Excellent price/performance ratio
 
 **Limitations:**
-- Less capable reasoning than Sonnet 4.5
-- Not ideal for extremely complex tasks
+
+-   Less capable reasoning than Sonnet 4.5
+-   Not ideal for extremely complex tasks
 
 ### Claude Opus 4.1 (Latest)
 
 Specialized model for advanced reasoning tasks.
 
-| Model ID | Context Window | Max Output | Input Price | Output Price | Best For |
-|----------|---------------|------------|-------------|--------------|----------|
-| `claude-opus-4-1-20250805` | 200,000 tokens | 32K tokens | $15.00/1M | $75.00/1M | Specialized reasoning |
-| `claude-opus-4-1` (alias) | 200,000 tokens | 32K tokens | $15.00/1M | $75.00/1M | Auto-updates to latest |
+| Model ID                   | Context Window | Max Output | Input Price | Output Price | Best For               |
+| -------------------------- | -------------- | ---------- | ----------- | ------------ | ---------------------- |
+| `claude-opus-4-1-20250805` | 200,000 tokens | 32K tokens | $15.00/1M   | $75.00/1M    | Specialized reasoning  |
+| `claude-opus-4-1` (alias)  | 200,000 tokens | 32K tokens | $15.00/1M   | $75.00/1M    | Auto-updates to latest |
 
 **Use Cases:**
-- Specialized reasoning tasks
-- Research and analysis requiring maximum intelligence
-- Complex problem-solving
-- High-stakes decision making
+
+-   Specialized reasoning tasks
+-   Research and analysis requiring maximum intelligence
+-   Complex problem-solving
+-   High-stakes decision making
 
 **Note:** For most use cases, Claude Sonnet 4.5 provides better value.
 
@@ -171,16 +178,19 @@ Specialized model for advanced reasoning tasks.
 The following models are deprecated and should be migrated to the 4.x series:
 
 **Claude 3.5 Models:**
-- `claude-3-5-sonnet-20241022` - Upgrade to `claude-sonnet-4-5-20250929`
-- `claude-3-5-haiku-20241022` - Upgrade to `claude-haiku-4-5-20251001`
+
+-   `claude-3-5-sonnet-20241022` - Upgrade to `claude-sonnet-4-5-20250929`
+-   `claude-3-5-haiku-20241022` - Upgrade to `claude-haiku-4-5-20251001`
 
 **Claude 3 Models:**
-- `claude-3-opus-20240229` - Upgrade to `claude-opus-4-1-20250805`
-- `claude-3-sonnet-20240229` - Upgrade to `claude-sonnet-4-5-20250929`
-- `claude-3-haiku-20240307` - Upgrade to `claude-haiku-4-5-20251001`
+
+-   `claude-3-opus-20240229` - Upgrade to `claude-opus-4-1-20250805`
+-   `claude-3-sonnet-20240229` - Upgrade to `claude-sonnet-4-5-20250929`
+-   `claude-3-haiku-20240307` - Upgrade to `claude-haiku-4-5-20251001`
 
 **Claude 2 Models:**
-- `claude-2.1`, `claude-2.0`, `claude-instant-1.2` - Significantly outperformed by Claude 4.x models
+
+-   `claude-2.1`, `claude-2.0`, `claude-instant-1.2` - Significantly outperformed by Claude 4.x models
 
 ## Basic Usage
 
@@ -485,7 +495,8 @@ streamResponse();
 ### Frontend: Alpine.js
 
 ```html
-<div x-data="{
+<div
+    x-data="{
     content: '',
     streaming: false,
     async stream() {
@@ -505,10 +516,9 @@ streamResponse();
 
         this.streaming = false;
     }
-}">
-    <button @click="stream()" :disabled="streaming">
-        Generate
-    </button>
+}"
+>
+    <button @click="stream()" :disabled="streaming">Generate</button>
 
     <div x-html="content"></div>
 </div>
@@ -570,15 +580,15 @@ try {
 
 Choose the right model for your use case:
 
-| Use Case | Recommended Model | Why |
-|----------|------------------|-----|
-| Complex code generation | Claude 3.5 Sonnet | Best code understanding |
-| Fast customer support | Claude 3.5 Haiku | Low latency, cost-effective |
-| Research analysis | Claude 3.5 Sonnet | Extended thinking |
-| High-volume classification | Claude 3.5 Haiku | Best price/performance |
-| Long document analysis | Claude 3.5 Sonnet | 200K context + intelligence |
-| Real-time chat | Claude 3.5 Haiku | Fastest responses |
-| Complex reasoning | Claude 3.5 Sonnet | Extended thinking mode |
+| Use Case                   | Recommended Model | Why                         |
+| -------------------------- | ----------------- | --------------------------- |
+| Complex code generation    | Claude 3.5 Sonnet | Best code understanding     |
+| Fast customer support      | Claude 3.5 Haiku  | Low latency, cost-effective |
+| Research analysis          | Claude 3.5 Sonnet | Extended thinking           |
+| High-volume classification | Claude 3.5 Haiku  | Best price/performance      |
+| Long document analysis     | Claude 3.5 Sonnet | 200K context + intelligence |
+| Real-time chat             | Claude 3.5 Haiku  | Fastest responses           |
+| Complex reasoning          | Claude 3.5 Sonnet | Extended thinking mode      |
 
 ### Cost Optimization
 
@@ -618,7 +628,7 @@ $response = $client->messages()->create([
 
 Anthropic models respond well to clear, structured prompts:
 
-```php
+````php
 use Mindwave\Mindwave\Facades\Mindwave;
 
 // ✅ Good: Clear structure and examples
@@ -642,7 +652,7 @@ $response = Mindwave::llm('anthropic')
 // ❌ Avoid: Vague prompts
 $response = Mindwave::llm('anthropic')
     ->generateText('What do you think about this code? ' . $code);
-```
+````
 
 ### Error Handling
 
@@ -701,17 +711,18 @@ Route::middleware('throttle:anthropic')->post('/generate', function (Request $re
 
 ### Current Pricing (as of November 2024)
 
-| Model | Input (per 1M tokens) | Output (per 1M tokens) | Context Window |
-|-------|----------------------|------------------------|----------------|
-| Claude 3.5 Sonnet | $3.00 | $15.00 | 200K |
-| Claude 3.5 Haiku | $0.80 | $4.00 | 200K |
-| Claude 3 Opus | $15.00 | $75.00 | 200K |
-| Claude 3 Sonnet | $3.00 | $15.00 | 200K |
-| Claude 3 Haiku | $0.25 | $1.25 | 200K |
+| Model             | Input (per 1M tokens) | Output (per 1M tokens) | Context Window |
+| ----------------- | --------------------- | ---------------------- | -------------- |
+| Claude 3.5 Sonnet | $3.00                 | $15.00                 | 200K           |
+| Claude 3.5 Haiku  | $0.80                 | $4.00                  | 200K           |
+| Claude 3 Opus     | $15.00                | $75.00                 | 200K           |
+| Claude 3 Sonnet   | $3.00                 | $15.00                 | 200K           |
+| Claude 3 Haiku    | $0.25                 | $1.25                  | 200K           |
 
 **Prompt Caching Discounts:**
-- Cached input tokens: 90% discount
-- Cache writes: 25% markup
+
+-   Cached input tokens: 90% discount
+-   Cache writes: 25% markup
 
 ### Cost Calculation Examples
 
@@ -789,13 +800,13 @@ $response = Mindwave::llm('anthropic')
 
 Anthropic has tiered rate limits:
 
-| Tier | Requests/min | Tokens/min | Tokens/day |
-|------|-------------|-----------|------------|
-| Free | 5 | 25,000 | 300,000 |
-| Build Tier 1 | 50 | 50,000 | 1,000,000 |
-| Build Tier 2 | 50 | 100,000 | 2,500,000 |
-| Build Tier 3 | 50 | 200,000 | 5,000,000 |
-| Build Tier 4 | 50 | 400,000 | 10,000,000 |
+| Tier         | Requests/min | Tokens/min | Tokens/day |
+| ------------ | ------------ | ---------- | ---------- |
+| Free         | 5            | 25,000     | 300,000    |
+| Build Tier 1 | 50           | 50,000     | 1,000,000  |
+| Build Tier 2 | 50           | 100,000    | 2,500,000  |
+| Build Tier 3 | 50           | 200,000    | 5,000,000  |
+| Build Tier 4 | 50           | 400,000    | 10,000,000 |
 
 **Note:** Limits are per model. Tiers increase with usage.
 
@@ -817,16 +828,16 @@ $maxTokens = $driver->maxContextTokens(); // Returns: 200000
 
 ### Model Availability
 
-- All Claude 3.5 and 3 models are generally available
-- New models may have limited availability during rollout
-- Check [Anthropic status page](https://status.anthropic.com) for issues
+-   All Claude 3.5 and 3 models are generally available
+-   New models may have limited availability during rollout
+-   Check [Anthropic status page](https://status.anthropic.com) for issues
 
 ### Regional Considerations
 
-- Anthropic API is available globally
-- No regional endpoints (unlike Azure OpenAI)
-- Latency varies by geographic location
-- Consider using a CDN for static prompts
+-   Anthropic API is available globally
+-   No regional endpoints (unlike Azure OpenAI)
+-   Latency varies by geographic location
+-   Consider using a CDN for static prompts
 
 ## Troubleshooting
 
@@ -835,6 +846,7 @@ $maxTokens = $driver->maxContextTokens(); // Returns: 200000
 **Cause:** Invalid or missing API key
 
 **Solution:**
+
 ```bash
 # Check your .env file
 cat .env | grep MINDWAVE_ANTHROPIC_API_KEY
@@ -848,6 +860,7 @@ cat .env | grep MINDWAVE_ANTHROPIC_API_KEY
 **Cause:** Exceeded your tier's rate limits
 
 **Solution:**
+
 ```php
 // Implement exponential backoff
 use Illuminate\Support\Facades\Http;
@@ -874,11 +887,13 @@ while ($retries < $maxRetries) {
 ### 400 Bad Request
 
 **Common causes:**
-- Missing `max_tokens` parameter
-- Invalid model name
-- Malformed request
+
+-   Missing `max_tokens` parameter
+-   Invalid model name
+-   Malformed request
 
 **Solution:**
+
 ```php
 try {
     $response = Mindwave::llm('anthropic')
@@ -895,6 +910,7 @@ try {
 **Cause:** Input + output tokens exceed 200K limit
 
 **Solution:**
+
 ```php
 use Mindwave\Mindwave\PromptComposer\PromptComposer;
 
@@ -917,6 +933,7 @@ $response = Mindwave::llm('anthropic')
 **Cause:** Request taking too long
 
 **Solution:**
+
 ```php
 // Set custom timeout in your HTTP client configuration
 // Or use faster model for time-sensitive tasks
@@ -931,17 +948,17 @@ $response = Mindwave::llm('anthropic')
 
 ### When to Use Anthropic vs OpenAI
 
-| Feature | Anthropic (Claude) | OpenAI (GPT) |
-|---------|-------------------|--------------|
-| **Context Window** | 200K tokens | 128K tokens (GPT-4 Turbo) |
-| **Reasoning** | Extended thinking | O1 models |
-| **Vision** | Built-in (all 3+ models) | GPT-4o, GPT-4V |
-| **Function Calling** | Tools API | Native support |
-| **Streaming** | ✅ Yes | ✅ Yes |
-| **JSON Mode** | Via prompting | Native JSON mode |
-| **Safety** | Constitutional AI | Moderation API |
-| **Pricing** | Competitive | Similar range |
-| **Best For** | Long documents, reasoning | Function calling, structured output |
+| Feature              | Anthropic (Claude)        | OpenAI (GPT)                        |
+| -------------------- | ------------------------- | ----------------------------------- |
+| **Context Window**   | 200K tokens               | 128K tokens (GPT-4 Turbo)           |
+| **Reasoning**        | Extended thinking         | O1 models                           |
+| **Vision**           | Built-in (all 3+ models)  | GPT-4o, GPT-4V                      |
+| **Function Calling** | Tools API                 | Native support                      |
+| **Streaming**        | ✅ Yes                    | ✅ Yes                              |
+| **JSON Mode**        | Via prompting             | Native JSON mode                    |
+| **Safety**           | Constitutional AI         | Moderation API                      |
+| **Pricing**          | Competitive               | Similar range                       |
+| **Best For**         | Long documents, reasoning | Function calling, structured output |
 
 ### Migration from OpenAI
 
@@ -962,6 +979,7 @@ $response = Mindwave::llm('anthropic')
 ```
 
 **Key Differences:**
+
 1. System messages are separate parameter (not in messages array)
 2. `max_tokens` is required
 3. Default temperature is 1.0 (not 0.7)
@@ -972,29 +990,29 @@ $response = Mindwave::llm('anthropic')
 
 Anthropic's Claude models offer excellent performance for complex reasoning tasks, extended context windows, and strong safety guarantees. Key takeaways:
 
-- **Use Claude 3.5 Sonnet** for complex reasoning and code tasks
-- **Use Claude 3.5 Haiku** for fast, cost-effective applications
-- **200K context window** perfect for long document analysis
-- **Streaming support** for real-time user experiences
-- **Automatic tracing** for cost and usage monitoring
+-   **Use Claude 3.5 Sonnet** for complex reasoning and code tasks
+-   **Use Claude 3.5 Haiku** for fast, cost-effective applications
+-   **200K context window** perfect for long document analysis
+-   **Streaming support** for real-time user experiences
+-   **Automatic tracing** for cost and usage monitoring
 
 ### Quick Start Checklist
 
-- [ ] Get API key from [console.anthropic.com](https://console.anthropic.com)
-- [ ] Add `MINDWAVE_ANTHROPIC_API_KEY` to `.env`
-- [ ] Install with: `composer require mozex/anthropic-php`
-- [ ] Test connection with simple `generateText()` call
-- [ ] Choose appropriate model for your use case
-- [ ] Implement error handling and rate limiting
-- [ ] Monitor costs with Mindwave tracing
+-   [ ] Get API key from [console.anthropic.com](https://console.anthropic.com)
+-   [ ] Add `MINDWAVE_ANTHROPIC_API_KEY` to `.env`
+-   [ ] Install with: `composer require mozex/anthropic-php`
+-   [ ] Test connection with simple `generateText()` call
+-   [ ] Choose appropriate model for your use case
+-   [ ] Implement error handling and rate limiting
+-   [ ] Monitor costs with Mindwave tracing
 
 ### Additional Resources
 
-- [Anthropic Documentation](https://docs.anthropic.com)
-- [Claude API Reference](https://docs.anthropic.com/en/api)
-- [Model Card & Evals](https://www-cdn.anthropic.com/files/4zrzovbb/website/1adf000c8f675958c2ee23805d91aaade1cd4613.pdf)
-- [Prompt Engineering Guide](https://docs.anthropic.com/en/docs/prompt-engineering)
-- [Safety Best Practices](https://docs.anthropic.com/en/docs/security-and-safety)
+-   [Anthropic Documentation](https://docs.anthropic.com)
+-   [Claude API Reference](https://docs.anthropic.com/en/api)
+-   [Model Card & Evals](https://www-cdn.anthropic.com/files/4zrzovbb/website/1adf000c8f675958c2ee23805d91aaade1cd4613.pdf)
+-   [Prompt Engineering Guide](https://docs.anthropic.com/en/docs/prompt-engineering)
+-   [Safety Best Practices](https://docs.anthropic.com/en/docs/security-and-safety)
 
 ---
 

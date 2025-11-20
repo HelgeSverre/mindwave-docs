@@ -6,11 +6,11 @@ Complete reference for all Mindwave Artisan commands. This guide covers trace ma
 
 Mindwave provides 6 powerful Artisan commands for managing your AI application infrastructure:
 
-| Category | Commands | Purpose |
-|----------|----------|---------|
-| **Tracing** | `export-traces`, `prune-traces`, `trace-stats` | Manage and analyze LLM traces |
-| **Indexes** | `index-stats`, `clear-indexes` | Maintain TNTSearch context indexes |
-| **Code Generation** | `tool` | Generate tool classes |
+| Category            | Commands                                       | Purpose                            |
+| ------------------- | ---------------------------------------------- | ---------------------------------- |
+| **Tracing**         | `export-traces`, `prune-traces`, `trace-stats` | Manage and analyze LLM traces      |
+| **Indexes**         | `index-stats`, `clear-indexes`                 | Maintain TNTSearch context indexes |
+| **Code Generation** | `tool`                                         | Generate tool classes              |
 
 ### Quick Command Reference
 
@@ -31,21 +31,22 @@ php artisan help mindwave:export-traces
 Export trace data to JSON, CSV, or NDJSON format for analysis, backup, or integration with external tools.
 
 **Signature:**
+
 ```bash
 php artisan mindwave:export-traces [options]
 ```
 
 **Options:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `--since` | string | - | Export traces from this date (e.g., "yesterday", "2024-01-01") |
-| `--until` | string | - | Export traces until this date |
-| `--format` | string | `json` | Output format: `csv`, `json`, or `ndjson` |
-| `--output` | string | stdout | Output file path |
-| `--provider` | string | - | Filter by provider name (e.g., "openai", "anthropic") |
-| `--min-cost` | float | - | Filter by minimum cost in USD |
-| `--slow` | int | - | Filter by minimum duration in milliseconds |
+| Option       | Type   | Default | Description                                                    |
+| ------------ | ------ | ------- | -------------------------------------------------------------- |
+| `--since`    | string | -       | Export traces from this date (e.g., "yesterday", "2024-01-01") |
+| `--until`    | string | -       | Export traces until this date                                  |
+| `--format`   | string | `json`  | Output format: `csv`, `json`, or `ndjson`                      |
+| `--output`   | string | stdout  | Output file path                                               |
+| `--provider` | string | -       | Filter by provider name (e.g., "openai", "anthropic")          |
+| `--min-cost` | float  | -       | Filter by minimum cost in USD                                  |
+| `--slow`     | int    | -       | Filter by minimum duration in milliseconds                     |
 
 **Examples:**
 
@@ -95,6 +96,7 @@ php artisan mindwave:export-traces \
 ```
 
 **Output to stdout:**
+
 ```bash
 # Pipe to other tools
 php artisan mindwave:export-traces --format=json | jq '.[] | .trace_id'
@@ -114,38 +116,38 @@ trace_id,service_name,start_time,end_time,duration_ms,status,total_spans,total_i
 
 ```json
 [
-  {
-    "trace_id": "01234567-89ab-cdef-0123-456789abcdef",
-    "service_name": "mindwave-app",
-    "start_time": "2025-01-15 10:30:00",
-    "end_time": "2025-01-15 10:30:02",
-    "duration_ms": 2000,
-    "status": "ok",
-    "total_spans": 3,
-    "total_input_tokens": 150,
-    "total_output_tokens": 300,
-    "total_tokens": 450,
-    "estimated_cost": 0.0045,
-    "metadata": {},
-    "created_at": "2025-01-15T10:30:02+00:00",
-    "spans": [
-      {
-        "span_id": "abc123",
-        "parent_span_id": null,
-        "name": "chat.completion",
-        "kind": "llm",
-        "operation_name": "chat",
-        "provider_name": "openai",
-        "request_model": "gpt-4-turbo",
-        "response_model": "gpt-4-turbo",
-        "input_tokens": 150,
-        "output_tokens": 300,
-        "temperature": 0.7,
-        "max_tokens": 500,
-        "status_code": 200
-      }
-    ]
-  }
+    {
+        "trace_id": "01234567-89ab-cdef-0123-456789abcdef",
+        "service_name": "mindwave-app",
+        "start_time": "2025-01-15 10:30:00",
+        "end_time": "2025-01-15 10:30:02",
+        "duration_ms": 2000,
+        "status": "ok",
+        "total_spans": 3,
+        "total_input_tokens": 150,
+        "total_output_tokens": 300,
+        "total_tokens": 450,
+        "estimated_cost": 0.0045,
+        "metadata": {},
+        "created_at": "2025-01-15T10:30:02+00:00",
+        "spans": [
+            {
+                "span_id": "abc123",
+                "parent_span_id": null,
+                "name": "chat.completion",
+                "kind": "llm",
+                "operation_name": "chat",
+                "provider_name": "openai",
+                "request_model": "gpt-4-turbo",
+                "response_model": "gpt-4-turbo",
+                "input_tokens": 150,
+                "output_tokens": 300,
+                "temperature": 0.7,
+                "max_tokens": 500,
+                "status_code": 200
+            }
+        ]
+    }
 ]
 ```
 
@@ -160,16 +162,16 @@ Each line is a complete JSON object (one trace per line):
 
 **Use Cases:**
 
-- **Backup traces** before pruning old data
-- **Cost analysis** in spreadsheet applications
-- **Data pipeline integration** with analytics tools
-- **Compliance reporting** for AI usage audits
-- **Performance analysis** in external monitoring systems
+-   **Backup traces** before pruning old data
+-   **Cost analysis** in spreadsheet applications
+-   **Data pipeline integration** with analytics tools
+-   **Compliance reporting** for AI usage audits
+-   **Performance analysis** in external monitoring systems
 
 **Exit Codes:**
 
-- `0` - Success
-- `1` - Invalid format, date parsing error, or file I/O error
+-   `0` - Success
+-   `1` - Invalid format, date parsing error, or file I/O error
 
 ---
 
@@ -178,19 +180,20 @@ Each line is a complete JSON object (one trace per line):
 Delete old traces from the database to manage storage and comply with data retention policies.
 
 **Signature:**
+
 ```bash
 php artisan mindwave:prune-traces [options]
 ```
 
 **Options:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `--older-than` | int | `30` | Delete traces older than this many days |
-| `--dry-run` | flag | - | Show what would be deleted without actually deleting |
-| `--keep-errors` | flag | - | Keep traces with error status |
-| `--batch-size` | int | `500` | Number of traces to delete per batch |
-| `--force` | flag | - | Skip confirmation prompt |
+| Option          | Type | Default | Description                                          |
+| --------------- | ---- | ------- | ---------------------------------------------------- |
+| `--older-than`  | int  | `30`    | Delete traces older than this many days              |
+| `--dry-run`     | flag | -       | Show what would be deleted without actually deleting |
+| `--keep-errors` | flag | -       | Keep traces with error status                        |
+| `--batch-size`  | int  | `500`   | Number of traces to delete per batch                 |
+| `--force`       | flag | -       | Skip confirmation prompt                             |
 
 **Examples:**
 
@@ -265,11 +268,11 @@ Sample traces to be deleted:
 
 **Use Cases:**
 
-- **Storage management** - Free up database space
-- **Compliance** - Meet data retention policies (GDPR, etc.)
-- **Performance** - Keep trace tables lean and queries fast
-- **Cost optimization** - Reduce database storage costs
-- **Debugging** - Keep error traces while removing successful ones
+-   **Storage management** - Free up database space
+-   **Compliance** - Meet data retention policies (GDPR, etc.)
+-   **Performance** - Keep trace tables lean and queries fast
+-   **Cost optimization** - Reduce database storage costs
+-   **Debugging** - Keep error traces while removing successful ones
 
 **Best Practices:**
 
@@ -281,8 +284,8 @@ Sample traces to be deleted:
 
 **Exit Codes:**
 
-- `0` - Success
-- `1` - Invalid parameters (negative days or batch size)
+-   `0` - Success
+-   `1` - Invalid parameters (negative days or batch size)
 
 ---
 
@@ -291,17 +294,18 @@ Sample traces to be deleted:
 Display comprehensive trace statistics and analytics with visual charts.
 
 **Signature:**
+
 ```bash
 php artisan mindwave:trace-stats [options]
 ```
 
 **Options:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `--since` | string | - | Show statistics from this date (e.g., "yesterday", "2024-01-01") |
-| `--provider` | string | - | Filter by provider name |
-| `--model` | string | - | Filter by model name |
+| Option       | Type   | Default | Description                                                      |
+| ------------ | ------ | ------- | ---------------------------------------------------------------- |
+| `--since`    | string | -       | Show statistics from this date (e.g., "yesterday", "2024-01-01") |
+| `--provider` | string | -       | Filter by provider name                                          |
+| `--model`    | string | -       | Filter by model name                                             |
 
 **Examples:**
 
@@ -412,12 +416,12 @@ Success: 97.25% | Errors: 2.75%
 
 **Use Cases:**
 
-- **Daily monitoring** - Check usage and costs
-- **Performance analysis** - Identify slow models
-- **Cost optimization** - Compare provider costs
-- **Quality assurance** - Monitor error rates
-- **Capacity planning** - Analyze usage trends
-- **Budget reporting** - Generate usage summaries
+-   **Daily monitoring** - Check usage and costs
+-   **Performance analysis** - Identify slow models
+-   **Cost optimization** - Compare provider costs
+-   **Quality assurance** - Monitor error rates
+-   **Capacity planning** - Analyze usage trends
+-   **Budget reporting** - Generate usage summaries
 
 **Integration with Monitoring:**
 
@@ -434,8 +438,8 @@ php artisan mindwave:trace-stats | grep "Total Cost" | awk '{print $4}'
 
 **Exit Codes:**
 
-- `0` - Success
-- `1` - Invalid date format
+-   `0` - Success
+-   `1` - Invalid date format
 
 ---
 
@@ -446,6 +450,7 @@ php artisan mindwave:trace-stats | grep "Total Cost" | awk '{print $4}'
 Display statistics about TNTSearch context indexes used by Context Discovery.
 
 **Signature:**
+
 ```bash
 php artisan mindwave:index-stats
 ```
@@ -478,10 +483,10 @@ php artisan mindwave:index-stats
 
 **Use Cases:**
 
-- **Monitor disk usage** - Track index storage consumption
-- **Identify cleanup needs** - See when indexes should be cleared
-- **Troubleshooting** - Verify indexes are being created
-- **Capacity planning** - Monitor index growth over time
+-   **Monitor disk usage** - Track index storage consumption
+-   **Identify cleanup needs** - See when indexes should be cleared
+-   **Troubleshooting** - Verify indexes are being created
+-   **Capacity planning** - Monitor index growth over time
 
 **Integration:**
 
@@ -495,7 +500,7 @@ fi
 
 **Exit Codes:**
 
-- `0` - Success
+-   `0` - Success
 
 ---
 
@@ -504,16 +509,17 @@ fi
 Clear old TNTSearch context indexes to free up disk space.
 
 **Signature:**
+
 ```bash
 php artisan mindwave:clear-indexes [options]
 ```
 
 **Options:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `--ttl` | int | `24` | Time to live in hours (indexes older than this are deleted) |
-| `--force` | flag | - | Skip confirmation prompt |
+| Option    | Type | Default | Description                                                 |
+| --------- | ---- | ------- | ----------------------------------------------------------- |
+| `--ttl`   | int  | `24`    | Time to live in hours (indexes older than this are deleted) |
+| `--force` | flag | -       | Skip confirmation prompt                                    |
 
 **Examples:**
 
@@ -569,10 +575,10 @@ Do you want to proceed? (yes/no) [yes]:
 
 **Use Cases:**
 
-- **Regular maintenance** - Clear ephemeral indexes automatically
-- **Disk space management** - Free up storage space
-- **Performance optimization** - Remove unused index files
-- **Testing cleanup** - Clear test indexes after development
+-   **Regular maintenance** - Clear ephemeral indexes automatically
+-   **Disk space management** - Free up storage space
+-   **Performance optimization** - Remove unused index files
+-   **Testing cleanup** - Clear test indexes after development
 
 **Best Practices:**
 
@@ -583,7 +589,7 @@ Do you want to proceed? (yes/no) [yes]:
 
 **Exit Codes:**
 
-- `0` - Success
+-   `0` - Success
 
 ---
 
@@ -594,22 +600,23 @@ Do you want to proceed? (yes/no) [yes]:
 Generate a new tool class for use with Mindwave's tool/function calling features.
 
 **Signature:**
+
 ```bash
 php artisan mindwave:tool {name} [options]
 ```
 
 **Arguments:**
 
-| Argument | Type | Description |
-|----------|------|-------------|
-| `name` | string | The name of the tool class |
+| Argument | Type   | Description                |
+| -------- | ------ | -------------------------- |
+| `name`   | string | The name of the tool class |
 
 **Options:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `--description`, `-d` | string | - | Description of the tool |
-| `--force`, `-f` | flag | - | Create the class even if the tool already exists |
+| Option                | Type   | Default | Description                                      |
+| --------------------- | ------ | ------- | ------------------------------------------------ |
+| `--description`, `-d` | string | -       | Description of the tool                          |
+| `--force`, `-f`       | flag   | -       | Create the class even if the tool already exists |
 
 **Examples:**
 
@@ -657,14 +664,14 @@ class WeatherTool
 
 **Use Cases:**
 
-- **Rapid scaffolding** - Quickly generate tool boilerplate
-- **Consistent structure** - Follow Mindwave conventions
-- **Team productivity** - Standardize tool creation across team
+-   **Rapid scaffolding** - Quickly generate tool boilerplate
+-   **Consistent structure** - Follow Mindwave conventions
+-   **Team productivity** - Standardize tool creation across team
 
 **Exit Codes:**
 
-- `0` - Success
-- `1` - Tool already exists (without `--force`)
+-   `0` - Success
+-   `1` - Tool already exists (without `--force`)
 
 ---
 
@@ -1126,14 +1133,14 @@ php artisan mindwave:clear-indexes --ttl=0 --force
 
 ### Quick Reference Table
 
-| Command | Purpose | Common Options | Frequency |
-|---------|---------|----------------|-----------|
-| `export-traces` | Export trace data | `--format`, `--since`, `--provider` | Weekly/Monthly |
-| `prune-traces` | Delete old traces | `--older-than`, `--force`, `--keep-errors` | Daily/Weekly |
-| `trace-stats` | View analytics | `--since`, `--provider`, `--model` | Daily |
-| `index-stats` | Check index usage | - | As needed |
-| `clear-indexes` | Clean up indexes | `--ttl`, `--force` | Daily/6h |
-| `tool` | Generate tool class | `--description`, `--force` | As needed |
+| Command         | Purpose             | Common Options                             | Frequency      |
+| --------------- | ------------------- | ------------------------------------------ | -------------- |
+| `export-traces` | Export trace data   | `--format`, `--since`, `--provider`        | Weekly/Monthly |
+| `prune-traces`  | Delete old traces   | `--older-than`, `--force`, `--keep-errors` | Daily/Weekly   |
+| `trace-stats`   | View analytics      | `--since`, `--provider`, `--model`         | Daily          |
+| `index-stats`   | Check index usage   | -                                          | As needed      |
+| `clear-indexes` | Clean up indexes    | `--ttl`, `--force`                         | Daily/6h       |
+| `tool`          | Generate tool class | `--description`, `--force`                 | As needed      |
 
 ### Recommended Daily Workflow
 
@@ -1152,25 +1159,25 @@ php artisan mindwave:index-stats
 
 ### Production Checklist
 
-- [ ] Schedule `prune-traces` to run daily/weekly
-- [ ] Schedule `clear-indexes` to run every 6-24 hours
-- [ ] Set up weekly/monthly exports for backups
-- [ ] Configure monitoring for `trace-stats` output
-- [ ] Set up alerts for high costs or error rates
-- [ ] Document retention policies for compliance
-- [ ] Test all scheduled commands in staging first
-- [ ] Monitor disk space and database growth
-- [ ] Configure proper logging and error handling
-- [ ] Set up health checks for critical commands
+-   [ ] Schedule `prune-traces` to run daily/weekly
+-   [ ] Schedule `clear-indexes` to run every 6-24 hours
+-   [ ] Set up weekly/monthly exports for backups
+-   [ ] Configure monitoring for `trace-stats` output
+-   [ ] Set up alerts for high costs or error rates
+-   [ ] Document retention policies for compliance
+-   [ ] Test all scheduled commands in staging first
+-   [ ] Monitor disk space and database growth
+-   [ ] Configure proper logging and error handling
+-   [ ] Set up health checks for critical commands
 
 ---
 
 ## Additional Resources
 
-- [Tracing Documentation](/docs/observability/tracing) - OpenTelemetry tracing guide
-- [Context Discovery](/docs/context-discovery/overview) - TNTSearch context indexes
-- [Configuration Reference](/docs/reference/configuration) - All config options
-- [API Reference](/docs/reference/api) - Programmatic access to traces
+-   [Tracing Documentation](/docs/observability/tracing) - OpenTelemetry tracing guide
+-   [Context Discovery](/docs/context-discovery/overview) - TNTSearch context indexes
+-   [Configuration Reference](/docs/reference/configuration) - All config options
+-   [API Reference](/docs/reference/api) - Programmatic access to traces
 
 ---
 

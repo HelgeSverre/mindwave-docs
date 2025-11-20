@@ -119,9 +119,9 @@ foreach ($expensive as $trace) {
 
 ### Complete Guides
 
-- **[Full Installation Guide](/docs/installation.md)** - Detailed setup, requirements, and configuration
-- **[Configuration Guide](/docs/configuration.md)** - All environment variables and options
-- **[API Reference](/docs/reference/api.md)** - Complete API documentation
+-   **[Full Installation Guide](/docs/installation.md)** - Detailed setup, requirements, and configuration
+-   **[Configuration Guide](/docs/configuration.md)** - All environment variables and options
+-   **[API Reference](/docs/reference/api.md)** - Complete API documentation
 
 ## Examples
 
@@ -190,6 +190,6 @@ foreach ($breakdown as $row) {
 
 ## Getting Help
 
-- **[GitHub Issues](https://github.com/helgesverre/mindwave/issues)** - Bug reports and feature requests
-- **[GitHub Discussions](https://github.com/helgesverre/mindwave/discussions)** - Questions and community support
-- **[Full Documentation](/docs/installation)** - Complete guides and tutorials
+-   **[GitHub Issues](https://github.com/helgesverre/mindwave/issues)** - Bug reports and feature requests
+-   **[GitHub Discussions](https://github.com/helgesverre/mindwave/discussions)** - Questions and community support
+-   **[Full Documentation](/docs/installation)** - Complete guides and tutorials

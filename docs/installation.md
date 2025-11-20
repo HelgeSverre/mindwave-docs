@@ -8,17 +8,17 @@ Before installing Mindwave, ensure your environment meets these requirements:
 
 ### PHP & Laravel
 
-- **PHP**: 8.2, 8.3, or 8.4
-- **Laravel**: 11.x (recommended) or 10.x
-- **Composer**: 2.x or higher
+-   **PHP**: 8.2, 8.3, or 8.4
+-   **Laravel**: 11.x (recommended) or 10.x
+-   **Composer**: 2.x or higher
 
 ### Required PHP Extensions
 
 Mindwave requires the following PHP extensions:
 
-- `ext-zip` - For document processing and file handling
-- `ext-json` - For JSON operations (usually enabled by default)
-- `ext-mbstring` - For multi-byte string handling (usually enabled by default)
+-   `ext-zip` - For document processing and file handling
+-   `ext-json` - For JSON operations (usually enabled by default)
+-   `ext-mbstring` - For multi-byte string handling (usually enabled by default)
 
 Check your PHP extensions:
 
@@ -30,10 +30,10 @@ php -m | grep -E "zip|json|mbstring"
 
 Mindwave uses database storage for OpenTelemetry tracing. Supported databases:
 
-- **MySQL**: 5.7+ or 8.0+
-- **PostgreSQL**: 10+
-- **SQLite**: 3.8.8+
-- **MariaDB**: 10.3+
+-   **MySQL**: 5.7+ or 8.0+
+-   **PostgreSQL**: 10+
+-   **SQLite**: 3.8.8+
+-   **MariaDB**: 10.3+
 
 ::: tip
 Any database supported by Laravel will work with Mindwave. The tracing tables use standard Laravel migrations.
@@ -43,9 +43,9 @@ Any database supported by Laravel will work with Mindwave. The tracing tables us
 
 You'll need an API key from at least one LLM provider:
 
-- **OpenAI** - For GPT-4, GPT-3.5, and other OpenAI models ([Get API key](https://platform.openai.com/api-keys))
-- **Anthropic** - For Claude 3.5 Sonnet, Haiku, and other Claude models ([Get API key](https://console.anthropic.com/))
-- **Mistral AI** - For Mistral Large, Medium, Small models ([Get API key](https://console.mistral.ai/))
+-   **OpenAI** - For GPT-4, GPT-3.5, and other OpenAI models ([Get API key](https://platform.openai.com/api-keys))
+-   **Anthropic** - For Claude 3.5 Sonnet, Haiku, and other Claude models ([Get API key](https://console.anthropic.com/))
+-   **Mistral AI** - For Mistral Large, Medium, Small models ([Get API key](https://console.mistral.ai/))
 
 ::: warning
 Keep your API keys secure! Never commit them to version control. Always use environment variables.
@@ -65,14 +65,15 @@ This will install Mindwave and all its dependencies.
 
 ::: details What gets installed?
 Mindwave includes these key dependencies:
-- `openai-php/client` - OpenAI PHP client
-- `mozex/anthropic-php` - Anthropic Claude PHP client
-- `helgesverre/mistral` - Mistral AI PHP client
-- `teamtnt/tntsearch` - Full-text search for context discovery
-- `open-telemetry/sdk` - OpenTelemetry tracing SDK
-- `yethee/tiktoken` - Token counting for prompt management
-- `smalot/pdfparser` - PDF document processing
-:::
+
+-   `openai-php/client` - OpenAI PHP client
+-   `mozex/anthropic-php` - Anthropic Claude PHP client
+-   `helgesverre/mistral` - Mistral AI PHP client
+-   `teamtnt/tntsearch` - Full-text search for context discovery
+-   `open-telemetry/sdk` - OpenTelemetry tracing SDK
+-   `yethee/tiktoken` - Token counting for prompt management
+-   `smalot/pdfparser` - PDF document processing
+    :::
 
 ### Step 2: Publish Configuration Files
 
@@ -84,12 +85,12 @@ php artisan vendor:publish --tag="mindwave-config"
 
 This creates five configuration files in your `config/` directory:
 
-| File | Purpose |
-|------|---------|
-| `mindwave-llm.php` | LLM provider settings (OpenAI, Anthropic, Mistral) |
-| `mindwave-tracing.php` | OpenTelemetry tracing configuration |
-| `mindwave-context.php` | TNTSearch context discovery settings |
-| `mindwave-embeddings.php` | Embedding model configuration |
+| File                       | Purpose                                               |
+| -------------------------- | ----------------------------------------------------- |
+| `mindwave-llm.php`         | LLM provider settings (OpenAI, Anthropic, Mistral)    |
+| `mindwave-tracing.php`     | OpenTelemetry tracing configuration                   |
+| `mindwave-context.php`     | TNTSearch context discovery settings                  |
+| `mindwave-embeddings.php`  | Embedding model configuration                         |
 | `mindwave-vectorstore.php` | Vector database settings (Pinecone, Qdrant, Weaviate) |
 
 ::: tip Laravel 11+ Auto-Discovery
@@ -106,11 +107,11 @@ php artisan migrate
 
 This creates three tables for OpenTelemetry tracing:
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
-| `mindwave_traces` | Top-level trace records | `trace_id`, `estimated_cost`, `total_input_tokens`, `total_output_tokens` |
-| `mindwave_spans` | Individual operations within traces | `span_id`, `operation_name`, `provider_name`, `request_model`, `input_tokens`, `output_tokens` |
-| `mindwave_span_messages` | LLM messages (optional, PII-protected) | `role`, `content` |
+| Table                    | Purpose                                | Key Columns                                                                                    |
+| ------------------------ | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `mindwave_traces`        | Top-level trace records                | `trace_id`, `estimated_cost`, `total_input_tokens`, `total_output_tokens`                      |
+| `mindwave_spans`         | Individual operations within traces    | `span_id`, `operation_name`, `provider_name`, `request_model`, `input_tokens`, `output_tokens` |
+| `mindwave_span_messages` | LLM messages (optional, PII-protected) | `role`, `content`                                                                              |
 
 ::: details What if I don't want tracing?
 Tracing is optional but highly recommended for production use. You can disable it later by setting `MINDWAVE_TRACING_ENABLED=false` in your `.env` file. However, we recommend running the migrations anyway - the tables are lightweight and having them ready makes enabling tracing trivial.
@@ -200,6 +201,7 @@ ls -la config/mindwave-*.php
 ```
 
 You should see:
+
 ```
 config/mindwave-context.php
 config/mindwave-embeddings.php
@@ -217,6 +219,7 @@ php artisan migrate:status | grep mindwave
 ```
 
 You should see three migration entries:
+
 ```
 Ran  create_mindwave_traces_table
 Ran  create_mindwave_spans_table
@@ -291,6 +294,7 @@ foreach ($expensive as $trace) {
 Laravel 11 has **automatic package discovery**. Mindwave's service provider is registered automatically - no manual configuration needed.
 
 **Installation:**
+
 ```bash
 composer require mindwave/mindwave
 php artisan vendor:publish --tag="mindwave-config"
@@ -346,6 +350,7 @@ OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 #### 2. Platform-Specific Configuration
 
 **Jaeger (Local Development):**
+
 ```bash
 # Run Jaeger with Docker
 docker run -d --name jaeger \
@@ -358,18 +363,21 @@ OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 ```
 
 **Honeycomb (Production):**
+
 ```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=https://api.honeycomb.io:443
 OTEL_EXPORTER_OTLP_HEADERS='{"x-honeycomb-team":"YOUR_API_KEY","x-honeycomb-dataset":"mindwave"}'
 ```
 
 **Grafana Tempo:**
+
 ```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4318
 OTEL_EXPORTER_OTLP_HEADERS='{"X-Scope-OrgID":"tenant1"}'
 ```
 
 **Datadog:**
+
 ```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 DD_OTLP_CONFIG_RECEIVER_ENABLED=true
@@ -537,6 +545,7 @@ php artisan tinker
 ```
 
 If it returns `null`, ensure:
+
 1. Variable is in `.env` file
 2. No typos in variable name (`MINDWAVE_OPENAI_API_KEY`)
 3. `.env` file is in project root
@@ -664,31 +673,35 @@ MINDWAVE_CAPTURE_MESSAGES=false
 Now that Mindwave is installed, explore its core features:
 
 ### Core Features
-- **[Prompt Composer](/docs/core/prompt-composer)** - Auto-fit long prompts with smart section management
-- **[Streaming Responses](/docs/core/streaming)** - Server-Sent Events streaming in 3 lines
-- **[OpenTelemetry Tracing](/docs/core/tracing)** - Cost tracking, token usage, and performance monitoring
-- **[Context Discovery](/docs/core/context-discovery)** - Ad-hoc full-text search over your data
+
+-   **[Prompt Composer](/docs/core/prompt-composer)** - Auto-fit long prompts with smart section management
+-   **[Streaming Responses](/docs/core/streaming)** - Server-Sent Events streaming in 3 lines
+-   **[OpenTelemetry Tracing](/docs/core/tracing)** - Cost tracking, token usage, and performance monitoring
+-   **[Context Discovery](/docs/core/context-discovery)** - Ad-hoc full-text search over your data
 
 ### Configuration
-- **[Configuration Guide](/docs/configuration)** - Deep dive into all configuration options
-- **[Environment Variables](/docs/configuration#environment-variables)** - Complete reference
+
+-   **[Configuration Guide](/docs/configuration)** - Deep dive into all configuration options
+-   **[Environment Variables](/docs/configuration#environment-variables)** - Complete reference
 
 ### Advanced Topics
-- **[Cost Tracking](/docs/observability/cost-tracking)** - Monitor and analyze LLM costs
-- **[Production Deployment](/docs/production)** - Best practices for production
-- **[Custom Shrinkers](/docs/configuration#token-optimization)** - Build custom prompt compression strategies
+
+-   **[Cost Tracking](/docs/observability/cost-tracking)** - Monitor and analyze LLM costs
+-   **[Production Deployment](/docs/production)** - Best practices for production
+-   **[Custom Shrinkers](/docs/configuration#token-optimization)** - Build custom prompt compression strategies
 
 ### Examples
-- **[Common Patterns](/docs/cookbook/support-bot)** - Copy-paste solutions for common use cases
-- **[Integration Examples](/docs/cookbook/multi-source)** - Integrate with existing Laravel apps
+
+-   **[Common Patterns](/docs/cookbook/support-bot)** - Copy-paste solutions for common use cases
+-   **[Integration Examples](/docs/cookbook/multi-source)** - Integrate with existing Laravel apps
 
 ## Getting Help
 
 Need help with installation?
 
-- **[GitHub Issues](https://github.com/helgesverre/mindwave/issues)** - Report bugs or request features
-- **[GitHub Discussions](https://github.com/helgesverre/mindwave/discussions)** - Ask questions and share ideas
-- **[Email Support](mailto:helge.sverre@gmail.com)** - Direct support from the creator
+-   **[GitHub Issues](https://github.com/helgesverre/mindwave/issues)** - Report bugs or request features
+-   **[GitHub Discussions](https://github.com/helgesverre/mindwave/discussions)** - Ask questions and share ideas
+-   **[Email Support](mailto:helge.sverre@gmail.com)** - Direct support from the creator
 
 ## What's Next?
 

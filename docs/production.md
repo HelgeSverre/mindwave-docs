@@ -6,11 +6,11 @@ Comprehensive guide for deploying Mindwave-powered Laravel applications to produ
 
 Deploying AI-powered applications requires careful attention to:
 
-- **Security** - Protecting API keys and sensitive data
-- **Performance** - Optimizing for LLM latency and throughput
-- **Cost Control** - Managing LLM API expenses
-- **Observability** - Monitoring AI operations and debugging issues
-- **Reliability** - Ensuring uptime with proper failover strategies
+-   **Security** - Protecting API keys and sensitive data
+-   **Performance** - Optimizing for LLM latency and throughput
+-   **Cost Control** - Managing LLM API expenses
+-   **Observability** - Monitoring AI operations and debugging issues
+-   **Reliability** - Ensuring uptime with proper failover strategies
 
 This guide covers everything from pre-deployment checklists to platform-specific deployment patterns.
 
@@ -18,27 +18,27 @@ This guide covers everything from pre-deployment checklists to platform-specific
 
 Production deployments of Mindwave applications require:
 
-- **API key management** - Secure storage using secrets managers
-- **Caching layers** - Redis for embeddings, responses, and session data
-- **Queue workers** - Background processing for async LLM calls
-- **Observability** - OpenTelemetry exporters to monitoring platforms
-- **Rate limiting** - Protecting against API quota exhaustion
-- **Database optimization** - Indexes and partitioning for trace tables
-- **Web server tuning** - SSE streaming configuration
-- **Cost monitoring** - Tracking and alerting on LLM spend
+-   **API key management** - Secure storage using secrets managers
+-   **Caching layers** - Redis for embeddings, responses, and session data
+-   **Queue workers** - Background processing for async LLM calls
+-   **Observability** - OpenTelemetry exporters to monitoring platforms
+-   **Rate limiting** - Protecting against API quota exhaustion
+-   **Database optimization** - Indexes and partitioning for trace tables
+-   **Web server tuning** - SSE streaming configuration
+-   **Cost monitoring** - Tracking and alerting on LLM spend
 
 ### Prerequisites
 
 Before deploying, ensure you have:
 
-- [ ] Laravel 11.0+ application with Mindwave installed
-- [ ] Production server or hosting platform account
-- [ ] LLM provider API keys (OpenAI, Anthropic, Mistral)
-- [ ] Redis server for caching and queues
-- [ ] Database server (PostgreSQL, MySQL, SQLite)
-- [ ] SSL certificate for HTTPS
-- [ ] Domain name configured
-- [ ] Backup strategy in place
+-   [ ] Laravel 11.0+ application with Mindwave installed
+-   [ ] Production server or hosting platform account
+-   [ ] LLM provider API keys (OpenAI, Anthropic, Mistral)
+-   [ ] Redis server for caching and queues
+-   [ ] Database server (PostgreSQL, MySQL, SQLite)
+-   [ ] SSL certificate for HTTPS
+-   [ ] Domain name configured
+-   [ ] Backup strategy in place
 
 ---
 
@@ -48,71 +48,71 @@ Use this comprehensive checklist to ensure production readiness.
 
 ### Security
 
-- [ ] API keys stored in secure vault (AWS Secrets Manager, HashiCorp Vault, 1Password)
-- [ ] Environment variables not committed to version control
-- [ ] `.env.production` file secured with proper permissions (600)
-- [ ] SSL/TLS enabled for all endpoints
-- [ ] CORS configured for allowed origins only
-- [ ] Rate limiting enabled on all public endpoints
-- [ ] Input validation implemented for user-submitted prompts
-- [ ] PII redaction configured in tracing (`capture_messages=false`)
-- [ ] Database credentials rotated and secured
-- [ ] Firewall rules configured (allow only necessary ports)
+-   [ ] API keys stored in secure vault (AWS Secrets Manager, HashiCorp Vault, 1Password)
+-   [ ] Environment variables not committed to version control
+-   [ ] `.env.production` file secured with proper permissions (600)
+-   [ ] SSL/TLS enabled for all endpoints
+-   [ ] CORS configured for allowed origins only
+-   [ ] Rate limiting enabled on all public endpoints
+-   [ ] Input validation implemented for user-submitted prompts
+-   [ ] PII redaction configured in tracing (`capture_messages=false`)
+-   [ ] Database credentials rotated and secured
+-   [ ] Firewall rules configured (allow only necessary ports)
 
 ### Performance
 
-- [ ] Redis configured for caching and queues
-- [ ] OPcache enabled for PHP
-- [ ] Config cached (`php artisan config:cache`)
-- [ ] Routes cached (`php artisan route:cache`)
-- [ ] Views cached (`php artisan view:cache`)
-- [ ] Database indexes created for trace tables
-- [ ] Database connection pooling configured
-- [ ] CDN configured for static assets
-- [ ] Nginx/Apache tuned for SSE streaming
-- [ ] Queue workers configured with Supervisor
+-   [ ] Redis configured for caching and queues
+-   [ ] OPcache enabled for PHP
+-   [ ] Config cached (`php artisan config:cache`)
+-   [ ] Routes cached (`php artisan route:cache`)
+-   [ ] Views cached (`php artisan view:cache`)
+-   [ ] Database indexes created for trace tables
+-   [ ] Database connection pooling configured
+-   [ ] CDN configured for static assets
+-   [ ] Nginx/Apache tuned for SSE streaming
+-   [ ] Queue workers configured with Supervisor
 
 ### Cost Control
 
-- [ ] LLM cost estimation enabled in tracing config
-- [ ] Cost alerts configured (email/Slack when threshold exceeded)
-- [ ] Caching strategy implemented to reduce API calls
-- [ ] Model selection optimized (use cheaper models when appropriate)
-- [ ] Rate limiting prevents runaway costs
-- [ ] Daily/monthly budget limits enforced
-- [ ] Cost monitoring dashboard created
+-   [ ] LLM cost estimation enabled in tracing config
+-   [ ] Cost alerts configured (email/Slack when threshold exceeded)
+-   [ ] Caching strategy implemented to reduce API calls
+-   [ ] Model selection optimized (use cheaper models when appropriate)
+-   [ ] Rate limiting prevents runaway costs
+-   [ ] Daily/monthly budget limits enforced
+-   [ ] Cost monitoring dashboard created
 
 ### Observability
 
-- [ ] OpenTelemetry database storage enabled
-- [ ] OTLP exporter configured (Jaeger, Honeycomb, Grafana Tempo)
-- [ ] Application logs aggregated (Papertrail, LogDNA, CloudWatch)
-- [ ] Error tracking enabled (Sentry, Bugsnag, Flare)
-- [ ] Health check endpoint implemented
-- [ ] Uptime monitoring configured (UptimeRobot, Pingdom)
-- [ ] Performance metrics dashboards created
-- [ ] Alert rules configured for errors and latency
+-   [ ] OpenTelemetry database storage enabled
+-   [ ] OTLP exporter configured (Jaeger, Honeycomb, Grafana Tempo)
+-   [ ] Application logs aggregated (Papertrail, LogDNA, CloudWatch)
+-   [ ] Error tracking enabled (Sentry, Bugsnag, Flare)
+-   [ ] Health check endpoint implemented
+-   [ ] Uptime monitoring configured (UptimeRobot, Pingdom)
+-   [ ] Performance metrics dashboards created
+-   [ ] Alert rules configured for errors and latency
 
 ### Data Management
 
-- [ ] Database migrations tested in staging
-- [ ] Backup automation configured (daily minimum)
-- [ ] Backup restoration tested
-- [ ] Trace retention policy configured (30 days default)
-- [ ] Automated trace pruning scheduled
-- [ ] Vector store backups configured (if using)
-- [ ] TNTSearch index cleanup scheduled
+-   [ ] Database migrations tested in staging
+-   [ ] Backup automation configured (daily minimum)
+-   [ ] Backup restoration tested
+-   [ ] Trace retention policy configured (30 days default)
+-   [ ] Automated trace pruning scheduled
+-   [ ] Vector store backups configured (if using)
+-   [ ] TNTSearch index cleanup scheduled
 
 ### Infrastructure
 
-- [ ] Production database provisioned
-- [ ] Redis server provisioned
-- [ ] Web server configured (Nginx/Apache)
-- [ ] Queue workers running (Supervisor/systemd)
-- [ ] Cron jobs scheduled (trace pruning, backups)
-- [ ] Load balancer configured (if using multiple servers)
-- [ ] Auto-scaling configured (if using cloud platform)
-- [ ] Disaster recovery plan documented
+-   [ ] Production database provisioned
+-   [ ] Redis server provisioned
+-   [ ] Web server configured (Nginx/Apache)
+-   [ ] Queue workers running (Supervisor/systemd)
+-   [ ] Cron jobs scheduled (trace pruning, backups)
+-   [ ] Load balancer configured (if using multiple servers)
+-   [ ] Auto-scaling configured (if using cloud platform)
+-   [ ] Disaster recovery plan documented
 
 ---
 
@@ -624,13 +624,15 @@ protected function schedule(Schedule $schedule)
 **Redis (Recommended):**
 
 **Pros:**
-- Fast in-memory operations
-- Low latency for job dispatch/retrieval
-- Handles high throughput
+
+-   Fast in-memory operations
+-   Low latency for job dispatch/retrieval
+-   Handles high throughput
 
 **Cons:**
-- Jobs lost if Redis crashes (use persistence)
-- Requires additional infrastructure
+
+-   Jobs lost if Redis crashes (use persistence)
+-   Requires additional infrastructure
 
 ```bash
 # Redis persistence in redis.conf
@@ -644,13 +646,15 @@ save 60 10000
 **Database Queues:**
 
 **Pros:**
-- No additional infrastructure
-- Jobs persisted by default
-- Suitable for low-volume queues
+
+-   No additional infrastructure
+-   Jobs persisted by default
+-   Suitable for low-volume queues
 
 **Cons:**
-- Higher latency
-- Database load increases
+
+-   Higher latency
+-   Database load increases
 
 ```php
 // Use database for critical, low-volume jobs
@@ -936,15 +940,15 @@ class RotateApiKeys extends Command
 
 **Provider Limits:**
 
-| Provider | Tier | Requests/Min | Tokens/Min |
-|----------|------|--------------|------------|
-| OpenAI | Free | 3 | 40,000 |
-| OpenAI | Tier 1 | 500 | 90,000 |
-| OpenAI | Tier 5 | 10,000 | 30,000,000 |
-| Anthropic | Free | 5 | 25,000 |
-| Anthropic | Build | 50 | 100,000 |
-| Mistral | Free | 5 | 1,000,000 |
-| Mistral | Pro | 100 | 2,000,000 |
+| Provider  | Tier   | Requests/Min | Tokens/Min |
+| --------- | ------ | ------------ | ---------- |
+| OpenAI    | Free   | 3            | 40,000     |
+| OpenAI    | Tier 1 | 500          | 90,000     |
+| OpenAI    | Tier 5 | 10,000       | 30,000,000 |
+| Anthropic | Free   | 5            | 25,000     |
+| Anthropic | Build  | 50           | 100,000    |
+| Mistral   | Free   | 5            | 1,000,000  |
+| Mistral   | Pro    | 100          | 2,000,000  |
 
 **Application-Level Rate Limiting:**
 
@@ -1409,19 +1413,19 @@ $histogram->observe($cost, ['openai']);
 # docker-compose.yml
 version: '3.8'
 services:
-  qdrant:
-    image: qdrant/qdrant:latest
-    ports:
-      - "6333:6333"
-      - "6334:6334"
-    volumes:
-      - qdrant_storage:/qdrant/storage
-    environment:
-      - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY}
-    restart: unless-stopped
+    qdrant:
+        image: qdrant/qdrant:latest
+        ports:
+            - '6333:6333'
+            - '6334:6334'
+        volumes:
+            - qdrant_storage:/qdrant/storage
+        environment:
+            - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY}
+        restart: unless-stopped
 
 volumes:
-  qdrant_storage:
+    qdrant_storage:
 ```
 
 **Kubernetes Deployment:**
@@ -1431,50 +1435,50 @@ volumes:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qdrant
+    name: qdrant
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: qdrant
-  template:
-    metadata:
-      labels:
-        app: qdrant
-    spec:
-      containers:
-      - name: qdrant
-        image: qdrant/qdrant:latest
-        ports:
-        - containerPort: 6333
-        - containerPort: 6334
-        env:
-        - name: QDRANT__SERVICE__API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: qdrant-secret
-              key: api-key
-        volumeMounts:
-        - name: qdrant-storage
-          mountPath: /qdrant/storage
-      volumes:
-      - name: qdrant-storage
-        persistentVolumeClaim:
-          claimName: qdrant-pvc
+    replicas: 3
+    selector:
+        matchLabels:
+            app: qdrant
+    template:
+        metadata:
+            labels:
+                app: qdrant
+        spec:
+            containers:
+                - name: qdrant
+                  image: qdrant/qdrant:latest
+                  ports:
+                      - containerPort: 6333
+                      - containerPort: 6334
+                  env:
+                      - name: QDRANT__SERVICE__API_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: qdrant-secret
+                                key: api-key
+                  volumeMounts:
+                      - name: qdrant-storage
+                        mountPath: /qdrant/storage
+            volumes:
+                - name: qdrant-storage
+                  persistentVolumeClaim:
+                      claimName: qdrant-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: qdrant
+    name: qdrant
 spec:
-  selector:
-    app: qdrant
-  ports:
-  - name: http
-    port: 6333
-  - name: grpc
-    port: 6334
-  type: ClusterIP
+    selector:
+        app: qdrant
+    ports:
+        - name: http
+          port: 6333
+        - name: grpc
+          port: 6334
+    type: ClusterIP
 ```
 
 **Backups:**
@@ -1553,27 +1557,27 @@ Storage::disk('s3')->put(
 ```yaml
 version: '3.8'
 services:
-  weaviate:
-    image: semitechnologies/weaviate:latest
-    ports:
-      - "8080:8080"
-    environment:
-      - AUTHENTICATION_APIKEY_ENABLED=true
-      - AUTHENTICATION_APIKEY_ALLOWED_KEYS=${WEAVIATE_API_KEY}
-      - PERSISTENCE_DATA_PATH=/var/lib/weaviate
-      - QUERY_DEFAULTS_LIMIT=25
-      - DEFAULT_VECTORIZER_MODULE=none
-      - ENABLE_MODULES=backup-s3
-      - BACKUP_S3_BUCKET=my-weaviate-backups
-      - BACKUP_S3_ENDPOINT=s3.amazonaws.com
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    volumes:
-      - weaviate_data:/var/lib/weaviate
-    restart: unless-stopped
+    weaviate:
+        image: semitechnologies/weaviate:latest
+        ports:
+            - '8080:8080'
+        environment:
+            - AUTHENTICATION_APIKEY_ENABLED=true
+            - AUTHENTICATION_APIKEY_ALLOWED_KEYS=${WEAVIATE_API_KEY}
+            - PERSISTENCE_DATA_PATH=/var/lib/weaviate
+            - QUERY_DEFAULTS_LIMIT=25
+            - DEFAULT_VECTORIZER_MODULE=none
+            - ENABLE_MODULES=backup-s3
+            - BACKUP_S3_BUCKET=my-weaviate-backups
+            - BACKUP_S3_ENDPOINT=s3.amazonaws.com
+            - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+            - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+        volumes:
+            - weaviate_data:/var/lib/weaviate
+        restart: unless-stopped
 
 volumes:
-  weaviate_data:
+    weaviate_data:
 ```
 
 **Replication:**
@@ -2080,11 +2084,13 @@ Route::get('/health', function () {
 ### Uptime Monitoring
 
 **UptimeRobot:**
-- Monitor: `https://yourdomain.com/health`
-- Interval: 5 minutes
-- Alert: Email/Slack on failure
+
+-   Monitor: `https://yourdomain.com/health`
+-   Interval: 5 minutes
+-   Alert: Email/Slack on failure
 
 **Pingdom:**
+
 ```bash
 # Create HTTP check
 # URL: https://yourdomain.com/health
@@ -2321,28 +2327,31 @@ curl https://yourdomain.com/health
 **RPO (Recovery Point Objective): 24 hours**
 
 1. **Immediate (0-15 mins)**
-   - Assess incident scope
-   - Notify team via Slack
-   - Switch to maintenance mode
+
+    - Assess incident scope
+    - Notify team via Slack
+    - Switch to maintenance mode
 
 2. **Short-term (15-60 mins)**
-   - Restore database from latest backup
-   - Restore application code from git
-   - Restore .env from secrets manager
-   - Verify backups integrity
+
+    - Restore database from latest backup
+    - Restore application code from git
+    - Restore .env from secrets manager
+    - Verify backups integrity
 
 3. **Recovery (60-120 mins)**
-   - Deploy to new infrastructure if needed
-   - Restore vector store data
-   - Rebuild caches
-   - Run smoke tests
-   - Switch traffic to recovered environment
+
+    - Deploy to new infrastructure if needed
+    - Restore vector store data
+    - Rebuild caches
+    - Run smoke tests
+    - Switch traffic to recovered environment
 
 4. **Validation (120+ mins)**
-   - Monitor error rates
-   - Verify all services healthy
-   - Communicate status to users
-   - Document incident
+    - Monitor error rates
+    - Verify all services healthy
+    - Communicate status to users
+    - Document incident
 
 ---
 
@@ -2394,12 +2403,12 @@ upstream app_servers {
 
 **Recommended Production Specs:**
 
-| Traffic Level | CPU | RAM | Storage | Workers |
-|--------------|-----|-----|---------|---------|
-| Small (< 1k req/day) | 2 cores | 4 GB | 50 GB | 2 |
-| Medium (< 10k req/day) | 4 cores | 8 GB | 100 GB | 4 |
-| Large (< 100k req/day) | 8 cores | 16 GB | 200 GB | 8 |
-| Enterprise (100k+ req/day) | 16+ cores | 32+ GB | 500 GB | 16+ |
+| Traffic Level              | CPU       | RAM    | Storage | Workers |
+| -------------------------- | --------- | ------ | ------- | ------- |
+| Small (< 1k req/day)       | 2 cores   | 4 GB   | 50 GB   | 2       |
+| Medium (< 10k req/day)     | 4 cores   | 8 GB   | 100 GB  | 4       |
+| Large (< 100k req/day)     | 8 cores   | 16 GB  | 200 GB  | 8       |
+| Enterprise (100k+ req/day) | 16+ cores | 32+ GB | 500 GB  | 16+     |
 
 **PHP-FPM Tuning:**
 
@@ -2500,22 +2509,22 @@ fi
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: mindwave-worker-hpa
+    name: mindwave-worker-hpa
 spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: mindwave-worker
-  minReplicas: 2
-  maxReplicas: 10
-  metrics:
-  - type: External
-    external:
-      metric:
-        name: redis_queue_length
-      target:
-        type: AverageValue
-        averageValue: "50"
+    scaleTargetRef:
+        apiVersion: apps/v1
+        kind: Deployment
+        name: mindwave-worker
+    minReplicas: 2
+    maxReplicas: 10
+    metrics:
+        - type: External
+          external:
+              metric:
+                  name: redis_queue_length
+              target:
+                  type: AverageValue
+                  averageValue: '50'
 ```
 
 ### Vector Store Scaling
@@ -2527,23 +2536,23 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: qdrant
+    name: qdrant
 spec:
-  replicas: 3
-  serviceName: qdrant
-  selector:
-    matchLabels:
-      app: qdrant
-  template:
-    spec:
-      containers:
-      - name: qdrant
-        image: qdrant/qdrant:latest
-        env:
-        - name: QDRANT__CLUSTER__ENABLED
-          value: "true"
-        - name: QDRANT__CLUSTER__CONSENSUS__TICK_PERIOD_MS
-          value: "100"
+    replicas: 3
+    serviceName: qdrant
+    selector:
+        matchLabels:
+            app: qdrant
+    template:
+        spec:
+            containers:
+                - name: qdrant
+                  image: qdrant/qdrant:latest
+                  env:
+                      - name: QDRANT__CLUSTER__ENABLED
+                        value: 'true'
+                      - name: QDRANT__CLUSTER__CONSENSUS__TICK_PERIOD_MS
+                        value: '100'
 ```
 
 ---
@@ -2557,117 +2566,117 @@ spec:
 name: Deploy to Production
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
 
 jobs:
-  tests:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_DB: testing
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      redis:
-        image: redis:7
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    tests:
+        runs-on: ubuntu-latest
+        services:
+            postgres:
+                image: postgres:15
+                env:
+                    POSTGRES_DB: testing
+                    POSTGRES_USER: user
+                    POSTGRES_PASSWORD: password
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+            redis:
+                image: redis:7
+                options: >-
+                    --health-cmd "redis-cli ping"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
 
-    steps:
-      - uses: actions/checkout@v4
+        steps:
+            - uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          extensions: pdo, pgsql, redis
-          coverage: none
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.3'
+                  extensions: pdo, pgsql, redis
+                  coverage: none
 
-      - name: Install Dependencies
-        run: composer install --prefer-dist --no-progress
+            - name: Install Dependencies
+              run: composer install --prefer-dist --no-progress
 
-      - name: Run Tests
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_DATABASE: testing
-          DB_USERNAME: user
-          DB_PASSWORD: password
-          REDIS_HOST: localhost
-        run: php artisan test
+            - name: Run Tests
+              env:
+                  DB_CONNECTION: pgsql
+                  DB_HOST: localhost
+                  DB_PORT: 5432
+                  DB_DATABASE: testing
+                  DB_USERNAME: user
+                  DB_PASSWORD: password
+                  REDIS_HOST: localhost
+              run: php artisan test
 
-      - name: Run Pint (Code Style)
-        run: ./vendor/bin/pint --test
+            - name: Run Pint (Code Style)
+              run: ./vendor/bin/pint --test
 
-  deploy:
-    needs: tests
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    deploy:
+        needs: tests
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/main'
 
-    steps:
-      - uses: actions/checkout@v4
+        steps:
+            - uses: actions/checkout@v4
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+            - name: Setup SSH
+              uses: webfactory/ssh-agent@v0.8.0
+              with:
+                  ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy to Production
-        run: |
-          ssh ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }} << 'EOF'
-            cd /var/www/your-app
+            - name: Deploy to Production
+              run: |
+                  ssh ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }} << 'EOF'
+                    cd /var/www/your-app
 
-            # Enable maintenance mode
-            php artisan down --message="Deploying updates..." --retry=60
+                    # Enable maintenance mode
+                    php artisan down --message="Deploying updates..." --retry=60
 
-            # Pull latest code
-            git pull origin main
+                    # Pull latest code
+                    git pull origin main
 
-            # Install dependencies
-            composer install --no-dev --optimize-autoloader
-            npm ci && npm run build
+                    # Install dependencies
+                    composer install --no-dev --optimize-autoloader
+                    npm ci && npm run build
 
-            # Run migrations
-            php artisan migrate --force
+                    # Run migrations
+                    php artisan migrate --force
 
-            # Clear and rebuild cache
-            php artisan config:clear
-            php artisan cache:clear
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
+                    # Clear and rebuild cache
+                    php artisan config:clear
+                    php artisan cache:clear
+                    php artisan config:cache
+                    php artisan route:cache
+                    php artisan view:cache
 
-            # Restart services
-            sudo supervisorctl restart mindwave-worker:*
-            sudo systemctl reload php8.3-fpm
+                    # Restart services
+                    sudo supervisorctl restart mindwave-worker:*
+                    sudo systemctl reload php8.3-fpm
 
-            # Disable maintenance mode
-            php artisan up
+                    # Disable maintenance mode
+                    php artisan up
 
-            # Health check
-            curl -f http://localhost/health || exit 1
-          EOF
+                    # Health check
+                    curl -f http://localhost/health || exit 1
+                  EOF
 
-      - name: Notify Deployment
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          text: 'Production deployment ${{ job.status }}'
-          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
-        if: always()
+            - name: Notify Deployment
+              uses: 8398a7/action-slack@v3
+              with:
+                  status: ${{ job.status }}
+                  text: 'Production deployment ${{ job.status }}'
+                  webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+              if: always()
 ```
 
 ### GitLab CI
@@ -2675,55 +2684,55 @@ jobs:
 ```yaml
 # .gitlab-ci.yml
 stages:
-  - test
-  - build
-  - deploy
+    - test
+    - build
+    - deploy
 
 variables:
-  POSTGRES_DB: testing
-  POSTGRES_USER: user
-  POSTGRES_PASSWORD: password
+    POSTGRES_DB: testing
+    POSTGRES_USER: user
+    POSTGRES_PASSWORD: password
 
 test:
-  stage: test
-  image: php:8.3-cli
-  services:
-    - postgres:15
-    - redis:7
-  before_script:
-    - apt-get update && apt-get install -y git unzip libpq-dev
-    - docker-php-ext-install pdo pdo_pgsql
-    - curl -sS https://getcomposer.org/installer | php
-    - mv composer.phar /usr/local/bin/composer
-    - composer install --prefer-dist --no-progress
-  script:
-    - php artisan test
-    - ./vendor/bin/pint --test
+    stage: test
+    image: php:8.3-cli
+    services:
+        - postgres:15
+        - redis:7
+    before_script:
+        - apt-get update && apt-get install -y git unzip libpq-dev
+        - docker-php-ext-install pdo pdo_pgsql
+        - curl -sS https://getcomposer.org/installer | php
+        - mv composer.phar /usr/local/bin/composer
+        - composer install --prefer-dist --no-progress
+    script:
+        - php artisan test
+        - ./vendor/bin/pint --test
 
 build:
-  stage: build
-  image: node:20
-  script:
-    - npm ci
-    - npm run build
-  artifacts:
-    paths:
-      - public/build/
-    expire_in: 1 day
+    stage: build
+    image: node:20
+    script:
+        - npm ci
+        - npm run build
+    artifacts:
+        paths:
+            - public/build/
+        expire_in: 1 day
 
 deploy:
-  stage: deploy
-  image: alpine:latest
-  only:
-    - main
-  before_script:
-    - apk add --no-cache openssh-client
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-  script:
-    - ssh $PRODUCTION_USER@$PRODUCTION_HOST "cd /var/www/your-app && bash deploy.sh"
+    stage: deploy
+    image: alpine:latest
+    only:
+        - main
+    before_script:
+        - apk add --no-cache openssh-client
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+    script:
+        - ssh $PRODUCTION_USER@$PRODUCTION_HOST "cd /var/www/your-app && bash deploy.sh"
 ```
 
 ### Zero-Downtime Deployment
@@ -2896,7 +2905,7 @@ class CostReport extends Command
 
 ### Model Selection Strategy
 
-```php
+````php
 namespace App\Services;
 
 use Mindwave\Mindwave\Facades\Mindwave;
@@ -2956,7 +2965,7 @@ class SmartLlmRouter
             ->generateText($prompt);
     }
 }
-```
+````
 
 ### Caching to Reduce Calls
 
@@ -3164,38 +3173,38 @@ php artisan mindwave:prune-traces --older-than=30days  # Daily
 id: 12345
 name: your-app
 environments:
-  production:
-    domain: yourdomain.com
-    memory: 1024
-    cli-memory: 512
-    runtime: php-8.3
-    database: your-app-production
-    cache: your-app-redis
+    production:
+        domain: yourdomain.com
+        memory: 1024
+        cli-memory: 512
+        runtime: php-8.3
+        database: your-app-production
+        cache: your-app-redis
 
-    build:
-      - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev --optimize-autoloader'
-      - 'npm ci && npm run build'
-      - 'php artisan config:cache'
-      - 'php artisan route:cache'
-      - 'php artisan view:cache'
+        build:
+            - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev --optimize-autoloader'
+            - 'npm ci && npm run build'
+            - 'php artisan config:cache'
+            - 'php artisan route:cache'
+            - 'php artisan view:cache'
 
-    deploy:
-      - 'php artisan migrate --force'
-      - 'php artisan queue:restart'
+        deploy:
+            - 'php artisan migrate --force'
+            - 'php artisan queue:restart'
 
-    queues:
-      - name: default
-        connections: 10
-        timeout: 300
-      - name: high
-        connections: 5
-        timeout: 180
+        queues:
+            - name: default
+              connections: 10
+              timeout: 300
+            - name: high
+              connections: 5
+              timeout: 180
 
-    environment:
-      MINDWAVE_TRACING_ENABLED: true
-      MINDWAVE_TRACE_OTLP_ENABLED: true
-      OTEL_EXPORTER_OTLP_ENDPOINT: ${HONEYCOMB_ENDPOINT}
-      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+        environment:
+            MINDWAVE_TRACING_ENABLED: true
+            MINDWAVE_TRACE_OTLP_ENABLED: true
+            OTEL_EXPORTER_OTLP_ENDPOINT: ${HONEYCOMB_ENDPOINT}
+            OTEL_EXPORTER_OTLP_HEADERS: 'x-honeycomb-team=${HONEYCOMB_API_KEY}'
 ```
 
 **Deploy:**
@@ -3210,11 +3219,11 @@ vapor deploy production
 
 **Serverless Considerations:**
 
-- Use Redis for session/cache (not file-based)
-- Database must be Aurora Serverless or RDS
-- Queue workers run as Lambda functions
-- Cold starts (100-300ms first request)
-- Consider Lambda timeout limits (15 min max)
+-   Use Redis for session/cache (not file-based)
+-   Database must be Aurora Serverless or RDS
+-   Queue workers run as Lambda functions
+-   Cold starts (100-300ms first request)
+-   Consider Lambda timeout limits (15 min max)
 
 ### AWS (Manual Setup)
 
@@ -3347,54 +3356,54 @@ CMD ["php-fpm"]
 ```yaml
 version: '3.8'
 services:
-  app:
-    build: .
-    volumes:
-      - .:/var/www
-      - ./storage:/var/www/storage
-    environment:
-      - APP_ENV=production
-      - DB_HOST=postgres
-      - REDIS_HOST=redis
-    depends_on:
-      - postgres
-      - redis
+    app:
+        build: .
+        volumes:
+            - .:/var/www
+            - ./storage:/var/www/storage
+        environment:
+            - APP_ENV=production
+            - DB_HOST=postgres
+            - REDIS_HOST=redis
+        depends_on:
+            - postgres
+            - redis
 
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - .:/var/www
-    depends_on:
-      - app
+    nginx:
+        image: nginx:alpine
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+            - .:/var/www
+        depends_on:
+            - app
 
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: mindwave
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    postgres:
+        image: postgres:15
+        environment:
+            POSTGRES_DB: mindwave
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
 
-  redis:
-    image: redis:7-alpine
-    volumes:
-      - redis_data:/data
+    redis:
+        image: redis:7-alpine
+        volumes:
+            - redis_data:/data
 
-  worker:
-    build: .
-    command: php artisan queue:work redis --sleep=3 --tries=3
-    depends_on:
-      - app
-      - redis
+    worker:
+        build: .
+        command: php artisan queue:work redis --sleep=3 --tries=3
+        depends_on:
+            - app
+            - redis
 
 volumes:
-  postgres_data:
-  redis_data:
+    postgres_data:
+    redis_data:
 ```
 
 **Kubernetes Manifests:**
@@ -3404,55 +3413,55 @@ volumes:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mindwave-app
+    name: mindwave-app
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: mindwave
-  template:
-    metadata:
-      labels:
-        app: mindwave
-    spec:
-      containers:
-      - name: app
-        image: your-registry/mindwave:latest
-        ports:
-        - containerPort: 9000
-        env:
-        - name: APP_ENV
-          value: "production"
-        - name: DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: mindwave-secrets
-              key: db-host
-        - name: MINDWAVE_OPENAI_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: mindwave-secrets
-              key: openai-api-key
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "500m"
-          limits:
-            memory: "1Gi"
-            cpu: "1000m"
+    replicas: 3
+    selector:
+        matchLabels:
+            app: mindwave
+    template:
+        metadata:
+            labels:
+                app: mindwave
+        spec:
+            containers:
+                - name: app
+                  image: your-registry/mindwave:latest
+                  ports:
+                      - containerPort: 9000
+                  env:
+                      - name: APP_ENV
+                        value: 'production'
+                      - name: DB_HOST
+                        valueFrom:
+                            secretKeyRef:
+                                name: mindwave-secrets
+                                key: db-host
+                      - name: MINDWAVE_OPENAI_API_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: mindwave-secrets
+                                key: openai-api-key
+                  resources:
+                      requests:
+                          memory: '512Mi'
+                          cpu: '500m'
+                      limits:
+                          memory: '1Gi'
+                          cpu: '1000m'
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mindwave-service
+    name: mindwave-service
 spec:
-  selector:
-    app: mindwave
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9000
-  type: LoadBalancer
+    selector:
+        app: mindwave
+    ports:
+        - protocol: TCP
+          port: 80
+          targetPort: 9000
+    type: LoadBalancer
 ```
 
 ---
@@ -3520,16 +3529,16 @@ echo "All smoke tests passed!"
 
 **Checklist:**
 
-- [ ] Monitor error rates (should be < 1%)
-- [ ] Check response times (API endpoints < 500ms)
-- [ ] Verify LLM API calls working
-- [ ] Check queue depth (should drain within minutes)
-- [ ] Monitor memory usage (should stabilize after 1 hour)
-- [ ] Check disk space (ensure backups running)
-- [ ] Verify tracing data being exported
-- [ ] Review cost metrics (compare to expectations)
-- [ ] Check for any security alerts
-- [ ] Verify SSL certificate valid
+-   [ ] Monitor error rates (should be < 1%)
+-   [ ] Check response times (API endpoints < 500ms)
+-   [ ] Verify LLM API calls working
+-   [ ] Check queue depth (should drain within minutes)
+-   [ ] Monitor memory usage (should stabilize after 1 hour)
+-   [ ] Check disk space (ensure backups running)
+-   [ ] Verify tracing data being exported
+-   [ ] Review cost metrics (compare to expectations)
+-   [ ] Check for any security alerts
+-   [ ] Verify SSL certificate valid
 
 **Automated Monitoring:**
 
@@ -3606,76 +3615,85 @@ Use baselines to detect performance regressions.
 ### Regular Tasks
 
 **Daily:**
-- [ ] Check error logs for critical issues
-- [ ] Review cost reports (compare to budget)
-- [ ] Monitor queue depth (ensure not backing up)
-- [ ] Verify backups completed successfully
-- [ ] Check disk space (ensure > 20% free)
+
+-   [ ] Check error logs for critical issues
+-   [ ] Review cost reports (compare to budget)
+-   [ ] Monitor queue depth (ensure not backing up)
+-   [ ] Verify backups completed successfully
+-   [ ] Check disk space (ensure > 20% free)
 
 **Weekly:**
-- [ ] Review performance metrics (compare to baseline)
-- [ ] Analyze slow queries (optimize if needed)
-- [ ] Check for failed jobs (retry or investigate)
-- [ ] Review security alerts
-- [ ] Update dependencies (security patches)
+
+-   [ ] Review performance metrics (compare to baseline)
+-   [ ] Analyze slow queries (optimize if needed)
+-   [ ] Check for failed jobs (retry or investigate)
+-   [ ] Review security alerts
+-   [ ] Update dependencies (security patches)
 
 **Monthly:**
-- [ ] Rotate API keys (if policy requires)
-- [ ] Review and prune old traces (beyond retention)
-- [ ] Analyze cost trends (optimize model selection)
-- [ ] Review and update alert thresholds
-- [ ] Test backup restoration procedure
-- [ ] Update documentation (runbooks, architecture)
+
+-   [ ] Rotate API keys (if policy requires)
+-   [ ] Review and prune old traces (beyond retention)
+-   [ ] Analyze cost trends (optimize model selection)
+-   [ ] Review and update alert thresholds
+-   [ ] Test backup restoration procedure
+-   [ ] Update documentation (runbooks, architecture)
 
 **Quarterly:**
-- [ ] Security audit (dependencies, configurations)
-- [ ] Performance review (identify bottlenecks)
-- [ ] Capacity planning (forecast growth)
-- [ ] Disaster recovery drill (test full recovery)
-- [ ] Review and update SLAs
+
+-   [ ] Security audit (dependencies, configurations)
+-   [ ] Performance review (identify bottlenecks)
+-   [ ] Capacity planning (forecast growth)
+-   [ ] Disaster recovery drill (test full recovery)
+-   [ ] Review and update SLAs
 
 ### Incident Response Plan
 
 **Severity Levels:**
 
-| Level | Description | Response Time | Example |
-|-------|-------------|---------------|---------|
-| P0 | Critical - Service down | 15 minutes | Complete outage |
-| P1 | High - Major functionality broken | 1 hour | LLM API failures |
-| P2 | Medium - Partial degradation | 4 hours | Slow response times |
-| P3 | Low - Minor issues | 24 hours | Non-critical errors |
+| Level | Description                       | Response Time | Example             |
+| ----- | --------------------------------- | ------------- | ------------------- |
+| P0    | Critical - Service down           | 15 minutes    | Complete outage     |
+| P1    | High - Major functionality broken | 1 hour        | LLM API failures    |
+| P2    | Medium - Partial degradation      | 4 hours       | Slow response times |
+| P3    | Low - Minor issues                | 24 hours      | Non-critical errors |
 
 **Response Procedure:**
 
 1. **Detection** (0-5 min)
-   - Alert triggered (PagerDuty, Slack, email)
-   - On-call engineer notified
+
+    - Alert triggered (PagerDuty, Slack, email)
+    - On-call engineer notified
 
 2. **Assessment** (5-15 min)
-   - Determine severity level
-   - Identify affected components
-   - Estimate user impact
+
+    - Determine severity level
+    - Identify affected components
+    - Estimate user impact
 
 3. **Communication** (15-30 min)
-   - Post status update (status page)
-   - Notify stakeholders
-   - Create incident channel (Slack)
+
+    - Post status update (status page)
+    - Notify stakeholders
+    - Create incident channel (Slack)
 
 4. **Mitigation** (30-120 min)
-   - Implement immediate fix or workaround
-   - Rollback if deployment-related
-   - Scale resources if capacity issue
+
+    - Implement immediate fix or workaround
+    - Rollback if deployment-related
+    - Scale resources if capacity issue
 
 5. **Resolution** (variable)
-   - Implement permanent fix
-   - Verify resolution
-   - Post-mortem scheduled
+
+    - Implement permanent fix
+    - Verify resolution
+    - Post-mortem scheduled
 
 6. **Post-Incident** (24-48 hours)
-   - Write post-mortem document
-   - Identify root cause
-   - Create prevention tasks
-   - Update runbooks
+    - Write post-mortem document
+    - Identify root cause
+    - Create prevention tasks
+    - Update runbooks
 
 **Incident Communication Template:**
 
@@ -3700,30 +3718,33 @@ Updates will be posted every 30 minutes.
 
 **On-Call Responsibilities:**
 
-- Monitor alerts (PagerDuty, email, Slack)
-- Respond to incidents within SLA
-- Escalate if unable to resolve
-- Document all actions taken
-- Hand off to next on-call with context
+-   Monitor alerts (PagerDuty, email, Slack)
+-   Respond to incidents within SLA
+-   Escalate if unable to resolve
+-   Document all actions taken
+-   Hand off to next on-call with context
 
 **On-Call Runbook:**
 
-```markdown
+````markdown
 ## Common Issues
 
 ### Issue: LLM API Rate Limited (429 Errors)
 
 **Symptoms:**
-- Increased 429 errors in logs
-- Failed LLM requests
-- User complaints about timeouts
+
+-   Increased 429 errors in logs
+-   Failed LLM requests
+-   User complaints about timeouts
 
 **Diagnosis:**
-- Check Sentry/logs for rate limit errors
-- Review LLM API dashboard (provider website)
-- Check request volume spike
+
+-   Check Sentry/logs for rate limit errors
+-   Review LLM API dashboard (provider website)
+-   Check request volume spike
 
 **Resolution:**
+
 1. Enable aggressive caching: `php artisan cache:warm`
 2. Reduce concurrent requests (scale down workers)
 3. Switch to backup LLM provider if available
@@ -3731,64 +3752,76 @@ Updates will be posted every 30 minutes.
 5. Notify users of temporary degradation
 
 **Prevention:**
-- Implement request throttling
-- Monitor usage against quotas
-- Set up alerts at 80% quota usage
+
+-   Implement request throttling
+-   Monitor usage against quotas
+-   Set up alerts at 80% quota usage
 
 ---
 
 ### Issue: Database Connection Pool Exhausted
 
 **Symptoms:**
-- "Too many connections" errors
-- Slow response times
-- Failed health checks
+
+-   "Too many connections" errors
+-   Slow response times
+-   Failed health checks
 
 **Diagnosis:**
-- Check active connections: `SELECT count(*) FROM pg_stat_activity;`
-- Review connection pool settings
-- Check for connection leaks in code
+
+-   Check active connections: `SELECT count(*) FROM pg_stat_activity;`
+-   Review connection pool settings
+-   Check for connection leaks in code
 
 **Resolution:**
+
 1. Restart PHP-FPM: `sudo systemctl restart php8.3-fpm`
 2. Kill idle connections:
-   ```sql
-   SELECT pg_terminate_backend(pid)
-   FROM pg_stat_activity
-   WHERE state = 'idle'
-   AND state_change < now() - interval '5 minutes';
-   ```
+    ```sql
+    SELECT pg_terminate_backend(pid)
+    FROM pg_stat_activity
+    WHERE state = 'idle'
+    AND state_change < now() - interval '5 minutes';
+    ```
+````
+
 3. Increase max_connections if needed
 4. Scale up database instance
 
 **Prevention:**
-- Enable connection pooling (pgBouncer)
-- Monitor connection usage
-- Fix connection leaks in code
+
+-   Enable connection pooling (pgBouncer)
+-   Monitor connection usage
+-   Fix connection leaks in code
 
 ---
 
 ### Issue: Queue Workers Stopped
 
 **Symptoms:**
-- Queue depth increasing
-- Delayed background jobs
-- Supervisor shows workers stopped
+
+-   Queue depth increasing
+-   Delayed background jobs
+-   Supervisor shows workers stopped
 
 **Diagnosis:**
-- Check Supervisor: `sudo supervisorctl status`
-- Review worker logs: `/var/www/your-app/storage/logs/worker.log`
-- Check for OOM kills: `dmesg | grep -i kill`
+
+-   Check Supervisor: `sudo supervisorctl status`
+-   Review worker logs: `/var/www/your-app/storage/logs/worker.log`
+-   Check for OOM kills: `dmesg | grep -i kill`
 
 **Resolution:**
+
 1. Restart workers: `sudo supervisorctl restart mindwave-worker:*`
 2. If memory issue, reduce worker count or increase server memory
 3. Clear stuck jobs: `php artisan queue:flush`
 
 **Prevention:**
-- Monitor worker health
-- Set memory limits in Supervisor config
-- Auto-restart workers on failure
+
+-   Monitor worker health
+-   Set memory limits in Supervisor config
+-   Auto-restart workers on failure
+
 ```
 
 ---
@@ -3831,3 +3864,4 @@ You've now configured a production-ready Mindwave deployment with:
 - [Kubernetes Production Checklist](https://kubernetes.io/docs/setup/best-practices/)
 
 **Happy Deploying!** 🚀
+```

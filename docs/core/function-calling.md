@@ -10,10 +10,10 @@ Function calling bridges the gap between LLM reasoning and real-world actions. I
 
 Function calling allows you to:
 
-- **Extend Model Capabilities** - Give the LLM access to real-time data, APIs, and computations
-- **Enable Autonomous Actions** - Let the model decide which tools to use and when
-- **Ground Responses in Facts** - Access live databases, search engines, or external services
-- **Build Agents** - Create intelligent systems that can reason, plan, and act
+-   **Extend Model Capabilities** - Give the LLM access to real-time data, APIs, and computations
+-   **Enable Autonomous Actions** - Let the model decide which tools to use and when
+-   **Ground Responses in Facts** - Access live databases, search engines, or external services
+-   **Build Agents** - Create intelligent systems that can reason, plan, and act
 
 ### How It Works
 
@@ -807,6 +807,7 @@ class LoggingTool extends Tool
 **Problem:** Model doesn't use your tool.
 
 **Solutions:**
+
 1. Improve tool description to be more specific
 2. Make parameter descriptions clearer
 3. Adjust system prompt to encourage tool use
@@ -825,6 +826,7 @@ Mindwave::prompt()
 **Problem:** Tool crashes during execution.
 
 **Solutions:**
+
 1. Add try-catch in handler
 2. Validate parameters before processing
 3. Return structured error responses
@@ -846,7 +848,7 @@ public function handle($param): array
 
 ## Related Documentation
 
-- [Tools & Agents](/docs/advanced/tools) - Advanced tool patterns
-- [PromptComposer](/docs/core/prompt-composer) - Using tools with prompts
-- [LLM Integration](/docs/core/llm) - Low-level tool calling API
-- [Tracing](/docs/core/tracing) - Monitor tool execution
+-   [Tools & Agents](/docs/advanced/tools) - Advanced tool patterns
+-   [PromptComposer](/docs/core/prompt-composer) - Using tools with prompts
+-   [LLM Integration](/docs/core/llm) - Low-level tool calling API
+-   [Tracing](/docs/core/tracing) - Monitor tool execution

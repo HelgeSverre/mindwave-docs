@@ -6,19 +6,19 @@ Build a production-ready chat application with real-time AI responses, message p
 
 A complete chat application featuring:
 
-- **Real-time streaming responses** - See AI responses appear token-by-token
-- **Message persistence** - Store conversations and messages in your database
-- **Multiple frontend options** - Choose Vanilla JS, Alpine.js, or Vue.js
-- **Production features** - Error handling, reconnection, typing indicators
-- **Observable architecture** - OpenTelemetry tracing built-in
-- **Laravel-native** - Eloquent models, events, and best practices
+-   **Real-time streaming responses** - See AI responses appear token-by-token
+-   **Message persistence** - Store conversations and messages in your database
+-   **Multiple frontend options** - Choose Vanilla JS, Alpine.js, or Vue.js
+-   **Production features** - Error handling, reconnection, typing indicators
+-   **Observable architecture** - OpenTelemetry tracing built-in
+-   **Laravel-native** - Eloquent models, events, and best practices
 
 ## Prerequisites
 
-- Mindwave installed and configured (`composer require mindwave/mindwave`)
-- OpenAI or Anthropic API key configured
-- Laravel 10+ application
-- Basic understanding of SSE (Server-Sent Events)
+-   Mindwave installed and configured (`composer require mindwave/mindwave`)
+-   OpenAI or Anthropic API key configured
+-   Laravel 10+ application
+-   Basic understanding of SSE (Server-Sent Events)
 
 ## Architecture Overview
 
@@ -516,431 +516,464 @@ Create a simple, dependency-free chat interface:
 <!-- resources/views/chat/vanilla.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>AI Chat - Vanilla JS</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #f5f5f5;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chat-container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            max-width: 900px;
-            margin: 0 auto;
-            width: 100%;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-
-        .chat-header {
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .chat-header h1 {
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .messages-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .message {
-            display: flex;
-            gap: 12px;
-            animation: slideIn 0.2s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .message.user {
-            flex-direction: row-reverse;
-        }
-
-        .message-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .message.user .message-avatar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .message.assistant .message-avatar {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-        }
-
-        .message-content {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 16px;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .message.user .message-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-
-        .message.assistant .message-content {
-            background: #f5f5f5;
-            color: #333;
-            border-bottom-left-radius: 4px;
-        }
-
-        .typing-indicator {
-            display: none;
-            align-items: center;
-            gap: 12px;
-            padding: 0 20px;
-        }
-
-        .typing-indicator.active {
-            display: flex;
-        }
-
-        .typing-dots {
-            display: flex;
-            gap: 4px;
-            padding: 12px 16px;
-            background: #f5f5f5;
-            border-radius: 16px;
-        }
-
-        .typing-dots span {
-            width: 8px;
-            height: 8px;
-            background: #999;
-            border-radius: 50%;
-            animation: pulse 1.4s infinite ease-in-out;
-        }
-
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes pulse {
-            0%, 80%, 100% { opacity: 0.3; }
-            40% { opacity: 1; }
-        }
-
-        .input-container {
-            padding: 20px;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .input-wrapper {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        #messageInput {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 24px;
-            font-size: 15px;
-            font-family: inherit;
-            resize: none;
-            max-height: 120px;
-            transition: border-color 0.2s;
-        }
-
-        #messageInput:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        #sendButton {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        #sendButton:hover:not(:disabled) {
-            transform: scale(1.05);
-        }
-
-        #sendButton:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .error-message {
-            padding: 12px 16px;
-            background: #ffebee;
-            color: #c62828;
-            border-radius: 8px;
-            margin: 0 20px 12px;
-            display: none;
-        }
-
-        .error-message.active {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1>AI Assistant</h1>
-        </div>
-
-        <div class="messages-container" id="messagesContainer"></div>
-
-        <div class="typing-indicator" id="typingIndicator">
-            <div class="message-avatar">AI</div>
-            <div class="typing-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-
-        <div class="error-message" id="errorMessage"></div>
-
-        <div class="input-container">
-            <div class="input-wrapper">
-                <textarea
-                    id="messageInput"
-                    placeholder="Type your message..."
-                    rows="1"
-                ></textarea>
-                <button id="sendButton" title="Send message">
-                    ➤
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        class ChatApp {
-            constructor() {
-                this.messagesContainer = document.getElementById('messagesContainer');
-                this.messageInput = document.getElementById('messageInput');
-                this.sendButton = document.getElementById('sendButton');
-                this.typingIndicator = document.getElementById('typingIndicator');
-                this.errorMessage = document.getElementById('errorMessage');
-
-                this.conversationId = null;
-                this.eventSource = null;
-                this.currentAssistantMessage = null;
-
-                this.init();
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <title>AI Chat - Vanilla JS</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
 
-            init() {
-                // Event listeners
-                this.sendButton.addEventListener('click', () => this.sendMessage());
-                this.messageInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        this.sendMessage();
-                    }
-                });
-
-                // Auto-resize textarea
-                this.messageInput.addEventListener('input', () => {
-                    this.messageInput.style.height = 'auto';
-                    this.messageInput.style.height = this.messageInput.scrollHeight + 'px';
-                });
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                    Roboto, sans-serif;
+                background: #f5f5f5;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
             }
 
-            async sendMessage() {
-                const message = this.messageInput.value.trim();
-                if (!message || this.eventSource) return;
+            .chat-container {
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+                max-width: 900px;
+                margin: 0 auto;
+                width: 100%;
+                background: white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
 
-                // Add user message to UI
-                this.addMessage('user', message);
+            .chat-header {
+                padding: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
 
-                // Clear input
-                this.messageInput.value = '';
-                this.messageInput.style.height = 'auto';
+            .chat-header h1 {
+                font-size: 24px;
+                font-weight: 600;
+            }
 
-                // Hide error
-                this.hideError();
+            .messages-container {
+                flex: 1;
+                overflow-y: auto;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
 
-                // Show typing indicator
-                this.showTyping();
+            .message {
+                display: flex;
+                gap: 12px;
+                animation: slideIn 0.2s ease-out;
+            }
 
-                // Prepare assistant message container
-                this.currentAssistantMessage = this.createMessageElement('assistant', '');
-
-                try {
-                    await this.streamResponse(message);
-                } catch (error) {
-                    this.showError('Failed to send message. Please try again.');
-                    this.hideTyping();
-                    if (this.currentAssistantMessage) {
-                        this.currentAssistantMessage.remove();
-                    }
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
                 }
             }
 
-            async streamResponse(message) {
-                return new Promise((resolve, reject) => {
-                    // Build URL with parameters
-                    const params = new URLSearchParams({
-                        message: message,
+            .message.user {
+                flex-direction: row-reverse;
+            }
+
+            .message-avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                flex-shrink: 0;
+            }
+
+            .message.user .message-avatar {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+
+            .message.assistant .message-avatar {
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                color: white;
+            }
+
+            .message-content {
+                max-width: 70%;
+                padding: 12px 16px;
+                border-radius: 16px;
+                line-height: 1.5;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+
+            .message.user .message-content {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border-bottom-right-radius: 4px;
+            }
+
+            .message.assistant .message-content {
+                background: #f5f5f5;
+                color: #333;
+                border-bottom-left-radius: 4px;
+            }
+
+            .typing-indicator {
+                display: none;
+                align-items: center;
+                gap: 12px;
+                padding: 0 20px;
+            }
+
+            .typing-indicator.active {
+                display: flex;
+            }
+
+            .typing-dots {
+                display: flex;
+                gap: 4px;
+                padding: 12px 16px;
+                background: #f5f5f5;
+                border-radius: 16px;
+            }
+
+            .typing-dots span {
+                width: 8px;
+                height: 8px;
+                background: #999;
+                border-radius: 50%;
+                animation: pulse 1.4s infinite ease-in-out;
+            }
+
+            .typing-dots span:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            .typing-dots span:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+            @keyframes pulse {
+                0%,
+                80%,
+                100% {
+                    opacity: 0.3;
+                }
+                40% {
+                    opacity: 1;
+                }
+            }
+
+            .input-container {
+                padding: 20px;
+                background: white;
+                border-top: 1px solid #e0e0e0;
+            }
+
+            .input-wrapper {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+            }
+
+            #messageInput {
+                flex: 1;
+                padding: 12px 16px;
+                border: 2px solid #e0e0e0;
+                border-radius: 24px;
+                font-size: 15px;
+                font-family: inherit;
+                resize: none;
+                max-height: 120px;
+                transition: border-color 0.2s;
+            }
+
+            #messageInput:focus {
+                outline: none;
+                border-color: #667eea;
+            }
+
+            #sendButton {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                cursor: pointer;
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform 0.2s, opacity 0.2s;
+            }
+
+            #sendButton:hover:not(:disabled) {
+                transform: scale(1.05);
+            }
+
+            #sendButton:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .error-message {
+                padding: 12px 16px;
+                background: #ffebee;
+                color: #c62828;
+                border-radius: 8px;
+                margin: 0 20px 12px;
+                display: none;
+            }
+
+            .error-message.active {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>AI Assistant</h1>
+            </div>
+
+            <div class="messages-container" id="messagesContainer"></div>
+
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="message-avatar">AI</div>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea
+                        id="messageInput"
+                        placeholder="Type your message..."
+                        rows="1"
+                    ></textarea>
+                    <button id="sendButton" title="Send message">➤</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            class ChatApp {
+                constructor() {
+                    this.messagesContainer =
+                        document.getElementById('messagesContainer');
+                    this.messageInput = document.getElementById('messageInput');
+                    this.sendButton = document.getElementById('sendButton');
+                    this.typingIndicator =
+                        document.getElementById('typingIndicator');
+                    this.errorMessage = document.getElementById('errorMessage');
+
+                    this.conversationId = null;
+                    this.eventSource = null;
+                    this.currentAssistantMessage = null;
+
+                    this.init();
+                }
+
+                init() {
+                    // Event listeners
+                    this.sendButton.addEventListener('click', () =>
+                        this.sendMessage()
+                    );
+                    this.messageInput.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            this.sendMessage();
+                        }
                     });
 
-                    if (this.conversationId) {
-                        params.append('conversation_id', this.conversationId);
-                    }
+                    // Auto-resize textarea
+                    this.messageInput.addEventListener('input', () => {
+                        this.messageInput.style.height = 'auto';
+                        this.messageInput.style.height =
+                            this.messageInput.scrollHeight + 'px';
+                    });
+                }
 
-                    // Create EventSource for SSE
-                    this.eventSource = new EventSource(`/api/chat/stream?${params}`);
+                async sendMessage() {
+                    const message = this.messageInput.value.trim();
+                    if (!message || this.eventSource) return;
 
-                    // Handle message chunks
-                    this.eventSource.addEventListener('message', (event) => {
-                        // Hide typing on first chunk
+                    // Add user message to UI
+                    this.addMessage('user', message);
+
+                    // Clear input
+                    this.messageInput.value = '';
+                    this.messageInput.style.height = 'auto';
+
+                    // Hide error
+                    this.hideError();
+
+                    // Show typing indicator
+                    this.showTyping();
+
+                    // Prepare assistant message container
+                    this.currentAssistantMessage = this.createMessageElement(
+                        'assistant',
+                        ''
+                    );
+
+                    try {
+                        await this.streamResponse(message);
+                    } catch (error) {
+                        this.showError(
+                            'Failed to send message. Please try again.'
+                        );
                         this.hideTyping();
+                        if (this.currentAssistantMessage) {
+                            this.currentAssistantMessage.remove();
+                        }
+                    }
+                }
 
-                        // Ensure assistant message is in DOM
-                        if (!this.currentAssistantMessage.parentNode) {
-                            this.messagesContainer.appendChild(this.currentAssistantMessage);
+                async streamResponse(message) {
+                    return new Promise((resolve, reject) => {
+                        // Build URL with parameters
+                        const params = new URLSearchParams({
+                            message: message,
+                        });
+
+                        if (this.conversationId) {
+                            params.append(
+                                'conversation_id',
+                                this.conversationId
+                            );
                         }
 
-                        // Append chunk to message
-                        const contentDiv = this.currentAssistantMessage.querySelector('.message-content');
-                        contentDiv.textContent += event.data;
+                        // Create EventSource for SSE
+                        this.eventSource = new EventSource(
+                            `/api/chat/stream?${params}`
+                        );
 
-                        // Scroll to bottom
-                        this.scrollToBottom();
+                        // Handle message chunks
+                        this.eventSource.addEventListener(
+                            'message',
+                            (event) => {
+                                // Hide typing on first chunk
+                                this.hideTyping();
+
+                                // Ensure assistant message is in DOM
+                                if (!this.currentAssistantMessage.parentNode) {
+                                    this.messagesContainer.appendChild(
+                                        this.currentAssistantMessage
+                                    );
+                                }
+
+                                // Append chunk to message
+                                const contentDiv =
+                                    this.currentAssistantMessage.querySelector(
+                                        '.message-content'
+                                    );
+                                contentDiv.textContent += event.data;
+
+                                // Scroll to bottom
+                                this.scrollToBottom();
+                            }
+                        );
+
+                        // Handle completion
+                        this.eventSource.addEventListener('done', () => {
+                            this.cleanup();
+                            resolve();
+                        });
+
+                        // Handle errors
+                        this.eventSource.onerror = (error) => {
+                            console.error('SSE Error:', error);
+                            this.cleanup();
+                            reject(new Error('Stream connection failed'));
+                        };
+
+                        // Extract conversation ID from response headers
+                        // Note: This is tricky with EventSource, would need a separate request
                     });
-
-                    // Handle completion
-                    this.eventSource.addEventListener('done', () => {
-                        this.cleanup();
-                        resolve();
-                    });
-
-                    // Handle errors
-                    this.eventSource.onerror = (error) => {
-                        console.error('SSE Error:', error);
-                        this.cleanup();
-                        reject(new Error('Stream connection failed'));
-                    };
-
-                    // Extract conversation ID from response headers
-                    // Note: This is tricky with EventSource, would need a separate request
-                });
-            }
-
-            addMessage(role, content) {
-                const messageEl = this.createMessageElement(role, content);
-                this.messagesContainer.appendChild(messageEl);
-                this.scrollToBottom();
-            }
-
-            createMessageElement(role, content) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${role}`;
-
-                const avatar = document.createElement('div');
-                avatar.className = 'message-avatar';
-                avatar.textContent = role === 'user' ? 'You' : 'AI';
-
-                const contentDiv = document.createElement('div');
-                contentDiv.className = 'message-content';
-                contentDiv.textContent = content;
-
-                messageDiv.appendChild(avatar);
-                messageDiv.appendChild(contentDiv);
-
-                return messageDiv;
-            }
-
-            showTyping() {
-                this.typingIndicator.classList.add('active');
-                this.sendButton.disabled = true;
-            }
-
-            hideTyping() {
-                this.typingIndicator.classList.remove('active');
-                this.sendButton.disabled = false;
-            }
-
-            showError(message) {
-                this.errorMessage.textContent = message;
-                this.errorMessage.classList.add('active');
-            }
-
-            hideError() {
-                this.errorMessage.classList.remove('active');
-            }
-
-            scrollToBottom() {
-                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
-            }
-
-            cleanup() {
-                if (this.eventSource) {
-                    this.eventSource.close();
-                    this.eventSource = null;
                 }
-                this.hideTyping();
-                this.currentAssistantMessage = null;
-            }
-        }
 
-        // Initialize app
-        const chat = new ChatApp();
-    </script>
-</body>
+                addMessage(role, content) {
+                    const messageEl = this.createMessageElement(role, content);
+                    this.messagesContainer.appendChild(messageEl);
+                    this.scrollToBottom();
+                }
+
+                createMessageElement(role, content) {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `message ${role}`;
+
+                    const avatar = document.createElement('div');
+                    avatar.className = 'message-avatar';
+                    avatar.textContent = role === 'user' ? 'You' : 'AI';
+
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'message-content';
+                    contentDiv.textContent = content;
+
+                    messageDiv.appendChild(avatar);
+                    messageDiv.appendChild(contentDiv);
+
+                    return messageDiv;
+                }
+
+                showTyping() {
+                    this.typingIndicator.classList.add('active');
+                    this.sendButton.disabled = true;
+                }
+
+                hideTyping() {
+                    this.typingIndicator.classList.remove('active');
+                    this.sendButton.disabled = false;
+                }
+
+                showError(message) {
+                    this.errorMessage.textContent = message;
+                    this.errorMessage.classList.add('active');
+                }
+
+                hideError() {
+                    this.errorMessage.classList.remove('active');
+                }
+
+                scrollToBottom() {
+                    this.messagesContainer.scrollTop =
+                        this.messagesContainer.scrollHeight;
+                }
+
+                cleanup() {
+                    if (this.eventSource) {
+                        this.eventSource.close();
+                        this.eventSource = null;
+                    }
+                    this.hideTyping();
+                    this.currentAssistantMessage = null;
+                }
+            }
+
+            // Initialize app
+            const chat = new ChatApp();
+        </script>
+    </body>
 </html>
 ```
 
@@ -952,31 +985,301 @@ A reactive Alpine.js implementation perfect for Laravel applications:
 <!-- resources/views/chat/alpine.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>AI Chat - Alpine.js</title>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>
-        /* Reuse same styles from Vanilla JS example */
-        /* ... (copy styles from above) ... */
-    </style>
-</head>
-<body>
-    <div class="chat-container" x-data="chatApp()" x-init="init()">
-        <div class="chat-header">
-            <h1>AI Assistant</h1>
-            <div x-show="conversationId" x-text="'Conversation #' + conversationId" style="font-size: 12px; opacity: 0.8; margin-top: 4px;"></div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <title>AI Chat - Alpine.js</title>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
+        <style>
+            /* Reuse same styles from Vanilla JS example */
+            /* ... (copy styles from above) ... */
+        </style>
+    </head>
+    <body>
+        <div class="chat-container" x-data="chatApp()" x-init="init()">
+            <div class="chat-header">
+                <h1>AI Assistant</h1>
+                <div
+                    x-show="conversationId"
+                    x-text="'Conversation #' + conversationId"
+                    style="font-size: 12px; opacity: 0.8; margin-top: 4px;"
+                ></div>
+            </div>
+
+            <div class="messages-container" x-ref="messagesContainer">
+                <template x-for="message in messages" :key="message.id">
+                    <div :class="'message ' + message.role">
+                        <div
+                            class="message-avatar"
+                            x-text="message.role === 'user' ? 'You' : 'AI'"
+                        ></div>
+                        <div
+                            class="message-content"
+                            x-text="message.content"
+                        ></div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="typing-indicator" :class="{ active: isStreaming }">
+                <div class="message-avatar">AI</div>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div
+                class="error-message"
+                :class="{ active: error }"
+                x-text="error"
+            ></div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea
+                        x-model="currentMessage"
+                        @keydown.enter.prevent="!$event.shiftKey && sendMessage()"
+                        :disabled="isStreaming"
+                        placeholder="Type your message..."
+                        rows="1"
+                        x-ref="input"
+                    ></textarea>
+                    <button
+                        @click="sendMessage()"
+                        :disabled="isStreaming || !currentMessage.trim()"
+                        title="Send message"
+                    >
+                        ➤
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="messages-container" x-ref="messagesContainer">
-            <template x-for="message in messages" :key="message.id">
-                <div :class="'message ' + message.role">
-                    <div class="message-avatar" x-text="message.role === 'user' ? 'You' : 'AI'"></div>
-                    <div class="message-content" x-text="message.content"></div>
+        <script>
+            function chatApp() {
+                return {
+                    messages: [],
+                    currentMessage: '',
+                    conversationId: null,
+                    isStreaming: false,
+                    error: '',
+                    eventSource: null,
+
+                    init() {
+                        // Load conversation from localStorage if exists
+                        const savedConvId =
+                            localStorage.getItem('conversationId');
+                        if (savedConvId) {
+                            this.conversationId = parseInt(savedConvId);
+                            this.loadConversation();
+                        }
+                    },
+
+                    async loadConversation() {
+                        if (!this.conversationId) return;
+
+                        try {
+                            const response = await fetch(
+                                `/api/conversations/${this.conversationId}`,
+                                {
+                                    headers: {
+                                        Authorization:
+                                            'Bearer ' + this.getToken(),
+                                        Accept: 'application/json',
+                                    },
+                                }
+                            );
+
+                            if (response.ok) {
+                                const data = await response.json();
+                                this.messages = data.messages.map(
+                                    (msg, idx) => ({
+                                        id: msg.id || idx,
+                                        role: msg.role,
+                                        content: msg.content,
+                                    })
+                                );
+                                this.scrollToBottom();
+                            }
+                        } catch (error) {
+                            console.error(
+                                'Failed to load conversation:',
+                                error
+                            );
+                        }
+                    },
+
+                    async sendMessage() {
+                        if (!this.currentMessage.trim() || this.isStreaming)
+                            return;
+
+                        const userMessage = this.currentMessage.trim();
+
+                        // Add user message
+                        this.messages.push({
+                            id: Date.now(),
+                            role: 'user',
+                            content: userMessage,
+                        });
+
+                        // Clear input
+                        this.currentMessage = '';
+                        this.error = '';
+                        this.scrollToBottom();
+
+                        // Start streaming
+                        this.isStreaming = true;
+
+                        try {
+                            await this.streamResponse(userMessage);
+                        } catch (error) {
+                            this.error =
+                                'Failed to send message. Please try again.';
+                            this.isStreaming = false;
+                        }
+                    },
+
+                    async streamResponse(message) {
+                        return new Promise((resolve, reject) => {
+                            // Build request body
+                            const body = JSON.stringify({
+                                message: message,
+                                conversation_id: this.conversationId,
+                            });
+
+                            // Make POST request to get stream
+                            fetch('/api/chat/stream', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    Accept: 'text/event-stream',
+                                    'X-CSRF-TOKEN': document.querySelector(
+                                        'meta[name="csrf-token"]'
+                                    ).content,
+                                },
+                                body: body,
+                            })
+                                .then((response) => {
+                                    // Extract conversation ID from headers
+                                    const convId =
+                                        response.headers.get(
+                                            'X-Conversation-ID'
+                                        );
+                                    if (convId && !this.conversationId) {
+                                        this.conversationId = parseInt(convId);
+                                        localStorage.setItem(
+                                            'conversationId',
+                                            convId
+                                        );
+                                    }
+
+                                    // Read stream
+                                    const reader = response.body.getReader();
+                                    const decoder = new TextDecoder();
+
+                                    // Create assistant message
+                                    const assistantMessage = {
+                                        id: Date.now() + 1,
+                                        role: 'assistant',
+                                        content: '',
+                                    };
+                                    this.messages.push(assistantMessage);
+
+                                    const readChunk = () => {
+                                        reader
+                                            .read()
+                                            .then(({ done, value }) => {
+                                                if (done) {
+                                                    this.isStreaming = false;
+                                                    resolve();
+                                                    return;
+                                                }
+
+                                                // Decode chunk
+                                                const chunk =
+                                                    decoder.decode(value);
+                                                const lines = chunk.split('\n');
+
+                                                for (const line of lines) {
+                                                    if (
+                                                        line.startsWith(
+                                                            'data: '
+                                                        )
+                                                    ) {
+                                                        const data =
+                                                            line.substring(6);
+                                                        if (
+                                                            data &&
+                                                            data !== '[DONE]'
+                                                        ) {
+                                                            assistantMessage.content +=
+                                                                data;
+                                                            this.scrollToBottom();
+                                                        }
+                                                    }
+                                                }
+
+                                                readChunk();
+                                            })
+                                            .catch(reject);
+                                    };
+
+                                    readChunk();
+                                })
+                                .catch(reject);
+                        });
+                    },
+
+                    scrollToBottom() {
+                        this.$nextTick(() => {
+                            const container = this.$refs.messagesContainer;
+                            container.scrollTop = container.scrollHeight;
+                        });
+                    },
+
+                    getToken() {
+                        // Get auth token from your auth system
+                        return localStorage.getItem('auth_token') || '';
+                    },
+                };
+            }
+        </script>
+    </body>
+</html>
+```
+
+## Step 5: Frontend with Vue.js
+
+A modern Vue 3 Composition API implementation:
+
+```vue
+<!-- resources/js/components/Chat.vue -->
+<template>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>AI Assistant</h1>
+            <div v-if="conversationId" class="conversation-id">
+                Conversation #{{ conversationId }}
+            </div>
+        </div>
+
+        <div class="messages-container" ref="messagesContainer">
+            <div
+                v-for="message in messages"
+                :key="message.id"
+                :class="['message', message.role]"
+            >
+                <div class="message-avatar">
+                    {{ message.role === 'user' ? 'You' : 'AI' }}
                 </div>
-            </template>
+                <div class="message-content">{{ message.content }}</div>
+            </div>
         </div>
 
         <div class="typing-indicator" :class="{ active: isStreaming }">
@@ -988,20 +1291,20 @@ A reactive Alpine.js implementation perfect for Laravel applications:
             </div>
         </div>
 
-        <div class="error-message" :class="{ active: error }" x-text="error"></div>
+        <div v-if="error" class="error-message active">{{ error }}</div>
 
         <div class="input-container">
             <div class="input-wrapper">
                 <textarea
-                    x-model="currentMessage"
-                    @keydown.enter.prevent="!$event.shiftKey && sendMessage()"
+                    v-model="currentMessage"
+                    @keydown.enter.exact.prevent="sendMessage"
                     :disabled="isStreaming"
                     placeholder="Type your message..."
                     rows="1"
-                    x-ref="input"
+                    ref="input"
                 ></textarea>
                 <button
-                    @click="sendMessage()"
+                    @click="sendMessage"
                     :disabled="isStreaming || !currentMessage.trim()"
                     title="Send message"
                 >
@@ -1010,224 +1313,6 @@ A reactive Alpine.js implementation perfect for Laravel applications:
             </div>
         </div>
     </div>
-
-    <script>
-        function chatApp() {
-            return {
-                messages: [],
-                currentMessage: '',
-                conversationId: null,
-                isStreaming: false,
-                error: '',
-                eventSource: null,
-
-                init() {
-                    // Load conversation from localStorage if exists
-                    const savedConvId = localStorage.getItem('conversationId');
-                    if (savedConvId) {
-                        this.conversationId = parseInt(savedConvId);
-                        this.loadConversation();
-                    }
-                },
-
-                async loadConversation() {
-                    if (!this.conversationId) return;
-
-                    try {
-                        const response = await fetch(`/api/conversations/${this.conversationId}`, {
-                            headers: {
-                                'Authorization': 'Bearer ' + this.getToken(),
-                                'Accept': 'application/json',
-                            }
-                        });
-
-                        if (response.ok) {
-                            const data = await response.json();
-                            this.messages = data.messages.map((msg, idx) => ({
-                                id: msg.id || idx,
-                                role: msg.role,
-                                content: msg.content,
-                            }));
-                            this.scrollToBottom();
-                        }
-                    } catch (error) {
-                        console.error('Failed to load conversation:', error);
-                    }
-                },
-
-                async sendMessage() {
-                    if (!this.currentMessage.trim() || this.isStreaming) return;
-
-                    const userMessage = this.currentMessage.trim();
-
-                    // Add user message
-                    this.messages.push({
-                        id: Date.now(),
-                        role: 'user',
-                        content: userMessage,
-                    });
-
-                    // Clear input
-                    this.currentMessage = '';
-                    this.error = '';
-                    this.scrollToBottom();
-
-                    // Start streaming
-                    this.isStreaming = true;
-
-                    try {
-                        await this.streamResponse(userMessage);
-                    } catch (error) {
-                        this.error = 'Failed to send message. Please try again.';
-                        this.isStreaming = false;
-                    }
-                },
-
-                async streamResponse(message) {
-                    return new Promise((resolve, reject) => {
-                        // Build request body
-                        const body = JSON.stringify({
-                            message: message,
-                            conversation_id: this.conversationId,
-                        });
-
-                        // Make POST request to get stream
-                        fetch('/api/chat/stream', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'text/event-stream',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            },
-                            body: body,
-                        }).then(response => {
-                            // Extract conversation ID from headers
-                            const convId = response.headers.get('X-Conversation-ID');
-                            if (convId && !this.conversationId) {
-                                this.conversationId = parseInt(convId);
-                                localStorage.setItem('conversationId', convId);
-                            }
-
-                            // Read stream
-                            const reader = response.body.getReader();
-                            const decoder = new TextDecoder();
-
-                            // Create assistant message
-                            const assistantMessage = {
-                                id: Date.now() + 1,
-                                role: 'assistant',
-                                content: '',
-                            };
-                            this.messages.push(assistantMessage);
-
-                            const readChunk = () => {
-                                reader.read().then(({ done, value }) => {
-                                    if (done) {
-                                        this.isStreaming = false;
-                                        resolve();
-                                        return;
-                                    }
-
-                                    // Decode chunk
-                                    const chunk = decoder.decode(value);
-                                    const lines = chunk.split('\n');
-
-                                    for (const line of lines) {
-                                        if (line.startsWith('data: ')) {
-                                            const data = line.substring(6);
-                                            if (data && data !== '[DONE]') {
-                                                assistantMessage.content += data;
-                                                this.scrollToBottom();
-                                            }
-                                        }
-                                    }
-
-                                    readChunk();
-                                }).catch(reject);
-                            };
-
-                            readChunk();
-                        }).catch(reject);
-                    });
-                },
-
-                scrollToBottom() {
-                    this.$nextTick(() => {
-                        const container = this.$refs.messagesContainer;
-                        container.scrollTop = container.scrollHeight;
-                    });
-                },
-
-                getToken() {
-                    // Get auth token from your auth system
-                    return localStorage.getItem('auth_token') || '';
-                },
-            };
-        }
-    </script>
-</body>
-</html>
-```
-
-## Step 5: Frontend with Vue.js
-
-A modern Vue 3 Composition API implementation:
-
-```vue
-<!-- resources/js/components/Chat.vue -->
-<template>
-  <div class="chat-container">
-    <div class="chat-header">
-      <h1>AI Assistant</h1>
-      <div v-if="conversationId" class="conversation-id">
-        Conversation #{{ conversationId }}
-      </div>
-    </div>
-
-    <div class="messages-container" ref="messagesContainer">
-      <div
-        v-for="message in messages"
-        :key="message.id"
-        :class="['message', message.role]"
-      >
-        <div class="message-avatar">
-          {{ message.role === 'user' ? 'You' : 'AI' }}
-        </div>
-        <div class="message-content">{{ message.content }}</div>
-      </div>
-    </div>
-
-    <div class="typing-indicator" :class="{ active: isStreaming }">
-      <div class="message-avatar">AI</div>
-      <div class="typing-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-
-    <div v-if="error" class="error-message active">{{ error }}</div>
-
-    <div class="input-container">
-      <div class="input-wrapper">
-        <textarea
-          v-model="currentMessage"
-          @keydown.enter.exact.prevent="sendMessage"
-          :disabled="isStreaming"
-          placeholder="Type your message..."
-          rows="1"
-          ref="input"
-        ></textarea>
-        <button
-          @click="sendMessage"
-          :disabled="isStreaming || !currentMessage.trim()"
-          title="Send message"
-        >
-          ➤
-        </button>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -1235,9 +1320,9 @@ import { ref, onMounted, nextTick } from 'vue';
 import { useChat } from '../composables/useChat';
 
 interface Message {
-  id: number;
-  role: 'user' | 'assistant' | 'system';
-  content: string;
+    id: number;
+    role: 'user' | 'assistant' | 'system';
+    content: string;
 }
 
 const messages = ref<Message[]>([]);
@@ -1252,92 +1337,96 @@ const input = ref<HTMLTextAreaElement>();
 const { streamResponse } = useChat();
 
 onMounted(() => {
-  // Load saved conversation
-  const savedId = localStorage.getItem('conversationId');
-  if (savedId) {
-    conversationId.value = parseInt(savedId);
-    loadConversation();
-  }
+    // Load saved conversation
+    const savedId = localStorage.getItem('conversationId');
+    if (savedId) {
+        conversationId.value = parseInt(savedId);
+        loadConversation();
+    }
 });
 
 async function loadConversation() {
-  if (!conversationId.value) return;
+    if (!conversationId.value) return;
 
-  try {
-    const response = await fetch(`/api/conversations/${conversationId.value}`, {
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
+    try {
+        const response = await fetch(
+            `/api/conversations/${conversationId.value}`,
+            {
+                headers: {
+                    Accept: 'application/json',
+                },
+            }
+        );
 
-    if (response.ok) {
-      const data = await response.json();
-      messages.value = data.messages;
-      scrollToBottom();
+        if (response.ok) {
+            const data = await response.json();
+            messages.value = data.messages;
+            scrollToBottom();
+        }
+    } catch (err) {
+        console.error('Failed to load conversation:', err);
     }
-  } catch (err) {
-    console.error('Failed to load conversation:', err);
-  }
 }
 
 async function sendMessage() {
-  if (!currentMessage.value.trim() || isStreaming.value) return;
+    if (!currentMessage.value.trim() || isStreaming.value) return;
 
-  const userMessage = currentMessage.value.trim();
+    const userMessage = currentMessage.value.trim();
 
-  // Add user message
-  messages.value.push({
-    id: Date.now(),
-    role: 'user',
-    content: userMessage,
-  });
-
-  // Clear input
-  currentMessage.value = '';
-  error.value = '';
-  scrollToBottom();
-
-  // Start streaming
-  isStreaming.value = true;
-
-  try {
-    // Create assistant message
-    const assistantMessage: Message = {
-      id: Date.now() + 1,
-      role: 'assistant',
-      content: '',
-    };
-    messages.value.push(assistantMessage);
-
-    // Stream response
-    await streamResponse({
-      message: userMessage,
-      conversationId: conversationId.value,
-      onChunk: (chunk: string) => {
-        assistantMessage.content += chunk;
-        scrollToBottom();
-      },
-      onConversationId: (id: number) => {
-        if (!conversationId.value) {
-          conversationId.value = id;
-          localStorage.setItem('conversationId', id.toString());
-        }
-      },
+    // Add user message
+    messages.value.push({
+        id: Date.now(),
+        role: 'user',
+        content: userMessage,
     });
-  } catch (err) {
-    error.value = 'Failed to send message. Please try again.';
-    console.error('Stream error:', err);
-  } finally {
-    isStreaming.value = false;
-  }
+
+    // Clear input
+    currentMessage.value = '';
+    error.value = '';
+    scrollToBottom();
+
+    // Start streaming
+    isStreaming.value = true;
+
+    try {
+        // Create assistant message
+        const assistantMessage: Message = {
+            id: Date.now() + 1,
+            role: 'assistant',
+            content: '',
+        };
+        messages.value.push(assistantMessage);
+
+        // Stream response
+        await streamResponse({
+            message: userMessage,
+            conversationId: conversationId.value,
+            onChunk: (chunk: string) => {
+                assistantMessage.content += chunk;
+                scrollToBottom();
+            },
+            onConversationId: (id: number) => {
+                if (!conversationId.value) {
+                    conversationId.value = id;
+                    localStorage.setItem('conversationId', id.toString());
+                }
+            },
+        });
+    } catch (err) {
+        error.value = 'Failed to send message. Please try again.';
+        console.error('Stream error:', err);
+    } finally {
+        isStreaming.value = false;
+    }
 }
 
 function scrollToBottom() {
-  nextTick(() => {
-    if (messagesContainer.value) {
-      messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
-    }
-  });
+    nextTick(() => {
+        if (messagesContainer.value) {
+            messagesContainer.value.scrollTop =
+                messagesContainer.value.scrollHeight;
+        }
+    });
 }
 </script>
 
@@ -1351,84 +1440,84 @@ function scrollToBottom() {
 ```typescript
 // resources/js/composables/useChat.ts
 export interface StreamOptions {
-  message: string;
-  conversationId: number | null;
-  onChunk: (chunk: string) => void;
-  onConversationId?: (id: number) => void;
+    message: string;
+    conversationId: number | null;
+    onChunk: (chunk: string) => void;
+    onConversationId?: (id: number) => void;
 }
 
 export function useChat() {
-  async function streamResponse(options: StreamOptions): Promise<void> {
-    const { message, conversationId, onChunk, onConversationId } = options;
+    async function streamResponse(options: StreamOptions): Promise<void> {
+        const { message, conversationId, onChunk, onConversationId } = options;
 
-    return new Promise((resolve, reject) => {
-      const csrfToken = document.querySelector<HTMLMetaElement>(
-        'meta[name="csrf-token"]'
-      )?.content;
+        return new Promise((resolve, reject) => {
+            const csrfToken = document.querySelector<HTMLMetaElement>(
+                'meta[name="csrf-token"]'
+            )?.content;
 
-      fetch('/api/chat/stream', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'text/event-stream',
-          'X-CSRF-TOKEN': csrfToken || '',
-        },
-        body: JSON.stringify({
-          message,
-          conversation_id: conversationId,
-        }),
-      })
-        .then(async (response) => {
-          if (!response.ok) {
-            throw new Error('Request failed');
-          }
+            fetch('/api/chat/stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'text/event-stream',
+                    'X-CSRF-TOKEN': csrfToken || '',
+                },
+                body: JSON.stringify({
+                    message,
+                    conversation_id: conversationId,
+                }),
+            })
+                .then(async (response) => {
+                    if (!response.ok) {
+                        throw new Error('Request failed');
+                    }
 
-          // Extract conversation ID
-          const convId = response.headers.get('X-Conversation-ID');
-          if (convId && onConversationId) {
-            onConversationId(parseInt(convId));
-          }
+                    // Extract conversation ID
+                    const convId = response.headers.get('X-Conversation-ID');
+                    if (convId && onConversationId) {
+                        onConversationId(parseInt(convId));
+                    }
 
-          // Read stream
-          const reader = response.body?.getReader();
-          if (!reader) {
-            throw new Error('No reader available');
-          }
+                    // Read stream
+                    const reader = response.body?.getReader();
+                    if (!reader) {
+                        throw new Error('No reader available');
+                    }
 
-          const decoder = new TextDecoder();
+                    const decoder = new TextDecoder();
 
-          while (true) {
-            const { done, value } = await reader.read();
+                    while (true) {
+                        const { done, value } = await reader.read();
 
-            if (done) {
-              resolve();
-              break;
-            }
+                        if (done) {
+                            resolve();
+                            break;
+                        }
 
-            // Decode and parse SSE
-            const chunk = decoder.decode(value);
-            const lines = chunk.split('\n');
+                        // Decode and parse SSE
+                        const chunk = decoder.decode(value);
+                        const lines = chunk.split('\n');
 
-            for (const line of lines) {
-              if (line.startsWith('data: ')) {
-                const data = line.substring(6);
-                if (data && data !== '[DONE]') {
-                  onChunk(data);
-                }
-              } else if (line.startsWith('event: done')) {
-                resolve();
-                return;
-              }
-            }
-          }
-        })
-        .catch(reject);
-    });
-  }
+                        for (const line of lines) {
+                            if (line.startsWith('data: ')) {
+                                const data = line.substring(6);
+                                if (data && data !== '[DONE]') {
+                                    onChunk(data);
+                                }
+                            } else if (line.startsWith('event: done')) {
+                                resolve();
+                                return;
+                            }
+                        }
+                    }
+                })
+                .catch(reject);
+        });
+    }
 
-  return {
-    streamResponse,
-  };
+    return {
+        streamResponse,
+    };
 }
 ```
 
@@ -1491,12 +1580,12 @@ import 'highlight.js/styles/github-dark.css';
 
 // Configure marked with highlight.js
 marked.setOptions({
-    highlight: function(code, lang) {
+    highlight: function (code, lang) {
         if (lang && hljs.getLanguage(lang)) {
             return hljs.highlight(code, { language: lang }).value;
         }
         return hljs.highlightAuto(code).value;
-    }
+    },
 });
 ```
 
@@ -1513,7 +1602,7 @@ function addCopyButtons() {
         button.onclick = () => {
             navigator.clipboard.writeText(block.textContent);
             button.textContent = 'Copied!';
-            setTimeout(() => button.textContent = 'Copy', 2000);
+            setTimeout(() => (button.textContent = 'Copy'), 2000);
         };
         block.parentElement.appendChild(button);
     });
@@ -1586,11 +1675,14 @@ class RobustStreamClient {
         } catch (error) {
             if (this.retryCount < this.maxRetries) {
                 this.retryCount++;
-                const delay = this.retryDelay * Math.pow(2, this.retryCount - 1);
+                const delay =
+                    this.retryDelay * Math.pow(2, this.retryCount - 1);
 
-                console.log(`Retrying in ${delay}ms (attempt ${this.retryCount}/${this.maxRetries})`);
+                console.log(
+                    `Retrying in ${delay}ms (attempt ${this.retryCount}/${this.maxRetries})`
+                );
 
-                await new Promise(resolve => setTimeout(resolve, delay));
+                await new Promise((resolve) => setTimeout(resolve, delay));
                 return this.stream(message, conversationId, callbacks);
             } else {
                 throw new Error('Max retry attempts exceeded');
@@ -1798,41 +1890,44 @@ Event::listen(LlmTokenStreamed::class, function (LlmTokenStreamed $event) {
 ### Scaling Strategies
 
 1. **Database Optimization**
-   - Add indexes on frequently queried columns
-   - Use database connection pooling
-   - Consider read replicas for conversation history
+
+    - Add indexes on frequently queried columns
+    - Use database connection pooling
+    - Consider read replicas for conversation history
 
 2. **Caching**
-   - Cache conversation titles and metadata
-   - Use Redis for session management
-   - Cache frequently accessed conversations
+
+    - Cache conversation titles and metadata
+    - Use Redis for session management
+    - Cache frequently accessed conversations
 
 3. **Queue Processing**
-   - Offload message persistence to queues
-   - Use Horizon for queue monitoring
+
+    - Offload message persistence to queues
+    - Use Horizon for queue monitoring
 
 4. **Load Balancing**
-   - Use sticky sessions for SSE connections
-   - Implement connection pooling
-   - Consider WebSocket fallback for high-scale
+    - Use sticky sessions for SSE connections
+    - Implement connection pooling
+    - Consider WebSocket fallback for high-scale
 
 ## Summary
 
 You now have a complete, production-ready streaming chat application with:
 
-- **Database persistence** for conversations and messages
-- **Real-time streaming** via Server-Sent Events
-- **Multiple frontend options** - Vanilla JS, Alpine.js, and Vue.js
-- **Error handling** with automatic reconnection
-- **Observable architecture** with OpenTelemetry tracing
-- **Production features** - rate limiting, monitoring, scaling strategies
+-   **Database persistence** for conversations and messages
+-   **Real-time streaming** via Server-Sent Events
+-   **Multiple frontend options** - Vanilla JS, Alpine.js, and Vue.js
+-   **Error handling** with automatic reconnection
+-   **Observable architecture** with OpenTelemetry tracing
+-   **Production features** - rate limiting, monitoring, scaling strategies
 
 ### Next Steps
 
-- **[Streaming SSE Documentation](../core/streaming.md)** - Deep dive into streaming concepts
-- **[Context Discovery](../rag/overview.md)** - Add RAG for context-aware responses
-- **[Observability](../observability/tracing.md)** - Monitor your chat application
-- **[Events](../observability/events.md)** - React to chat events in real-time
+-   **[Streaming SSE Documentation](../core/streaming.md)** - Deep dive into streaming concepts
+-   **[Context Discovery](../rag/overview.md)** - Add RAG for context-aware responses
+-   **[Observability](../observability/tracing.md)** - Monitor your chat application
+-   **[Events](../observability/events.md)** - React to chat events in real-time
 
 ### Key Takeaways
 
