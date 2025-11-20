@@ -324,7 +324,7 @@ $embeddings = Mindwave::embeddings()->embedBatch($texts);
 
 ## Related Documentation
 
-- [Brain (Vector Store)](/docs/core/brain) - Vector store integration
+- [Brain (Vector Store)](/docs/rag/brain) - Vector store integration
 - [RAG Overview](/docs/rag/overview) - RAG architecture
 - [Vector Stores Reference](/docs/reference/vector-stores.md) - Vector database options
 - [Configuration Guide](/docs/configuration.md) - Complete configuration

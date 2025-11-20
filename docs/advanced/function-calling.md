@@ -1380,6 +1380,6 @@ function executeFunction(FunctionCall $call): string
 ## Related Documentation
 
 - [Tools (Function Calling Basics)](/docs/advanced/tools)
-- [Brain (Agent Framework)](/docs/core/brain)
+- [Brain (Agent Framework)](/docs/rag/brain)
 - [Testing AI Applications](/docs/advanced/testing)
 - [Observability](/docs/observability/overview)

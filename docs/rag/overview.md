@@ -1389,7 +1389,7 @@ Now that you understand RAG fundamentals and Mindwave's architecture, explore th
 - [TNTSearch Source](/docs/rag/tntsearch-source) - Full-text search with BM25 ranking
 - [Vector Store Source](/docs/rag/vector-store-source) - Semantic search with embeddings
 - [Context Pipeline](/docs/rag/context-pipeline) - Multi-source aggregation and ranking
-- [Brain (Vector Stores)](/docs/core/brain) - Embedding storage and similarity search
+- [Brain (Vector Stores)](/docs/rag/brain) - Embedding storage and similarity search
 
 ### Integration
 

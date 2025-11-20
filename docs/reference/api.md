@@ -77,7 +77,7 @@ $results = $brain->recall('PHP framework', limit: 5);
 
 **Returns:** `Brain` instance
 
-See [Brain](/docs/core/brain) for full documentation.
+See [Brain](/docs/rag/brain) for full documentation.
 
 #### stream()
 

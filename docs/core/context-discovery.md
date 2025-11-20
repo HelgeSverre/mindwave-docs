@@ -15,31 +15,18 @@ Context Discovery allows you to:
 
 Context Discovery uses a **pipeline architecture** where multiple context sources can be combined:
 
-```
-┌──────────────────┐
-│  PromptComposer  │
-└────────┬─────────┘
-         │
-         ▼
-┌──────────────────┐      ┌─────────────────┐
-│ Context Pipeline │─────▶│  TNTSearch      │ (Full-text search)
-└──────────────────┘      ├─────────────────┤
-         │                │  VectorStore    │ (Semantic search)
-         │                ├─────────────────┤
-         │                │  EloquentSource │ (SQL LIKE search)
-         │                ├─────────────────┤
-         │                │  StaticSource   │ (Keyword match)
-         ▼                └─────────────────┘
-┌──────────────────┐
-│  Deduplicate &   │
-│  Rerank Results  │
-└──────────────────┘
-         │
-         ▼
-┌──────────────────┐
-│ ContextCollection│
-│  (Ranked Items)  │
-└──────────────────┘
+```mermaid
+flowchart TD
+    A[PromptComposer] --> B[Context Pipeline]
+    B --> C1[TNTSearch<br/><em>Full-text search</em>]
+    B --> C2[VectorStore<br/><em>Semantic search</em>]
+    B --> C3[EloquentSource<br/><em>SQL LIKE search</em>]
+    B --> C4[StaticSource<br/><em>Keyword match</em>]
+    C1 --> D[Deduplicate &<br/>Rerank Results]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    D --> E[ContextCollection<br/><em>Ranked Items</em>]
 ```
 
 ## Quick Start
@@ -581,6 +568,23 @@ MINDWAVE_CONTEXT_TRACING=true
 
 ### Dataset Size Recommendations
 
+```mermaid
+flowchart TD
+    Start{How many<br/>documents?}
+
+    Start -->|< 100 items| Static[StaticSource<br/><em>Fixed content, FAQs</em>]
+    Start -->|< 1,000 records| Eloquent[EloquentSource<br/><em>Small, dynamic datasets</em>]
+    Start -->|< 10,000 documents| TNT[TNTSearch<br/><em>Medium datasets, keyword search</em>]
+    Start -->|Millions| Vector[VectorStore<br/><em>Large-scale semantic search</em>]
+
+    style Static fill:#fff4e6
+    style Eloquent fill:#e1f5ff
+    style TNT fill:#e7f9e7
+    style Vector fill:#ffe6e6
+```
+
+**Comparison Table:**
+
 | Source Type        | Recommended Size   | Use Case                        |
 | ------------------ | ------------------ | ------------------------------- |
 | **TNTSearch**      | < 10,000 documents | Medium datasets, keyword search |
@@ -1101,7 +1105,7 @@ class ContextPipeline
 ## Next Steps
 
 -   **[PromptComposer](/docs/core/prompt-composer)** - Learn about token-aware prompt building
--   **[Brain (Vector Store)](/docs/core/brain)** - Set up semantic search with embeddings
+-   **[Brain (Vector Store)](/docs/rag/brain)** - Set up semantic search with embeddings
 -   **[Configuration Reference](/docs/core/context-discovery)** - Advanced configuration options
 -   **[Tracing & Observability](/docs/tracing)** - Monitor context performance
 

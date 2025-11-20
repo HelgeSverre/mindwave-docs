@@ -394,6 +394,26 @@ $results = $pipeline->search('query', limit: 10);
 
 **How Deduplication Works:**
 
+```mermaid
+flowchart TD
+    Start[Retrieve content<br/>from all sources] --> Hash[Hash each<br/>item's content]
+    Hash --> Identify{Identify<br/>duplicate<br/>hashes}
+    Identify -->|Duplicates found| Compare[Compare scores<br/>for duplicates]
+    Identify -->|No duplicates| Keep1[Keep all items]
+    Compare --> Keep2[Keep highest<br/>scored version]
+    Keep2 --> Discard[Discard lower-scored<br/>duplicates]
+    Keep1 --> End[Return results]
+    Discard --> End
+
+    style Start fill:#e1f5ff
+    style Hash fill:#fff4e6
+    style Identify fill:#ffe6e6
+    style Keep2 fill:#e7f9e7
+    style End fill:#e7f9e7
+```
+
+**Process Steps:**
+
 1. Content from all sources is retrieved
 2. Each item's content is hashed
 3. Duplicate hashes are identified
@@ -476,6 +496,24 @@ $allResults = $pipeline->search('query', limit: 1000);
 ```
 
 **How Limits Work:**
+
+```mermaid
+flowchart TD
+    Start[Search Query] --> S1[Search each source<br/><em>respects per-source limits</em>]
+    S1 --> Combine[Combine results<br/>from all sources]
+    Combine --> Dedup[Apply<br/>deduplication]
+    Dedup --> Rerank[Apply<br/>re-ranking]
+    Rerank --> Limit[Return top N results<br/><em>by limit parameter</em>]
+
+    style Start fill:#e1f5ff
+    style S1 fill:#fff4e6
+    style Combine fill:#ffe6e6
+    style Dedup fill:#fff0cc
+    style Rerank fill:#e7f9e7
+    style Limit fill:#e1ffe1
+```
+
+**Process Steps:**
 
 1. Each source is searched (respects per-source limits if set)
 2. Results are combined from all sources

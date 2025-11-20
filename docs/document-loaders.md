@@ -298,6 +298,6 @@ See the **[RAG Documentation](/docs/rag/overview)**.
 
 ## Related Documentation
 
-- [Brain (Vector Store)](/docs/core/brain) - Vector store API
+- [Brain (Vector Store)](/docs/rag/brain) - Vector store API
 - [Embeddings Reference](/docs/reference/embeddings.md) - Embedding providers
 - [Vector Stores Reference](/docs/reference/vector-stores.md) - Vector databases

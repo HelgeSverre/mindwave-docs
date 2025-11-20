@@ -12,6 +12,18 @@ RAG allows your AI applications to answer questions using your application's dat
 Instead of relying solely on what an LLM learned during training, RAG retrieves relevant information from your knowledge sources and includes it in the prompt, allowing the model to generate responses based on current, accurate data.
 
 **The RAG Flow:**
+
+```mermaid
+flowchart LR
+    A[User asks a question<br/><em>What is our refund policy?</em>] --> B[System searches<br/>knowledge base]
+    B --> C[Context injected<br/>into prompt]
+    C --> D[LLM generates<br/>response]
+
+    style A fill:#e1f5ff
+    style D fill:#e7f9e7
+```
+
+**Flow Steps:**
 1. **User asks a question** → "What is our refund policy?"
 2. **System searches knowledge base** → Finds relevant policy documents
 3. **Context is injected into prompt** → Policy text added to the prompt
@@ -547,7 +559,7 @@ Cache::remember("rag::{$query}", now()->addDay(), ...);
 
 ### Learn More
 
-- **[Brain](/docs/core/brain)** - Long-term knowledge storage
+- **[Brain](/docs/rag/brain)** - Long-term knowledge storage
 - **[Context Discovery](/docs/rag/overview)** - Complete RAG guide
 - **[PromptComposer](/docs/core/prompt-composer)** - Token-aware prompts
 - **[Tracing](/docs/core/tracing)** - Monitor RAG performance

@@ -122,11 +122,16 @@ export default defineConfig({
                 text: 'RAG & Context',
                 items: [
                     { text: 'Overview', link: '/docs/rag/overview' },
-                    { text: 'TNTSearch', link: '/docs/rag/tntsearch' },
-                    { text: 'Vector Stores', link: '/docs/rag/vectorstores' },
                     { text: 'Brain', link: '/docs/rag/brain' },
+                    { text: 'Context Pipeline', link: '/docs/rag/context-pipeline' },
                     { text: 'Documents', link: '/docs/rag/documents' },
-                    { text: 'Embeddings', link: '/docs/rag/embeddings' }
+                    { text: 'Embeddings', link: '/docs/rag/embeddings' },
+                    { text: 'TNTSearch', link: '/docs/rag/tntsearch' },
+                    { text: 'TNTSearch Source', link: '/docs/rag/tntsearch-source' },
+                    { text: 'Vector Stores', link: '/docs/rag/vectorstores' },
+                    { text: 'Vector Store Source', link: '/docs/rag/vector-store-source' },
+                    { text: 'Custom Sources', link: '/docs/rag/custom-sources' },
+                    { text: 'Evaluation', link: '/docs/rag/evaluation' }
                 ]
             },
             {

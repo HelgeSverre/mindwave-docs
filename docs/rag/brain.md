@@ -994,6 +994,25 @@ $filtered = collect($results)->filter(function($doc) {
 
 ## Brain vs Context Discovery
 
+```mermaid
+flowchart TD
+    Start{What do you need?}
+
+    Start -->|Persistent knowledge<br/>across sessions| Brain[Use Brain]
+    Start -->|Large knowledge bases<br/>that don't fit in prompts| Brain
+    Start -->|Semantic search<br/>capabilities| Brain
+    Start -->|Document storage<br/>with chunking| Brain
+
+    Start -->|Dynamic context from<br/>multiple sources| Context[Use Context<br/>Discovery]
+    Start -->|Real-time data from<br/>databases or APIs| Context
+    Start -->|Automatic prompt<br/>fitting with tokens| Context
+    Start -->|Combined sources<br/>Brain + DB + Static| Hybrid[Use Hybrid<br/>Approach]
+
+    style Brain fill:#e1f5ff
+    style Context fill:#fff4e6
+    style Hybrid fill:#e7f9e7
+```
+
 ### When to Use Brain
 
 Use the Brain when you need:

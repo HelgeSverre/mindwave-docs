@@ -145,27 +145,27 @@ Every LLM operation captures:
 
 A trace represents a complete operation (like handling an API request) and contains multiple spans:
 
-```
-Trace: 3c8f4b9a2e1d6c7b8a9e0f1d2c3b4a5e
-├── Span: chat gpt-4 [client] (750ms, $0.0045)
-│   ├── operation: chat
-│   ├── provider: openai
-│   ├── model: gpt-4
-│   ├── input_tokens: 150
-│   ├── output_tokens: 300
-│   └── status: ok
-│
-├── Span: embeddings text-embedding-ada-002 [client] (120ms, $0.0001)
-│   ├── operation: embeddings
-│   ├── provider: openai
-│   ├── model: text-embedding-ada-002
-│   ├── input_tokens: 50
-│   └── status: ok
-│
-└── Span: execute_tool web_search [internal] (450ms)
-    ├── operation: execute_tool
-    ├── tool_name: web_search
-    └── status: ok
+```mermaid
+graph TD
+    Trace[Trace: 3c8f4b9a2e1d6c7b8a9e0f1d2c3b4a5e]
+
+    Trace --> Span1[Span: chat gpt-4 client<br/>750ms, $0.0045]
+    Trace --> Span2[Span: embeddings text-embedding-ada-002 client<br/>120ms, $0.0001]
+    Trace --> Span3[Span: execute_tool web_search internal<br/>450ms]
+
+    Span1 -.-> S1A[operation: chat<br/>provider: openai<br/>model: gpt-4<br/>input_tokens: 150<br/>output_tokens: 300<br/>status: ok]
+
+    Span2 -.-> S2A[operation: embeddings<br/>provider: openai<br/>model: text-embedding-ada-002<br/>input_tokens: 50<br/>status: ok]
+
+    Span3 -.-> S3A[operation: execute_tool<br/>tool_name: web_search<br/>status: ok]
+
+    style Trace fill:#e1f5ff
+    style Span1 fill:#fff4e6
+    style Span2 fill:#fff4e6
+    style Span3 fill:#fff4e6
+    style S1A fill:#f5f5f5
+    style S2A fill:#f5f5f5
+    style S3A fill:#f5f5f5
 ```
 
 ### Example: Viewing Automatic Traces
@@ -692,19 +692,30 @@ Event::listen(LlmTokenStreamed::class, function ($event) {
 
 ### Streaming Trace Structure
 
-```
-Trace: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
-└── Span: text_completion gpt-4 [client] (5.2s)
-    ├── operation: text_completion
-    ├── provider: openai
-    ├── model: gpt-4
-    ├── output_tokens: 487 (cumulative)
-    ├── events:
-    │   ├── token_streamed (t=100ms, token=1)
-    │   ├── token_streamed (t=110ms, token=2)
-    │   ├── token_streamed (t=120ms, token=3)
-    │   └── ... (484 more events)
-    └── status: ok
+```mermaid
+graph TD
+    Trace[Trace: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6]
+
+    Trace --> Span[Span: text_completion gpt-4 client<br/>5.2s total duration]
+
+    Span --> Meta[Metadata]
+    Span --> Events[Streaming Events]
+
+    Meta -.-> M1[operation: text_completion<br/>provider: openai<br/>model: gpt-4<br/>output_tokens: 487 cumulative<br/>status: ok]
+
+    Events --> E1[t=100ms<br/>token_streamed token=1]
+    Events --> E2[t=110ms<br/>token_streamed token=2]
+    Events --> E3[t=120ms<br/>token_streamed token=3]
+    Events --> E4[...<br/>484 more events]
+
+    style Trace fill:#e1f5ff
+    style Span fill:#fff4e6
+    style Meta fill:#f5f5f5
+    style Events fill:#e7f9e7
+    style E1 fill:#ffe6e6
+    style E2 fill:#ffe6e6
+    style E3 fill:#ffe6e6
+    style E4 fill:#ffe6e6
 ```
 
 ## OTLP Exporters

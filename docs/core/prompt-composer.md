@@ -137,6 +137,22 @@ Mindwave::prompt()
 
 PromptComposer's killer feature is its intelligent auto-fit algorithm. Here's how it works:
 
+```mermaid
+flowchart TD
+    Start([Start Auto-Fit]) --> Calculate[Calculate total tokens<br/>across all sections]
+    Calculate --> Compare{Fits within<br/>context window?}
+    Compare -->|Yes| Success([Use prompt as-is])
+    Compare -->|No| Sort[Sort sections by<br/>priority highest first]
+    Sort --> Preserve[Preserve non-shrinkable<br/>sections without shrinker]
+    Preserve --> Check{Non-shrinkable<br/>sections exceed<br/>budget?}
+    Check -->|Yes| Error([Throw exception])
+    Check -->|No| Distribute[Distribute remaining<br/>token budget among<br/>shrinkable sections]
+    Distribute --> Apply[Apply shrinkers to<br/>reduce content]
+    Apply --> Success
+```
+
+**Algorithm Steps:**
+
 1. **Calculate total tokens** - Count tokens across all sections
 2. **Check if it fits** - Compare against model's context window minus reserved output tokens
 3. **If over budget**:

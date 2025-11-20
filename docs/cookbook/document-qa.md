@@ -2740,7 +2740,7 @@ You've now built a complete, production-ready Document Q&A system with:
 
 - [RAG Overview](/docs/core/rag-overview) - RAG concepts and architecture
 - [Vector Stores](/docs/reference/vector-stores) - Vector database integration
-- [Brain](/docs/core/brain) - Document processing and semantic search
+- [Brain](/docs/rag/brain) - Document processing and semantic search
 - [PromptComposer](/docs/core/prompt-composer) - Token-aware prompt composition
 - [Observability](/docs/observability/overview) - Tracing and cost tracking
 - [Testing](/docs/advanced/testing) - Testing AI applications

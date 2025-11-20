@@ -1,119 +1,187 @@
-# Mindwave: AI Chatbots, Agents & Document Q&A in Laravel Simplified.
+# Mindwave: Production AI Utilities for Laravel
+
+**The working developer's AI toolkit** - Long prompts, streaming, tracing, and context discovery made simple.
+
+> **Status:** 🚧 Under active development. v1.0 coming soon!
 
 ## What is Mindwave?
 
-Mindwave is a Laravel package that lets you easily build AI-powered chatbots, agents, and document question and
-answering (Q&A) functionality into your application.
+Mindwave is a Laravel package that provides **production-grade AI utilities** for building LLM-powered features. Unlike complex agent frameworks, Mindwave focuses on practical tools that Laravel developers actually need:
 
-## Example
+- ✅ **Auto-fit long prompts** to any model's context window
+- ✅ **Stream LLM responses** with 3 lines of code (SSE/EventSource)
+- ✅ **OpenTelemetry tracing** with database storage for costs, tokens, and performance
+- ✅ **Ad-hoc context discovery** from your database/CSV using TNTSearch
 
-![Code Example](/art/code.png)
+## Why Mindwave?
+
+**Not another agent framework.** Just batteries-included utilities for shipping AI features fast.
+
+## Core Features
+
+### 🧩 Prompt Composer
+
+Automatically manage context windows with priority-based section trimming:
+
+- **Token budgeting** - Reserve tokens for output, auto-fit sections
+- **Smart shrinkers** - Summarize, truncate, or compress content
+- **Priority system** - Keep important sections, trim less critical ones
+- **Multi-model support** - Works with GPT-4, Claude, Mistral, etc.
+
+[Learn more about Prompt Composer →](/docs/core/prompt-composer)
+
+### 🌊 Streaming (SSE)
+
+Production-ready Server-Sent Events streaming:
+
+- **3-line setup** - Backend and frontend
+- **Proper headers** - Works with Nginx/Apache out of the box
+- **Connection monitoring** - Handles client disconnects
+- **Error handling** - Graceful failure and retry
+
+[Learn more about Streaming →](/docs/core/streaming)
+
+### 📊 OpenTelemetry Tracing
+
+Industry-standard observability with GenAI semantic conventions:
+
+- **Automatic tracing** - All LLM calls tracked (zero configuration)
+- **Database storage** - Query traces via Eloquent models
+- **OTLP export** - Send to Jaeger, Grafana, Datadog, Honeycomb, etc.
+- **Cost tracking** - Automatic cost estimation per call
+- **Token usage** - Input/output/total tokens tracked
+- **PII protection** - Configurable message capture and redaction
+
+[Learn more about Tracing →](/docs/observability/tracing)
+
+### 🔍 TNTSearch Context Discovery
+
+Pull context from your application data without complex RAG setup:
+
+- **No infrastructure** - Pure PHP, no external services
+- **Multiple sources** - Eloquent, arrays, CSV files, VectorStores
+- **Fast indexing** - Ephemeral indexes with automatic cleanup
+- **BM25 ranking** - Industry-standard relevance scoring
+- **Auto-query extraction** - Automatically extracts search terms from user messages
+
+[Learn more about Context Discovery →](/docs/core/context-discovery)
+
+### 🧠 Brain & Vector Stores
+
+Persistent knowledge management with semantic search:
+
+- **Multiple backends** - Pinecone, Qdrant, Weaviate, or local file storage
+- **Document loaders** - Built-in loaders for various formats (PDF, Word, CSV, etc.)
+- **Automatic chunking** - Documents split for optimal retrieval
+- **Semantic search** - Find information by meaning, not just keywords
+
+[Learn more about the Brain →](/docs/rag/brain)
+
+## Quick Start
+
+### Installation
+
+Install via Composer:
+
+```bash
+composer require mindwave/mindwave
+```
+
+Publish the config files:
+
+```bash
+php artisan vendor:publish --tag="mindwave-config"
+```
+
+Run migrations for tracing (optional but recommended):
+
+```bash
+php artisan migrate
+```
+
+### Basic LLM Chat
 
 ```php
-<?php
-
-use Illuminate\Support\Facades\File;
-use Mindwave\Mindwave\Facades\DocumentLoader;
 use Mindwave\Mindwave\Facades\Mindwave;
-use Mindwave\Mindwave\Memory\ConversationBufferMemory;
 
-$agent = Mindwave::agent(
-    memory: ConversationBufferMemory::fromMessages([])
-);
+$response = Mindwave::llm()->chat([
+    ['role' => 'system', 'content' => 'You are a helpful assistant.'],
+    ['role' => 'user', 'content' => 'Explain Laravel in one sentence.'],
+]);
 
-Mindwave::brain()
-    ->consume(
-        DocumentLoader::fromPdf(
-            data: File::get("uploads/important-document.pdf"),
-            meta: ["name" => "Important document"],
-        )
-    )
-    ->consume(
-        DocumentLoader::fromUrl(
-            data: "https://mindwave.no/",
-            meta: ["name" => "Mindwave Documentation"],
-        )
-    )
-    ->consume(
-        DocumentLoader::make("My name is Helge Sverre")
-    );
-
-
-$agent->ask("List the top 3 most important things in 'important document'");
-$agent->ask("What is mindwave?");
-$agent->ask("What is my name?");
+echo $response->choices[0]->message->content;
 ```
+
+### Streaming Responses
+
+**Backend:**
+```php
+Route::get('/chat', function (Request $request) {
+    return Mindwave::stream($request->input('message'))
+        ->model('gpt-4')
+        ->respond();
+});
+```
+
+**Frontend:**
+```javascript
+const stream = new EventSource('/chat?message=' + encodeURIComponent(question));
+stream.onmessage = e => output.textContent += e.data;
+stream.addEventListener('done', () => stream.close());
+```
+
+### Auto-Fit Long Prompts
+
+```php
+Mindwave::prompt()
+    ->reserveOutputTokens(500)
+    ->section('system', 'You are an expert analyst', priority: 100)
+    ->section('documentation', $longDocContent, priority: 50, shrinker: 'summarize')
+    ->section('history', $conversationHistory, priority: 75)
+    ->section('user', $userQuestion, priority: 100)
+    ->fit()  // Trims to model's context window
+    ->run();
+```
+
+## Documentation
+
+- 📖 [Installation Guide](/docs/installation)
+- 🔧 [Configuration](/docs/configuration)
+- 🚀 [Quick Start Guide](/docs/quick-start)
+- 📚 [Core Features](/docs/core/prompt-composer)
+- 🍳 [Cookbook Examples](/docs/cookbook/support-bot)
+
+## Supported Providers
+
+### LLM Providers
+- ✅ **OpenAI** (GPT-4, GPT-3.5, etc.)
+- ✅ **Mistral AI** (Mistral Large, Small, etc.)
+- ✅ **Anthropic** (Claude 3.5 Sonnet, Opus, Haiku, etc.)
+- 🔄 **Google Gemini** (Coming soon)
+
+### Vector Stores
+- ✅ **Qdrant** - High-performance vector database
+- ✅ **Weaviate** - Open-source vector search engine
+- ✅ **Pinecone** - Managed vector database service
+- ✅ **In-Memory** - For testing and development
+- ✅ **File-based** - JSON file storage for simple use cases
 
 ## Use Cases
 
--   💬 **Chatbots**: Building AI-powered chatbots to provide support to customers.
--   🤖 **Agents**: Developing intelligent agents to automate tasks within an application.
--   ❓ **Document Q&A**: Creating document question and answering (Q&A) systems to extract insights from text.
-
-## Technical
-
--   Mindwave makes it easy to generate embeddings for many types of documents (text, pdf, html, csv, json, etc), store
-    those embeddings in a Vector database.
--   Using pre-made prompts you can instruct an Agent to run custom "tools" that can perform an action in your codebase,
-    lookup specific information from an external source, search your vector database for semantically similar information
-    and use the result of that action to generate an answer.
-
-## Support
-
-Mindwave is "driver" oriented, this means you can swap out the parts to suite your needs and use-cases.
-
-### Vector databases
-
-| Name     | Supported?   |
-| -------- | ------------ |
-| Pinecone | Yes          |
-| Weaviate | No (planned) |
-| Qdrant   | No (planned) |
-| Milvus   | No (planned) |
-| pgvector | No (planned) |
-
-### LLMs
-
-| Name               | Supported?        |
-| ------------------ | ----------------- |
-| OpenAI Chat models | Yes (Recommended) |
-| OpenAI Completion  | Yes               |
-| Cohere AI          | No (planned)      |
-| Anthropic Claude   | No (planned)      |
-
-### Embeddings
-
-| Name                | Supported?        |
-| ------------------- | ----------------- |
-| OpenAI text-ada-002 | Yes (Recommended) |
-
-## Known Limitations
-
-While Mindwave offers powerful AI capabilities, there are some limitations to keep in mind:
-
-| Limitation      | Description                                                                                                                     |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Hallucination   | Large language models (LLMs) like OpenAI's GPT models can occasionally produce nonsensical responses or "hallucinate".          |
-| English-Centric | While you can configure Mindwave to respond in different languages, it may not always be accurate or natural-sounding.          |
-| Context Length  | OpenAI's GPT models have a hard limit on the length of the input context they can process, which varies depending on the model. |
-
-Here are the current context length limits for some of the OpenAI models supported by Mindwave:
-
-| Model ID         | Max Tokens |
-| ---------------- | ---------- |
-| text-davinci-003 | 4,097      |
-| gpt-3.5-turbo    | 4,096      |
-| gpt-4            | 4,096      |
-
-It's important to keep these limitations in mind when building applications with Mindwave, and to test and evaluate the
-results carefully to ensure the desired outcomes are being achieved.
+- 💬 **AI-Powered Customer Support** - Context-aware support bots
+- 📄 **Document Q&A** - Search and answer questions from documents
+- 🔍 **Data Analysis** - Analyze application data with AI
+- 📝 **Content Generation** - Generate content with proper context
+- 🤖 **Chatbots** - Build conversational AI applications
 
 ## Credits
 
--   [Helge Sverre](https://twitter.com/helgesverre)
--   [Probots.io](https://github.com/probots-io) for the [Pinecone PHP Client](https://github.com/probots-io/pinecone-php)
--   [Tim Kleyersburg](https://github.com/timkley) for the [Weaviate PHP Client](https://github.com/timkley/weaviate-php)
--   [PGVector team](https://github.com/pgvector/pgvector-php/graphs/contributors) for
-    the [PGVector PHP package](https://github.com/pgvector/pgvector-php)
--   [Yethee](https://github.com/yethee) for the [Tiktoken PHP Package](https://github.com/yethee/tiktoken-php)
--   [Yethee](https://github.com/yethee) for the [Tiktoken PHP Package](https://github.com/yethee/tiktoken-php)
+- [Helge Sverre](https://twitter.com/helgesverre) - Creator
+- [OpenAI PHP Client](https://github.com/openai-php/client) - OpenAI integration
+- [TeamTNT/TNTSearch](https://github.com/teamtnt/tntsearch) - Full-text search
+- [OpenTelemetry PHP](https://github.com/open-telemetry/opentelemetry-php) - Observability
+- [Tiktoken PHP](https://github.com/yethee/tiktoken-php) - Token counting
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

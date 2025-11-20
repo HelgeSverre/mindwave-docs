@@ -25,14 +25,19 @@ The function calling flow:
 4. **Return Results** - Function output is sent back to the model
 5. **Continue Reasoning** - The model uses the results to generate its final response
 
-```
-User: "What's the weather in Paris?"
-  ↓
-Model: "I need to call get_weather(location: 'Paris')"
-  ↓
-Your Function: Returns { temp: 18, condition: 'sunny' }
-  ↓
-Model: "The weather in Paris is sunny and 18°C"
+```mermaid
+sequenceDiagram
+    participant User
+    participant Model as LLM
+    participant Mindwave
+    participant Function as Your Function
+
+    User->>Model: What's the weather in Paris?
+    Model->>Mindwave: Call get_weather(location: 'Paris')
+    Mindwave->>Function: Execute get_weather('Paris')
+    Function-->>Mindwave: { temp: 18, condition: 'sunny' }
+    Mindwave-->>Model: Return results
+    Model-->>User: The weather in Paris is sunny and 18°C
 ```
 
 ## Quick Start

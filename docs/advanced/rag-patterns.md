@@ -29,6 +29,30 @@ This guide assumes you understand:
 
 Combining semantic vector search with keyword-based search provides the best of both worlds.
 
+```mermaid
+flowchart TD
+    Query[Search Query<br/><em>Laravel authentication</em>]
+
+    Query --> Vector[Vector Search<br/><em>semantic similarity</em>]
+    Query --> Keyword[Keyword Search<br/><em>exact term matching</em>]
+
+    Vector --> V1[Conceptually<br/>similar content]
+    Keyword --> K1[Exact technical<br/>term matches]
+
+    V1 --> Pipeline[Context Pipeline]
+    K1 --> Pipeline
+
+    Pipeline --> Dedup[Deduplication<br/><em>remove overlaps</em>]
+    Dedup --> Rerank[Re-ranking<br/><em>by relevance</em>]
+    Rerank --> Results[Combined Results<br/><em>best of both worlds</em>]
+
+    style Query fill:#e1f5ff
+    style Vector fill:#ffe6e6
+    style Keyword fill:#fff4e6
+    style Pipeline fill:#f0f0f0
+    style Results fill:#e7f9e7
+```
+
 ### Basic Hybrid Search
 
 Combine vector and keyword search using Context Pipeline:
@@ -290,6 +314,19 @@ class CrossEncoderReranker
 ### Multi-Stage Retrieval
 
 Combine fast initial retrieval with expensive re-ranking:
+
+```mermaid
+flowchart LR
+    A[Query] --> B[Stage 1:<br/>Fast Vector Search<br/><em>50 candidates</em>]
+    B --> C[Stage 2:<br/>LLM Re-ranking<br/><em>expensive but accurate</em>]
+    C --> D[Top 5 Results]
+
+    style B fill:#e1f5ff
+    style C fill:#fff4e6
+    style D fill:#e7f9e7
+```
+
+**Implementation:**
 
 ```php
 class MultiStageRetriever
@@ -1278,7 +1315,28 @@ class BatchEmbeddingProcessor
 
 ### Graceful Degradation
 
-Handle failures gracefully:
+Handle failures gracefully with a tiered fallback strategy:
+
+```mermaid
+flowchart TD
+    Start([Query]) --> Tier1{Try Vector<br/>Search}
+    Tier1 -->|Success| Return1[Return Results]
+    Tier1 -->|Failed| Log1[Log Error]
+    Log1 --> Tier2{Try Keyword<br/>Search}
+    Tier2 -->|Success| Return2[Return Results]
+    Tier2 -->|Failed| Log2[Log Error]
+    Log2 --> Tier3[Static Fallback<br/>Message]
+    Tier3 --> Return3[Return Fallback]
+
+    style Tier1 fill:#e1f5ff
+    style Tier2 fill:#fff4e6
+    style Tier3 fill:#ffe6e6
+    style Return1 fill:#e7f9e7
+    style Return2 fill:#e7f9e7
+    style Return3 fill:#fff0cc
+```
+
+**Implementation:**
 
 ```php
 class ResilientRAG

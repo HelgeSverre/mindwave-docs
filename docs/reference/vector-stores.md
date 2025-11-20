@@ -432,7 +432,7 @@ $results = $brain->recall($query,
 
 ## Related Documentation
 
-- [Brain API](/docs/core/brain) - Brain usage guide
+- [Brain API](/docs/rag/brain) - Brain usage guide
 - [Embeddings Reference](/docs/reference/embeddings.md) - Embedding providers
 - [RAG Overview](/docs/rag/overview) - RAG architecture
 - [Configuration Guide](/docs/configuration.md) - Complete configuration
