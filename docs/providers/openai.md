@@ -38,7 +38,7 @@ OpenAI is one of the leading LLM providers and is the default provider in Mindwa
 
 Add these to your `.env` file:
 
-```env
+```dotenv
 # Required: Your OpenAI API key
 MINDWAVE_OPENAI_API_KEY=sk-your-api-key-here
 
@@ -1552,7 +1552,7 @@ Error: Incorrect API key provided
 **Solutions:**
 
 1. Check your API key in `.env`:
-   ```env
+   ```dotenv
    MINDWAVE_OPENAI_API_KEY=sk-...
    ```
 
@@ -1772,7 +1772,7 @@ return [
 
 ### Environment Variables
 
-```env
+```dotenv
 # Azure OpenAI Configuration
 AZURE_OPENAI_API_KEY=your-azure-api-key
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/openai/deployments/your-deployment

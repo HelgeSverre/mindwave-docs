@@ -45,7 +45,7 @@ Mindwave provides built-in support for:
 
 Enable OTLP export in your `.env` file:
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -93,7 +93,7 @@ docker run -d --name jaeger \
 
 2. **Configure Mindwave:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -151,7 +151,7 @@ spec:
 
 Configure your Laravel app:
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318
 ```
 
@@ -221,7 +221,7 @@ docker run -d --name tempo \
 
 3. **Configure Mindwave:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 ```
@@ -230,7 +230,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 
 Tempo supports multi-tenancy via the `X-Scope-OrgID` header:
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_HEADERS=X-Scope-OrgID=tenant-1
 ```
 
@@ -268,7 +268,7 @@ datasources:
 
 **Grafana Cloud Tempo:**
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=https://tempo-prod-us-central-0.grafana.net:443
 OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic <base64-encoded-credentials>
 ```
@@ -285,7 +285,7 @@ Honeycomb is a modern observability platform designed for high-cardinality data.
 
 #### Configuration
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=https://api.honeycomb.io:443
 OTEL_EXPORTER_OTLP_HEADERS=x-honeycomb-team=YOUR_API_KEY,x-honeycomb-dataset=mindwave-production
@@ -309,19 +309,19 @@ Or in config file:
 
 **Development:**
 
-```env
+```dotenv
 HONEYCOMB_DATASET=mindwave-dev
 ```
 
 **Staging:**
 
-```env
+```dotenv
 HONEYCOMB_DATASET=mindwave-staging
 ```
 
 **Production:**
 
-```env
+```dotenv
 HONEYCOMB_DATASET=mindwave-production
 ```
 
@@ -387,7 +387,7 @@ sudo systemctl restart datadog-agent
 
 3. **Configure Mindwave:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 ```
@@ -450,7 +450,7 @@ New Relic supports OTLP ingestion for distributed tracing.
 
 #### Configuration
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.nr-data.net:4318
 OTEL_EXPORTER_OTLP_HEADERS=api-key=YOUR_NEW_RELIC_LICENSE_KEY
@@ -473,7 +473,7 @@ Or in config:
 
 For EU data centers:
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.eu01.nr-data.net:4318
 ```
 
@@ -553,7 +553,7 @@ docker run -d --name otel-collector \
 
 3. **Configure Mindwave:**
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
 ```
 
@@ -797,7 +797,7 @@ For production deployments, always use TLS to encrypt trace data.
 
 **HTTPS Endpoint:**
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=https://secure-backend:4318
 ```
 
@@ -820,7 +820,7 @@ Most observability platforms require authentication via API keys or tokens.
 
 #### API Key in Headers
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_HEADERS=x-api-key=your-secret-api-key
 ```
 
@@ -836,7 +836,7 @@ OTEL_EXPORTER_OTLP_HEADERS=x-api-key=your-secret-api-key
 
 #### Bearer Token Authentication
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer your-jwt-token
 ```
 
@@ -849,7 +849,7 @@ echo -n "username:password" | base64
 # Output: dXNlcm5hbWU6cGFzc3dvcmQ=
 ```
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic dXNlcm5hbWU6cGFzc3dvcmQ=
 ```
 
@@ -857,7 +857,7 @@ OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic dXNlcm5hbWU6cGFzc3dvcmQ=
 
 Separate multiple headers with commas:
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_HEADERS=x-api-key=secret,x-tenant-id=acme,x-region=us-west
 ```
 
@@ -867,7 +867,7 @@ OTEL_EXPORTER_OTLP_HEADERS=x-api-key=secret,x-tenant-id=acme,x-region=us-west
 
 Deploy exporters in private networks accessible only to your application:
 
-```env
+```dotenv
 # Internal VPC endpoint
 OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector.internal:4318
 ```
@@ -923,7 +923,7 @@ Set retention limits in your observability backend:
 
 **Never commit secrets to version control:**
 
-```env
+```dotenv
 # .env (not committed)
 HONEYCOMB_API_KEY=your-secret-key
 NEW_RELIC_LICENSE_KEY=your-license-key
@@ -1059,7 +1059,7 @@ Send traces to multiple backends simultaneously for redundancy, multi-region sup
 
 Mindwave automatically uses multiple exporters when both database and OTLP are enabled:
 
-```env
+```dotenv
 # Database export (local queries)
 MINDWAVE_TRACE_DATABASE=true
 
@@ -1316,7 +1316,7 @@ class OtlpExportTest extends TestCase
 
 Deploy multiple OpenTelemetry Collectors with load balancing:
 
-```env
+```dotenv
 # Use load balancer DNS
 OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector.internal:4318
 ```
@@ -1557,7 +1557,7 @@ processors:
 
 **1. Use TLS Everywhere:**
 
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=https://secure-backend:4318
 ```
 
@@ -1664,7 +1664,7 @@ storage:
 
 Reduce span size by 50-80%:
 
-```env
+```dotenv
 MINDWAVE_TRACE_CAPTURE_MESSAGES=false
 ```
 
@@ -1672,7 +1672,7 @@ MINDWAVE_TRACE_CAPTURE_MESSAGES=false
 
 **Local Development:**
 
-```env
+```dotenv
 # .env.local
 MINDWAVE_TRACE_DATABASE=true
 MINDWAVE_TRACE_OTLP_ENABLED=false
@@ -1682,7 +1682,7 @@ MINDWAVE_CAPTURE_MESSAGES=true  # Debug with full context
 
 **Staging:**
 
-```env
+```dotenv
 # .env.staging
 MINDWAVE_TRACE_DATABASE=true
 MINDWAVE_TRACE_OTLP_ENABLED=true
@@ -1693,7 +1693,7 @@ MINDWAVE_CAPTURE_MESSAGES=false
 
 **Production:**
 
-```env
+```dotenv
 # .env.production
 MINDWAVE_TRACE_DATABASE=false  # Use OTLP only
 MINDWAVE_TRACE_OTLP_ENABLED=true
@@ -1741,7 +1741,5 @@ MINDWAVE_CAPTURE_MESSAGES=false
 
 ## Next Steps
 
--   **[Trace Storage](./trace-storage.md)** - Local database storage for traces
--   **[Querying Traces](./querying-traces.md)** - Query and analyze trace data
--   **[Cost Tracking](./cost-tracking.md)** - Monitor LLM costs with traces
--   **[Production Best Practices](./production-best-practices.md)** - Deploy tracing at scale
+-   **[Querying Traces](./querying)** - Query and analyze trace data
+-   **[Cost Tracking](./cost-tracking)** - Monitor LLM costs with traces

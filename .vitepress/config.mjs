@@ -5,6 +5,10 @@ export default defineConfig({
     title: 'Mindwave',
     description: 'Production-Ready AI Foundation for Laravel Applications - Build scalable, observable AI applications with Laravel',
     appearance: true,
+    ignoreDeadLinks: [
+        // Ignore localhost URLs
+        /^https?:\/\/localhost/,
+    ],
     head: [
         [
             'link',

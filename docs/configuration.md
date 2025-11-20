@@ -1866,10 +1866,10 @@ php artisan config:clear
 ## Additional Resources
 
 - **Installation Guide:** See [installation.md](/docs/installation)
-- **Quick Start:** See [quickstart.md](/quickstart)
-- **Tracing Guide:** See [tracing.md](/tracing)
-- **Context Discovery:** See [context-discovery.md](/context-discovery)
-- **API Reference:** See [api-reference.md](/api-reference)
+- **Quick Start:** See [quickstart.md](/docs/installation)
+- **Tracing Guide:** See [tracing.md](/docs/observability/tracing)
+- **Context Discovery:** See [context-discovery.md](/docs/core/context-discovery)
+- **API Reference:** See [api-reference.md](/docs/reference/api)
 
 **Official Documentation:**
 - [OpenAI API Docs](https://platform.openai.com/docs)

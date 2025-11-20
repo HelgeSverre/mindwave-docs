@@ -2035,7 +2035,7 @@ Echo.private(`chat.${userId}`)
 
 **Environment configuration:**
 
-```env
+```dotenv
 # .env
 MINDWAVE_STREAM_TIMEOUT=300
 LIVEWIRE_ASSET_URL=/livewire

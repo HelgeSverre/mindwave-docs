@@ -124,7 +124,7 @@ Add your API keys and configuration to `.env`:
 
 Add at least one LLM provider API key:
 
-```env
+```dotenv
 # OpenAI (recommended for getting started)
 MINDWAVE_OPENAI_API_KEY=sk-your-openai-api-key-here
 MINDWAVE_OPENAI_MODEL=gpt-4-turbo
@@ -142,7 +142,7 @@ MINDWAVE_MISTRAL_MODEL=mistral-large-latest
 
 Tracing is enabled by default. Customize if needed:
 
-```env
+```dotenv
 # Enable/disable tracing (default: true)
 MINDWAVE_TRACING_ENABLED=true
 
@@ -157,7 +157,7 @@ MINDWAVE_SERVICE_NAME=my-laravel-app
 
 Configure TNTSearch storage path (uses sensible defaults):
 
-```env
+```dotenv
 # Where to store temporary search indexes (default: storage/mindwave/tnt-indexes)
 MINDWAVE_TNTSEARCH_STORAGE_PATH=storage/mindwave/tnt-indexes
 
@@ -337,7 +337,7 @@ Send traces to external observability platforms like Jaeger, Grafana Tempo, or H
 
 Add to your `.env`:
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -358,19 +358,19 @@ OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 ```
 
 **Honeycomb (Production):**
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=https://api.honeycomb.io:443
 OTEL_EXPORTER_OTLP_HEADERS='{"x-honeycomb-team":"YOUR_API_KEY","x-honeycomb-dataset":"mindwave"}'
 ```
 
 **Grafana Tempo:**
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4318
 OTEL_EXPORTER_OTLP_HEADERS='{"X-Scope-OrgID":"tenant1"}'
 ```
 
 **Datadog:**
-```env
+```dotenv
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 DD_OTLP_CONFIG_RECEIVER_ENABLED=true
 ```
@@ -403,7 +403,7 @@ Mindwave::prompt()
 
 **Configure storage path (optional):**
 
-```env
+```dotenv
 MINDWAVE_TNTSEARCH_STORAGE_PATH=storage/mindwave/tnt-indexes
 MINDWAVE_TNT_INDEX_TTL=24  # Hours before cleanup
 ```
@@ -424,7 +424,7 @@ If you're using embeddings and vector databases, configure your provider:
 
 #### Pinecone
 
-```env
+```dotenv
 MINDWAVE_PINECONE_API_KEY=your-pinecone-api-key
 MINDWAVE_PINECONE_ENVIRONMENT=us-west1-gcp
 MINDWAVE_PINECONE_INDEX=mindwave
@@ -437,7 +437,7 @@ MINDWAVE_PINECONE_INDEX=mindwave
 docker run -d -p 6333:6333 qdrant/qdrant
 ```
 
-```env
+```dotenv
 MINDWAVE_QDRANT_HOST=localhost
 MINDWAVE_QDRANT_PORT=6333
 MINDWAVE_QDRANT_COLLECTION=mindwave
@@ -450,7 +450,7 @@ MINDWAVE_QDRANT_COLLECTION=mindwave
 docker run -d -p 8080:8080 semitechnologies/weaviate:latest
 ```
 
-```env
+```dotenv
 MINDWAVE_WEAVIATE_URL=http://localhost:8080/v1
 MINDWAVE_WEAVIATE_API_TOKEN=password
 MINDWAVE_WEAVIATE_INDEX=items
@@ -464,7 +464,7 @@ Vector stores are optional. You don't need them for basic LLM operations or TNTS
 
 Configure multiple providers and switch between them:
 
-```env
+```dotenv
 # OpenAI
 MINDWAVE_OPENAI_API_KEY=sk-...
 MINDWAVE_OPENAI_MODEL=gpt-4-turbo
@@ -633,7 +633,7 @@ Schema::table('mindwave_traces', function (Blueprint $table) {
 
 Reduce tracing overhead by sampling:
 
-```env
+```dotenv
 MINDWAVE_TRACE_SAMPLER=traceidratio
 MINDWAVE_TRACE_SAMPLE_RATIO=0.1  # Sample 10% of traces
 ```
@@ -655,7 +655,7 @@ protected function schedule(Schedule $schedule)
 
 Protect PII and reduce storage:
 
-```env
+```dotenv
 MINDWAVE_CAPTURE_MESSAGES=false
 ```
 
@@ -674,13 +674,13 @@ Now that Mindwave is installed, explore its core features:
 - **[Environment Variables](/docs/configuration#environment-variables)** - Complete reference
 
 ### Advanced Topics
-- **[Cost Tracking](/docs/cost-tracking)** - Monitor and analyze LLM costs
-- **[Production Deployment](/docs/deployment)** - Best practices for production
-- **[Custom Shrinkers](/docs/custom-shrinkers)** - Build custom prompt compression strategies
+- **[Cost Tracking](/docs/observability/cost-tracking)** - Monitor and analyze LLM costs
+- **[Production Deployment](/docs/production)** - Best practices for production
+- **[Custom Shrinkers](/docs/configuration#token-optimization)** - Build custom prompt compression strategies
 
 ### Examples
-- **[Common Patterns](/examples/common-patterns)** - Copy-paste solutions for common use cases
-- **[Integration Examples](/examples/integrations)** - Integrate with existing Laravel apps
+- **[Common Patterns](/docs/cookbook/support-bot)** - Copy-paste solutions for common use cases
+- **[Integration Examples](/docs/cookbook/multi-source)** - Integrate with existing Laravel apps
 
 ## Getting Help
 

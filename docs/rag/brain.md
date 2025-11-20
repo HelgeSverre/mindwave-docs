@@ -1335,8 +1335,8 @@ class CachedBrainSearch
 
 ## Related Documentation
 
-- [Context Discovery](/docs/rag/context-discovery) - Dynamic multi-source context
-- [PromptComposer](/docs/prompt-composer) - Auto-fitting prompts
+- [Context Discovery](/docs/core/context-discovery) - Dynamic multi-source context
+- [PromptComposer](/docs/core/prompt-composer) - Auto-fitting prompts
 - [Document Loaders](/docs/document-loaders) - Loading various file types
 - [Vector Stores](/docs/reference/vector-stores) - Backend storage options
 - [Embeddings](/docs/reference/embeddings) - Text embedding providers

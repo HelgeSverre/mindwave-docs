@@ -426,7 +426,7 @@ Mindwave::prompt()
 - Smart priority-based trimming
 - Multiple shrinker strategies (summarize, truncate, compress)
 
-See: [PromptComposer Guide](/docs/prompt-composer)
+See: [PromptComposer Guide](/docs/core/prompt-composer)
 
 ### 2. OpenTelemetry Tracing - Observability
 

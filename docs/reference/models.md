@@ -1423,4 +1423,4 @@ foreach (['gpt-4o-mini', 'gpt-4o', 'claude-3-5-sonnet'] as $model) {
 
 ---
 
-**Need more help?** Check the [PromptComposer guide](/docs/prompt-composer) for detailed usage examples.
+**Need more help?** Check the [PromptComposer guide](/docs/core/prompt-composer) for detailed usage examples.

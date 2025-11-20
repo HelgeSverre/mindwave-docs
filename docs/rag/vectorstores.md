@@ -275,7 +275,7 @@ Copy your API key and environment from the console.
 
 Add to `.env`:
 
-```env
+```dotenv
 MINDWAVE_VECTORSTORE=pinecone
 MINDWAVE_PINECONE_API_KEY=your-api-key-here
 MINDWAVE_PINECONE_ENVIRONMENT=us-west1-gcp-free
@@ -338,7 +338,7 @@ docker-compose up -d
 
 Add to `.env`:
 
-```env
+```dotenv
 MINDWAVE_VECTORSTORE=weaviate
 MINDWAVE_WEAVIATE_URL=http://localhost:8080/v1
 MINDWAVE_WEAVIATE_API_TOKEN=password
@@ -357,7 +357,7 @@ Copy your cluster URL and API key from the console.
 
 **3. Configure Environment**
 
-```env
+```dotenv
 MINDWAVE_VECTORSTORE=weaviate
 MINDWAVE_WEAVIATE_URL=https://your-cluster.weaviate.network/v1
 MINDWAVE_WEAVIATE_API_TOKEN=your-api-key
@@ -412,7 +412,7 @@ volumes:
 
 Add to `.env`:
 
-```env
+```dotenv
 MINDWAVE_VECTORSTORE=qdrant
 MINDWAVE_QDRANT_HOST=localhost
 MINDWAVE_QDRANT_PORT=6333
@@ -432,7 +432,7 @@ Copy your cluster URL and API key.
 
 **3. Configure Environment**
 
-```env
+```dotenv
 MINDWAVE_VECTORSTORE=qdrant
 MINDWAVE_QDRANT_HOST=your-cluster.qdrant.io
 MINDWAVE_QDRANT_PORT=6333
@@ -461,7 +461,7 @@ The collection is created automatically on first insert.
 
 **Configure Environment**
 
-```env
+```dotenv
 MINDWAVE_VECTORSTORE=file
 MINDWAVE_VECTORSTORE_PATH=/path/to/storage/vectorstore.json
 ```
@@ -472,7 +472,7 @@ The file is created automatically when you insert the first vector.
 
 **Configure Environment**
 
-```env
+```dotenv
 MINDWAVE_VECTORSTORE=array
 ```
 
@@ -504,7 +504,7 @@ Before storing vectors, you need to convert text into embeddings. Mindwave uses 
 
 ### Configure Embeddings
 
-```env
+```dotenv
 MINDWAVE_EMBEDDINGS_DRIVER=openai
 MINDWAVE_OPENAI_API_KEY=your-openai-api-key
 MINDWAVE_OPENAI_EMBEDDING_MODEL=text-embedding-ada-002
@@ -2040,7 +2040,7 @@ if ($document->updated_at > $document->embedded_at) {
 ```
 
 **2. Use Cheaper Models**
-```env
+```dotenv
 # text-embedding-3-small is 5x cheaper than ada-002
 MINDWAVE_OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 ```
@@ -2216,7 +2216,7 @@ Vectorstore::driver('support-index')->insert($ticketEntry);
 
 **Environment Configuration**
 
-```env
+```dotenv
 # Production settings
 MINDWAVE_VECTORSTORE=pinecone  # or weaviate/qdrant
 MINDWAVE_PINECONE_API_KEY=prod-api-key
@@ -2564,7 +2564,7 @@ $vector = Cache::remember($cacheKey, now()->addDays(30),
 ```
 
 2. **Use cheaper model**:
-```env
+```dotenv
 MINDWAVE_OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 ```
 
@@ -2590,10 +2590,9 @@ Log::info("Embedded {$count} documents, estimated cost: \$" . ($count * 0.0001))
 
 ## Next Steps
 
-- **[Text Splitting](./text-splitting.md)** - Learn how to chunk documents for optimal embedding
-- **[Context Discovery](./context-discovery.md)** - Build sophisticated context retrieval pipelines
-- **[PromptComposer](../core/prompt-composer.md)** - Compose prompts with retrieved context
-- **[Embeddings](../llm-integrations/embeddings.md)** - Deep dive into embedding models
+- **[Context Discovery](/docs/core/context-discovery)** - Build sophisticated context retrieval pipelines
+- **[PromptComposer](/docs/core/prompt-composer)** - Compose prompts with retrieved context
+- **[Embeddings](./embeddings)** - Deep dive into embedding models
 
 Vector stores enable powerful semantic search capabilities in your Laravel application. Whether you're building documentation search, customer support automation, or recommendation systems, vector stores provide the foundation for understanding meaning, not just matching keywords.
 

@@ -39,7 +39,7 @@ Anthropic is a leading AI safety company known for Claude, a family of highly ca
 
 Add these to your `.env` file:
 
-```env
+```dotenv
 # Required: Your Anthropic API key
 MINDWAVE_ANTHROPIC_API_KEY=sk-ant-your-api-key-here
 

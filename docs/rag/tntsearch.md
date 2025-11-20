@@ -1525,6 +1525,6 @@ TNTSearch provides fast, keyword-based full-text search for Mindwave's RAG syste
 Use TNTSearch when you need exact keyword matching for small to medium datasets. For semantic understanding or large datasets, consider Vector Stores with Mindwave Brain.
 
 For more information, see:
-- [Context Discovery Guide](/docs/context-discovery)
-- [Vector Stores Documentation](/docs/rag/vector-stores)
-- [PromptComposer Integration](/docs/prompt-composer)
+- [Context Discovery Guide](/docs/core/context-discovery)
+- [Vector Stores Documentation](/docs/reference/vector-stores)
+- [PromptComposer Integration](/docs/core/prompt-composer)

@@ -1326,4 +1326,4 @@ Use events to build robust, observable LLM-powered applications without coupling
 
 -   [Tracing](/docs/observability/tracing) - OpenTelemetry distributed tracing
 -   [Cost Tracking](/docs/observability/cost-tracking) - Track and analyze LLM costs
--   [Testing](/testing) - Testing with Event::fake()
+-   [Testing](/docs/advanced/testing) - Testing with Event::fake()

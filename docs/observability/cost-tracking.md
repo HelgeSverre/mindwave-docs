@@ -167,7 +167,7 @@ Mindwave ships with pricing for major LLM providers. Update these periodically a
 
 Enable/disable cost estimation:
 
-```env
+```dotenv
 # Enable automatic cost calculation (default: true)
 MINDWAVE_COST_ESTIMATION_ENABLED=true
 ```
@@ -635,7 +635,7 @@ WHERE gen_ai.usage.total_tokens > P95(gen_ai.usage.total_tokens)
 
 **Grafana Tempo query:**
 
-```promql
+```txt
 # Create a panel showing cost over time
 {service.name="my-app"}
 | gen_ai.operation.name="chat"
@@ -1548,6 +1548,5 @@ Mindwave's cost tracking provides:
 
 **Next steps:**
 
--   [Distributed Tracing](./distributed-tracing.md) - Track costs across services
--   [Performance Monitoring](./performance-monitoring.md) - Balance cost vs speed
--   [Production Deployment](../production/deployment.md) - Best practices for production cost tracking
+-   [Distributed Tracing](./tracing) - Track costs across services
+-   [Production](../production) - Best practices for production cost tracking

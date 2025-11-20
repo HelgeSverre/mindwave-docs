@@ -597,7 +597,7 @@ echo $fullText;  // Complete response as a single string
 | OpenAI     | ✅ Full support   |
 | Mistral AI | ❌ Not supported  |
 
-For complete streaming examples with Vue.js, Alpine.js, and Livewire, see the [Streaming Reference](/docs/reference/streaming).
+For complete streaming examples with Vue.js, Alpine.js, and Livewire, see the [Streaming Reference](/docs/core/streaming).
 
 ## Integration with Other Features
 
@@ -1246,8 +1246,8 @@ $response->onChunk(callable $callback): self;
 
 ## Next Steps
 
--   Learn about [Streaming](/docs/reference/streaming) for real-time LLM responses
+-   Learn about [Streaming](/docs/core/streaming) for real-time LLM responses
 -   Explore [PromptComposer](/docs/core/prompt-composer) for advanced prompt management
 -   Discover [Context Discovery](/docs/core/context-discovery) for retrieving relevant code
 -   Set up [OpenTelemetry Tracing](/docs/core/tracing) to monitor LLM performance
--   Review [Function Calling Examples](/examples/function-calling) for advanced patterns
+-   Review [Function Calling Examples](/docs/core/function-calling) for advanced patterns

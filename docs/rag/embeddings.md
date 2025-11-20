@@ -86,7 +86,7 @@ Mindwave currently supports OpenAI's embedding models, which are industry-leadin
 
 Add your OpenAI credentials to `.env`:
 
-```env
+```dotenv
 MINDWAVE_OPENAI_API_KEY=sk-...
 MINDWAVE_OPENAI_ORG_ID=org-...  # Optional
 MINDWAVE_EMBEDDINGS=openai

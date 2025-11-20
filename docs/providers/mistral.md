@@ -51,7 +51,7 @@ Mistral AI is a European AI company offering high-performance large language mod
 
 Add your Mistral API key to your `.env` file:
 
-```env
+```dotenv
 # Required: Your Mistral API key
 MINDWAVE_MISTRAL_API_KEY=your-mistral-api-key-here
 
@@ -816,7 +816,7 @@ Mistral offers open-source models that can be self-hosted for complete data cont
 
 Configure Mindwave to use your self-hosted Mistral instance:
 
-```env
+```dotenv
 MINDWAVE_MISTRAL_BASE_URL=https://your-mistral-instance.com
 MINDWAVE_MISTRAL_API_KEY=your-custom-key
 MINDWAVE_MISTRAL_MODEL=mistral-7b-instruct
@@ -1311,7 +1311,7 @@ $response = Mindwave::driver('mistral')->generateText($sanitized);
 ```
 
 **4. Disable Message Capture in Production**
-```env
+```dotenv
 # Don't store prompts/responses in tracing
 MINDWAVE_TRACE_CAPTURE_MESSAGES=false
 ```

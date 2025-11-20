@@ -32,7 +32,7 @@ Before starting, ensure you have:
 - Mindwave package installed ([Installation Guide](/docs/installation))
 - OpenAI API key configured
 - Docker for running Qdrant vector store
-- Basic understanding of RAG concepts ([RAG Overview](/docs/rag/overview))
+- Basic understanding of RAG concepts ([RAG Overview](/docs/core/rag-overview))
 
 ## What You'll Learn
 
@@ -174,7 +174,7 @@ curl http://localhost:6333/
 
 Add OpenAI embeddings configuration to your `.env`:
 
-```env
+```dotenv
 # OpenAI Configuration
 OPENAI_API_KEY=sk-your-openai-api-key
 MINDWAVE_EMBEDDINGS_DRIVER=openai
@@ -2738,12 +2738,12 @@ You've now built a complete, production-ready Document Q&A system with:
 
 ## Related Documentation
 
-- [RAG Overview](/docs/rag/overview) - RAG concepts and architecture
-- [Vector Stores](/docs/rag/vectorstores) - Vector database integration
-- [Brain](/docs/rag/brain) - Document processing and semantic search
+- [RAG Overview](/docs/core/rag-overview) - RAG concepts and architecture
+- [Vector Stores](/docs/reference/vector-stores) - Vector database integration
+- [Brain](/docs/core/brain) - Document processing and semantic search
 - [PromptComposer](/docs/core/prompt-composer) - Token-aware prompt composition
 - [Observability](/docs/observability/overview) - Tracing and cost tracking
-- [Testing](/docs/testing) - Testing AI applications
+- [Testing](/docs/advanced/testing) - Testing AI applications
 
 ## Resources
 

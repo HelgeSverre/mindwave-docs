@@ -1296,9 +1296,8 @@ $splitter = new RecursiveCharacterTextSplitter(
 
 Now that you understand document processing and chunking, explore:
 
-- **[Context Sources](./context-sources.md)** - Use processed documents in RAG pipelines
-- **[TNTSearch](./tntsearch.md)** - Index chunks for full-text search
-- **[Vector Stores](../vector-stores/overview.md)** - Store embeddings for semantic search
-- **[Prompt Composer](../prompt-composer.md)** - Combine retrieved chunks with LLM prompts
+- **[TNTSearch](./tntsearch)** - Index chunks for full-text search
+- **[Vector Stores](./vectorstores)** - Store embeddings for semantic search
+- **[Prompt Composer](/docs/core/prompt-composer)** - Combine retrieved chunks with LLM prompts
 
 Document processing is the foundation of effective RAG. Master chunking strategies and metadata design to build production-ready retrieval systems that power intelligent Laravel applications.

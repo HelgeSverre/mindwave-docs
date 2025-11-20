@@ -1102,7 +1102,7 @@ class ContextPipeline
 
 -   **[PromptComposer](/docs/core/prompt-composer)** - Learn about token-aware prompt building
 -   **[Brain (Vector Store)](/docs/core/brain)** - Set up semantic search with embeddings
--   **[Configuration Reference](/configuration/context-discovery)** - Advanced configuration options
+-   **[Configuration Reference](/docs/core/context-discovery)** - Advanced configuration options
 -   **[Tracing & Observability](/docs/tracing)** - Monitor context performance
 
 ## Additional Resources

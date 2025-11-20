@@ -132,7 +132,7 @@ The pipeline uses a multi-stage approach:
 
 ### Configure Vector Store (Qdrant)
 
-```env
+```dotenv
 # .env
 QDRANT_HOST=localhost
 QDRANT_PORT=6333

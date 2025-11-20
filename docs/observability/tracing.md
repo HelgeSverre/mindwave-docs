@@ -68,7 +68,7 @@ This creates two tables:
 
 Configure tracing in your `.env` file:
 
-```env
+```dotenv
 # Enable tracing
 MINDWAVE_TRACING_ENABLED=true
 
@@ -727,7 +727,7 @@ docker run -d --name jaeger \
 
 **2. Configure in `.env`:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -741,7 +741,7 @@ Open http://localhost:16686 and search for traces by service name.
 
 Tempo is Grafana's high-volume distributed tracing backend.
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4318
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -754,7 +754,7 @@ OTEL_EXPORTER_OTLP_HEADERS='{"X-Scope-OrgID":"tenant1"}'
 
 Honeycomb is a powerful observability platform with excellent LLM tracing support.
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=https://api.honeycomb.io:443
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -790,7 +790,7 @@ service:
 
 **2. Configure Mindwave:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -798,7 +798,7 @@ OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 
 ### New Relic Setup
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.nr-data.net:4318
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -807,7 +807,7 @@ OTEL_EXPORTER_OTLP_HEADERS='{"api-key":"YOUR_NEW_RELIC_LICENSE_KEY"}'
 
 ### Azure Monitor Setup
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=https://YOUR_INSTANCE.applicationinsights.azure.com/v2.1/track
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -844,7 +844,7 @@ Use both database and OTLP exporters simultaneously:
 
 For better performance, use gRPC instead of HTTP:
 
-```env
+```dotenv
 MINDWAVE_TRACE_OTLP_ENABLED=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 OTEL_EXPORTER_OTLP_PROTOCOL=grpc
@@ -942,26 +942,26 @@ Control which traces are recorded:
 
 **Always On** (Default for development)
 
-```env
+```dotenv
 MINDWAVE_TRACE_SAMPLER=always_on
 ```
 
 **Always Off** (Disable tracing)
 
-```env
+```dotenv
 MINDWAVE_TRACE_SAMPLER=always_off
 ```
 
 **Trace ID Ratio** (Sample percentage)
 
-```env
+```dotenv
 MINDWAVE_TRACE_SAMPLER=traceidratio
 MINDWAVE_TRACE_SAMPLE_RATIO=0.1  # Sample 10% of traces
 ```
 
 **Parent Based** (Follow parent span decision)
 
-```env
+```dotenv
 MINDWAVE_TRACE_SAMPLER=parentbased
 ```
 
@@ -969,7 +969,7 @@ MINDWAVE_TRACE_SAMPLER=parentbased
 
 **Development:**
 
-```env
+```dotenv
 MINDWAVE_TRACING_ENABLED=true
 MINDWAVE_TRACE_DATABASE=true
 MINDWAVE_TRACE_OTLP_ENABLED=false
@@ -980,7 +980,7 @@ MINDWAVE_TRACE_SAMPLE_RATIO=1.0  # 100%
 
 **Production:**
 
-```env
+```dotenv
 MINDWAVE_TRACING_ENABLED=true
 MINDWAVE_TRACE_DATABASE=false  # Use OTLP only
 MINDWAVE_TRACE_OTLP_ENABLED=true
@@ -991,7 +991,7 @@ MINDWAVE_TRACE_SAMPLE_RATIO=0.1  # Sample 10%
 
 **Staging:**
 
-```env
+```dotenv
 MINDWAVE_TRACING_ENABLED=true
 MINDWAVE_TRACE_DATABASE=true  # Keep database for debugging
 MINDWAVE_TRACE_OTLP_ENABLED=true  # Also send to observability platform
@@ -1008,7 +1008,7 @@ By default, Mindwave **does not capture** prompts and completions to protect sen
 
 **Safe by default:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_CAPTURE_MESSAGES=false  # Default
 ```
 
@@ -1022,7 +1022,7 @@ This redacts:
 
 **Enable message capture** only in development or when you have proper data governance:
 
-```env
+```dotenv
 MINDWAVE_TRACE_CAPTURE_MESSAGES=true  # Development only!
 ```
 
@@ -1226,7 +1226,7 @@ protected function schedule(Schedule $schedule)
 
 ### Development Environment
 
-```env
+```dotenv
 # Development: Full tracing, capture everything
 MINDWAVE_TRACING_ENABLED=true
 MINDWAVE_TRACE_DATABASE=true
@@ -1238,7 +1238,7 @@ MINDWAVE_TRACE_SAMPLE_RATIO=1.0
 
 ### Production Environment
 
-```env
+```dotenv
 # Production: Sampled tracing, no PII, OTLP only
 MINDWAVE_TRACING_ENABLED=true
 MINDWAVE_TRACE_DATABASE=false
@@ -1273,19 +1273,19 @@ $span->setAttribute('userId', auth()->id()); // Inconsistent case
 
 **Use Sampling in Production:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_SAMPLE_RATIO=0.1  # Only trace 10% of requests
 ```
 
 **Disable Message Capture:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_CAPTURE_MESSAGES=false  # Reduces data volume
 ```
 
 **Use OTLP Instead of Database:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_DATABASE=false  # Database writes can slow down requests
 MINDWAVE_TRACE_OTLP_ENABLED=true  # OTLP is optimized for high throughput
 ```
@@ -1398,7 +1398,7 @@ curl http://localhost:4318/v1/traces
 
 **Enable debug logging:**
 
-```env
+```dotenv
 LOG_LEVEL=debug
 ```
 
@@ -1420,13 +1420,13 @@ curl -X POST http://localhost:4318/v1/traces \
 
 **Reduce sampling rate:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_SAMPLE_RATIO=0.1  # Sample only 10%
 ```
 
 **Disable message capture:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_CAPTURE_MESSAGES=false
 ```
 
@@ -1441,7 +1441,7 @@ MINDWAVE_TRACE_CAPTURE_MESSAGES=false
 
 **Use OTLP instead of database:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_DATABASE=false
 MINDWAVE_TRACE_OTLP_ENABLED=true
 ```
@@ -1469,7 +1469,7 @@ MINDWAVE_TRACE_OTLP_ENABLED=true
 
 **Disable database writes:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_DATABASE=false
 ```
 
@@ -1501,7 +1501,7 @@ $tracer->forceFlush();
 
 **Specify connection explicitly:**
 
-```env
+```dotenv
 MINDWAVE_TRACE_DB_CONNECTION=mysql
 ```
 
@@ -1693,9 +1693,9 @@ class TracingDashboardController extends Controller
 
 ### Related Mindwave Documentation
 
--   [Context Discovery](/context/overview) - Trace context discovery pipelines
--   [Prompt Composition](/prompts/overview) - Trace prompt generation
--   [LLM Integration](/llm/overview) - LLM driver tracing details
+-   [Context Discovery](/docs/core/context-discovery) - Trace context discovery pipelines
+-   [Prompt Composition](/docs/core/prompt-composer) - Trace prompt generation
+-   [LLM Integration](/docs/core/llm) - LLM driver tracing details
 
 ### Community & Support
 

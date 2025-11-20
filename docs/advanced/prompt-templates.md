@@ -1513,6 +1513,6 @@ $composer
 ---
 
 **Next Steps:**
-- Explore [Context Discovery](/docs/advanced/context-discovery) for RAG patterns
+- Explore [Context Discovery](/docs/core/context-discovery) for RAG patterns
 - Learn about [Token Management](/docs/advanced/token-management) in PromptComposer
-- Read [Output Parsers](/docs/output-parsers) for structured responses
+- Read [Output Parsers](/docs/advanced/output-parsers) for structured responses

@@ -1642,7 +1642,7 @@ Before deploying streaming to production:
 
 ## Next Steps
 
--   **[Prompt Engineering](./prompts.md)** - Optimize prompts for better streaming results
--   **[Context Discovery](./context.md)** - Provide relevant context to LLM streams
+-   **[Prompt Engineering](/docs/core/prompt-composer.md)** - Optimize prompts for better streaming results
+-   **[Context Discovery](/docs/core/context-discovery.md)** - Provide relevant context to LLM streams
 -   **[Observability](../observability/tracing.md)** - Monitor streaming performance with OpenTelemetry
--   **[Error Handling](../guides/error-handling.md)** - Production-grade error handling patterns
+-   **[Error Handling](/docs/troubleshooting)** - Production-grade error handling patterns
