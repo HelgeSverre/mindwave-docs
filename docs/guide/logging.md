@@ -1,3 +1,0 @@
-# Logging
-
-todo write this
