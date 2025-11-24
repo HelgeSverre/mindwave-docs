@@ -124,7 +124,7 @@ $response = Mindwave::llm()->chat([
     ['role' => 'user', 'content' => 'Hello'],
 ]);
 
-echo $response->choices[0]->message->content;
+echo $response->content;
 ```
 
 **Parameters:**
@@ -140,7 +140,7 @@ Generate text from a simple prompt.
 
 ```php
 $response = Mindwave::llm()->generateText('What is Laravel?');
-echo $response->choices[0]->message->content;
+echo $response->content;
 ```
 
 **Parameters:**

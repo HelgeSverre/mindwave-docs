@@ -46,7 +46,7 @@ MINDWAVE_MISTRAL_MODEL=mistral-large-latest
 use Mindwave\Mindwave\Facades\Mindwave;
 
 $response = Mindwave::llm()->generateText('What is Laravel?');
-echo $response->choices[0]->message->content;
+echo $response->content;
 ```
 
 That's it! You just made your first LLM call with automatic tracing.
@@ -135,7 +135,7 @@ $response = Mindwave::llm()->chat([
     ['role' => 'user', 'content' => 'Explain middleware in one sentence.'],
 ]);
 
-echo $response->choices[0]->message->content;
+echo $response->content;
 ```
 
 ### Streaming Backend Route

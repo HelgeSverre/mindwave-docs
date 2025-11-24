@@ -202,7 +202,7 @@ $response = Mindwave::prompt()
     ->fit()  // Auto-fits to model's context window
     ->run();
 
-echo $response->choices[0]->message->content;
+echo $response->content;
 ```
 
 ##### Migration Strategy
@@ -399,7 +399,7 @@ $response = Mindwave::llm()->chat([
     ['role' => 'user', 'content' => 'Say hello!']
 ]);
 
-echo $response->choices[0]->message->content;
+echo $response->content;
 // "Hello! How can I assist you today?"
 ```
 
@@ -1296,13 +1296,13 @@ use Mindwave\Mindwave\Facades\Mindwave;
 $response = Mindwave::llm()->chat([
     ['role' => 'user', 'content' => 'Say "upgrade successful"']
 ]);
-echo $response->choices[0]->message->content;
+echo $response->content;
 
 // Test PromptComposer
 $response = Mindwave::prompt()
     ->section('user', 'What is 2+2?')
     ->run();
-echo $response->choices[0]->message->content;
+echo $response->content;
 
 // Check tracing
 \Mindwave\Mindwave\Observability\Models\Trace::count();

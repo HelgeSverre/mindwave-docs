@@ -237,7 +237,7 @@ $response = Mindwave::llm()->chat([
     ['role' => 'user', 'content' => 'Say hello!']
 ]);
 
-echo $response->choices[0]->message->content;
+echo $response->content;
 // Output: Hello! How can I assist you today?
 ```
 
@@ -256,7 +256,7 @@ $response = Mindwave::llm()->chat([
     ['role' => 'user', 'content' => 'Explain Laravel middleware in one sentence.'],
 ]);
 
-echo $response->choices[0]->message->content;
+echo $response->content;
 
 // Stream a response (backend)
 Route::get('/stream', function () {

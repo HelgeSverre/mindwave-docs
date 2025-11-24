@@ -237,7 +237,7 @@ $response = Mindwave::llm()
         ['role' => 'user', 'content' => 'How do I create a migration?'],
     ]);
 
-echo $response->choices[0]->message->content;
+echo $response->content;
 ```
 
 ### Using Specific Models
@@ -280,14 +280,14 @@ $messages = [
 $response1 = Mindwave::llm()->chat($messages);
 $messages[] = [
     'role' => 'assistant',
-    'content' => $response1->choices[0]->message->content
+    'content' => $response1->content
 ];
 
 // Second turn
 $messages[] = ['role' => 'user', 'content' => 'How do I install it?'];
 $response2 = Mindwave::llm()->chat($messages);
 
-echo $response2->choices[0]->message->content;
+echo $response2->content;
 ```
 
 ### Setting System Messages
@@ -828,7 +828,7 @@ $response = OpenAI::chat()->create([
     'user' => 'user-123',          // Track user (for abuse monitoring)
 ]);
 
-echo $response->choices[0]->message->content;
+echo $response->content;
 ```
 
 ## Streaming Responses
@@ -1009,7 +1009,7 @@ $response = OpenAI::chat()->create([
     'response_format' => ['type' => 'json_object'],
 ]);
 
-$json = json_decode($response->choices[0]->message->content, true);
+$json = json_decode($response->content, true);
 // ['name' => 'John Doe', 'email' => 'john@example.com', 'role' => 'Developer']
 ```
 
@@ -1041,7 +1041,7 @@ $response = OpenAI::chat()->create([
     'response_format' => ['type' => 'json_object'],
 ]);
 
-$data = json_decode($response->choices[0]->message->content, true);
+$data = json_decode($response->content, true);
 /*
 [
     'issue' => 'Login page is broken',
@@ -1084,7 +1084,7 @@ $response = OpenAI::chat()->create([
     'response_format' => ['type' => 'json_object'],
 ]);
 
-$profile = json_decode($response->choices[0]->message->content, true);
+$profile = json_decode($response->content, true);
 ```
 
 ### Error Handling with JSON Mode
@@ -1101,7 +1101,7 @@ try {
         'response_format' => ['type' => 'json_object'],
     ]);
 
-    $data = json_decode($response->choices[0]->message->content, true);
+    $data = json_decode($response->content, true);
 
     if (json_last_error() !== JSON_ERROR_NONE) {
         throw new \Exception('Invalid JSON response: ' . json_last_error_msg());
