@@ -1149,8 +1149,19 @@ try {
     ]);
 
     return 'An error occurred. Please try again later.';
+
+} catch (\RuntimeException $e) {
+    // Empty API response (no choices returned)
+    Log::error('Mistral returned empty response', [
+        'error' => $e->getMessage(),
+    ]);
+    return 'Received an empty response from the API';
 }
 ```
+
+::: tip Empty Response Protection
+Mindwave throws a `RuntimeException` if the Mistral API returns a response with no choices. This prevents silent failures from propagating through your application.
+:::
 
 ### Rate Limiting
 

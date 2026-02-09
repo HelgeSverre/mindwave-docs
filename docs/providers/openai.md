@@ -1238,6 +1238,13 @@ try {
         return 'Service temporarily unavailable';
     }
 
+} catch (\RuntimeException $e) {
+    // Empty API response (no choices returned)
+    logger()->error('OpenAI returned empty response', [
+        'error' => $e->getMessage(),
+    ]);
+    return 'Received an empty response from the API';
+
 } catch (\Exception $e) {
     // Other errors
     logger()->error('LLM request failed', [
@@ -1247,6 +1254,10 @@ try {
     return 'An error occurred';
 }
 ```
+
+::: tip Empty Response Protection
+Mindwave throws a `RuntimeException` if the OpenAI API returns a response with no choices or no embeddings. This prevents silent failures from propagating through your application.
+:::
 
 ### Rate Limiting Strategy
 

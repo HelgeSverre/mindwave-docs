@@ -374,6 +374,32 @@ class PromiseBasedExecutor
 
 Production systems need robust error handling for function calls.
 
+### Function Call Parsing Errors
+
+When the LLM returns malformed JSON in function call arguments, Mindwave throws a `MindwaveParseException` instead of silently returning `null`:
+
+```php
+use Mindwave\Mindwave\Exceptions\MindwaveParseException;
+
+try {
+    $result = Mindwave::llm()
+        ->model('gpt-4o')
+        ->functionCall($prompt, $functions);
+
+    if ($result instanceof FunctionCall) {
+        // Arguments are guaranteed to be valid parsed JSON
+        $output = $result->arguments;
+    }
+
+} catch (MindwaveParseException $e) {
+    // LLM returned invalid JSON in function arguments
+    Log::warning('Function call argument parsing failed', [
+        'raw_text' => $e->getRawText(),
+        'error' => $e->getMessage(),
+    ]);
+}
+```
+
 ### Graceful Error Handling
 
 ```php
