@@ -3,7 +3,7 @@ import {defineConfig} from 'vitepress';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     title: 'Mindwave',
-    description: 'Production-Ready AI Foundation for Laravel Applications - Build scalable, observable AI applications with Laravel',
+    description: 'Production AI Utilities for Laravel - Long prompts, streaming, tracing, and context discovery made simple.',
     appearance: true,
     ignoreDeadLinks: [
         // Ignore localhost URLs
@@ -94,8 +94,10 @@ export default defineConfig({
             {
                 text: 'Getting Started',
                 items: [
+                    { text: 'Quick Start', link: '/docs/quick-start' },
                     { text: 'Installation', link: '/docs/installation' },
                     { text: 'Configuration', link: '/docs/configuration' },
+                    { text: 'Changelog', link: '/docs/changelog' },
                     { text: 'Upgrade Guide', link: '/docs/upgrade-guide' }
                 ]
             },
@@ -138,15 +140,22 @@ export default defineConfig({
                 text: 'Providers',
                 items: [
                     { text: 'OpenAI', link: '/docs/providers/openai' },
-                    { text: 'Mistral AI', link: '/docs/providers/mistral' }
+                    { text: 'Anthropic', link: '/docs/providers/anthropic' },
+                    { text: 'Google Gemini', link: '/docs/providers/gemini' },
+                    { text: 'Mistral AI', link: '/docs/providers/mistral' },
+                    { text: 'Groq', link: '/docs/providers/groq' },
+                    { text: 'XAI (Grok)', link: '/docs/providers/xai' },
+                    { text: 'Moonshot (Kimi)', link: '/docs/providers/moonshot' }
                 ]
             },
             {
                 text: 'Advanced',
                 items: [
+                    { text: 'Function Calling', link: '/docs/advanced/function-calling' },
                     { text: 'Tools', link: '/docs/advanced/tools' },
                     { text: 'Output Parsers', link: '/docs/advanced/output-parsers' },
-                    { text: 'Prompt Templates', link: '/docs/advanced/prompt-templates' }
+                    { text: 'Prompt Templates', link: '/docs/advanced/prompt-templates' },
+                    { text: 'Testing', link: '/docs/advanced/testing' }
                 ]
             },
             {
@@ -163,6 +172,7 @@ export default defineConfig({
             {
                 text: 'Reference',
                 items: [
+                    { text: 'API Reference', link: '/docs/reference/api' },
                     { text: 'Artisan Commands', link: '/docs/reference/commands' },
                     { text: 'Model Token Limits', link: '/docs/reference/models' }
                 ]

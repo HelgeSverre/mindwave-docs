@@ -1,6 +1,6 @@
 # Quick Start
 
-Get up and running with Mindwave in minutes. This guide covers installation and your first LLM call.
+Get up and running with Mindwave v1.0 in minutes. This guide covers installation and your first LLM call.
 
 ## Installation
 

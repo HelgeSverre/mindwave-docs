@@ -50,9 +50,13 @@ Controls LLM provider selection, API credentials, model settings, and generation
 
 **Available Providers:**
 
--   `openai` - OpenAI GPT models
+-   `openai` - OpenAI GPT models (default)
 -   `anthropic` - Anthropic Claude models
+-   `gemini` - Google Gemini models
 -   `mistral` - Mistral AI models
+-   `groq` - Groq (OpenAI-compatible, ultra-fast inference)
+-   `xai` - XAI Grok models (OpenAI-compatible)
+-   `moonshot` - Moonshot Kimi models (OpenAI-compatible)
 -   `fake` - Testing mock (no API calls)
 
 **Example:**
@@ -228,7 +232,7 @@ Configuration for Anthropic's Claude models with extended context windows and re
 | Option           | Type           | Default                        | Description                               |
 | ---------------- | -------------- | ------------------------------ | ----------------------------------------- |
 | `api_key`        | `string`       | `null`                         | Anthropic API key (required)              |
-| `model`          | `string`       | `'claude-3-5-sonnet-20241022'` | Default model                             |
+| `model`          | `string`       | `'claude-sonnet-4-5-20250929'` | Default model                             |
 | `system_message` | `string\|null` | `null`                         | Default system message                    |
 | `max_tokens`     | `int`          | `4096`                         | Maximum response tokens (required by API) |
 | `temperature`    | `float`        | `1.0`                          | Randomness (0.0-1.0)                      |
@@ -318,6 +322,193 @@ MINDWAVE_ANTHROPIC_TEMPERATURE=1.0
 -   Cost optimization needed
 -   Simple classification tasks
 -   Real-time applications
+
+### Groq Provider Configuration
+
+**Config Path:** `llms.groq`
+
+Configuration for Groq's ultra-fast inference platform. Groq runs open-source models (Llama, Mixtral) on custom LPU hardware and uses an OpenAI-compatible API.
+
+| Option        | Type     | Default                      | Description                                |
+| ------------- | -------- | ---------------------------- | ------------------------------------------ |
+| `api_key`     | `string` | `null`                       | Groq API key (required)                    |
+| `model`       | `string` | `'llama-3.3-70b-versatile'`  | Default model to use                       |
+| `max_tokens`  | `int`    | `1000`                       | Maximum tokens in response                 |
+| `temperature` | `float`  | `0.4`                        | Randomness (0.0-2.0)                       |
+
+#### Environment Variables
+
+```bash
+# Required
+GROQ_API_KEY=gsk_...
+
+# Optional
+MINDWAVE_GROQ_MODEL=llama-3.3-70b-versatile
+MINDWAVE_GROQ_MAX_TOKENS=1000
+MINDWAVE_GROQ_TEMPERATURE=0.4
+```
+
+#### Available Models
+
+-   `llama-3.3-70b-versatile` - Meta's Llama 3.3 70B (128K context)
+-   `llama-3.1-8b-instant` - Fast, lightweight Llama 3.1 8B (128K context)
+-   `mixtral-8x7b-32768` - Mistral's Mixtral 8x7B (32K context)
+-   `gemma2-9b-it` - Google's Gemma 2 9B (8K context)
+
+Check [console.groq.com/docs/models](https://console.groq.com/docs/models) for the latest model list.
+
+#### Configuration Example
+
+```php
+'groq' => [
+    'api_key' => env('GROQ_API_KEY'),
+    'model' => env('MINDWAVE_GROQ_MODEL', 'llama-3.3-70b-versatile'),
+    'max_tokens' => env('MINDWAVE_GROQ_MAX_TOKENS', 1000),
+    'temperature' => env('MINDWAVE_GROQ_TEMPERATURE', 0.4),
+],
+```
+
+::: tip OpenAI-Compatible
+Groq uses the OpenAI driver internally with a custom base URI (`https://api.groq.com/openai/v1`). All OpenAI driver features (streaming, function calling, JSON mode) work automatically.
+:::
+
+---
+
+### XAI Provider Configuration
+
+**Config Path:** `llms.xai`
+
+Configuration for XAI's Grok models. XAI uses an OpenAI-compatible API.
+
+| Option        | Type     | Default        | Description                |
+| ------------- | -------- | -------------- | -------------------------- |
+| `api_key`     | `string` | `null`         | XAI API key (required)     |
+| `model`       | `string` | `'grok-3-mini'`| Default model to use       |
+| `max_tokens`  | `int`    | `1000`         | Maximum tokens in response |
+| `temperature` | `float`  | `0.4`          | Randomness (0.0-2.0)      |
+
+#### Environment Variables
+
+```bash
+# Required
+XAI_API_KEY=...
+
+# Optional
+MINDWAVE_XAI_MODEL=grok-3-mini
+MINDWAVE_XAI_MAX_TOKENS=1000
+MINDWAVE_XAI_TEMPERATURE=0.4
+```
+
+#### Available Models
+
+-   `grok-3` - Full-size Grok model (131K context)
+-   `grok-3-mini` - Smaller, faster Grok model (131K context)
+
+#### Configuration Example
+
+```php
+'xai' => [
+    'api_key' => env('XAI_API_KEY'),
+    'model' => env('MINDWAVE_XAI_MODEL', 'grok-3-mini'),
+    'max_tokens' => env('MINDWAVE_XAI_MAX_TOKENS', 1000),
+    'temperature' => env('MINDWAVE_XAI_TEMPERATURE', 0.4),
+],
+```
+
+::: tip OpenAI-Compatible
+XAI uses the OpenAI driver internally with a custom base URI (`https://api.x.ai/v1`).
+:::
+
+---
+
+### Moonshot Provider Configuration
+
+**Config Path:** `llms.moonshot`
+
+Configuration for Moonshot's Kimi models with strong multilingual capabilities. Moonshot uses an OpenAI-compatible API.
+
+| Option        | Type     | Default          | Description                |
+| ------------- | -------- | ---------------- | -------------------------- |
+| `api_key`     | `string` | `null`           | Moonshot API key (required)|
+| `model`       | `string` | `'kimi-latest'`  | Default model to use       |
+| `max_tokens`  | `int`    | `1000`           | Maximum tokens in response |
+| `temperature` | `float`  | `0.4`            | Randomness (0.0-2.0)      |
+
+#### Environment Variables
+
+```bash
+# Required
+MOONSHOT_API_KEY=...
+
+# Optional
+MINDWAVE_MOONSHOT_MODEL=kimi-latest
+MINDWAVE_MOONSHOT_MAX_TOKENS=1000
+MINDWAVE_MOONSHOT_TEMPERATURE=0.4
+```
+
+#### Configuration Example
+
+```php
+'moonshot' => [
+    'api_key' => env('MOONSHOT_API_KEY'),
+    'model' => env('MINDWAVE_MOONSHOT_MODEL', 'kimi-latest'),
+    'max_tokens' => env('MINDWAVE_MOONSHOT_MAX_TOKENS', 1000),
+    'temperature' => env('MINDWAVE_MOONSHOT_TEMPERATURE', 0.4),
+],
+```
+
+::: tip OpenAI-Compatible
+Moonshot uses the OpenAI driver internally with a custom base URI (`https://api.moonshot.ai/v1`).
+:::
+
+---
+
+### Google Gemini Provider Configuration
+
+**Config Path:** `llms.gemini`
+
+Configuration for Google's Gemini models. Mindwave includes a native Gemini driver (not OpenAI-compatible) with full streaming support.
+
+| Option        | Type     | Default              | Description                |
+| ------------- | -------- | -------------------- | -------------------------- |
+| `api_key`     | `string` | `null`               | Google API key (required)  |
+| `model`       | `string` | `'gemini-2.0-flash'` | Default model to use       |
+| `max_tokens`  | `int`    | `1000`               | Maximum tokens in response |
+| `temperature` | `float`  | `0.4`                | Randomness (0.0-2.0)      |
+
+#### Environment Variables
+
+```bash
+# Required
+GOOGLE_API_KEY=...
+
+# Optional
+MINDWAVE_GEMINI_MODEL=gemini-2.0-flash
+MINDWAVE_GEMINI_MAX_TOKENS=1000
+MINDWAVE_GEMINI_TEMPERATURE=0.4
+```
+
+#### Available Models
+
+-   `gemini-2.0-flash` - Fast, cost-effective (1M context)
+-   `gemini-2.0-flash-lite` - Ultra-low-cost (1M context)
+-   `gemini-1.5-pro` - Most capable, largest context (2M context)
+-   `gemini-1.5-flash` - Balanced performance (1M context)
+
+#### Configuration Example
+
+```php
+'gemini' => [
+    'api_key' => env('GOOGLE_API_KEY'),
+    'model' => env('MINDWAVE_GEMINI_MODEL', 'gemini-2.0-flash'),
+    'max_tokens' => env('MINDWAVE_GEMINI_MAX_TOKENS', 1000),
+    'temperature' => env('MINDWAVE_GEMINI_TEMPERATURE', 0.4),
+],
+```
+
+::: tip Native Driver
+Unlike Groq, XAI, and Moonshot, Gemini uses its own native driver since its API format differs from OpenAI. The driver supports both text streaming (`streamText`) and structured chat streaming (`streamChat`).
+:::
 
 ---
 

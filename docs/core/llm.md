@@ -1,6 +1,6 @@
 # LLM Integration
 
-Mindwave provides a unified, production-ready interface for interacting with multiple Large Language Model (LLM) providers including OpenAI, Mistral AI, and others. The LLM integration layer abstracts provider-specific APIs behind a consistent interface, enabling you to write provider-agnostic code with built-in error handling, retry logic, and observability.
+Mindwave provides a unified, production-ready interface for interacting with multiple Large Language Model (LLM) providers including OpenAI, Anthropic, Google Gemini, Mistral AI, Groq, XAI, and Moonshot. The LLM integration layer abstracts provider-specific APIs behind a consistent interface, enabling you to write provider-agnostic code with built-in error handling, retry logic, and observability.
 
 ## Why Use Mindwave's LLM Abstraction?
 
@@ -8,7 +8,7 @@ Mindwave provides a unified, production-ready interface for interacting with mul
 
 -   Write once, run on any provider
 -   Switch between providers without changing code
--   Consistent API across OpenAI, Mistral AI, and future providers
+-   Consistent API across OpenAI, Anthropic, Gemini, Mistral AI, Groq, XAI, and Moonshot
 
 **Production Reliability**
 
@@ -63,6 +63,21 @@ return [
             'temperature' => env('MINDWAVE_OPENAI_TEMPERATURE', 0.4),
         ],
 
+        'anthropic' => [
+            'api_key' => env('MINDWAVE_ANTHROPIC_API_KEY'),
+            'model' => env('MINDWAVE_ANTHROPIC_MODEL', 'claude-sonnet-4-5-20250929'),
+            'system_message' => env('MINDWAVE_ANTHROPIC_SYSTEM_MESSAGE'),
+            'max_tokens' => env('MINDWAVE_ANTHROPIC_MAX_TOKENS', 4096),
+            'temperature' => env('MINDWAVE_ANTHROPIC_TEMPERATURE', 1.0),
+        ],
+
+        'gemini' => [
+            'api_key' => env('GOOGLE_API_KEY'),
+            'model' => env('MINDWAVE_GEMINI_MODEL', 'gemini-2.0-flash'),
+            'max_tokens' => env('MINDWAVE_GEMINI_MAX_TOKENS', 1000),
+            'temperature' => env('MINDWAVE_GEMINI_TEMPERATURE', 0.4),
+        ],
+
         'mistral' => [
             'api_key' => env('MINDWAVE_MISTRAL_API_KEY'),
             'base_url' => env('MINDWAVE_MISTRAL_BASE_URL'),
@@ -73,6 +88,27 @@ return [
             'safe_mode' => env('MINDWAVE_MISTRAL_SAFE_MODE', false),
             'random_seed' => env('MINDWAVE_MISTRAL_RANDOM_SEED'),
         ],
+
+        'groq' => [
+            'api_key' => env('GROQ_API_KEY'),
+            'model' => env('MINDWAVE_GROQ_MODEL', 'llama-3.3-70b-versatile'),
+            'max_tokens' => env('MINDWAVE_GROQ_MAX_TOKENS', 1000),
+            'temperature' => env('MINDWAVE_GROQ_TEMPERATURE', 0.4),
+        ],
+
+        'xai' => [
+            'api_key' => env('XAI_API_KEY'),
+            'model' => env('MINDWAVE_XAI_MODEL', 'grok-3-mini'),
+            'max_tokens' => env('MINDWAVE_XAI_MAX_TOKENS', 1000),
+            'temperature' => env('MINDWAVE_XAI_TEMPERATURE', 0.4),
+        ],
+
+        'moonshot' => [
+            'api_key' => env('MOONSHOT_API_KEY'),
+            'model' => env('MINDWAVE_MOONSHOT_MODEL', 'kimi-latest'),
+            'max_tokens' => env('MINDWAVE_MOONSHOT_MAX_TOKENS', 1000),
+            'temperature' => env('MINDWAVE_MOONSHOT_TEMPERATURE', 0.4),
+        ],
     ],
 ];
 ```
@@ -82,19 +118,39 @@ return [
 Add your provider credentials to `.env`:
 
 ```bash
-# OpenAI Configuration
+# Default provider
 MINDWAVE_LLM=openai
+
+# OpenAI Configuration
 MINDWAVE_OPENAI_API_KEY=sk-...
 MINDWAVE_OPENAI_ORG_ID=org-...
 MINDWAVE_OPENAI_MODEL=gpt-4-turbo
 MINDWAVE_OPENAI_MAX_TOKENS=2000
 MINDWAVE_OPENAI_TEMPERATURE=0.7
 
+# Anthropic Configuration
+MINDWAVE_ANTHROPIC_API_KEY=sk-ant-...
+MINDWAVE_ANTHROPIC_MODEL=claude-sonnet-4-5-20250929
+
+# Google Gemini Configuration
+GOOGLE_API_KEY=...
+MINDWAVE_GEMINI_MODEL=gemini-2.0-flash
+
 # Mistral AI Configuration
 MINDWAVE_MISTRAL_API_KEY=...
 MINDWAVE_MISTRAL_MODEL=mistral-large
-MINDWAVE_MISTRAL_MAX_TOKENS=1500
-MINDWAVE_MISTRAL_TEMPERATURE=0.5
+
+# Groq Configuration (OpenAI-compatible)
+GROQ_API_KEY=gsk_...
+MINDWAVE_GROQ_MODEL=llama-3.3-70b-versatile
+
+# XAI Configuration (OpenAI-compatible)
+XAI_API_KEY=...
+MINDWAVE_XAI_MODEL=grok-3-mini
+
+# Moonshot Configuration (OpenAI-compatible)
+MOONSHOT_API_KEY=...
+MINDWAVE_MOONSHOT_MODEL=kimi-latest
 ```
 
 ## Basic Usage
@@ -152,8 +208,23 @@ use Mindwave\Mindwave\Facades\LLM;
 // Use OpenAI
 $openaiResponse = LLM::driver('openai')->generateText('Hello!');
 
+// Use Anthropic
+$anthropicResponse = LLM::driver('anthropic')->generateText('Hello!');
+
+// Use Google Gemini
+$geminiResponse = LLM::driver('gemini')->generateText('Hello!');
+
 // Use Mistral AI
 $mistralResponse = LLM::driver('mistral')->generateText('Hello!');
+
+// Use Groq (ultra-fast inference)
+$groqResponse = LLM::driver('groq')->generateText('Hello!');
+
+// Use XAI (Grok)
+$xaiResponse = LLM::driver('xai')->generateText('Hello!');
+
+// Use Moonshot (Kimi)
+$moonshotResponse = LLM::driver('moonshot')->generateText('Hello!');
 ```
 
 ### Customizing Parameters
@@ -172,83 +243,85 @@ $response = LLM::driver('openai')
 
 ## Supported Providers
 
+Mindwave supports 7 LLM providers out of the box. Each provider is accessed through the same unified interface.
+
 ### OpenAI
 
-Full support for OpenAI's GPT models including GPT-4, GPT-4 Turbo, GPT-3.5, and O1 models.
+Full support for OpenAI's GPT models including GPT-4o, GPT-4 Turbo, GPT-3.5, and O1 models. This is the default provider.
 
-**Supported Models:**
+-   **Default model:** `gpt-4-1106-preview`
+-   **Key models:** `gpt-4o`, `gpt-4o-mini`, `gpt-4-turbo`, `gpt-3.5-turbo`, `o1-preview`, `o1-mini`
+-   **Features:** Function calling, streaming, vision, JSON mode
+-   **[Full documentation →](/docs/providers/openai)**
 
--   `gpt-4-turbo` - Latest GPT-4 Turbo (128k context)
--   `gpt-4o` - GPT-4 Omni (128k context)
--   `gpt-4-1106-preview` - GPT-4 Turbo Preview
--   `gpt-4` - Original GPT-4 (8k context)
--   `gpt-4-32k` - GPT-4 with 32k context
--   `gpt-3.5-turbo` - Fast and cost-effective (16k context)
--   `o1-preview` - OpenAI O1 Preview (128k context)
--   `o1-mini` - OpenAI O1 Mini (128k context)
+### Anthropic
 
-**Features:**
+Full support for Anthropic's Claude models with 200K token context windows.
 
--   Function/tool calling
--   Streaming responses
--   Chat and completion modes
--   Image inputs (GPT-4 Vision)
+-   **Default model:** `claude-sonnet-4-5-20250929`
+-   **Key models:** `claude-sonnet-4-5`, `claude-haiku-4-5`, `claude-opus-4-1`
+-   **Features:** Extended thinking, streaming, 200K context, system messages
+-   **[Full documentation →](/docs/providers/anthropic)**
 
-**Example:**
+### Google Gemini
 
-```php
-use Mindwave\Mindwave\Facades\LLM;
+Native driver with full streaming support for Google's Gemini models.
 
-$response = LLM::driver('openai')
-    ->model('gpt-4-turbo')
-    ->generateText('Explain the differences between GPT-4 and GPT-3.5');
-```
+-   **Default model:** `gemini-2.0-flash`
+-   **Key models:** `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-1.5-pro`, `gemini-1.5-flash`
+-   **Features:** Streaming (text + chat), system instructions, up to 2M token context
+-   **[Full documentation →](/docs/providers/gemini)**
 
 ### Mistral AI
 
-Full support for Mistral AI's models including Mistral Large, Medium, and Small.
+Support for Mistral AI's models with European data sovereignty and competitive pricing.
 
-**Supported Models:**
+-   **Default model:** `mistral-medium`
+-   **Key models:** `mistral-large-latest`, `mistral-medium-latest`, `mistral-small-latest`
+-   **Features:** Safe mode, random seed, custom base URL, self-hosting
+-   **[Full documentation →](/docs/providers/mistral)**
 
--   `mistral-large` - Most capable model (128k context)
--   `mistral-medium` - Balanced performance (32k context)
--   `mistral-small` - Fast and efficient (32k context)
--   `mixtral-8x7b` - Mixture of experts (32k context)
--   `mixtral-8x22b` - Larger mixture model (64k context)
+### Groq (OpenAI-Compatible)
 
-**Features:**
+Ultra-fast inference on open-source models using Groq's custom LPU hardware. Uses the OpenAI driver with Groq's base URI.
 
--   Safe mode for content filtering
--   Configurable random seed for reproducibility
--   Custom base URL support
+-   **Default model:** `llama-3.3-70b-versatile`
+-   **Key models:** `llama-3.3-70b-versatile`, `llama-3.1-8b-instant`, `mixtral-8x7b-32768`
+-   **Features:** All OpenAI features (streaming, function calling, JSON mode), ultra-fast inference
+-   **[Full documentation →](/docs/providers/groq)**
 
-**Example:**
+### XAI (OpenAI-Compatible)
 
-```php
-use Mindwave\Mindwave\Facades\LLM;
+Access to XAI's Grok models through an OpenAI-compatible API. Uses the OpenAI driver with XAI's base URI.
 
-$response = LLM::driver('mistral')
-    ->model('mistral-large')
-    ->setOptions(['safe_mode' => true])
-    ->generateText('Generate a product description for an e-commerce site');
-```
+-   **Default model:** `grok-3-mini`
+-   **Key models:** `grok-3`, `grok-3-mini`
+-   **Features:** All OpenAI features (streaming, function calling, JSON mode)
+-   **[Full documentation →](/docs/providers/xai)**
 
-**Limitations:**
+### Moonshot (OpenAI-Compatible)
 
--   Streaming is not currently supported for Mistral AI
--   Function calling support varies by model
+Access to Moonshot's Kimi models with strong multilingual capabilities. Uses the OpenAI driver with Moonshot's base URI.
+
+-   **Default model:** `kimi-latest`
+-   **Features:** All OpenAI features (streaming, function calling, JSON mode), strong Chinese/English bilingual support
+-   **[Full documentation →](/docs/providers/moonshot)**
 
 ### Provider Comparison
 
-| Feature          | OpenAI     | Mistral AI |
-| ---------------- | ---------- | ---------- |
-| Text Generation  | ✅         | ✅         |
-| Streaming        | ✅         | ❌         |
-| Function Calling | ✅         | ⚠️ Limited |
-| Chat Mode        | ✅         | ✅         |
-| Image Inputs     | ✅ GPT-4V  | ❌         |
-| Context Windows  | Up to 128k | Up to 128k |
-| Safe Mode        | ❌         | ✅         |
+| Feature          | OpenAI | Anthropic | Gemini | Mistral | Groq  | XAI   | Moonshot |
+| ---------------- | ------ | --------- | ------ | ------- | ----- | ----- | -------- |
+| Text Generation  | ✅     | ✅        | ✅     | ✅      | ✅    | ✅    | ✅       |
+| Streaming        | ✅     | ✅        | ✅     | ❌      | ✅    | ✅    | ✅       |
+| Function Calling | ✅     | ✅        | ❌     | ⚠️     | ✅    | ✅    | ✅       |
+| Chat Mode        | ✅     | ✅        | ✅     | ✅      | ✅    | ✅    | ✅       |
+| Vision           | ✅     | ✅        | ✅     | ❌      | ❌    | ❌    | ❌       |
+| Max Context      | 128K   | 200K      | 2M     | 128K    | 128K  | 131K  | 128K     |
+| Driver           | Native | Native    | Native | Native  | OpenAI| OpenAI| OpenAI   |
+
+::: tip OpenAI-Compatible Providers
+Groq, XAI, and Moonshot all use OpenAI-compatible APIs. Mindwave reuses the OpenAI driver with custom base URIs, so you get all OpenAI driver features (streaming, function calling, JSON mode) with these providers automatically.
+:::
 
 ## Message Formatting
 
@@ -458,10 +531,15 @@ print_r($result->arguments);
 
 ### Provider Compatibility
 
-| Provider   | Function Calling Support     |
-| ---------- | ---------------------------- |
-| OpenAI     | ✅ Full support              |
-| Mistral AI | ⚠️ Limited (model dependent) |
+| Provider   | Function Calling Support              |
+| ---------- | ------------------------------------- |
+| OpenAI     | ✅ Full support                       |
+| Anthropic  | ✅ Full support (tools API)           |
+| Groq       | ✅ Full support (via OpenAI driver)    |
+| XAI        | ✅ Full support (via OpenAI driver)    |
+| Moonshot   | ✅ Full support (via OpenAI driver)    |
+| Mistral AI | ⚠️ Limited (model dependent)         |
+| Gemini     | ❌ Not yet supported in driver        |
 
 ## Streaming Responses
 
@@ -592,10 +670,15 @@ echo $fullText;  // Complete response as a single string
 
 ### Provider Support
 
-| Provider   | Streaming Support |
-| ---------- | ----------------- |
-| OpenAI     | ✅ Full support   |
-| Mistral AI | ❌ Not supported  |
+| Provider   | Streaming Support                           |
+| ---------- | ------------------------------------------- |
+| OpenAI     | ✅ Full support                              |
+| Anthropic  | ✅ Full support                              |
+| Gemini     | ✅ Full support (native driver)              |
+| Groq       | ✅ Full support (via OpenAI driver)           |
+| XAI        | ✅ Full support (via OpenAI driver)           |
+| Moonshot   | ✅ Full support (via OpenAI driver)           |
+| Mistral AI | ❌ Not yet supported                         |
 
 For complete streaming examples with Vue.js, Alpine.js, and Livewire, see the [Streaming Reference](/docs/core/streaming).
 
@@ -974,7 +1057,7 @@ use Mindwave\Mindwave\Facades\LLM;
 
 function generateWithFallback(string $prompt): string
 {
-    $providers = ['openai', 'mistral'];
+    $providers = ['openai', 'anthropic', 'gemini', 'groq', 'mistral'];
 
     foreach ($providers as $provider) {
         try {

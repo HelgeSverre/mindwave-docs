@@ -2,7 +2,7 @@
 
 **The working developer's AI toolkit** - Long prompts, streaming, tracing, and context discovery made simple.
 
-> **Status:** 🚧 Under active development. v1.0 coming soon!
+> **Version 1.0** - Production-ready with 500+ tests, all 4 pillars complete, and comprehensive documentation.
 
 ## What is Mindwave?
 
